@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Phone, ShieldCheck } from "lucide-react";
 
@@ -23,21 +24,15 @@ export default function Navbar() {
     <header className="sticky top-0 z-40 w-full border-b border-slate-200 bg-white shadow-sm">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand Logo - Left */}
-        <Link href="/" className="flex items-center gap-2 shrink-0">
-          <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-[#1c335e] to-[#0c2340] text-white shadow-md">
-            <ShieldCheck className="h-7 w-7" />
-          </div>
-          <div>
-            <div className="text-xl font-bold tracking-tight text-[#0c2340] font-display flex items-baseline leading-none">
-              ThermoVault
-            </div>
-            <div className="text-[9px] font-bold text-slate-500 font-mono tracking-widest leading-none mt-1">
-              — SYSTEMS —
-            </div>
-            <div className="text-[7px] text-[#0c2340]/70 font-mono uppercase tracking-wider block mt-0.5">
-              Securing the Cold Chain Ecosystem
-            </div>
-          </div>
+        <Link href="/" className="flex items-center shrink-0">
+          <Image
+            src="/images/logo.png"
+            alt="ThermoVault Systems Logo"
+            width={240}
+            height={60}
+            className="h-14 w-auto object-contain"
+            priority
+          />
         </Link>
 
         {/* Centered Navigation Links */}

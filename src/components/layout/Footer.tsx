@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ShieldCheck, Phone, Mail, MapPin, MessageSquare } from "lucide-react";
 
 export default function Footer() {
@@ -14,12 +15,13 @@ export default function Footer() {
           {/* Brand Info */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-accent text-white">
-                <ShieldCheck className="h-5 w-5" />
-              </div>
-              <span className="text-white font-bold tracking-tight font-display">
-                THERMOVAULT <span className="text-teal-light text-xs">SYSTEMS</span>
-              </span>
+              <Image
+                src="/images/logo.png"
+                alt="ThermoVault Systems Logo"
+                width={200}
+                height={50}
+                className="h-10 w-auto object-contain brightness-0 invert"
+              />
             </div>
             <p className="text-xs leading-relaxed text-silver/80">
               Securing the cold chain ecosystem across India with high-efficiency walk-in cold storage rooms, engineering-grade PUF panels, and advanced IoT telemetry alerts.
