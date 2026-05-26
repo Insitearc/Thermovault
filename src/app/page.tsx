@@ -120,16 +120,6 @@ export default function LandingPage() {
               Get Free Consultation
             </button>
 
-            <a
-              href="https://wa.me/918055010620?text=Hi%20ThermoVault,%20I%20am%20interested%20in%20a%20cold%20room%20consultation."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-md border border-white/40 bg-white/5 px-6 py-3.5 text-xs font-bold text-white transition-all hover:bg-white/10 hover:border-white/60 active:scale-95"
-            >
-              <MessageSquare className="h-4 w-4" />
-              <span>WhatsApp Us</span>
-            </a>
-
             <Link
               href="/dashboard"
               className="rounded-md bg-[#0c2340] border border-white/10 px-6 py-3.5 text-xs font-bold text-white transition-all hover:bg-[#15345a] hover:border-white/20"
