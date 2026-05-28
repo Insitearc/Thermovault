@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import { useRouter } from "next/navigation";
 import {
   Snowflake,
   ShieldCheck,
@@ -29,6 +30,7 @@ interface ProductCardItem {
 }
 
 export default function ProductsPage() {
+  const router = useRouter();
   const [activeCategory, setActiveCategory] = useState("all");
 
   const categories = [
@@ -174,7 +176,19 @@ export default function ProductsPage() {
                       rotateY: -2,
                       boxShadow: "0 20px 25px -5px rgba(24, 95, 165, 0.08), 0 10px 10px -5px rgba(24, 95, 165, 0.03)"
                     }}
-                    className="group rounded-2xl overflow-hidden border border-slate-100 bg-white shadow-sm transition-all duration-300 flex flex-col justify-between preserve-3d"
+                    onClick={() => {
+                      const slug = p.name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
+                      router.push(`/products/${slug}`);
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        const slug = p.name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
+                        router.push(`/products/${slug}`);
+                      }
+                    }}
+                    role="link"
+                    tabIndex={0}
+                    className="group rounded-2xl overflow-hidden border border-slate-100 bg-white shadow-sm transition-all duration-300 flex flex-col justify-between preserve-3d cursor-pointer"
                   >
                     <div>
                       {/* Thumbnail photo */}
@@ -198,7 +212,12 @@ export default function ProductsPage() {
                     
                     <div className="p-5 pt-0 mt-auto">
                       <button
-                        onClick={() => alert(`Simulating detail sheet for: ${p.name}`)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          const slug = p.name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
+                          router.push(`/products/${slug}`);
+                        }}
+                        onKeyDown={(e) => e.stopPropagation()}
                         className="inline-flex items-center gap-1 text-[11px] font-bold text-blue-600 hover:text-blue-500 transition-colors"
                       >
                         <span>View Details</span>

@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import {
@@ -32,9 +33,9 @@ import {
   Factory,
   Hammer,
   CheckSquare,
-  HeartHandshake
+  HeartHandshake,
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 interface ServiceCard {
   title: string;
@@ -58,13 +59,15 @@ interface ProcessStep {
 }
 
 export default function ServicesPage() {
+  const router = useRouter();
+
   // Carousel state for recent projects
   const [projectIndex, setProjectIndex] = useState(0);
   const projectImages = [
     "/images/cold_room_modular.png",
     "/images/refrigeration_system.png",
     "/images/display_cold_room.png",
-    "/images/amc_maintenance.png"
+    "/images/amc_maintenance.png",
   ];
 
   const handleNextProject = () => {
@@ -72,7 +75,9 @@ export default function ServicesPage() {
   };
 
   const handlePrevProject = () => {
-    setProjectIndex((prev) => (prev - 1 + projectImages.length) % projectImages.length);
+    setProjectIndex(
+      (prev) => (prev - 1 + projectImages.length) % projectImages.length,
+    );
   };
 
   const services: ServiceCard[] = [
@@ -81,61 +86,115 @@ export default function ServicesPage() {
       desc: "Custom-built cold rooms for any temperature ranges with PUF panels and precision engineering.",
       image: "/images/cold_room_modular.png",
       slug: "modular-cold-rooms",
-      icon: Snowflake
+      icon: Snowflake,
     },
     {
       title: "Refrigeration Systems",
       desc: "High-performance refrigeration systems for industrial and commercial applications.",
       image: "/images/refrigeration_system.png",
       slug: "refrigeration-systems",
-      icon: Settings
+      icon: Settings,
     },
     {
       title: "Display Cold Rooms",
       desc: "Perfect storage and display solutions for supermarkets, retailers & food businesses.",
       image: "/images/display_cold_room.png",
       slug: "display-cold-rooms",
-      icon: Monitor
+      icon: Monitor,
     },
     {
       title: "Fruits Ripening Chambers",
       desc: "Controlled atmosphere ripening chambers for bananas, mangoes & more.",
       image: "/images/ripening_chamber.png",
       slug: "ripening-chambers",
-      icon: Calendar
+      icon: Calendar,
     },
     {
       title: "Blast Chillers",
       desc: "Rapid cooling & freezing solutions to lock freshness and extend shelf life.",
       image: "/images/blast_chiller.png",
       slug: "blast-chillers",
-      icon: Wind
+      icon: Wind,
     },
     {
       title: "AMC & Maintenance",
       desc: "Annual maintenance contracts for optimal performance and longer equipment life.",
       image: "/images/amc_maintenance.png",
       slug: "amc",
-      icon: Wrench
-    }
+      icon: Wrench,
+    },
   ];
 
   const industries: IndustryCard[] = [
-    { title: "Dairy & Milk Products", image: "/images/industry_dairy.png", icon: Droplet },
-    { title: "Meat & Poultry", image: "/images/industry_meat.png", icon: Flame },
-    { title: "Fruits & Vegetables", image: "/images/industry_fruits.png", icon: Apple },
-    { title: "Seafood & Fish", image: "/images/industry_seafood.png", icon: Fish },
-    { title: "Pharmaceuticals", image: "/images/industry_pharma.png", icon: Pill },
-    { title: "Food Processing & Retail", image: "/images/industry_retail.png", icon: ShoppingCart }
+    {
+      title: "Dairy & Milk Products",
+      image: "/images/industry_dairy.png",
+      icon: Droplet,
+    },
+    {
+      title: "Meat & Poultry",
+      image: "/images/industry_meat.png",
+      icon: Flame,
+    },
+    {
+      title: "Fruits & Vegetables",
+      image: "/images/industry_fruits.png",
+      icon: Apple,
+    },
+    {
+      title: "Seafood & Fish",
+      image: "/images/industry_seafood.png",
+      icon: Fish,
+    },
+    {
+      title: "Pharmaceuticals",
+      image: "/images/industry_pharma.png",
+      icon: Pill,
+    },
+    {
+      title: "Food Processing & Retail",
+      image: "/images/industry_retail.png",
+      icon: ShoppingCart,
+    },
   ];
 
   const processSteps: ProcessStep[] = [
-    { step: "01", title: "Consultation", desc: "We understand your requirements and site conditions.", icon: Users },
-    { step: "02", title: "Planning & Design", desc: "Our experts create the best solution plan for your needs.", icon: Ruler },
-    { step: "03", title: "Manufacturing", desc: "Precision manufacturing using premium quality materials.", icon: Factory },
-    { step: "04", title: "Installation", desc: "Professional installation by skilled technical team.", icon: Hammer },
-    { step: "05", title: "Testing & Handover", desc: "Rigorous testing and quality check before project handover.", icon: CheckSquare },
-    { step: "06", title: "After Sales Support", desc: "We ensure long-term support and maintenance when you need us.", icon: HeartHandshake }
+    {
+      step: "01",
+      title: "Consultation",
+      desc: "We understand your requirements and site conditions.",
+      icon: Users,
+    },
+    {
+      step: "02",
+      title: "Planning & Design",
+      desc: "Our experts create the best solution plan for your needs.",
+      icon: Ruler,
+    },
+    {
+      step: "03",
+      title: "Manufacturing",
+      desc: "Precision manufacturing using premium quality materials.",
+      icon: Factory,
+    },
+    {
+      step: "04",
+      title: "Installation",
+      desc: "Professional installation by skilled technical team.",
+      icon: Hammer,
+    },
+    {
+      step: "05",
+      title: "Testing & Handover",
+      desc: "Rigorous testing and quality check before project handover.",
+      icon: CheckSquare,
+    },
+    {
+      step: "06",
+      title: "After Sales Support",
+      desc: "We ensure long-term support and maintenance when you need us.",
+      icon: HeartHandshake,
+    },
   ];
 
   return (
@@ -148,21 +207,25 @@ export default function ServicesPage() {
         {/* Diagonal styling accent & cyber-grid */}
         <div className="absolute inset-0 bg-[radial-gradient(#ffffff02_1px,transparent_1px)] [background-size:16px_16px] opacity-40 z-0" />
         <div className="absolute inset-0 cyber-grid opacity-[0.1] z-0" />
-        
+
         {/* Left Side Content */}
         <div className="relative px-6 py-16 sm:px-12 lg:px-20 z-10 space-y-6">
           <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-blue-400 font-mono">
             <Sparkles className="h-3.5 w-3.5 animate-spin-slow" />
             <span>Home &gt; Services</span>
           </div>
-          
+
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl font-display leading-[1.1]">
-            Our Cold Chain<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Solutions</span>
+            Our Cold Chain
+            <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">
+              Solutions
+            </span>
           </h1>
-          
+
           <p className="max-w-md text-xs sm:text-sm text-slate-300 leading-relaxed font-body">
-            End-to-end cold storage and refrigeration solutions engineered for high performance, thermal integrity, and seamless IoT telemetry.
+            End-to-end cold storage and refrigeration solutions engineered for
+            high performance, thermal integrity, and seamless IoT telemetry.
           </p>
 
           {/* 4 Feature Items */}
@@ -195,7 +258,7 @@ export default function ServicesPage() {
         </div>
 
         {/* Right Side Image */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: 80, rotateY: -10 }}
           animate={{ opacity: 1, x: 0, rotateY: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
@@ -230,18 +293,30 @@ export default function ServicesPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 perspective-1000">
             {services.map((svc, idx) => {
               const Icon = svc.icon;
+              const to = `/services/${svc.slug}`;
               return (
                 <motion.div
                   key={idx}
                   initial={{ opacity: 0, y: 50, rotateX: 15 }}
                   whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.6, delay: idx * 0.08, ease: "easeOut" }}
-                  whileHover={{ 
-                    y: -8, 
-                    scale: 1.02,
-                    boxShadow: "0 20px 25px -5px rgba(24, 95, 165, 0.1), 0 10px 10px -5px rgba(24, 95, 165, 0.04)"
+                  transition={{
+                    duration: 0.6,
+                    delay: idx * 0.08,
+                    ease: "easeOut",
                   }}
+                  whileHover={{
+                    y: -8,
+                    scale: 1.02,
+                    boxShadow:
+                      "0 20px 25px -5px rgba(24, 95, 165, 0.1), 0 10px 10px -5px rgba(24, 95, 165, 0.04)",
+                  }}
+                  onClick={() => router.push(to)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") router.push(to);
+                  }}
+                  role="link"
+                  tabIndex={0}
                   className="group rounded-2xl overflow-hidden border border-slate-100 bg-white shadow-sm transition-all duration-300 flex flex-col justify-between preserve-3d cursor-pointer"
                 >
                   <div>
@@ -272,13 +347,10 @@ export default function ServicesPage() {
                   </div>
 
                   <div className="p-6 pt-0">
-                    <Link
-                      href={`/services/${svc.slug}`}
-                      className="inline-flex items-center gap-1 text-[11px] font-bold text-blue-600 hover:text-blue-500 transition-colors"
-                    >
+                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-blue-600 transition-colors">
                       <span>Learn More</span>
                       <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-                    </Link>
+                    </span>
                   </div>
                 </motion.div>
               );
@@ -299,7 +371,8 @@ export default function ServicesPage() {
               Solutions for Every Industry
             </h2>
             <p className="text-xs text-slate-500 leading-relaxed font-body">
-              We deliver customized cold chain solutions for businesses of every size and industry.
+              We deliver customized cold chain solutions for businesses of every
+              size and industry.
             </p>
           </div>
 
@@ -312,7 +385,11 @@ export default function ServicesPage() {
                   initial={{ opacity: 0, scale: 0.85, rotateY: 15 }}
                   whileInView={{ opacity: 1, scale: 1, rotateY: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.5, delay: idx * 0.05, ease: "easeOut" }}
+                  transition={{
+                    duration: 0.5,
+                    delay: idx * 0.05,
+                    ease: "easeOut",
+                  }}
                   whileHover={{ y: -6, scale: 1.04 }}
                   className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm flex flex-col items-center text-center space-y-4 hover:shadow-md transition-shadow cursor-default preserve-3d"
                 >
@@ -364,7 +441,7 @@ export default function ServicesPage() {
               {processSteps.map((step, idx) => {
                 const Icon = step.icon;
                 return (
-                  <motion.div 
+                  <motion.div
                     key={idx}
                     initial={{ opacity: 0, y: 30, rotateY: 15 }}
                     whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
@@ -406,7 +483,8 @@ export default function ServicesPage() {
                 OUR RECENT PROJECTS
               </span>
               <h2 className="text-2xl font-bold text-[#0c2340] font-display">
-                Built with Precision.<br />
+                Built with Precision.
+                <br />
                 Delivered with Pride.
               </h2>
             </div>
@@ -454,18 +532,27 @@ export default function ServicesPage() {
             <div className="space-y-4">
               <div className="flex items-center gap-0.5 text-amber-500">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-amber-500 text-transparent" />
+                  <Star
+                    key={i}
+                    className="h-4 w-4 fill-amber-500 text-transparent"
+                  />
                 ))}
               </div>
 
               <blockquote className="text-sm text-slate-600 leading-relaxed italic">
-                "ThermoVault Systems delivered a top-quality cold room for our dairy unit. Excellent build quality, on-time delivery and great after-sales support."
+                "ThermoVault Systems delivered a top-quality cold room for our
+                dairy unit. Excellent build quality, on-time delivery and great
+                after-sales support."
               </blockquote>
             </div>
 
             <div className="border-t border-slate-100 pt-6">
-              <div className="text-xs font-bold text-[#0c2340]">Rahul Deshmukh</div>
-              <div className="text-[10px] text-slate-400 font-mono mt-0.5">Dairy Farm Owner, Pune</div>
+              <div className="text-xs font-bold text-[#0c2340]">
+                Rahul Deshmukh
+              </div>
+              <div className="text-[10px] text-slate-400 font-mono mt-0.5">
+                Dairy Farm Owner, Pune
+              </div>
             </div>
           </div>
         </div>
@@ -476,55 +563,36 @@ export default function ServicesPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="rounded-2xl bg-[#0c2340] text-white p-8 md:p-12 shadow-xl flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="space-y-3 text-center md:text-left">
-              <div className="flex items-center justify-center md:justify-start gap-2">
-                <div className="h-7 w-7 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-400">
-                  <Phone className="h-4 w-4" />
-                </div>
-                <span className="text-[10px] font-bold tracking-wider text-blue-400 uppercase font-mono">
-                  Ready to Build Your Cold Chain Solution?
-                </span>
-              </div>
-              <h3 className="text-2xl font-bold font-display">
-                Get Expert Consultation & Custom Quote
+              <h3 className="text-lg font-extrabold">
+                Ready to build your cold chain?
               </h3>
-              <p className="text-xs text-slate-300 max-w-lg">
-                Our thermal design engineers will calculate your project heat load requirements and guide you through the process.
+              <p className="text-xs text-slate-200 max-w-xl">
+                Get a free consultation and tailored quote from our engineering
+                team.
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-4 items-center justify-center">
-              <a
-                href="tel:+918055010620"
-                className="rounded-md bg-blue-600 px-6 py-3.5 text-xs font-bold text-white transition-all hover:bg-blue-500 shadow-md active:scale-95"
-              >
-                Call Now: 80550 10620
-              </a>
-
-              <a
-                href="https://wa.me/918055010620?text=Hi%20ThermoVault,%20I%20am%20interested%20in%20a%20cold%20room%20consultation."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 rounded-md border border-white/40 bg-white/5 px-6 py-3.5 text-xs font-bold text-white transition-all hover:bg-white/10 active:scale-95"
-              >
-                <MessageSquare className="h-4 w-4" />
-                <span>WhatsApp Us</span>
-              </a>
-
+            <div className="flex gap-3">
               <button
                 onClick={() => {
-                  const event = new CustomEvent("open-quote-modal");
-                  window.dispatchEvent(event);
+                  const ev = new CustomEvent("open-quote-modal");
+                  window.dispatchEvent(ev);
                 }}
-                className="rounded-md border border-white px-6 py-3.5 text-xs font-bold text-white hover:bg-white hover:text-[#0c2340] transition-all"
+                className="rounded-md bg-emerald-500 px-6 py-3 text-sm font-bold"
               >
-                Get Free Quote
+                Get Free Consultation
               </button>
+              <Link
+                href="/contact"
+                className="rounded-md border border-white/20 px-6 py-3 text-sm font-bold"
+              >
+                Contact Us
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Brand Footer */}
       <Footer />
     </div>
   );
