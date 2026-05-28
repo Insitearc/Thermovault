@@ -36,7 +36,7 @@ export default function AboutPage() {
       <Navbar />
 
       {/* Hero Header with image background */}
-      <section 
+      <section
         className="relative bg-cover bg-center bg-no-repeat py-20 text-white overflow-hidden"
         style={{ backgroundImage: "url('/images/hero_background.png')" }}
       >
@@ -52,7 +52,8 @@ export default function AboutPage() {
             About <span className="text-blue-400">ThermoVault Systems</span>
           </h1>
           <p className="max-w-2xl text-xs sm:text-sm text-slate-200/90 leading-relaxed">
-            Engineering reliable cold chain and refrigeration solutions that power businesses, preserve quality, and build a stronger tomorrow.
+            Engineering reliable cold chain and refrigeration solutions that
+            power businesses, preserve quality, and build a stronger tomorrow.
           </p>
         </div>
       </section>
@@ -65,7 +66,9 @@ export default function AboutPage() {
             return (
               <div key={idx} className="flex flex-col items-center gap-1.5 p-2">
                 <Icon className="h-5 w-5 text-blue-400" />
-                <div className="text-2xl font-extrabold font-mono leading-none">{stat.value}</div>
+                <div className="text-2xl font-extrabold font-mono leading-none">
+                  {stat.value}
+                </div>
                 <div className="text-[9px] font-bold uppercase tracking-wider text-slate-300 font-mono">
                   {stat.label}
                 </div>
@@ -85,13 +88,19 @@ export default function AboutPage() {
                 OUR STORY
               </span>
               <h2 className="text-3xl font-bold tracking-tight text-[#0c2340] font-display">
-                Securing the Cold Chain <span className="text-blue-600">Ecosystem</span>
+                Securing the Cold Chain{" "}
+                <span className="text-blue-600">Ecosystem</span>
               </h2>
               <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
-                ThermoVault Systems was founded with a simple mission - to deliver advanced, energy-efficient, and reliable cold chain and refrigeration solutions that help businesses grow without compromising on quality.
+                ThermoVault Systems was founded with a simple mission - to
+                deliver advanced, energy-efficient, and reliable cold chain and
+                refrigeration solutions that help businesses grow without
+                compromising on quality.
               </p>
               <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
-                From modular cold rooms to complete industrial refrigeration systems, we design, build, and maintain solutions tailored to your unique requirements.
+                From modular cold rooms to complete industrial refrigeration
+                systems, we design, build, and maintain solutions tailored to
+                your unique requirements.
               </p>
               <div className="pt-4">
                 <button
@@ -108,15 +117,22 @@ export default function AboutPage() {
             </div>
 
             {/* Sizable Image */}
-            <div className="relative h-[340px] rounded-2xl overflow-hidden border border-slate-100 shadow-md">
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.99 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              whileHover={{ scale: 1.03 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              viewport={{ once: true }}
+              className="relative h-[340px] rounded-2xl overflow-hidden border border-slate-100 shadow-md"
+            >
               <Image
                 src="/images/cold_room_modular.png"
                 alt="Walk-in Cold Storage Room Installation"
                 fill
-                className="object-cover"
+                className="object-cover transition-transform will-change-transform"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -126,48 +142,151 @@ export default function AboutPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Mission */}
-            <div className="rounded-2xl border border-slate-100 bg-white p-6 space-y-4 shadow-sm hover:shadow-md transition-shadow">
+            <motion.div
+              initial={{ opacity: 0, y: 24, scale: 0.98 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.45, ease: "easeOut" }}
+              viewport={{ once: true }}
+              className="rounded-2xl border border-slate-100 bg-white p-6 space-y-4 shadow-sm hover:shadow-lg transition-shadow cursor-default"
+            >
               <h3 className="text-xs font-bold text-[#0c2340] font-display border-b border-slate-100 pb-2 uppercase tracking-wider">
                 OUR MISSION
               </h3>
-              <p className="text-xs text-slate-500 leading-relaxed">
-                To deliver innovative and reliable cold chain solutions that ensure product quality, reduce wastage, and create long-term value for our clients.
-              </p>
-            </div>
+              <ul className="space-y-2 text-xs text-slate-600">
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="h-4 w-4 text-blue-600 mt-1 shrink-0" />
+                  <span>
+                    Design and deliver energy-efficient, reliable cold chain
+                    solutions.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="h-4 w-4 text-blue-600 mt-1 shrink-0" />
+                  <span>
+                    Minimize food and product wastage through precise
+                    temperature control.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="h-4 w-4 text-blue-600 mt-1 shrink-0" />
+                  <span>
+                    Provide long-term support to maximize uptime and ROI for
+                    clients.
+                  </span>
+                </li>
+              </ul>
+            </motion.div>
 
             {/* Vision */}
-            <div className="rounded-2xl border border-slate-100 bg-white p-6 space-y-4 shadow-sm hover:shadow-md transition-shadow">
+            <motion.div
+              initial={{ opacity: 0, y: 24, scale: 0.98 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.45, ease: "easeOut", delay: 0.06 }}
+              viewport={{ once: true }}
+              className="rounded-2xl border border-slate-100 bg-white p-6 space-y-4 shadow-sm hover:shadow-lg transition-shadow cursor-default"
+            >
               <h3 className="text-xs font-bold text-[#0c2340] font-display border-b border-slate-100 pb-2 uppercase tracking-wider">
                 OUR VISION
               </h3>
-              <p className="text-xs text-slate-500 leading-relaxed">
-                To be India's most trusted cold chain and refrigeration brand, driving efficiency and sustainability across industries.
-              </p>
-            </div>
+              <ul className="space-y-2 text-xs text-slate-600">
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="h-4 w-4 text-blue-600 mt-1 shrink-0" />
+                  <span>
+                    Be India's most trusted cold chain partner for businesses of
+                    all sizes.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="h-4 w-4 text-blue-600 mt-1 shrink-0" />
+                  <span>
+                    Champion sustainable refrigeration practices across
+                    industries.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="h-4 w-4 text-blue-600 mt-1 shrink-0" />
+                  <span>
+                    Continuously innovate for higher efficiency and better
+                    outcomes.
+                  </span>
+                </li>
+              </ul>
+            </motion.div>
 
             {/* Values */}
-            <div className="rounded-2xl border border-slate-100 bg-white p-6 space-y-4 shadow-sm hover:shadow-md transition-shadow">
+            <motion.div
+              initial={{ opacity: 0, y: 24, scale: 0.98 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.45, ease: "easeOut", delay: 0.12 }}
+              viewport={{ once: true }}
+              className="rounded-2xl border border-slate-100 bg-white p-6 space-y-4 shadow-sm hover:shadow-lg transition-shadow cursor-default"
+            >
               <h3 className="text-xs font-bold text-[#0c2340] font-display border-b border-slate-100 pb-2 uppercase tracking-wider">
                 OUR VALUES
               </h3>
-              <ul className="space-y-1.5 text-xs text-slate-500">
-                <li className="flex items-center gap-1.5"><CheckCircle2 className="h-3.5 w-3.5 text-blue-600 shrink-0" /> Integrity & Transparency</li>
-                <li className="flex items-center gap-1.5"><CheckCircle2 className="h-3.5 w-3.5 text-blue-600 shrink-0" /> Quality & Excellence</li>
-                <li className="flex items-center gap-1.5"><CheckCircle2 className="h-3.5 w-3.5 text-blue-600 shrink-0" /> Customer First</li>
-                <li className="flex items-center gap-1.5"><CheckCircle2 className="h-3.5 w-3.5 text-blue-600 shrink-0" /> Innovation & Improvement</li>
-                <li className="flex items-center gap-1.5"><CheckCircle2 className="h-3.5 w-3.5 text-blue-600 shrink-0" /> Teamwork & Accountability</li>
+              <ul className="space-y-1.5 text-xs text-slate-600">
+                <li className="flex items-center gap-1.5">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-blue-600 shrink-0" />{" "}
+                  Integrity & Transparency
+                </li>
+                <li className="flex items-center gap-1.5">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-blue-600 shrink-0" />{" "}
+                  Quality & Excellence
+                </li>
+                <li className="flex items-center gap-1.5">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-blue-600 shrink-0" />{" "}
+                  Customer First
+                </li>
+                <li className="flex items-center gap-1.5">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-blue-600 shrink-0" />{" "}
+                  Innovation & Improvement
+                </li>
+                <li className="flex items-center gap-1.5">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-blue-600 shrink-0" />{" "}
+                  Teamwork & Accountability
+                </li>
               </ul>
-            </div>
+            </motion.div>
 
             {/* Why We Exist */}
-            <div className="rounded-2xl border border-slate-100 bg-white p-6 space-y-4 shadow-sm hover:shadow-md transition-shadow">
+            <motion.div
+              initial={{ opacity: 0, y: 24, scale: 0.98 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.45, ease: "easeOut", delay: 0.18 }}
+              viewport={{ once: true }}
+              className="rounded-2xl border border-slate-100 bg-white p-6 space-y-4 shadow-sm hover:shadow-lg transition-shadow cursor-default"
+            >
               <h3 className="text-xs font-bold text-[#0c2340] font-display border-b border-slate-100 pb-2 uppercase tracking-wider">
                 WHY WE EXIST
               </h3>
-              <p className="text-xs text-slate-500 leading-relaxed">
-                We exist to solve real cold chain challenges with engineering excellence and help businesses preserve what matters most.
-              </p>
-            </div>
+              <ul className="space-y-2 text-xs text-slate-600">
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="h-4 w-4 text-blue-600 mt-1 shrink-0" />
+                  <span>
+                    To solve real cold chain challenges with engineering
+                    excellence.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="h-4 w-4 text-blue-600 mt-1 shrink-0" />
+                  <span>
+                    To help businesses preserve product quality and reduce
+                    waste.
+                  </span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle2 className="h-4 w-4 text-blue-600 mt-1 shrink-0" />
+                  <span>
+                    To deliver scalable, maintainable solutions backed by
+                    long-term support.
+                  </span>
+                </li>
+              </ul>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -177,15 +296,22 @@ export default function AboutPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Photo on the left */}
-            <div className="relative h-[360px] rounded-2xl overflow-hidden border border-slate-100 shadow-md">
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.99 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              whileHover={{ scale: 1.03 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              viewport={{ once: true }}
+              className="relative h-[360px] rounded-2xl overflow-hidden border border-slate-100 shadow-md"
+            >
               <Image
                 src="/images/amc_maintenance.png"
                 alt="Engineers working on refrigeration control panel"
                 fill
-                className="object-cover"
+                className="object-cover transition-transform will-change-transform"
                 sizes="(max-width: 1024px) 100vw, 50vw"
               />
-            </div>
+            </motion.div>
 
             {/* Text on the right */}
             <div className="space-y-6">
@@ -193,17 +319,29 @@ export default function AboutPage() {
                 ENGINEERING EXCELLENCE
               </span>
               <h2 className="text-3xl font-bold tracking-tight text-[#0c2340] font-display">
-                Built with <span className="text-blue-600">Precision.</span><br />
+                Built with <span className="text-blue-600">Precision.</span>
+                <br />
                 Delivered with <span className="text-blue-600">Pride.</span>
               </h2>
               <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
-                Our skilled team, advanced technology, and strict quality control processes ensure every project is built to perform, built to last.
+                Our skilled team, advanced technology, and strict quality
+                control processes ensure every project is built to perform,
+                built to last.
               </p>
 
               <div className="flex flex-wrap gap-6 pt-4 text-xs font-bold text-[#0c2340]">
-                <span className="flex items-center gap-1.5"><ShieldCheck className="h-4.5 w-4.5 text-blue-600" /> Experienced Engineers</span>
-                <span className="flex items-center gap-1.5"><Compass className="h-4.5 w-4.5 text-blue-600" /> Advanced Technology</span>
-                <span className="flex items-center gap-1.5"><UserCheck className="h-4.5 w-4.5 text-blue-600" /> Quality Assured</span>
+                <span className="flex items-center gap-1.5">
+                  <ShieldCheck className="h-4.5 w-4.5 text-blue-600" />{" "}
+                  Experienced Engineers
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <Compass className="h-4.5 w-4.5 text-blue-600" /> Advanced
+                  Technology
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <UserCheck className="h-4.5 w-4.5 text-blue-600" /> Quality
+                  Assured
+                </span>
               </div>
             </div>
           </div>
@@ -214,10 +352,14 @@ export default function AboutPage() {
       <section className="py-12 bg-[#0C2340] text-white border-t border-white/5">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="space-y-2 text-center md:text-left">
-            <h3 className="text-xl font-bold font-display">Let's Build a Stronger Cold Chain Together.</h3>
-            <p className="text-xs text-slate-300">Have a project in mind? Our experts are ready to help.</p>
+            <h3 className="text-xl font-bold font-display">
+              Let's Build a Stronger Cold Chain Together.
+            </h3>
+            <p className="text-xs text-slate-300">
+              Have a project in mind? Our experts are ready to help.
+            </p>
           </div>
-          
+
           <div className="flex flex-wrap items-center justify-center gap-4">
             <a
               href="tel:+918055010620"
