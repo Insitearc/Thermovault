@@ -49,6 +49,7 @@ interface IndustryCard {
   title: string;
   image: string;
   icon: React.ComponentType<any>;
+  slug?: string;
 }
 
 interface ProcessStep {
@@ -130,31 +131,37 @@ export default function ServicesPage() {
       title: "Dairy & Milk Products",
       image: "/images/industry_dairy.png",
       icon: Droplet,
+      slug: "dairy-milk-products",
     },
     {
       title: "Meat & Poultry",
       image: "/images/industry_meat.png",
       icon: Flame,
+      slug: "meat-poultry",
     },
     {
       title: "Fruits & Vegetables",
       image: "/images/industry_fruits.png",
       icon: Apple,
+      slug: "fruits-vegetables",
     },
     {
       title: "Seafood & Fish",
       image: "/images/industry_seafood.png",
       icon: Fish,
+      slug: "seafood-fish",
     },
     {
       title: "Pharmaceuticals",
       image: "/images/industry_pharma.png",
       icon: Pill,
+      slug: "pharmaceuticals",
     },
     {
-      title: "Food Processing & Retail",
+      title: "Last Mile & Dark Store",
       image: "/images/industry_retail.png",
       icon: ShoppingCart,
+      slug: "last-mile-dark-store",
     },
   ];
 
@@ -379,6 +386,8 @@ export default function ServicesPage() {
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 perspective-1000">
             {industries.map((ind, idx) => {
               const Icon = ind.icon;
+              const hasLink = !!ind.slug;
+              const to = ind.slug ? `/services/${ind.slug}` : "";
               return (
                 <motion.div
                   key={idx}
@@ -390,8 +399,16 @@ export default function ServicesPage() {
                     delay: idx * 0.05,
                     ease: "easeOut",
                   }}
-                  whileHover={{ y: -6, scale: 1.04 }}
-                  className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm flex flex-col items-center text-center space-y-4 hover:shadow-md transition-shadow cursor-default preserve-3d"
+                  whileHover={hasLink ? { y: -6, scale: 1.04, boxShadow: "0 10px 15px -3px rgba(59, 130, 246, 0.1), 0 4px 6px -2px rgba(59, 130, 246, 0.05)" } : { y: -6, scale: 1.04 }}
+                  onClick={() => hasLink && router.push(to)}
+                  onKeyDown={(e) => {
+                    if (hasLink && e.key === "Enter") router.push(to);
+                  }}
+                  role={hasLink ? "link" : undefined}
+                  tabIndex={hasLink ? 0 : undefined}
+                  className={`rounded-2xl border border-slate-100 bg-white p-4 shadow-sm flex flex-col items-center text-center space-y-4 hover:shadow-md transition-all duration-300 preserve-3d group ${
+                    hasLink ? "cursor-pointer hover:border-blue-200" : "cursor-default"
+                  }`}
                 >
                   {/* Rounded image container */}
                   <div className="relative h-24 w-full rounded-xl overflow-hidden bg-slate-100">
@@ -399,17 +416,17 @@ export default function ServicesPage() {
                       src={ind.image}
                       alt={ind.title}
                       fill
-                      className="object-cover"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                       sizes="(max-width: 768px) 50vw, 16vw"
                     />
                   </div>
 
                   {/* Circular Icon */}
-                  <div className="-mt-9 relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white shadow-md border-2 border-white">
+                  <div className="-mt-9 relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white shadow-md border-2 border-white transition-colors group-hover:bg-blue-700">
                     <Icon className="h-4 w-4" />
                   </div>
 
-                  <span className="text-[11px] font-bold text-[#0c2340] leading-snug font-display">
+                  <span className="text-[11px] font-bold text-[#0c2340] leading-snug font-display transition-colors group-hover:text-blue-600">
                     {ind.title}
                   </span>
                 </motion.div>
