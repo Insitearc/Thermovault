@@ -4,7 +4,15 @@ import React, { use, useState } from "react";
 import Link from "next/link";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import { Snowflake, ShieldCheck, Thermometer, ChevronLeft, Send, CheckCircle2 } from "lucide-react";
+import {
+  Snowflake,
+  ShieldCheck,
+  Thermometer,
+  ChevronLeft,
+  ChevronRight,
+  Send,
+  CheckCircle2,
+} from "lucide-react";
 
 interface ServiceDetail {
   title: string;
@@ -24,8 +32,14 @@ const serviceDb: Record<string, ServiceDetail> = {
       "Pre-insulated floor panels with heavy-duty aluminum chequered plates.",
       "Pressure relief valves for extreme low-temperature adjustments.",
     ],
-    industries: ["Dairy processing units", "Agricultural warehouses", "Frozen food processing plants", "Logistics hubs"],
-    detailedDesc: "Walk-in modular cold storage rooms engineered for agricultural cooperatives, pharmaceutical warehousing, and wholesale dairy distributors. The cam-locked joints enable modular rigging and future volume expansions without panel loss.",
+    industries: [
+      "Dairy processing units",
+      "Agricultural warehouses",
+      "Frozen food processing plants",
+      "Logistics hubs",
+    ],
+    detailedDesc:
+      "Walk-in modular cold storage rooms engineered for agricultural cooperatives, pharmaceutical warehousing, and wholesale dairy distributors. The cam-locked joints enable modular rigging and future volume expansions without panel loss.",
   },
   "refrigeration-systems": {
     title: "Refrigeration Plant Engineering",
@@ -36,8 +50,14 @@ const serviceDb: Record<string, ServiceDetail> = {
       "Refrigerant options matching low-GWP criteria (R404A, R134a, R448A).",
       "Anti-vibration compressor mounts and dual high/low pressure cut-out grids.",
     ],
-    industries: ["Industrial cold stores", "Chemical plants", "Slaughterhouses", "Ripening depots"],
-    detailedDesc: "Complete compression refrigeration systems designed to operate under tropical conditions. Our condensing plants feature compressor protection circuits to withstand voltage fluctuations commonly found in rural grids.",
+    industries: [
+      "Industrial cold stores",
+      "Chemical plants",
+      "Slaughterhouses",
+      "Ripening depots",
+    ],
+    detailedDesc:
+      "Complete compression refrigeration systems designed to operate under tropical conditions. Our condensing plants feature compressor protection circuits to withstand voltage fluctuations commonly found in rural grids.",
   },
   "display-cold-rooms": {
     title: "Glass Display Cold Rooms",
@@ -48,8 +68,14 @@ const serviceDb: Record<string, ServiceDetail> = {
       "Adjustable wire shelving grids (white epoxy dust-resistant coating).",
       "Gravity air coolers minimizing air movement to preserve fresh items.",
     ],
-    industries: ["Supermarkets & Hypermarkets", "Organic retail shops", "Hotels & Bakeries", "Florists"],
-    detailedDesc: "Premium walk-in glass display cold storage rooms that bridge client display with storage needs. Perfect for beer cells, floriculture merchandising, and gourmet cheese retail depots.",
+    industries: [
+      "Supermarkets & Hypermarkets",
+      "Organic retail shops",
+      "Hotels & Bakeries",
+      "Florists",
+    ],
+    detailedDesc:
+      "Premium walk-in glass display cold storage rooms that bridge client display with storage needs. Perfect for beer cells, floriculture merchandising, and gourmet cheese retail depots.",
   },
   "clean-rooms": {
     title: "Clean Rooms & Sterile Chambers",
@@ -60,8 +86,13 @@ const serviceDb: Record<string, ServiceDetail> = {
       "Differential pressure gauges monitoring sealed boundaries.",
       "Airlock entryways and automated interlocking magnetic doors.",
     ],
-    industries: ["Pharmaceutical manufacturers", "Diagnostic testing laboratories", "Electronic microchip assemblies"],
-    detailedDesc: "Fully compliant environmental chambers built to validate clean room protocols. We integrate positive pressure systems and humidity controls to meet strict clinical audit parameters.",
+    industries: [
+      "Pharmaceutical manufacturers",
+      "Diagnostic testing laboratories",
+      "Electronic microchip assemblies",
+    ],
+    detailedDesc:
+      "Fully compliant environmental chambers built to validate clean room protocols. We integrate positive pressure systems and humidity controls to meet strict clinical audit parameters.",
   },
   "ripening-chambers": {
     title: "Fruits Ripening Chambers",
@@ -72,8 +103,13 @@ const serviceDb: Record<string, ServiceDetail> = {
       "Precision CO2 exhaust venting cycles to prevent fruit decay.",
       "PLC program panels storing preset ripening curves by crop type.",
     ],
-    industries: ["Banana wholesalers", "Mango export growers", "Agricultural ripening depots"],
-    detailedDesc: "Controlled atmosphere chambers for uniform ripening of mangoes, bananas, and papayas. Replaces unscientific ripening chemical processes with standardized organic gas exposure.",
+    industries: [
+      "Banana wholesalers",
+      "Mango export growers",
+      "Agricultural ripening depots",
+    ],
+    detailedDesc:
+      "Controlled atmosphere chambers for uniform ripening of mangoes, bananas, and papayas. Replaces unscientific ripening chemical processes with standardized organic gas exposure.",
   },
   "blast-chillers": {
     title: "Blast Chillers & Shock Freezers",
@@ -84,10 +120,16 @@ const serviceDb: Record<string, ServiceDetail> = {
       "Integrated core food temperature needle insertion probes.",
       "Extra-thick 150mm insulation core panel rigging.",
     ],
-    industries: ["Commercial kitchens", "Catering companies", "Poultry processing units", "Sea food exporters"],
-    detailedDesc: "Shock-freezing machinery designed to prevent ice-crystal expansion in food products, which preserves the texture and cellular structure of meats and poultry during subsequent storage.",
+    industries: [
+      "Commercial kitchens",
+      "Catering companies",
+      "Poultry processing units",
+      "Sea food exporters",
+    ],
+    detailedDesc:
+      "Shock-freezing machinery designed to prevent ice-crystal expansion in food products, which preserves the texture and cellular structure of meats and poultry during subsequent storage.",
   },
-  "amc": {
+  amc: {
     title: "AMC & Breakdown Contracts",
     tempRange: "24/7 Technical Response",
     specs: [
@@ -96,10 +138,15 @@ const serviceDb: Record<string, ServiceDetail> = {
       "Priority response within 4 hours in Pune and surrounding MIDC zones.",
       "Free remote dashboard telemetry diagnostic checks.",
     ],
-    industries: ["Any active cold room installation", "Hospitals", "Food processing centers"],
-    detailedDesc: "Annual Maintenance Contracts keeping refrigeration plants at peak energy efficiency. Regular checkups reduce the likelihood of unexpected compressor failure and lower energy costs.",
+    industries: [
+      "Any active cold room installation",
+      "Hospitals",
+      "Food processing centers",
+    ],
+    detailedDesc:
+      "Annual Maintenance Contracts keeping refrigeration plants at peak energy efficiency. Regular checkups reduce the likelihood of unexpected compressor failure and lower energy costs.",
   },
-  "consultation": {
+  consultation: {
     title: "Consultation & Sizing Engineering",
     tempRange: "Analytical Review",
     specs: [
@@ -108,9 +155,25 @@ const serviceDb: Record<string, ServiceDetail> = {
       "Government subsidy eligibility checklists (NABARD, NHM schemes).",
       "Detailed project reports (DPR) matching banking criteria.",
     ],
-    industries: ["Cold room buyers", "Agricultural startups", "Banking institutions"],
-    detailedDesc: "Pre-design consulting services. We run computerized thermal simulation math to prevent oversized compressors, saving client capitals and optimizing ongoing running costs.",
+    industries: [
+      "Cold room buyers",
+      "Agricultural startups",
+      "Banking institutions",
+    ],
+    detailedDesc:
+      "Pre-design consulting services. We run computerized thermal simulation math to prevent oversized compressors, saving client capitals and optimizing ongoing running costs.",
   },
+};
+
+const relatedMap: Record<string, string[]> = {
+  "modular-cold-rooms": ["refrigeration-systems", "display-cold-rooms", "amc"],
+  "refrigeration-systems": ["blast-chillers", "amc", "consultation"],
+  "display-cold-rooms": ["modular-cold-rooms", "refrigeration-systems"],
+  "clean-rooms": ["consultation", "amc"],
+  "ripening-chambers": ["consultation", "amc"],
+  "blast-chillers": ["refrigeration-systems", "amc"],
+  amc: ["refrigeration-systems", "modular-cold-rooms"],
+  consultation: ["modular-cold-rooms", "refrigeration-systems"],
 };
 
 export default function ServiceDetailPage({
@@ -177,7 +240,10 @@ export default function ServiceDetailPage({
               </h3>
               <ul className="space-y-2 text-xs">
                 {service.specs.map((item, idx) => (
-                  <li key={idx} className="flex items-start gap-2.5 leading-relaxed text-silver/90">
+                  <li
+                    key={idx}
+                    className="flex items-start gap-2.5 leading-relaxed text-silver/90"
+                  >
                     <ShieldCheck className="h-4 w-4 text-teal-light shrink-0 mt-0.5" />
                     <span>{item}</span>
                   </li>
@@ -201,19 +267,64 @@ export default function ServiceDetailPage({
                 ))}
               </div>
             </div>
+
+            {/* Related Solutions (internal linking + SEO) */}
+            <div className="space-y-3">
+              <h3 className="text-xs font-bold text-white font-display uppercase tracking-wider text-teal-light">
+                Related Solutions
+              </h3>
+              <div className="flex flex-col gap-2">
+                {(relatedMap[slug] || []).map((k) => (
+                  <Link
+                    key={k}
+                    href={`/services/${k}`}
+                    className="inline-flex items-center justify-between gap-3 rounded-lg bg-white/2 hover:bg-white/5 transition-colors px-4 py-2 text-xs text-white border border-white/5"
+                  >
+                    <span className="truncate">{serviceDb[k]?.title || k}</span>
+                    <ChevronRight className="h-4 w-4 text-teal-light" />
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Why ThermoVault - Trust & Differentiators */}
+            <div className="rounded-2xl border border-white/5 bg-[#0C2340]/40 p-6 space-y-3">
+              <h3 className="text-xs font-bold text-white font-display uppercase tracking-wider text-teal-light">
+                Why ThermoVault
+              </h3>
+              <ul className="space-y-2 text-xs text-silver/90">
+                {[
+                  "Customized Engineering",
+                  "Energy Efficient Systems",
+                  "Subsidy Guidance",
+                  "Reliable After-Sales Support",
+                  "IoT Monitoring Ready",
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-2">
+                    <CheckCircle2 className="h-4 w-4 text-teal-light shrink-0 mt-0.5" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           {/* Callback Quote Intake form */}
           <div className="rounded-2xl border border-white/5 bg-[#0C2340]/60 p-6 shadow-lg h-fit">
-            <h3 className="text-sm font-bold text-white mb-2 font-display">Sizing Consultation</h3>
+            <h3 className="text-sm font-bold text-white mb-2 font-display">
+              Sizing Consultation
+            </h3>
             <p className="text-xs text-silver/80 mb-4 leading-relaxed">
-              Need engineering calculations or CAD layout blueprints for this specific utility? Request call.
+              Need engineering calculations or CAD layout blueprints for this
+              specific utility? Request call.
             </p>
 
             {formSent ? (
               <div className="rounded-xl border border-teal-accent/20 bg-teal-accent/5 p-6 text-center space-y-2">
                 <CheckCircle2 className="h-8 w-8 text-teal-light mx-auto" />
-                <h4 className="text-xs font-bold text-white">Callback Scheduled</h4>
+                <h4 className="text-xs font-bold text-white">
+                  Callback Scheduled
+                </h4>
                 <p className="text-[10px] text-silver leading-relaxed">
                   Our design draftsman will contact you within 2 working hours.
                 </p>
@@ -221,7 +332,9 @@ export default function ServiceDetailPage({
             ) : (
               <form onSubmit={handleCallbackSubmit} className="space-y-3">
                 <div>
-                  <label className="text-[9px] text-silver font-mono block mb-1">Your Name</label>
+                  <label className="text-[9px] text-silver font-mono block mb-1">
+                    Your Name
+                  </label>
                   <input
                     type="text"
                     required
@@ -232,7 +345,9 @@ export default function ServiceDetailPage({
                   />
                 </div>
                 <div>
-                  <label className="text-[9px] text-silver font-mono block mb-1">Mobile Number</label>
+                  <label className="text-[9px] text-silver font-mono block mb-1">
+                    Mobile Number
+                  </label>
                   <input
                     type="tel"
                     required
