@@ -19,6 +19,23 @@ export default function ColdRoom3D({
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const animationFrameIdRef = useRef<number | null>(null);
 
+  // References to track state changes without rebuilding the Three.js scene
+  const doorOpenRef = useRef(doorOpen);
+  const compressorActiveRef = useRef(compressorActive);
+  const temperatureRef = useRef(temperature);
+
+  useEffect(() => {
+    doorOpenRef.current = doorOpen;
+  }, [doorOpen]);
+
+  useEffect(() => {
+    compressorActiveRef.current = compressorActive;
+  }, [compressorActive]);
+
+  useEffect(() => {
+    temperatureRef.current = temperature;
+  }, [temperature]);
+
   // References to animate in the loop
   const doorHingeRef = useRef<THREE.Group | null>(null);
   const fanRef = useRef<THREE.Mesh | null>(null);
@@ -98,7 +115,6 @@ export default function ColdRoom3D({
     const coldRoomGroup = new THREE.Group();
 
     // 7.1 PUF Panels (Main Room Box)
-    // We create a semi-reflective metallic panel material
     const panelMaterial = new THREE.MeshStandardMaterial({
       color: 0x22334e,
       roughness: 0.2,
@@ -108,7 +124,6 @@ export default function ColdRoom3D({
     });
     panelMaterialRef.current = panelMaterial;
 
-    // Room Main body (We make individual panels or a box with lines. Let's create an assembly for realistic joints)
     const roomGeometry = new THREE.BoxGeometry(4, 2.5, 3);
     const roomMesh = new THREE.Mesh(roomGeometry, panelMaterial);
     roomMesh.castShadow = true;
@@ -123,17 +138,17 @@ export default function ColdRoom3D({
 
     // 7.2 The Insulated Hinge Door
     const doorHinge = new THREE.Group();
-    // Position the hinge group at the front-right edge of the room
-    doorHinge.position.set(2, -1.25, 1.5); // Pivot point
+    // Position the hinge group at the front-right edge of the room (Pivot point)
+    doorHinge.position.set(2, -1.25, 1.5); 
     doorHingeRef.current = doorHinge;
 
-    // Door Panel Mesh (offset relative to the hinge so it swings around the edge)
+    // Door Panel Mesh (offset relative to pivot so it swings realistically)
     const doorWidth = 1.2;
     const doorHeight = 2.2;
     const doorDepth = 0.15;
-    const doorGeom = new THREE.BoxGeometry(-doorWidth, doorHeight, doorDepth);
-    // Shift door mesh so its right edge aligns with hinge center
-    doorGeom.translate(doorWidth / 2, doorHeight / 2, 0);
+    const doorGeom = new THREE.BoxGeometry(doorWidth, doorHeight, doorDepth);
+    // Shift door mesh so its right edge aligns with hinge, and sits slightly in front of the wall to prevent clipping
+    doorGeom.translate(-doorWidth / 2, doorHeight / 2, doorDepth / 2 + 0.01);
 
     const doorMaterial = new THREE.MeshStandardMaterial({
       color: 0x185fa5, // Medium Navy
@@ -149,7 +164,8 @@ export default function ColdRoom3D({
     const handleGeom = new THREE.BoxGeometry(0.04, 0.6, 0.04);
     const handleMat = new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 0.9 });
     const handleMesh = new THREE.Mesh(handleGeom, handleMat);
-    handleMesh.position.set(doorWidth - 0.1, doorHeight / 2, 0.1);
+    // Position handle on the left side of the door (opposite of the right-edge hinge)
+    handleMesh.position.set(-doorWidth + 0.1, doorHeight / 2, doorDepth + 0.02);
     doorHinge.add(handleMesh);
 
     coldRoomGroup.add(doorHinge);
@@ -237,19 +253,19 @@ export default function ColdRoom3D({
 
       // 8.1 Door swinging interpolation (lerp)
       if (doorHingeRef.current) {
-        // Target angle is -Math.PI / 1.8 (approx 100 degrees open) when doorOpen is true, else 0
-        const targetRotation = doorOpen ? -Math.PI / 1.8 : 0;
+        // Swing outward (positive rotation angle around Y axis) when doorOpen is true
+        const targetRotation = doorOpenRef.current ? Math.PI / 1.8 : 0;
         doorHingeRef.current.rotation.y +=
           (targetRotation - doorHingeRef.current.rotation.y) * 5 * delta;
       }
 
       // 8.2 Compressor Fan rotation & pulsing status light
       if (fanRef.current) {
-        if (compressorActive) {
+        if (compressorActiveRef.current) {
           fanRef.current.rotation.z += 15 * delta; // Spin fast
           if (statusLightRef.current) {
             // @ts-ignore
-            statusLightRef.current.material.color.setHex(0x1d9e75); // Vibrant Teal/Green active
+            statusLightRef.current.material.color.setHex(0x1d9e75); // Vibrant Teal active
           }
         } else {
           // Slowly bring fan to stop
@@ -267,15 +283,14 @@ export default function ColdRoom3D({
         sensorGlowRef.current.scale.set(pulse, pulse, pulse);
 
         // Adjust sensor color based on actual temperature
-        // Lower temps (< -10) = deep blue, medium (0-5) = cyan, higher = yellow/red
         const mat = sensorNode.material as THREE.MeshStandardMaterial;
         const glowMat = sensorGlowRef.current.material as THREE.MeshBasicMaterial;
 
-        if (temperature < -10) {
+        if (temperatureRef.current < -10) {
           mat.color.setHex(0x0055ff);
           mat.emissive.setHex(0x002288);
           glowMat.color.setHex(0x0055ff);
-        } else if (temperature < 5) {
+        } else if (temperatureRef.current < 5) {
           mat.color.setHex(0x00eeff);
           mat.emissive.setHex(0x0055aa);
           glowMat.color.setHex(0x00eeff);
@@ -286,10 +301,9 @@ export default function ColdRoom3D({
         }
       }
 
-      // 8.4 Color the outer walls slightly based on temperature (heat maps)
+      // 8.4 Color the outer walls slightly based on temperature
       if (panelMaterialRef.current) {
-        // Safe ranges: blue/green if cold, slightly red/orange if temperature rises
-        if (temperature > 5) {
+        if (temperatureRef.current > 5) {
           panelMaterialRef.current.color.lerp(new THREE.Color(0x3e222d), 0.02); // Red tint
         } else {
           panelMaterialRef.current.color.lerp(new THREE.Color(0x22334e), 0.02); // Standard Navy steel
@@ -329,7 +343,7 @@ export default function ColdRoom3D({
       controls.dispose();
       renderer.dispose();
     };
-  }, [doorOpen, compressorActive, temperature]);
+  }, []); // Only setup the scene once on mount!
 
   return (
     <div className="relative w-full h-[380px] rounded-2xl overflow-hidden border border-white/5 bg-[#0C2340]">
