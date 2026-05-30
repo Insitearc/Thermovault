@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use, useState } from "react";
+import React, { use, useState, useEffect } from "react";
 import Link from "next/link";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -28,6 +28,10 @@ import {
   Clock,
   HelpCircle,
   ChevronDown,
+  Sliders,
+  Calculator,
+  ShieldAlert,
+  Wrench,
 } from "lucide-react";
 
 interface SpecItem {
@@ -471,6 +475,54 @@ function getServiceFaqs(slug: string): FaqItem[] {
   return db[slug] || db["modular-cold-rooms"];
 }
 
+// Technical standards & characteristics parameters matching each service
+interface TechnicalParameter {
+  label: string;
+  value: string;
+  metric: string;
+}
+
+function getTechnicalParameters(slug: string): TechnicalParameter[] {
+  const defaultParams = [
+    { label: "Core PUF Density", value: "40 ± 2", metric: "kg/m³" },
+    { label: "Thermal Conductivity", value: "0.022", metric: "W/m·K" },
+    { label: "Fire Classification", value: "Class B-s2, d0", metric: "EN 13501-1" },
+    { label: "Compressor COP", value: "3.2 - 4.1", metric: "Rating" },
+    { label: "Joint Alignment System", value: "Dual Cam-lock", metric: "Type" },
+  ];
+
+  const db: Record<string, TechnicalParameter[]> = {
+    "modular-cold-rooms": [
+      { label: "Core PUF Density", value: "40 ± 2", metric: "kg/m³" },
+      { label: "Thermal Conductivity", value: "0.021", metric: "W/m·K" },
+      { label: "Compressor Coef (COP)", value: "3.5", metric: "W/W" },
+      { label: "Cam-lock Lock Tension", value: "280", metric: "kg/pull" },
+      { label: "Skin Sheet Thickness", value: "0.5 - 0.6", metric: "mm PPGI" },
+    ],
+    "refrigeration-systems": [
+      { label: "Volumetric Efficiency", value: "82 - 88", metric: "%" },
+      { label: "Condenser Airflow", value: "3200", metric: "m³/hr" },
+      { label: "Operating Pressure (LP)", value: "2.4", metric: "bar" },
+      { label: "Operating Pressure (HP)", value: "18.5", metric: "bar" },
+      { label: "Refrigerant GWP", value: "1300 - 2100", metric: "Rating" },
+    ],
+    "display-cold-rooms": [
+      { label: "Glass Light Transmission", value: "78", metric: "%" },
+      { label: "LED Brightness", value: "120", metric: "lm/W" },
+      { label: "Heater Wire Load", value: "12.5", metric: "W/m" },
+      { label: "Gravity Fan Throw", value: "2.5", metric: "meters" },
+    ],
+    "clean-rooms": [
+      { label: "HEPA Filtering Efficiency", value: "99.97", metric: "% @ 0.3μm" },
+      { label: "Differential Pressure", value: "15 - 30", metric: "Pascal" },
+      { label: "Air Change Rate", value: "25 - 45", metric: "ACH" },
+      { label: "SS Facing Finish", value: "Ra < 0.8", metric: "μm (Polish)" },
+    ],
+  };
+
+  return db[slug] || defaultParams;
+}
+
 export default function ServiceDetailPage({
   params,
 }: {
@@ -479,10 +531,89 @@ export default function ServiceDetailPage({
   const { slug } = use(params);
   const service = serviceDb[slug] || serviceDb["modular-cold-rooms"];
 
+  // Thermodynamic Sizing Calculator States
+  const [calcLength, setCalcLength] = useState("10");
+  const [calcWidth, setCalcWidth] = useState("10");
+  const [calcHeight, setCalcHeight] = useState("10");
+  const [calcTempProfile, setCalcTempProfile] = useState("chilling");
+  const [calcApplicant, setCalcApplicant] = useState("private");
+
+  // Output sizing values
+  const [volumeCuFt, setVolumeCuFt] = useState(1000);
+  const [volumeCuM, setVolumeCuM] = useState(28.3);
+  const [coolingTR, setCoolingTR] = useState(0.8);
+  const [pufThickness, setPufThickness] = useState("80mm");
+  const [estimatedSubsidy, setEstimatedSubsidy] = useState("Rs. 1,05,000");
+
+  // Consultation form states
   const [formSent, setFormSent] = useState(false);
   const [phone, setPhone] = useState("");
   const [name, setName] = useState("");
+  const [business, setBusiness] = useState("");
+  const [notes, setNotes] = useState("");
   const [expandedFaqIdx, setExpandedFaqIdx] = useState<number | null>(null);
+
+  // Run thermodynamic equations when inputs change
+  useEffect(() => {
+    const l = parseFloat(calcLength) || 10;
+    const w = parseFloat(calcWidth) || 10;
+    const h = parseFloat(calcHeight) || 10;
+    const volCuFt = l * w * h;
+    const volCuM = parseFloat((volCuFt * 0.0283168).toFixed(1));
+
+    setVolumeCuFt(Math.round(volCuFt));
+    setVolumeCuM(volCuM);
+
+    // 1. Cooling Load Load Factor per cubic feet
+    let trMultiplier = 0.0008; // Chilling default
+    let thickness = "80mm";
+    if (calcTempProfile === "freezing") {
+      trMultiplier = 0.0012;
+      thickness = "100mm";
+    } else if (calcTempProfile === "deep-freezing") {
+      trMultiplier = 0.0015;
+      thickness = "120mm";
+    } else if (calcTempProfile === "sterile-control") {
+      trMultiplier = 0.0005;
+      thickness = "60mm";
+    }
+    const tr = parseFloat((volCuFt * trMultiplier).toFixed(2));
+    setCoolingTR(tr);
+    setPufThickness(thickness);
+
+    // 2. Cost estimation baseline
+    const costFactor = calcTempProfile.includes("freezing") ? 220 : 160;
+    const projectCost = volCuFt * costFactor;
+
+    // Subsidy rate matching (35% private, 50% FPO/Cooperative)
+    const rate = calcApplicant === "fpo" ? 50 : 35;
+    const subsidy = (projectCost * rate) / 100;
+
+    const formattedSubsidy = new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
+      maximumFractionDigits: 0,
+    }).format(subsidy);
+
+    setEstimatedSubsidy(formattedSubsidy);
+  }, [calcLength, calcWidth, calcHeight, calcTempProfile, calcApplicant]);
+
+  const handleApplySizingToForm = () => {
+    const formattedNotes = `Requested custom Sizing:
+- Dimensions: ${calcLength}'L x ${calcWidth}'W x ${calcHeight}'H
+- Calculated Volume: ${volumeCuFt} cu. ft. (${volumeCuM} m³)
+- Target cooling Profile: ${calcTempProfile.toUpperCase()}
+- Suggested Load: ${coolingTR} TR
+- PUF Panel thickness: ${pufThickness}
+- Expected Subsidy: ${estimatedSubsidy} (${calcApplicant === "fpo" ? "50%" : "35%"})`;
+    setNotes(formattedNotes);
+
+    // Scroll smoothly down to the consultation form
+    const formEl = document.getElementById("sizing-form-card");
+    if (formEl) {
+      formEl.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   const faqs = getServiceFaqs(slug);
   const faqSchema = {
@@ -505,47 +636,152 @@ export default function ServiceDetailPage({
   };
 
   return (
-    <div className="flex flex-col flex-1 min-h-screen bg-[#0C2340] text-white selection:bg-[#0F6E56]">
+    <div className="flex flex-col flex-1 min-h-screen bg-[#0C2340] text-white selection:bg-[#0F6E56] overflow-x-hidden">
       {/* Header */}
       <Navbar />
 
-      {/* Main Page Area */}
-      <div className="mx-auto max-w-5xl w-full px-4 sm:px-6 lg:px-8 py-10 flex-1">
-        {/* Back Link */}
-        <Link
-          href="/services"
-          className="inline-flex items-center gap-1 text-xs text-slate-300 hover:text-white transition-colors mb-6"
-        >
-          <ChevronLeft className="h-4 w-4" />
-          <span>Back to Services Hub</span>
-        </Link>
+      {/* Futuristic Blueprint Hero Banner */}
+      <section className="relative bg-[#0C2340] text-white pt-16 pb-24 overflow-hidden min-h-[540px] flex items-center">
+        {/* Blueprint background grid overlay */}
+        <div 
+          className="absolute inset-0 opacity-15 pointer-events-none z-0" 
+          style={{
+            backgroundImage: `
+              radial-gradient(rgba(59, 130, 246, 0.15) 1px, transparent 1px),
+              linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px)
+            `,
+            backgroundSize: "20px 20px, 40px 40px, 40px 40px"
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-tr from-[#0C2340] via-[#0E2F56]/90 to-[#0A1A30]/95 z-0" />
+        
+        {/* Soft glowing ambient orbs */}
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-blue-500/10 blur-[130px] pointer-events-none z-0" />
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-teal-500/5 blur-[120px] pointer-events-none z-0" />
 
+        <div className="mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8 relative z-10">
+          
+          {/* Clickable Breadcrumbs (Interactive Navigation) */}
+          <div className="flex flex-wrap items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono mb-8">
+            <Link href="/" className="hover:text-white transition-colors">Home</Link>
+            <span className="text-white/40">/</span>
+            <Link href="/services" className="hover:text-white transition-colors">Services</Link>
+            <span className="text-white/40">/</span>
+            <span className="text-blue-400">{service.title}</span>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            {/* Left side: Text Details (col-span-7) */}
+            <div className="lg:col-span-7 space-y-6">
+              <div className="inline-flex items-center gap-2 rounded-xl bg-blue-500/10 border border-blue-500/25 px-4 py-2 text-xs font-bold text-blue-400 font-mono w-fit shadow-sm">
+                <Snowflake className="h-4 w-4 text-blue-400 shrink-0 animate-pulse" />
+                <span>TECHNICAL UTILITY DESIGN</span>
+              </div>
+
+              <h1 className="text-4.5xl sm:text-5xl font-extrabold tracking-tight font-display leading-[1.12]">
+                ThermoVault Solutions:<br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-emerald-400 font-display">
+                  {service.title}
+                </span>
+              </h1>
+
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-body max-w-2xl">
+                {service.detailedDesc} Sourced and engineered to withstand severe tropical climates, delivering optimized coefficient of performance (COP) and strict thermal security.
+              </p>
+
+              {/* Temp Range Pill & Sizing Quick Link */}
+              <div className="flex flex-wrap gap-4 pt-1 items-center">
+                <div className="flex items-center gap-2.5 rounded-full bg-gradient-to-r from-blue-950/50 via-[#0A1A30]/50 to-blue-900/30 border border-blue-500/30 px-4 py-2 text-xs font-bold font-mono text-blue-300 shadow-[0_0_15px_rgba(59,130,246,0.15)] backdrop-blur-md">
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-500/20 text-blue-400 text-[10px] shadow-[0_0_8px_rgba(59,130,246,0.4)] animate-pulse shrink-0">❄</span>
+                  <span>Operational Range: <strong className="text-white font-extrabold tracking-wide">{service.tempRange}</strong></span>
+                </div>
+
+                <button
+                  onClick={() => {
+                    const el = document.getElementById("sizing-calculator-section");
+                    if (el) el.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="rounded-full bg-teal-accent/15 hover:bg-teal-accent/25 border border-teal-light/20 text-teal-light px-4 py-2 text-xs font-bold font-mono transition-all flex items-center gap-1 hover:border-teal-light/40"
+                >
+                  <Calculator className="h-3.5 w-3.5" />
+                  <span>Run Sizing Calculator</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Right side: Interactive CAD blueprint vector panel (col-span-5) */}
+            <div className="lg:col-span-5 hidden lg:flex justify-center relative">
+              <div className="absolute inset-0 bg-blue-500/5 blur-[80px] pointer-events-none z-0" />
+              
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.7 }}
+                className="relative w-full max-w-[340px] aspect-[4/3] rounded-2xl border border-blue-500/20 bg-white/2 p-2.5 shadow-2xl backdrop-blur-sm overflow-hidden group select-none"
+              >
+                {/* Laser scan line overlay */}
+                <div 
+                  className="absolute left-0 right-0 h-[1.5px] bg-cyan-400/40 shadow-[0_0_8px_rgba(34,211,238,0.4)] z-20 pointer-events-none"
+                  style={{ animation: "scan 3.5s linear infinite" }}
+                />
+
+                <div className="absolute top-2 left-2 text-[8px] font-mono text-blue-400/40 font-bold">SCALE: 1:35</div>
+                <div className="absolute bottom-2 right-2 text-[8px] font-mono text-blue-400/40 font-bold">TV-BLUEPRINT-v1</div>
+
+                {/* High tech SVG wireframe layout drawing */}
+                <div className="relative w-full h-full rounded-xl bg-[#0A1A30]/90 p-4 border border-white/5 flex flex-col justify-between">
+                  <div className="w-full flex-1 relative flex items-center justify-center">
+                    <svg className="stroke-teal-light/35 fill-none w-full h-full max-h-40" viewBox="0 0 120 90">
+                      {/* Blueprint Grid Lines */}
+                      <path d="M 0 15 H 120 M 0 30 H 120 M 0 45 H 120 M 0 60 H 120 M 0 75 H 120" strokeWidth="0.1" />
+                      <path d="M 20 0 V 90 M 40 0 V 90 M 60 0 V 90 M 80 0 V 90 M 100 0 V 90" strokeWidth="0.1" />
+                      
+                      {/* Chamber Walls */}
+                      <rect x="25" y="20" width="70" height="50" strokeWidth="1" className="stroke-teal-light" />
+                      
+                      {/* Door Swing */}
+                      <path d="M 95 45 C 95 35, 90 30, 85 30" strokeWidth="0.75" strokeDasharray="1.5 1.5" className="stroke-blue-400" />
+                      <line x1="95" y1="45" x2="85" y2="45" strokeWidth="1" className="stroke-blue-400" />
+                      
+                      {/* Evaporator placement */}
+                      <rect x="30" y="32" width="10" height="26" strokeWidth="0.75" className="stroke-teal-light/70" />
+                      {/* Air throw direction arrows */}
+                      <path d="M 42 37 L 54 37 M 42 45 L 54 45 M 42 53 L 54 53" strokeWidth="0.5" className="stroke-cyan-400" />
+                      
+                      {/* Labels */}
+                      <text x="31" y="27" fill="#1d9e75" fontSize="4.5" className="font-mono">EVAPORATOR</text>
+                      <text x="50" y="60" fill="#6b7e94" fontSize="4.5" className="font-mono">COLD ROOM CORE</text>
+                      <text x="76" y="25" fill="#38bdf8" fontSize="4.5" className="font-mono">EPDM DOOR SEAL</text>
+                    </svg>
+                  </div>
+                  <div className="flex items-center justify-between border-t border-white/5 pt-2 text-[9px] font-mono text-slate-400">
+                    <span>GRID REF: MIDH-95</span>
+                    <span className="flex items-center gap-1 text-teal-light">
+                      <span className="h-1.5 w-1.5 rounded-full bg-teal-light animate-ping" />
+                      ENGINEERING MODEL
+                    </span>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Main Workspace Area */}
+      <div className="mx-auto max-w-5xl w-full px-4 sm:px-6 lg:px-8 py-12 flex-1">
+        
         {/* Dynamic Detail Sheet */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          
           {/* Main Info Columns */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Header segment */}
-            <div className="space-y-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-accent/15 text-teal-light">
-                <Snowflake className="h-5 w-5" />
-              </div>
-              <h1 className="text-3xl font-extrabold tracking-tight font-display text-white">
-                {service.title}
-              </h1>
-              <div className="inline-flex items-center gap-1.5 rounded-lg bg-teal-accent/10 px-2.5 py-1 text-xs font-semibold text-teal-light border border-teal-accent/20 font-mono">
-                <Thermometer className="h-3.5 w-3.5" />
-                <span>Operating Range: {service.tempRange}</span>
-              </div>
-            </div>
-
-            {/* Description */}
-            <div className="max-w-none text-xs sm:text-sm leading-relaxed space-y-4">
-              <p className="text-slate-100">{service.detailedDesc}</p>
-            </div>
-
-            {/* Specifications list (Modern Feature Cards) */}
+          <div className="lg:col-span-2 space-y-8">
+            
+            {/* Technical Specifications list */}
             <div className="space-y-4">
-              <h3 className="text-xs font-bold text-teal-light font-display uppercase tracking-wider">
+              <h3 className="text-xs font-bold text-teal-light font-display uppercase tracking-wider flex items-center gap-1.5">
+                <Settings className="h-4 w-4" />
                 Technical Specifications
               </h3>
               
@@ -555,9 +791,10 @@ export default function ServiceDetailPage({
                   const IconComponent = specIcons[idx % specIcons.length];
                   
                   return (
-                    <div 
+                    <motion.div 
                       key={idx}
-                      className="group relative rounded-2xl border border-white/5 bg-[#0C2340]/40 p-5 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:bg-white/5 hover:border-teal-light/20 hover:shadow-[0_0_15px_rgba(29,158,117,0.15)] flex flex-col justify-between"
+                      whileHover={{ y: -3, scale: 1.01 }}
+                      className="group relative rounded-2xl border border-white/5 bg-[#0C2340]/40 p-5 shadow-sm hover:bg-white/5 hover:border-teal-light/20 hover:shadow-[0_0_15px_rgba(29,158,117,0.15)] flex flex-col justify-between"
                     >
                       <div className="space-y-3">
                         <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-teal-accent/10 border border-teal-accent/25 text-teal-light transition-transform duration-300 group-hover:scale-110">
@@ -572,9 +809,156 @@ export default function ServiceDetailPage({
                           </p>
                         </div>
                       </div>
-                    </div>
+                    </motion.div>
                   );
                 })}
+              </div>
+            </div>
+
+            {/* NEW: Thermodynamic Heat Load & Sizing Calculator Section */}
+            <div id="sizing-calculator-section" className="rounded-2xl border border-white/10 bg-[#0C2340]/60 p-6 md:p-8 shadow-xl relative scroll-mt-24">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 rounded-full blur-2xl pointer-events-none" />
+
+              <div className="flex items-center gap-2.5 mb-4 border-b border-white/5 pb-3">
+                <Calculator className="h-5 w-5 text-teal-light" />
+                <h3 className="text-sm font-extrabold text-white font-display uppercase tracking-wider">
+                  Thermodynamic Heat Load &amp; Sizing Calculator
+                </h3>
+              </div>
+
+              <p className="text-xs text-slate-300 leading-relaxed mb-6">
+                Calculate standard volumetric measurements, suggested refrigeration Tons (TR) capacity, recommended PUF panel thickness, and back-ended capital subsidy bounds dynamically.
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+                
+                {/* Inputs Columns (col-span-5) */}
+                <div className="md:col-span-5 space-y-4 bg-slate-950/25 p-4 rounded-xl border border-white/5">
+                  <div className="text-[9px] text-slate-400 font-mono uppercase font-bold tracking-wider">Chamber Dimensions</div>
+                  <div className="grid grid-cols-3 gap-2">
+                    <div>
+                      <label className="text-[8px] text-slate-400 font-mono block mb-1">Length (ft)</label>
+                      <input
+                        type="number"
+                        value={calcLength}
+                        onChange={(e) => setCalcLength(e.target.value)}
+                        className="w-full rounded-lg bg-[#0C2340] border border-white/10 p-2 text-xs font-mono text-white text-center focus:outline-none focus:border-blue-500"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[8px] text-slate-400 font-mono block mb-1">Width (ft)</label>
+                      <input
+                        type="number"
+                        value={calcWidth}
+                        onChange={(e) => setCalcWidth(e.target.value)}
+                        className="w-full rounded-lg bg-[#0C2340] border border-white/10 p-2 text-xs font-mono text-white text-center focus:outline-none focus:border-blue-500"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[8px] text-slate-400 font-mono block mb-1">Height (ft)</label>
+                      <input
+                        type="number"
+                        value={calcHeight}
+                        onChange={(e) => setCalcHeight(e.target.value)}
+                        className="w-full rounded-lg bg-[#0C2340] border border-white/10 p-2 text-xs font-mono text-white text-center focus:outline-none focus:border-blue-500"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="text-[8px] text-slate-400 font-mono uppercase block mb-1">Temperature Profile</label>
+                    <select
+                      value={calcTempProfile}
+                      onChange={(e) => setCalcTempProfile(e.target.value)}
+                      className="w-full rounded-lg bg-[#0C2340] border border-white/10 p-2 text-xs text-white focus:outline-none focus:border-blue-500"
+                    >
+                      <option value="chilling">Chilling (0°C to +8°C)</option>
+                      <option value="freezing">Freezing (-15°C to -18°C)</option>
+                      <option value="deep-freezing">Deep Freezing (-20°C to -25°C)</option>
+                      <option value="sterile-control">Sterile Room (+18°C to +22°C)</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="text-[8px] text-slate-400 font-mono uppercase block mb-1">Applicant Category</label>
+                    <select
+                      value={calcApplicant}
+                      onChange={(e) => setCalcApplicant(e.target.value)}
+                      className="w-full rounded-lg bg-[#0C2340] border border-white/10 p-2 text-xs text-white focus:outline-none focus:border-blue-500"
+                    >
+                      <option value="private">Private Enterprise (35% Grant)</option>
+                      <option value="fpo">Farmer Group / FPO (50% Grant)</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Outputs Column (col-span-7) */}
+                <div className="md:col-span-7 space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="bg-[#0A1A30]/50 border border-white/5 rounded-xl p-3.5">
+                      <span className="text-[8px] text-slate-400 font-mono block uppercase">Volume</span>
+                      <span className="text-sm font-bold font-mono text-white">
+                        {volumeCuFt} <span className="text-[10px] text-slate-400">cu.ft.</span>
+                      </span>
+                      <span className="text-[9px] text-slate-400 font-mono block">({volumeCuM} m³)</span>
+                    </div>
+
+                    <div className="bg-[#0A1A30]/50 border border-white/5 rounded-xl p-3.5">
+                      <span className="text-[8px] text-slate-400 font-mono block uppercase">Calculated Load</span>
+                      <span className="text-sm font-bold font-mono text-teal-light">
+                        {coolingTR} <span className="text-[10px] text-slate-400">TR</span>
+                      </span>
+                      <span className="text-[8px] text-slate-400 font-mono block">Tons of Refrigeration</span>
+                    </div>
+
+                    <div className="bg-[#0A1A30]/50 border border-white/5 rounded-xl p-3.5">
+                      <span className="text-[8px] text-slate-400 font-mono block uppercase">PUF Thickness</span>
+                      <span className="text-sm font-bold font-mono text-white">
+                        {pufThickness}
+                      </span>
+                      <span className="text-[8px] text-slate-400 font-mono block">Rigid Cam-lock Panel</span>
+                    </div>
+
+                    <div className="bg-[#0A1A30]/50 border border-white/5 rounded-xl p-3.5">
+                      <span className="text-[8px] text-slate-400 font-mono block uppercase">Est. Gov Subsidy</span>
+                      <span className="text-sm font-bold font-mono text-emerald-400">
+                        {estimatedSubsidy}
+                      </span>
+                      <span className="text-[8px] text-slate-400 font-mono block">MIDH / NHM Scheme</span>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={handleApplySizingToForm}
+                    className="w-full flex items-center justify-center gap-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 py-3 text-xs font-bold text-white shadow-md transition-all active:scale-[0.98]"
+                  >
+                    <Sliders className="h-4 w-4" />
+                    <span>Apply Sizing to Consultation Form</span>
+                  </button>
+                </div>
+
+              </div>
+
+            </div>
+
+            {/* NEW: Engineering Parameters Datasheet Board */}
+            <div className="space-y-4 pt-6 border-t border-white/5">
+              <h3 className="text-xs font-bold text-teal-light font-display uppercase tracking-wider flex items-center gap-1.5">
+                <Gauge className="h-4 w-4" />
+                Engineering Parameters &amp; Compliance
+              </h3>
+
+              <div className="rounded-2xl border border-white/5 bg-[#0C2340]/40 overflow-hidden shadow-sm">
+                <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y sm:divide-y-0 divide-white/5 font-mono">
+                  {getTechnicalParameters(slug).map((param, i) => (
+                    <div key={i} className="p-4 space-y-1">
+                      <span className="text-[8px] text-slate-400 uppercase tracking-wider block font-bold">{param.label}</span>
+                      <div className="text-xs font-bold text-white">
+                        {param.value} <span className="text-[9px] text-teal-light font-normal">{param.metric}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -584,7 +968,8 @@ export default function ServiceDetailPage({
                 <span className="text-[10px] font-bold uppercase tracking-wider text-teal-light font-mono block">
                   DEPLOYMENT SOLUTIONS
                 </span>
-                <h3 className="text-xs font-bold text-white font-display uppercase tracking-wider">
+                <h3 className="text-xs font-bold text-white font-display uppercase tracking-wider flex items-center gap-1.5">
+                  <Ruler className="h-4 w-4" />
                   Ideal Applications
                 </h3>
               </div>
@@ -628,9 +1013,10 @@ export default function ServiceDetailPage({
             <div className="space-y-4 pt-8 border-t border-white/5">
               <div className="space-y-1">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-teal-light font-mono block">
-                  SEO & SEARCH ASSISTANCE
+                  SEO &amp; SEARCH ASSISTANCE
                 </span>
-                <h3 className="text-xs font-bold text-white font-display uppercase tracking-wider">
+                <h3 className="text-xs font-bold text-white font-display uppercase tracking-wider flex items-center gap-1.5">
+                  <HelpCircle className="h-4.5 w-4.5 text-teal-light" />
                   Frequently Asked Questions
                 </h3>
               </div>
@@ -679,7 +1065,7 @@ export default function ServiceDetailPage({
             </div>
 
             {/* Related Solutions (internal linking + SEO) */}
-            <div className="space-y-3">
+            <div className="space-y-3 pt-6 border-t border-white/5">
               <h3 className="text-xs font-bold text-white font-display uppercase tracking-wider text-teal-light">
                 Related Solutions
               </h3>
@@ -704,13 +1090,13 @@ export default function ServiceDetailPage({
               </h3>
               <ul className="space-y-2 text-xs text-white">
                 {[
-                  "Customized Engineering",
-                  "Energy Efficient Systems",
-                  "Subsidy Guidance",
-                  "Reliable After-Sales Support",
-                  "IoT Monitoring Ready",
+                  "Customized Engineering: Tailored design parameters matching product load matrices.",
+                  "Energy Efficient Systems: Sub-cooler cycles reducing ongoing electricity bills.",
+                  "Subsidy Guidance: Compiling bankable DPR reports for MIDH, NHM, and NABARD grants.",
+                  "Reliable After-Sales Support: Emergency 4-hour breakdown SLAs across Pune MIDC.",
+                  "IoT Monitoring Ready: Integrated remote digital temperature & humidity telemetry.",
                 ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-2">
+                  <li key={i} className="flex items-start gap-2 text-slate-300">
                     <CheckCircle2 className="h-4 w-4 text-teal-light shrink-0 mt-0.5" />
                     <span>{item}</span>
                   </li>
@@ -719,118 +1105,148 @@ export default function ServiceDetailPage({
             </div>
           </div>
 
-          {/* Callback Quote Intake form */}
-          <div 
-            className="relative rounded-2xl border border-white/10 bg-[#0C2340]/80 p-6 sm:p-8 shadow-2xl backdrop-blur-md overflow-hidden h-fit"
-            style={{
-              backgroundImage: `
-                linear-gradient(to right, rgba(59, 130, 246, 0.08) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(59, 130, 246, 0.08) 1px, transparent 1px)
-              `,
-              backgroundSize: "16px 16px"
-            }}
-          >
-            {/* Ambient glowing radial blur behind illustration */}
-            <div className="absolute top-0 right-0 w-36 h-36 bg-blue-500/10 rounded-full blur-2xl pointer-events-none" />
+          {/* Callback Quote Intake form (col-span-1) */}
+          <div id="sizing-form-card" className="relative h-fit lg:sticky lg:top-24 z-20 scroll-mt-24">
+            <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 opacity-25 blur-md pointer-events-none" />
+            
+            <div 
+              className="relative rounded-2xl border border-white/15 bg-[#0C2340]/90 p-6 sm:p-8 shadow-2xl backdrop-blur-md overflow-hidden"
+              style={{
+                backgroundImage: `
+                  linear-gradient(to right, rgba(59, 130, 246, 0.08) 1px, transparent 1px),
+                  linear-gradient(to bottom, rgba(59, 130, 246, 0.08) 1px, transparent 1px)
+                `,
+                backgroundSize: "16px 16px"
+              }}
+            >
+              {/* Ambient glowing radial blur */}
+              <div className="absolute top-0 right-0 w-36 h-36 bg-blue-500/10 rounded-full blur-2xl pointer-events-none" />
 
-            {/* Technical Vector Drawing Blueprint Schematic */}
-            <div className="relative h-20 w-full rounded-xl bg-slate-950/40 border border-white/5 overflow-hidden mb-6 flex items-center justify-center">
-              <div 
-                className="absolute inset-0 opacity-20" 
-                style={{
-                  backgroundImage: "radial-gradient(rgba(59, 130, 246, 0.3) 1.2px, transparent 1.2px)",
-                  backgroundSize: "12px 12px"
-                }}
-              />
-              <svg className="absolute inset-0 h-full w-full stroke-blue-500/25 fill-none" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <circle cx="50" cy="50" r="32" strokeWidth="0.5" strokeDasharray="2 2" />
-                <circle cx="50" cy="50" r="16" strokeWidth="0.5" />
-                <line x1="10" y1="50" x2="90" y2="50" strokeWidth="0.5" strokeDasharray="4 4" />
-                <line x1="50" y1="10" x2="50" y2="90" strokeWidth="0.5" strokeDasharray="4 4" />
-                <path d="M 20 20 L 80 80 M 20 80 L 80 20" strokeWidth="0.25" strokeDasharray="1 3" />
-              </svg>
-              
-              <div className="relative z-10 flex items-center gap-3 px-4 py-2">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/10 border border-blue-500/35 text-blue-400">
-                  <Settings className="h-5 w-5 animate-spin-slow text-blue-400" />
-                </div>
-                <div className="text-left">
-                  <div className="text-[10px] font-extrabold font-mono uppercase tracking-wider text-blue-400">CAD Blueprint Sizing</div>
-                  <div className="text-[8px] font-bold text-slate-300 font-mono flex items-center gap-1">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    <span>DRAFTSMAN STATUS: ONLINE</span>
+              {/* Technical Vector Drawing Blueprint Schematic */}
+              <div className="relative h-20 w-full rounded-xl bg-slate-950/40 border border-white/5 overflow-hidden mb-6 flex items-center justify-center">
+                <div 
+                  className="absolute inset-0 opacity-20" 
+                  style={{
+                    backgroundImage: "radial-gradient(rgba(59, 130, 246, 0.3) 1.2px, transparent 1.2px)",
+                    backgroundSize: "12px 12px"
+                  }}
+                />
+                <svg className="absolute inset-0 h-full w-full stroke-blue-500/25 fill-none" viewBox="0 0 100 100" preserveAspectRatio="none">
+                  <circle cx="50" cy="50" r="32" strokeWidth="0.5" strokeDasharray="2 2" />
+                  <circle cx="50" cy="50" r="16" strokeWidth="0.5" />
+                  <line x1="10" y1="50" x2="90" y2="50" strokeWidth="0.5" strokeDasharray="4 4" />
+                  <line x1="50" y1="10" x2="50" y2="90" strokeWidth="0.5" strokeDasharray="4 4" />
+                  <path d="M 20 20 L 80 80 M 20 80 L 80 20" strokeWidth="0.25" strokeDasharray="1 3" />
+                </svg>
+                
+                <div className="relative z-10 flex items-center gap-3 px-4 py-2">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/10 border border-blue-500/35 text-blue-400">
+                    <Settings className="h-5 w-5 animate-spin-slow text-blue-400" />
+                  </div>
+                  <div className="text-left">
+                    <div className="text-[10px] font-extrabold font-mono uppercase tracking-wider text-blue-400">CAD Blueprint Sizing</div>
+                    <div className="text-[8px] font-bold text-slate-300 font-mono flex items-center gap-1">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                      <span>DRAFTSMAN STATUS: ONLINE</span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <h3 className="text-sm font-extrabold text-white mb-2 font-display uppercase tracking-wider">
-              Sizing Consultation
-            </h3>
-            <p className="text-xs text-slate-300 mb-6 leading-relaxed font-body">
-              Need engineering heat gain load calculations or customized CAD layout blueprints? Request quote.
-            </p>
+              <h3 className="text-sm font-extrabold text-white mb-2 font-display uppercase tracking-wider">
+                Sizing Consultation
+              </h3>
+              <p className="text-xs text-slate-300 mb-6 leading-relaxed font-body">
+                Need engineering heat gain load calculations or customized CAD layout blueprints? Request quote callback.
+              </p>
 
-            {formSent ? (
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-6 text-center space-y-4 py-10"
-              >
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-400 mx-auto">
-                  <CheckCircle2 className="h-6 w-6" />
-                </div>
-                <div className="space-y-1">
-                  <h4 className="text-xs font-bold text-white font-display">Callback Request Scheduled</h4>
-                  <p className="text-[10px] text-slate-300 leading-relaxed">
-                    Our design draftsman will contact you within 30 minutes.
-                  </p>
-                </div>
-              </motion.div>
-            ) : (
-              <form onSubmit={handleCallbackSubmit} className="space-y-4">
-                <div>
-                  <label className="text-[10px] text-slate-400 font-semibold font-mono uppercase tracking-wider block mb-1">
-                    Your Name
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="e.g. Kuldeep"
-                    className="w-full rounded-xl bg-[#0c2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-body"
-                  />
-                </div>
-                <div>
-                  <label className="text-[10px] text-slate-400 font-semibold font-mono uppercase tracking-wider block mb-1">
-                    Mobile Number
-                  </label>
-                  <input
-                    type="tel"
-                    required
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    placeholder="e.g. +91 80550 10620"
-                    className="w-full rounded-xl bg-[#0c2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-mono"
-                  />
-                </div>
-
-                <div className="flex items-center gap-2 text-[10px] text-emerald-400 font-bold font-mono py-2 bg-emerald-500/5 border border-emerald-500/10 rounded-xl justify-center w-full shadow-inner select-none">
-                  <Clock className="h-3.5 w-3.5 animate-pulse text-emerald-400" />
-                  <span>Response within 30 mins</span>
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full flex items-center justify-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-500 py-3.5 text-xs font-bold text-white shadow-lg active:scale-[0.98] transition-all font-display group/btn"
+              {formSent ? (
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-6 text-center space-y-4 py-10"
                 >
-                  <Send className="h-3.5 w-3.5 text-inherit transition-transform group-hover/btn:translate-x-0.5" />
-                  <span>Talk to Cold Chain Expert</span>
-                </button>
-              </form>
-            )}
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-400 mx-auto">
+                    <CheckCircle2 className="h-6 w-6" />
+                  </div>
+                  <div className="space-y-1">
+                    <h4 className="text-xs font-bold text-white font-display">Callback Request Scheduled</h4>
+                    <p className="text-[10px] text-slate-300 leading-relaxed px-1">
+                      Thanks <strong className="text-white">{name}</strong>. Our design draftsman will contact you within 30 minutes.
+                    </p>
+                  </div>
+                </motion.div>
+              ) : (
+                <form onSubmit={handleCallbackSubmit} className="space-y-4">
+                  <div>
+                    <label className="text-[10px] text-slate-400 font-semibold font-mono uppercase tracking-wider block mb-1">
+                      Your Name
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="e.g. Kuldeep"
+                      className="w-full rounded-xl bg-[#0C2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-body animate-reveal-input"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-[10px] text-slate-400 font-semibold font-mono uppercase tracking-wider block mb-1">
+                      Mobile Number
+                    </label>
+                    <input
+                      type="tel"
+                      required
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      placeholder="e.g. +91 80550 10620"
+                      className="w-full rounded-xl bg-[#0C2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-mono"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-[10px] text-slate-400 font-semibold font-mono uppercase tracking-wider block mb-1">
+                      Business / Organization
+                    </label>
+                    <input
+                      type="text"
+                      value={business}
+                      onChange={(e) => setBusiness(e.target.value)}
+                      placeholder="e.g. Cooperative / Farm"
+                      className="w-full rounded-xl bg-[#0C2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-body"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="text-[10px] text-slate-400 font-semibold font-mono uppercase tracking-wider block mb-1">
+                      Sizing Parameters
+                    </label>
+                    <textarea
+                      value={notes}
+                      onChange={(e) => setNotes(e.target.value)}
+                      placeholder="Enter details or click 'Apply Sizing' from the calculator above..."
+                      className="w-full rounded-xl bg-[#0C2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-body h-20 resize-none text-[10px] leading-relaxed"
+                    />
+                  </div>
+
+                  <div className="flex items-center gap-2 text-[10px] text-emerald-400 font-bold font-mono py-2 bg-emerald-500/5 border border-emerald-500/10 rounded-xl justify-center w-full shadow-inner select-none">
+                    <Clock className="h-3.5 w-3.5 animate-pulse text-emerald-400" />
+                    <span>Response within 30 mins</span>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full flex items-center justify-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-500 py-3.5 text-xs font-bold text-white shadow-lg active:scale-[0.98] transition-all font-display group/btn"
+                  >
+                    <Send className="h-3.5 w-3.5 text-inherit transition-transform group-hover/btn:translate-x-0.5" />
+                    <span>Talk to Cold Chain Expert</span>
+                  </button>
+                </form>
+              )}
+            </div>
           </div>
+
         </div>
       </div>
 
