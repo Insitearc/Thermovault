@@ -51,6 +51,19 @@ export default function FruitsServicesPage() {
   // FAQ Accordion State
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
+  // Interactive Challenges Diagnostics state
+  const [hoveredChallengeIdx, setHoveredChallengeIdx] = useState<number | null>(null);
+  const [mouseCoords, setMouseCoords] = useState({ x: 0, y: 0 });
+
+  const handleChallengeMouseMove = (e: React.MouseEvent<HTMLDivElement>, idx: number) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setMouseCoords({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+    setHoveredChallengeIdx(idx);
+  };
+
   const handleCallbackSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !phone) return;
@@ -63,53 +76,57 @@ export default function FruitsServicesPage() {
 
   const challenges = [
     {
-      title: "Ethylene Buildup",
-      desc: "Uncontrolled ethylene causes rapid over-ripening and decay.",
-      icon: AlertTriangle,
-      color: "from-red-500/20 to-red-600/5",
-      iconColor: "text-red-500",
-      borderColor: "hover:border-red-500/30",
-    },
-    {
-      title: "Weight Loss (Shrinkage)",
-      desc: "Low humidity causes dehydration and significant weight loss.",
-      icon: Droplet,
-      color: "from-blue-500/20 to-blue-600/5",
-      iconColor: "text-blue-500",
-      borderColor: "hover:border-blue-500/30",
-    },
-    {
+      stage: "01",
+      phase: "Post-Harvest Intake",
       title: "Chilling Injuries",
-      desc: "Improper cold temperatures damage cells in tropical crops.",
+      desc: "Improper blast temperature damages cells in tropical crops, causing internal decay and aesthetic skin defects.",
       icon: Thermometer,
       color: "from-orange-500/20 to-orange-600/5",
-      iconColor: "text-orange-500",
+      iconColor: "text-orange-400",
       borderColor: "hover:border-orange-500/30",
+      severity: "85% (High)",
+      code: "POST-HARV-COOL",
+      mitigation: "Micro-climate cooling profiles with customized core sensor probes to regulate gradual temperature pull-down."
     },
     {
-      title: "Fungal & Mold Ingress",
-      desc: "Excess moisture on skin promotes bacterial rot and fungal mold.",
+      stage: "02",
+      phase: "Bulk Storage",
+      title: "Weight Loss & Shrinkage",
+      desc: "Low relative humidity causes product moisture to evaporate, causing significant weight loss and cell shrinkage.",
+      icon: Droplet,
+      color: "from-blue-500/20 to-blue-600/5",
+      iconColor: "text-blue-400",
+      borderColor: "hover:border-blue-500/30",
+      severity: "90% (High)",
+      code: "STOR-HUMID-ERR",
+      mitigation: "Ultrasonic high-pressure humidification grids maintaining a steady 95% Relative Humidity boundary."
+    },
+    {
+      stage: "03",
+      phase: "Ripening Process",
+      title: "Ethylene & CO2 Buildup",
+      desc: "Uncontrolled ethylene and CO2 accumulation in chambers induces rapid crop suffocation, over-ripening, and decay.",
       icon: ShieldAlert,
+      color: "from-red-500/20 to-red-600/5",
+      iconColor: "text-red-400",
+      borderColor: "hover:border-red-500/30",
+      severity: "92% (Critical)",
+      code: "TRANS-ETHY-ACC",
+      mitigation: "Continuous gas sensors linked to automatic exhaust ventilation and scrubbers for atmospheric control."
+    },
+    {
+      stage: "04",
+      phase: "Distribution Prep",
+      title: "Fungal & Mold Ingress",
+      desc: "Warm condensation layers forming on skin prompt swift bacterial growth and post-harvest fungal infection.",
+      icon: AlertTriangle,
       color: "from-yellow-500/20 to-yellow-600/5",
-      iconColor: "text-yellow-500",
+      iconColor: "text-yellow-400",
       borderColor: "hover:border-yellow-500/30",
-    },
-    {
-      title: "High Energy Consumption",
-      desc: "Ventilation cycles and compressors raise monthly power costs.",
-      icon: Zap,
-      color: "from-emerald-500/20 to-emerald-600/5",
-      iconColor: "text-emerald-500",
-      borderColor: "hover:border-emerald-500/30",
-    },
-    {
-      title: "Grid Outages",
-      desc: "Unstable rural grids disrupt ripening control systems.",
-      icon: Battery,
-      color: "from-purple-500/20 to-purple-600/5",
-      iconColor: "text-purple-500",
-      borderColor: "hover:border-purple-500/30",
-    },
+      severity: "82% (Medium)",
+      code: "STG-BACT-ROT",
+      mitigation: "Anti-fungal, clean-grade food-safe panel liners and positive pressure dry air curtains at airlocks."
+    }
   ];
 
   const valueProps = [
@@ -522,45 +539,83 @@ export default function FruitsServicesPage() {
             </p>
           </div>
 
-          {/* Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {challenges.map((chal, idx) => {
-              const Icon = chal.icon;
-              return (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.5, delay: idx * 0.05 }}
-                  whileHover={{ 
-                    y: -6,
-                    boxShadow: "0 20px 25px -5px rgba(24, 95, 165, 0.08), 0 10px 10px -5px rgba(24, 95, 165, 0.03)"
-                  }}
-                  className={`group rounded-2xl border border-slate-100 bg-white p-6 transition-all duration-300 flex flex-col justify-between ${chal.borderColor}`}
-                >
-                  <div className="space-y-4">
-                    <div className={`flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br ${chal.color} ${chal.iconColor} border border-white/10 shadow-sm transition-transform duration-300 group-hover:scale-105`}>
-                      <Icon className="h-5 w-5" />
-                    </div>
+          {/* supply chain timeline layout */}
+          <div className="relative pt-8">
+            {/* Horizontal timeline connector lines for desktop */}
+            <div className="absolute top-28 left-[10%] right-[10%] h-0.5 border-t-2 border-dashed border-slate-200 hidden lg:block z-0" />
+            
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 relative z-10 text-slate-800">
+              {challenges.map((chal, idx) => {
+                const Icon = chal.icon;
+                const isHovered = hoveredChallengeIdx === idx;
+                return (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.5, delay: idx * 0.1 }}
+                    onMouseMove={(e) => handleChallengeMouseMove(e, idx)}
+                    onMouseLeave={() => setHoveredChallengeIdx(null)}
+                    className="relative bg-slate-50 rounded-2xl border border-slate-100 p-6 flex flex-col justify-between shadow-sm transition-all duration-300 hover:border-blue-300 hover:shadow-md select-none group min-h-[350px]"
+                  >
+                    {/* Spotlight Glow Effect */}
+                    {isHovered && (
+                      <div 
+                        className="absolute inset-0 pointer-events-none opacity-45 transition-opacity duration-300 bg-[radial-gradient(180px_circle_at_var(--x)_var(--y),rgba(59,130,246,0.12),transparent_80%)] rounded-2xl"
+                        style={{
+                          // @ts-ignore
+                          "--x": `${mouseCoords.x}px`,
+                          "--y": `${mouseCoords.y}px`
+                        }}
+                      />
+                    )}
 
-                    <div className="space-y-2">
-                      <h3 className="text-sm font-extrabold text-[#0c2340] font-display">
-                        {chal.title}
-                      </h3>
-                      <p className="text-xs text-slate-500 leading-relaxed font-body">
+                    <div className="space-y-4 text-left">
+                      {/* Step Indicator */}
+                      <div className="flex items-center justify-between">
+                        <div className="text-[10px] font-bold font-mono text-blue-600 bg-blue-50 px-2 py-0.5 rounded">
+                          STAGE {chal.stage}
+                        </div>
+                        <span className="text-[8px] font-mono font-bold text-red-500 uppercase">
+                          Risk: {chal.severity}
+                        </span>
+                      </div>
+
+                      {/* Icon & Phase label */}
+                      <div className="flex items-center gap-3">
+                        <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${chal.color} ${chal.iconColor} border border-white/10 shadow-inner group-hover:scale-105 transition-transform duration-300`}>
+                          <Icon className="h-5 w-5" />
+                        </div>
+                        <div className="text-left leading-tight">
+                          <span className="text-[8px] text-slate-400 font-mono uppercase tracking-wider block font-bold">
+                            {chal.phase}
+                          </span>
+                          <h4 className="text-xs font-extrabold text-[#0c2340] font-display">
+                            {chal.title}
+                          </h4>
+                        </div>
+                      </div>
+
+                      {/* Description */}
+                      <p className="text-[11px] text-slate-500 leading-relaxed font-body">
                         {chal.desc}
                       </p>
                     </div>
-                  </div>
 
-                  <div className="pt-6 border-t border-slate-50 mt-6 flex items-center gap-1 text-[10px] font-bold text-slate-400 group-hover:text-blue-600 transition-colors uppercase tracking-wider font-mono">
-                    <span>Mitigation ready</span>
-                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </div>
-                </motion.div>
-              );
-            })}
+                    {/* Mitigation Footer info */}
+                    <div className="pt-4 border-t border-slate-200/60 mt-6 text-left space-y-2">
+                      <span className="text-[8.5px] font-bold text-emerald-600 font-mono uppercase tracking-wider block">
+                        Mitigation Safeguard
+                      </span>
+                      <p className="text-[10px] text-slate-600 leading-normal font-body">
+                        {chal.mitigation}
+                      </p>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
@@ -776,20 +831,20 @@ export default function FruitsServicesPage() {
               {/* Counter badges */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-slate-100 text-center font-mono">
                 <div className="space-y-1">
-                  <div className="text-lg font-extrabold text-[#0c2340] font-display">500+</div>
-                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Projects Delivered</div>
+                  <div className="text-lg font-extrabold text-[#0c2340] font-display">98%</div>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Freshness Retention</div>
                 </div>
                 <div className="space-y-1">
-                  <div className="text-lg font-extrabold text-[#0c2340] font-display">15+ Years</div>
-                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Of Experience</div>
+                  <div className="text-lg font-extrabold text-[#0c2340] font-display">Multi-Zone</div>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Ripening Precision</div>
                 </div>
                 <div className="space-y-1">
-                  <div className="text-lg font-extrabold text-[#0c2340] font-display">24/7</div>
-                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Service Support</div>
+                  <div className="text-lg font-extrabold text-[#0c2340] font-display">30%</div>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Energy Cost Savings</div>
                 </div>
                 <div className="space-y-1">
-                  <div className="text-lg font-extrabold text-[#0c2340] font-display">Pan India</div>
-                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Service Network</div>
+                  <div className="text-lg font-extrabold text-[#0c2340] font-display">Active</div>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Ethylene Control</div>
                 </div>
               </div>
 

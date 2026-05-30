@@ -50,6 +50,19 @@ export default function MeatServicesPage() {
   // FAQ Accordion State
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
+  // Interactive Challenges Hover states
+  const [hoveredChallengeIdx, setHoveredChallengeIdx] = useState<number | null>(null);
+  const [mouseCoords, setMouseCoords] = useState({ x: 0, y: 0 });
+
+  const handleChallengeMouseMove = (e: React.MouseEvent<HTMLDivElement>, idx: number) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setMouseCoords({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+    setHoveredChallengeIdx(idx);
+  };
+
   const handleCallbackSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !phone) return;
@@ -63,51 +76,75 @@ export default function MeatServicesPage() {
   const challenges = [
     {
       title: "Bacterial Growth",
-      desc: "Improper temperature causes bacterial contamination.",
+      desc: "Improper temperature causes rapid bacterial replication and severe bio-safety hazards.",
       icon: ShieldAlert,
       color: "from-red-500/20 to-red-600/5",
       iconColor: "text-red-500",
       borderColor: "hover:border-red-500/30",
+      severity: 95,
+      severityLabel: "95% (Critical Risk)",
+      code: "CRIT-BACT-01",
+      mitigation: "SS-304 interior panels, hermetic joint sealings, and continuous temperature logging below 2°C."
     },
     {
       title: "Temperature Fluctuations",
-      desc: "Inconsistent cooling affects quality, texture and shelf life.",
+      desc: "Inconsistent cooling cycles degrade quality, compromising cellular structure and shelf life.",
       icon: Thermometer,
       color: "from-orange-500/20 to-orange-600/5",
       iconColor: "text-orange-500",
       borderColor: "hover:border-orange-500/30",
+      severity: 88,
+      severityLabel: "88% (High Warning)",
+      code: "WARN-TEMP-02",
+      mitigation: "PLC automation controls and double-redundant cooling loops with automatic switchover."
     },
     {
       title: "Cross Contamination",
-      desc: "Unhygienic storage can lead to contamination and health risks.",
+      desc: "Unhygienic storage partitions lead to airborne pathogens and cross-batch contamination.",
       icon: AlertTriangle,
       color: "from-yellow-500/20 to-yellow-600/5",
       iconColor: "text-yellow-500",
       borderColor: "hover:border-yellow-500/30",
+      severity: 85,
+      severityLabel: "85% (High Warning)",
+      code: "WARN-CONT-03",
+      mitigation: "Airlock partitions, high-velocity air curtains at doors, and anti-microbial epoxy flooring."
     },
     {
-      title: "Freezer Burn",
-      desc: "Improper freezing causes dryness and product deterioration.",
+      title: "Freezer Burn & Dehydration",
+      desc: "Slow freezing cycles cause large ice crystals to form, dehydrating tissues and destroying fibers.",
       icon: Snowflake,
       color: "from-blue-500/20 to-blue-600/5",
       iconColor: "text-blue-500",
       borderColor: "hover:border-blue-500/30",
+      severity: 78,
+      severityLabel: "78% (Medium Risk)",
+      code: "QUAL-BURN-04",
+      mitigation: "Ultra-fast blast freezing down to -40°C, rapidly locking moisture at cellular level."
     },
     {
-      title: "High Energy Usage",
-      desc: "Older systems consume more power and increase operational costs.",
+      title: "High Energy Overhead",
+      desc: "Older thermodynamic equipment runs continuously, inflating power costs and operating overhead.",
       icon: Zap,
       color: "from-emerald-500/20 to-emerald-600/5",
       iconColor: "text-emerald-500",
       borderColor: "hover:border-emerald-500/30",
+      severity: 72,
+      severityLabel: "72% (Medium Risk)",
+      code: "COST-ENER-05",
+      mitigation: "VFD compressor grids and 120mm high-density polyurethane (PUF) insulation panels."
     },
     {
-      title: "Power Failures",
-      desc: "Power cuts can spoil inventory and lead to heavy financial loss.",
+      title: "Power Grid Failures",
+      desc: "Sudden utility blackouts risk entire batch spoilage without immediate thermal backup.",
       icon: Battery,
       color: "from-purple-500/20 to-purple-600/5",
       iconColor: "text-purple-500",
       borderColor: "hover:border-purple-500/30",
+      severity: 92,
+      severityLabel: "92% (Critical Risk)",
+      code: "CRIT-PWR-06",
+      mitigation: "Automatic generator failover relays and IoT phase-failure alerts."
     },
   ];
 
@@ -483,6 +520,7 @@ export default function MeatServicesPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {challenges.map((chal, idx) => {
               const Icon = chal.icon;
+              const isHovered = hoveredChallengeIdx === idx;
               return (
                 <motion.div
                   key={idx}
@@ -490,17 +528,34 @@ export default function MeatServicesPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.5, delay: idx * 0.05 }}
-                  whileHover={{ 
-                    y: -6,
-                    boxShadow: "0 20px 25px -5px rgba(24, 95, 165, 0.08), 0 10px 10px -5px rgba(24, 95, 165, 0.03)"
-                  }}
-                  className={`group rounded-2xl border border-slate-100 bg-white p-6 transition-all duration-300 flex flex-col justify-between ${chal.borderColor}`}
+                  onMouseMove={(e) => handleChallengeMouseMove(e, idx)}
+                  onMouseLeave={() => setHoveredChallengeIdx(null)}
+                  className={`group relative rounded-2xl border border-slate-100 bg-white p-6 transition-all duration-300 flex flex-col justify-between overflow-hidden ${chal.borderColor}`}
                 >
-                  <div className="space-y-4">
-                    <div className={`flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br ${chal.color} ${chal.iconColor} border border-white/10 shadow-sm transition-transform duration-300 group-hover:scale-105`}>
-                      <Icon className="h-5 w-5" />
+                  {/* Spotlight Glow Effect */}
+                  {isHovered && (
+                    <div 
+                      className="absolute inset-0 pointer-events-none opacity-40 transition-opacity duration-300 bg-[radial-gradient(250px_circle_at_var(--x)_var(--y),rgba(59,130,246,0.12),transparent_80%)]"
+                      style={{
+                        // @ts-ignore
+                        "--x": `${mouseCoords.x}px`,
+                        "--y": `${mouseCoords.y}px`
+                      }}
+                    />
+                  )}
+
+                  <div className="space-y-5 z-10">
+                    {/* Header: Icon + Code */}
+                    <div className="flex items-center justify-between">
+                      <div className={`flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br ${chal.color} ${chal.iconColor} border border-white/10 shadow-sm transition-transform duration-300 group-hover:scale-105`}>
+                        <Icon className="h-5 w-5" />
+                      </div>
+                      <span className="font-mono text-[9px] font-bold text-slate-400 bg-slate-50 border border-slate-100/60 px-2 py-0.5 rounded uppercase tracking-wider">
+                        {chal.code}
+                      </span>
                     </div>
 
+                    {/* Title & Desc */}
                     <div className="space-y-2">
                       <h3 className="text-sm font-extrabold text-[#0c2340] font-display">
                         {chal.title}
@@ -509,11 +564,38 @@ export default function MeatServicesPage() {
                         {chal.desc}
                       </p>
                     </div>
+
+                    {/* Severity Progress Bar */}
+                    <div className="space-y-1.5 pt-2">
+                      <div className="flex justify-between text-[9px] font-mono font-bold uppercase tracking-wider">
+                        <span className="text-slate-400">Severity Risk Level</span>
+                        <span className={chal.severity >= 90 ? "text-red-500 animate-pulse" : "text-[#1e3a8a]"}>
+                          {chal.severityLabel}
+                        </span>
+                      </div>
+                      <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                        <div 
+                          className={`h-full rounded-full transition-all duration-500 ${
+                            chal.severity >= 90 
+                              ? "bg-red-500" 
+                              : chal.severity >= 80 
+                                ? "bg-amber-500" 
+                                : "bg-blue-500"
+                          }`}
+                          style={{ width: `${chal.severity}%` }}
+                        />
+                      </div>
+                    </div>
                   </div>
 
-                  <div className="pt-6 border-t border-slate-50 mt-6 flex items-center gap-1 text-[10px] font-bold text-slate-400 group-hover:text-blue-600 transition-colors uppercase tracking-wider font-mono">
-                    <span>Mitigation ready</span>
-                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  {/* Active Mitigation Panel */}
+                  <div className="mt-6 pt-5 border-t border-slate-50 z-10 flex flex-col gap-2">
+                    <span className="text-[8px] font-bold text-emerald-600 font-mono uppercase tracking-wider">
+                      ThermoVault Safeguard
+                    </span>
+                    <p className="text-[10px] text-slate-500 leading-relaxed font-body font-medium">
+                      {chal.mitigation}
+                    </p>
                   </div>
                 </motion.div>
               );
@@ -733,20 +815,20 @@ export default function MeatServicesPage() {
               {/* Counter badges */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-slate-100 text-center font-mono">
                 <div className="space-y-1">
-                  <div className="text-lg font-extrabold text-[#0c2340] font-display">500+</div>
-                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Projects Delivered</div>
+                  <div className="text-lg font-extrabold text-[#0c2340] font-display">Shock Freezing</div>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Cell-Level Lock</div>
                 </div>
                 <div className="space-y-1">
-                  <div className="text-lg font-extrabold text-[#0c2340] font-display">15+ Years</div>
-                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Of Experience</div>
+                  <div className="text-lg font-extrabold text-[#0c2340] font-display">SS-304</div>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Hygienic Finish</div>
+                </div>
+                <div className="space-y-1">
+                  <div className="text-lg font-extrabold text-[#0c2340] font-display">-40°C</div>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Max Blast Speed</div>
                 </div>
                 <div className="space-y-1">
                   <div className="text-lg font-extrabold text-[#0c2340] font-display">24/7</div>
-                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Service Support</div>
-                </div>
-                <div className="space-y-1">
-                  <div className="text-lg font-extrabold text-[#0c2340] font-display">Pan India</div>
-                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Service Network</div>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Critical Response</div>
                 </div>
               </div>
 

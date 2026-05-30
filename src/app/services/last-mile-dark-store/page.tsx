@@ -52,6 +52,20 @@ export default function LastMileServicesPage() {
   // FAQ Accordion State
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
+  // Interactive Floorplan Hotspots state
+  const [selectedZoneIdx, setSelectedZoneIdx] = useState(0);
+  const [hoveredZoneIdx, setHoveredZoneIdx] = useState<number | null>(null);
+  const [mouseCoords, setMouseCoords] = useState({ x: 0, y: 0 });
+
+  const handleZoneMouseMove = (e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>, idx: number) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setMouseCoords({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+    setHoveredZoneIdx(idx);
+  };
+
   const handleCallbackSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !phone) return;
@@ -64,52 +78,56 @@ export default function LastMileServicesPage() {
 
   const challenges = [
     {
-      title: "Temperature Fluctuations",
-      desc: "Frequent door openings cause inconsistent cooling and product spoilage.",
-      icon: Thermometer,
+      title: "Entry Airlock / Dock Zone",
+      desc: "Massive thermal air infiltration occurs when loading bay doors cycle continuously during peak delivery schedules.",
+      code: "ZONE-DOCK-01",
+      risk: "Air Infiltration & Condensation",
+      mitigation: "High-velocity vertical air curtains and fast-acting magnetic rolling doors with photocell triggers.",
+      temp: "+12°C to +15°C",
+      area: "35 sq.m.",
+      icon: ShoppingCart,
       color: "from-red-500/20 to-red-600/5",
       iconColor: "text-red-500",
       borderColor: "hover:border-red-500/30",
     },
     {
-      title: "Limited Space",
-      desc: "High order volume with limited storage and floor area.",
+      title: "Fast-Picking Racks",
+      desc: "Extreme staff footfall and open shelf access create severe temperature stratification and localized hot spots.",
+      code: "ZONE-PICK-02",
+      risk: "Temperature Stratification",
+      mitigation: "Ceiling-suspended overhead laminar flow evaporators distributing uniform chilled air at ±0.5°C.",
+      temp: "+2°C to +4°C",
+      area: "120 sq.m.",
       icon: Grid,
       color: "from-blue-500/20 to-blue-600/5",
       iconColor: "text-blue-500",
       borderColor: "hover:border-blue-500/30",
     },
     {
-      title: "Time Critical Deliveries",
-      desc: "Delays in picking and packing impact delivery time and customer satisfaction.",
-      icon: Clock,
-      color: "from-orange-500/20 to-orange-600/5",
-      iconColor: "text-orange-500",
-      borderColor: "hover:border-orange-500/30",
+      title: "Main Freezer Room",
+      desc: "Continuous moisture entry leads to rapid ice formation on heat exchange coils, reducing thermodynamic efficiency.",
+      code: "ZONE-FREEZ-03",
+      risk: "Coil Frosting & Efficiency Loss",
+      mitigation: "Heated door frame profiles, desiccant air dehumidifiers, and intelligent demand-defrost PLC cycles.",
+      temp: "-20°C to -25°C",
+      area: "60 sq.m.",
+      icon: Snowflake,
+      color: "from-cyan-500/20 to-cyan-600/5",
+      iconColor: "text-cyan-500",
+      borderColor: "hover:border-cyan-500/30",
     },
     {
-      title: "High Energy Bills",
-      desc: "Continuous running leads to high power consumption and cost.",
-      icon: Zap,
+      title: "IoT Control Command",
+      desc: "Micro-fulfillment hubs operate at thin margins where delayed warning on temperature breaks ruins complete stocks.",
+      code: "ZONE-CTRL-04",
+      risk: "Delayed Failure Response",
+      mitigation: "IoT telemetry gateway, multi-sensor grids, and cloud-connected auto-alerts dispatched within 60 seconds.",
+      temp: "Ambient (24°C)",
+      area: "15 sq.m.",
+      icon: Network,
       color: "from-emerald-500/20 to-emerald-600/5",
       iconColor: "text-emerald-500",
       borderColor: "hover:border-emerald-500/30",
-    },
-    {
-      title: "Multi-Category Storage",
-      desc: "Different products need different temperatures and zones.",
-      icon: AlertTriangle,
-      color: "from-yellow-500/20 to-yellow-600/5",
-      iconColor: "text-yellow-500",
-      borderColor: "hover:border-yellow-500/30",
-    },
-    {
-      title: "Inventory Accuracy",
-      desc: "Manual tracking leads to stock mismatch and higher shrinkage.",
-      icon: CheckSquare,
-      color: "from-purple-500/20 to-purple-600/5",
-      iconColor: "text-purple-500",
-      borderColor: "hover:border-purple-500/30",
     },
   ];
 
@@ -495,45 +513,126 @@ export default function LastMileServicesPage() {
             </p>
           </div>
 
-          {/* Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {challenges.map((chal, idx) => {
-              const Icon = chal.icon;
-              return (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.5, delay: idx * 0.05 }}
-                  whileHover={{ 
-                    y: -6,
-                    boxShadow: "0 20px 25px -5px rgba(24, 95, 165, 0.08), 0 10px 10px -5px rgba(24, 95, 165, 0.03)"
-                  }}
-                  className={`group rounded-2xl border border-slate-100 bg-white p-6 transition-all duration-300 flex flex-col justify-between ${chal.borderColor}`}
-                >
-                  <div className="space-y-4">
-                    <div className={`flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br ${chal.color} ${chal.iconColor} border border-white/10 shadow-sm transition-transform duration-300 group-hover:scale-105`}>
-                      <Icon className="h-5 w-5" />
-                    </div>
+          {/* Spatial Floorplan Hotspot Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch text-slate-800">
+            {/* Left Column: Interactive 2D Floorplan Layout Diagram (col-span-6) */}
+            <div className="lg:col-span-6 rounded-3xl border border-slate-200/60 bg-slate-50 p-6 flex flex-col justify-between shadow-sm relative overflow-hidden min-h-[380px]">
+              <div className="absolute inset-0 cyber-grid opacity-[0.02] pointer-events-none" />
+              
+              <div className="space-y-4 relative z-10 w-full">
+                <span className="text-[10px] font-bold text-slate-400 font-mono uppercase tracking-wider block text-left pl-1">
+                  Interactive Micro-Fulfillment Floorplan Map
+                </span>
+                
+                {/* 2D Grid Representation of Store compartments */}
+                <div className="grid grid-cols-2 gap-4 aspect-[4/3] w-full pt-2">
+                  {challenges.map((chal, idx) => {
+                    const isSelected = selectedZoneIdx === idx;
+                    const isHovered = hoveredZoneIdx === idx;
+                    
+                    return (
+                      <button
+                        key={idx}
+                        onClick={() => setSelectedZoneIdx(idx)}
+                        onMouseMove={(e) => handleZoneMouseMove(e, idx)}
+                        onMouseLeave={() => setHoveredZoneIdx(null)}
+                        className={`relative rounded-2xl border p-5 flex flex-col justify-between items-start transition-all duration-300 text-left overflow-hidden ${
+                          isSelected
+                            ? "bg-[#0C2340] border-[#0c2340] text-white shadow-lg"
+                            : "bg-white border-slate-200/75 text-slate-700 hover:border-blue-300/80 hover:bg-slate-50/50"
+                        }`}
+                      >
+                        {/* Spotlight Glow Effect */}
+                        {isHovered && !isSelected && (
+                          <div 
+                            className="absolute inset-0 pointer-events-none opacity-45 transition-opacity duration-300 bg-[radial-gradient(150px_circle_at_var(--x)_var(--y),rgba(59,130,246,0.12),transparent_80%)]"
+                            style={{
+                              // @ts-ignore
+                              "--x": `${mouseCoords.x}px`,
+                              "--y": `${mouseCoords.y}px`
+                            }}
+                          />
+                        )}
 
-                    <div className="space-y-2">
-                      <h3 className="text-sm font-extrabold text-[#0c2340] font-display">
-                        {chal.title}
-                      </h3>
-                      <p className="text-xs text-slate-500 leading-relaxed font-body">
-                        {chal.desc}
-                      </p>
+                        <div className="w-full flex justify-between items-start">
+                          <span className={`font-mono text-[8px] font-bold px-1.5 py-0.5 rounded border ${
+                            isSelected 
+                              ? "bg-blue-500/25 border-blue-500/30 text-blue-300"
+                              : "bg-slate-50 border-slate-200/80 text-slate-400"
+                          }`}>
+                            {chal.code}
+                          </span>
+                          {/* Pulsing indicator */}
+                          <span className={`h-2.5 w-2.5 rounded-full ${
+                            isSelected ? "bg-red-400 animate-pulse shadow-[0_0_8px_rgba(248,113,113,0.7)]" : "bg-emerald-500"
+                          }`} />
+                        </div>
+
+                        <div>
+                          <h4 className="text-xs font-extrabold font-display leading-tight">{chal.title.split(" / ")[0]}</h4>
+                          <span className={`text-[9px] font-mono mt-1 block font-bold ${
+                            isSelected ? "text-slate-300" : "text-slate-400"
+                          }`}>
+                            {chal.temp}
+                          </span>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column: Diagnostic & Mitigation Terminal Sheet (col-span-6) */}
+            <div className="lg:col-span-6 rounded-3xl border border-slate-200/60 bg-white p-6 sm:p-8 shadow-sm flex flex-col justify-between min-h-[380px] relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl pointer-events-none" />
+              
+              <div className="space-y-6">
+                {/* Header: Area + Risk warning */}
+                <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-red-50 text-red-500 text-[10px] font-extrabold animate-pulse">!</span>
+                    <h3 className="text-sm font-extrabold text-[#0c2340] font-display text-left">
+                      Zone Diagnostic: {challenges[selectedZoneIdx].title}
+                    </h3>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4 text-left font-mono">
+                  <div>
+                    <span className="text-[8px] font-bold text-slate-400 uppercase tracking-wider block">Zone Area</span>
+                    <span className="text-xs font-bold text-slate-700">{challenges[selectedZoneIdx].area}</span>
+                  </div>
+                  <div>
+                    <span className="text-[8px] font-bold text-slate-400 uppercase tracking-wider block">Local Temp Target</span>
+                    <span className="text-xs font-bold text-blue-600">{challenges[selectedZoneIdx].temp}</span>
+                  </div>
+                </div>
+
+                {/* Description */}
+                <div className="space-y-1.5 text-left">
+                  <span className="text-[8px] font-bold text-slate-400 font-mono uppercase tracking-wider block">Thermodynamic Instability</span>
+                  <p className="text-xs text-slate-600 leading-relaxed font-body">
+                    {challenges[selectedZoneIdx].desc}
+                  </p>
+                </div>
+              </div>
+
+              {/* ThermoVault Patch solution */}
+              <div className="pt-6 border-t border-slate-100 mt-6 space-y-3.5 text-left">
+                <span className="text-[8px] font-bold text-emerald-600 font-mono uppercase tracking-wider block">ThermoVault Micro-Fulfillment Patch</span>
+                
+                <div className="flex flex-col sm:flex-row gap-4 items-center">
+                  <div className="flex-1 w-full rounded-xl bg-emerald-500/5 border border-emerald-500/10 p-4 flex gap-3 items-center">
+                    <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0" />
+                    <div>
+                      <h4 className="text-xs font-bold text-[#0c2340] font-display">Active Engineering Safeguard</h4>
+                      <p className="text-[10px] text-slate-500 mt-0.5 leading-normal">{challenges[selectedZoneIdx].mitigation}</p>
                     </div>
                   </div>
-
-                  <div className="pt-6 border-t border-slate-50 mt-6 flex items-center gap-1 text-[10px] font-bold text-slate-400 group-hover:text-blue-600 transition-colors uppercase tracking-wider font-mono">
-                    <span>Mitigation ready</span>
-                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </div>
-                </motion.div>
-              );
-            })}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -751,20 +850,20 @@ export default function LastMileServicesPage() {
                 {/* Highlights */}
                 <div className="md:col-span-5 grid grid-cols-2 gap-4 font-mono text-center self-center">
                   <div className="space-y-1">
-                    <div className="text-lg font-extrabold text-[#0c2340] font-display">500+</div>
-                    <div className="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Hubs Configured</div>
+                    <div className="text-lg font-extrabold text-[#0c2340] font-display">15-Min</div>
+                    <div className="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Rapid Sizing Setup</div>
                   </div>
                   <div className="space-y-1">
-                    <div className="text-lg font-extrabold text-[#0c2340] font-display">15+ Years</div>
-                    <div className="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Experience</div>
+                    <div className="text-lg font-extrabold text-[#0c2340] font-display">Micro</div>
+                    <div className="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Footprint Design</div>
                   </div>
                   <div className="space-y-1">
-                    <div className="text-lg font-extrabold text-[#0c2340] font-display">24/7</div>
-                    <div className="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Service Support</div>
+                    <div className="text-lg font-extrabold text-[#0c2340] font-display">IoT</div>
+                    <div className="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Intelligent Control</div>
                   </div>
                   <div className="space-y-1">
-                    <div className="text-lg font-extrabold text-[#0c2340] font-display">Pan India</div>
-                    <div className="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Network</div>
+                    <div className="text-lg font-extrabold text-[#0c2340] font-display">Zero</div>
+                    <div className="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Condensation Risk</div>
                   </div>
                 </div>
 

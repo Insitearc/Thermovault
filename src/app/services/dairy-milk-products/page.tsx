@@ -49,6 +49,20 @@ export default function DairyServicesPage() {
   // Bottom form / consultation CTA states
   const [bottomFormSent, setBottomFormSent] = useState(false);
 
+  // Interactive Flowchart states
+  const [selectedStepIdx, setSelectedStepIdx] = useState(0);
+  const [hoveredStepIdx, setHoveredStepIdx] = useState<number | null>(null);
+  const [mouseCoords, setMouseCoords] = useState({ x: 0, y: 0 });
+
+  const handleStepMouseMove = (e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>, idx: number) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setMouseCoords({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+    setHoveredStepIdx(idx);
+  };
+
   const handleCallbackSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !phone) return;
@@ -57,52 +71,52 @@ export default function DairyServicesPage() {
 
   const challenges = [
     {
-      title: "Milk Spoilage",
-      desc: "Improper storage leads to bacterial growth and reduced shelf life.",
-      icon: ShieldAlert,
+      title: "01. Raw Milk Extraction",
+      desc: "Milk leaves the cow at 37°C, providing an ideal breeding ground for rapid bacterial growth if not chilled immediately.",
+      temp: "~37°C",
+      stage: "Extraction",
+      lossRisk: "Bacterial Explosion",
+      thermovaultPatch: "Instant inline plate heat exchangers (PHE) dropping raw temperature to 4°C during transfer.",
+      icon: Flame,
       color: "from-red-500/20 to-red-600/5",
       iconColor: "text-red-500",
       borderColor: "hover:border-red-500/30",
     },
     {
-      title: "Temperature Fluctuations",
-      desc: "Inconsistent temperature affects quality, taste and nutritional value.",
-      icon: Thermometer,
-      color: "from-orange-500/20 to-orange-600/5",
-      iconColor: "text-orange-500",
-      borderColor: "hover:border-orange-500/30",
-    },
-    {
-      title: "High Humidity Issues",
-      desc: "Excess humidity causes moisture, fungal growth and product damage.",
+      title: "02. Bulk Storage Tanks",
+      desc: "Bulk Milk Chiller (BMC) tanks suffer from temperature stratified layers and insulation leaks if not agitated.",
+      temp: "~4°C",
+      stage: "Storage Chilling",
+      lossRisk: "Stratification & Leakage",
+      thermovaultPatch: "Continuous automated agitator logic and high-density polyurethane tank shell insulation.",
       icon: Droplet,
       color: "from-blue-500/20 to-blue-600/5",
       iconColor: "text-blue-500",
       borderColor: "hover:border-blue-500/30",
     },
     {
-      title: "Cross Contamination",
-      desc: "Unhygienic storage can lead to contamination and safety risks.",
-      icon: AlertTriangle,
+      title: "03. Pipeline Transfer",
+      desc: "Piping connections and valves suffer thermal heat gain, creating micro-zones where pasteurized milk starts warming up.",
+      temp: "~4°C to ~8°C",
+      stage: "Fluid Transport",
+      lossRisk: "Heat Ingress / Warm Zones",
+      thermovaultPatch: "Cladded SS-304 vacuum insulated pipe systems preventing thermal infiltration at joints.",
+      icon: Network,
+      color: "from-orange-500/20 to-orange-600/5",
+      iconColor: "text-orange-500",
+      borderColor: "hover:border-orange-500/30",
+    },
+    {
+      title: "04. Loading & Dispatch",
+      desc: "Opening of dispatch cold room gates to standard truck loaders leads to severe ambient warm air infiltration.",
+      temp: "~4°C",
+      stage: "Dispatch Logistics",
+      lossRisk: "Ambient Air Infiltration",
+      thermovaultPatch: "Inflatable dock shelters, high-velocity air barriers, and magnetic perimeter gate seals.",
+      icon: ShieldAlert,
       color: "from-yellow-500/20 to-yellow-600/5",
       iconColor: "text-yellow-500",
       borderColor: "hover:border-yellow-500/30",
-    },
-    {
-      title: "High Energy Consumption",
-      desc: "Inefficient systems increase operational costs significantly.",
-      icon: Zap,
-      color: "from-emerald-500/20 to-emerald-600/5",
-      iconColor: "text-emerald-500",
-      borderColor: "hover:border-emerald-500/30",
-    },
-    {
-      title: "Power Failures",
-      desc: "Power cuts can disrupt cooling and lead to product losses.",
-      icon: Battery,
-      color: "from-purple-500/20 to-purple-600/5",
-      iconColor: "text-purple-500",
-      borderColor: "hover:border-purple-500/30",
     },
   ];
 
@@ -498,46 +512,117 @@ export default function DairyServicesPage() {
             </p>
           </div>
 
-          {/* Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {challenges.map((chal, idx) => {
-              const Icon = chal.icon;
-              return (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.5, delay: idx * 0.05 }}
-                  whileHover={{ 
-                    y: -6,
-                    boxShadow: "0 20px 25px -5px rgba(24, 95, 165, 0.08), 0 10px 10px -5px rgba(24, 95, 165, 0.03)"
-                  }}
-                  className={`group rounded-2xl border border-slate-100 bg-white p-6 transition-all duration-300 flex flex-col justify-between ${chal.borderColor}`}
-                >
-                  <div className="space-y-4">
-                    {/* Icon frame with beautiful dynamic glow gradients */}
-                    <div className={`flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br ${chal.color} ${chal.iconColor} border border-white/10 shadow-sm transition-transform duration-300 group-hover:scale-105`}>
-                      <Icon className="h-5 w-5" />
+          {/* Thermodynamic Process Flowchart */}
+          <div className="space-y-12 text-slate-800">
+            {/* Flowchart Schematic Pipeline */}
+            <div className="relative flex flex-col md:flex-row justify-between items-center gap-8 md:gap-4 p-8 bg-slate-50 rounded-3xl border border-slate-100/80 shadow-sm overflow-hidden">
+              {/* Desktop Pipe Line Connector */}
+              <div className="absolute top-1/2 left-12 right-12 h-1 bg-gradient-to-r from-blue-500/20 via-cyan-500/30 to-blue-500/20 -translate-y-1/2 hidden md:block z-0" />
+              
+              {challenges.map((chal, idx) => {
+                const Icon = chal.icon;
+                const isSelected = selectedStepIdx === idx;
+                const isHovered = hoveredStepIdx === idx;
+                
+                return (
+                  <button
+                    key={idx}
+                    onClick={() => setSelectedStepIdx(idx)}
+                    onMouseMove={(e) => handleStepMouseMove(e, idx)}
+                    onMouseLeave={() => setHoveredStepIdx(null)}
+                    className={`relative z-10 flex flex-col items-center p-5 rounded-2xl border transition-all duration-300 w-full md:w-56 overflow-hidden ${
+                      isSelected 
+                        ? "bg-[#0C2340] border-[#0c2340] text-white shadow-lg shadow-blue-950/15"
+                        : "bg-white border-slate-200/60 text-slate-700 hover:border-blue-300 hover:bg-slate-55"
+                    }`}
+                  >
+                    {/* Spotlight Glow Effect */}
+                    {isHovered && !isSelected && (
+                      <div 
+                        className="absolute inset-0 pointer-events-none opacity-45 transition-opacity duration-300 bg-[radial-gradient(150px_circle_at_var(--x)_var(--y),rgba(59,130,246,0.15),transparent_80%)]"
+                        style={{
+                          // @ts-ignore
+                          "--x": `${mouseCoords.x}px`,
+                          "--y": `${mouseCoords.y}px`
+                        }}
+                      />
+                    )}
+
+                    {/* Step Icon */}
+                    <div className={`flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br ${
+                      isSelected ? "bg-blue-600 text-white" : "bg-blue-50 text-blue-600"
+                    } border border-white/10 shadow-sm mb-3`}>
+                      <Icon className="h-5 w-5 animate-pulse" />
                     </div>
 
-                    <div className="space-y-2">
-                      <h3 className="text-sm font-extrabold text-[#0c2340] font-display">
-                        {chal.title}
-                      </h3>
-                      <p className="text-xs text-slate-500 leading-relaxed font-body">
-                        {chal.desc}
-                      </p>
+                    {/* Stage Title */}
+                    <div className="text-center">
+                      <span className={`text-[8px] font-bold font-mono uppercase tracking-wider block ${
+                        isSelected ? "text-blue-300" : "text-slate-400"
+                      }`}>
+                        {chal.stage}
+                      </span>
+                      <h4 className="text-xs font-extrabold font-display mt-0.5">{chal.title.substring(4)}</h4>
+                    </div>
+
+                    {/* Temperature Pill */}
+                    <div className={`mt-3 px-2 py-0.5 rounded-md text-[9px] font-mono font-bold ${
+                      isSelected 
+                        ? "bg-blue-500/20 text-blue-300 border border-blue-500/30" 
+                        : "bg-slate-100 text-slate-500 border border-slate-200/50"
+                    }`}>
+                      {chal.temp}
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Diagnostic Node Details Card */}
+            <div className="relative rounded-3xl border border-slate-200/60 bg-white p-6 sm:p-8 shadow-sm flex flex-col justify-between min-h-[280px]">
+              <div className="absolute top-0 right-0 w-44 h-44 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
+              
+              <div className="space-y-6">
+                {/* Header: Stage and Loss Risk warning */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-4 gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-red-50 text-red-500 text-[10px] font-extrabold">!</span>
+                    <h3 className="text-sm font-extrabold text-[#0c2340] font-display text-left">
+                      Thermal Loss Node: {challenges[selectedStepIdx].title}
+                    </h3>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[8px] font-bold font-mono text-red-500 uppercase tracking-wider block">Critical Loss Risk</span>
+                    <span className="text-[9px] font-mono font-bold text-red-600 bg-red-50 border border-red-100 px-2.5 py-0.5 rounded uppercase tracking-wider animate-pulse">
+                      {challenges[selectedStepIdx].lossRisk}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Description */}
+                <div className="space-y-2 text-left">
+                  <span className="text-[8px] font-bold text-slate-400 font-mono uppercase tracking-wider block">Thermodynamic Analysis</span>
+                  <p className="text-xs text-slate-600 leading-relaxed font-body">
+                    {challenges[selectedStepIdx].desc} Temperature drift at this junction causes accelerated bacterial replication, altering acidity and texture, leading to product rejection and batch dump costs.
+                  </p>
+                </div>
+              </div>
+
+              {/* ThermoVault Patch solution */}
+              <div className="pt-6 border-t border-slate-100 mt-6 space-y-3.5 text-left">
+                <span className="text-[8px] font-bold text-emerald-600 font-mono uppercase tracking-wider block">ThermoVault System Patch</span>
+                
+                <div className="flex flex-col sm:flex-row gap-4 items-center">
+                  <div className="flex-1 w-full rounded-xl bg-emerald-500/5 border border-emerald-500/10 p-4 flex gap-3 items-center">
+                    <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0" />
+                    <div>
+                      <h4 className="text-xs font-bold text-[#0c2340] font-display">Active Engineering Safeguard</h4>
+                      <p className="text-[10px] text-slate-500 mt-0.5 leading-normal">{challenges[selectedStepIdx].thermovaultPatch}</p>
                     </div>
                   </div>
-
-                  <div className="pt-6 border-t border-slate-50 mt-6 flex items-center gap-1 text-[10px] font-bold text-slate-400 group-hover:text-blue-600 transition-colors uppercase tracking-wider font-mono">
-                    <span>Mitigation ready</span>
-                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </div>
-                </motion.div>
-              );
-            })}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -758,20 +843,20 @@ export default function DairyServicesPage() {
               {/* Counter badges */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-slate-100 text-center font-mono">
                 <div className="space-y-1">
-                  <div className="text-lg font-extrabold text-[#0c2340] font-display">500+</div>
-                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Projects Delivered</div>
+                  <div className="text-lg font-extrabold text-[#0c2340] font-display">Bulk Chill</div>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Bacterial Control</div>
                 </div>
                 <div className="space-y-1">
-                  <div className="text-lg font-extrabold text-[#0c2340] font-display">15+ Years</div>
-                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Of Experience</div>
+                  <div className="text-lg font-extrabold text-[#0c2340] font-display">Continuous</div>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Chilling Stability</div>
                 </div>
                 <div className="space-y-1">
-                  <div className="text-lg font-extrabold text-[#0c2340] font-display">24/7</div>
-                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Service Support</div>
+                  <div className="text-lg font-extrabold text-[#0c2340] font-display">100%</div>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Thermal Retention</div>
                 </div>
                 <div className="space-y-1">
-                  <div className="text-lg font-extrabold text-[#0c2340] font-display">Pan India</div>
-                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Service Network</div>
+                  <div className="text-lg font-extrabold text-[#0c2340] font-display">Zero</div>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Thermal Leakage</div>
                 </div>
               </div>
 

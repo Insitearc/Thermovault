@@ -35,6 +35,7 @@ import {
   Ruler,
   Factory,
   ChevronDown,
+  ChevronRight,
   Pill,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -50,6 +51,20 @@ export default function PharmaServicesPage() {
 
   // FAQ Accordion State
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  // Interactive Challenges Diagnostics state
+  const [selectedChallengeIdx, setSelectedChallengeIdx] = useState(0);
+  const [hoveredChallengeIdx, setHoveredChallengeIdx] = useState<number | null>(null);
+  const [mouseCoords, setMouseCoords] = useState({ x: 0, y: 0 });
+
+  const handleChallengeMouseMove = (e: React.MouseEvent<HTMLDivElement>, idx: number) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setMouseCoords({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+    setHoveredChallengeIdx(idx);
+  };
 
   const handleCallbackSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -69,6 +84,10 @@ export default function PharmaServicesPage() {
       color: "from-red-500/20 to-red-600/5",
       iconColor: "text-red-500",
       borderColor: "hover:border-red-500/30",
+      severity: "95% (Critical)",
+      code: "ERR-TEMP-DEV",
+      guideline: "WHO GDP Annex 9 - Strict thermal validation and continuous logging required.",
+      mitigation: "Dual-redundant cooling loops with auto-changeover PLC controls and real-time IoT alerts."
     },
     {
       title: "High Compliance Standards",
@@ -77,6 +96,10 @@ export default function PharmaServicesPage() {
       color: "from-blue-500/20 to-blue-600/5",
       iconColor: "text-blue-500",
       borderColor: "hover:border-blue-500/30",
+      severity: "90% (High)",
+      code: "REG-FDA-GDP",
+      guideline: "US FDA 21 CFR Part 11 - Electronic records and audit trail compliance.",
+      mitigation: "Calibrated multi-point temperature mapping (IQ/OQ/PQ) and tamper-proof storage backups."
     },
     {
       title: "Product Sensitivity",
@@ -85,6 +108,10 @@ export default function PharmaServicesPage() {
       color: "from-orange-500/20 to-orange-600/5",
       iconColor: "text-orange-500",
       borderColor: "hover:border-orange-500/30",
+      severity: "88% (High)",
+      code: "MED-SENS-ACT",
+      guideline: "WHO TRS 961 Annex 9 - Active biological products must maintain narrow band storage.",
+      mitigation: "Continuous high-resolution temperature logger probe calibration down to ±0.1°C precision."
     },
     {
       title: "Power Interruptions",
@@ -93,6 +120,10 @@ export default function PharmaServicesPage() {
       color: "from-purple-500/20 to-purple-600/5",
       iconColor: "text-purple-500",
       borderColor: "hover:border-purple-500/30",
+      severity: "95% (Critical)",
+      code: "PWR-LOSS-ERR",
+      guideline: "Good Distribution Practices - Back-up power source must protect full cold store load.",
+      mitigation: "Integrated diesel generator relay triggers and automated phase failure warning alerts."
     },
     {
       title: "Traceability & Monitoring",
@@ -101,14 +132,22 @@ export default function PharmaServicesPage() {
       color: "from-emerald-500/20 to-emerald-600/5",
       iconColor: "text-emerald-500",
       borderColor: "hover:border-emerald-500/30",
+      severity: "80% (Medium-High)",
+      code: "SYS-DATA-TRK",
+      guideline: "EU GMP Annex 11 - Software logging and system verification required.",
+      mitigation: "Cloud-connected IoT gateway providing continuous telemetry streaming and alert notifications."
     },
     {
       title: "Cross Contamination",
       desc: "Improper storage can cause contamination and product recalls.",
-      icon: AlertTriangle,
+      icon: ShieldAlert,
       color: "from-yellow-500/20 to-yellow-600/5",
       iconColor: "text-yellow-500",
       borderColor: "hover:border-yellow-500/30",
+      severity: "82% (Medium-High)",
+      code: "AIR-CONTAM-EX",
+      guideline: "ISO Class Clean Room standards - Particle and humidity control gradients.",
+      mitigation: "Positive pressure cascade airlocks, SS 304 anti-microbial panels, and magnetic door seals."
     },
   ];
 
@@ -478,45 +517,128 @@ export default function PharmaServicesPage() {
             </p>
           </div>
 
-          {/* Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {challenges.map((chal, idx) => {
-              const Icon = chal.icon;
-              return (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.5, delay: idx * 0.05 }}
-                  whileHover={{ 
-                    y: -6,
-                    boxShadow: "0 20px 25px -5px rgba(24, 95, 165, 0.08), 0 10px 10px -5px rgba(24, 95, 165, 0.03)"
-                  }}
-                  className={`group rounded-2xl border border-slate-100 bg-white p-6 transition-all duration-300 flex flex-col justify-between ${chal.borderColor}`}
-                >
-                  <div className="space-y-4">
-                    <div className={`flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br ${chal.color} ${chal.iconColor} border border-white/10 shadow-sm transition-transform duration-300 group-hover:scale-105`}>
-                      <Icon className="h-5 w-5" />
-                    </div>
+          {/* Interactive Failure Matrix Dashboard Redesign */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-slate-50 p-6 sm:p-8 rounded-3xl border border-slate-100 shadow-sm relative overflow-hidden text-slate-800">
+            <div className="absolute inset-0 cyber-grid opacity-[0.02] pointer-events-none" />
+            
+            {/* Left Column: Challenge Selector Tabs (col-span-5) */}
+            <div className="lg:col-span-5 space-y-3">
+              <div className="text-[10px] font-bold text-slate-400 font-mono uppercase tracking-wider mb-2 pl-3">
+                Detected Spoilage Risks
+              </div>
+              
+              <div className="space-y-2.5">
+                {challenges.map((chal, idx) => {
+                  const Icon = chal.icon;
+                  const isSelected = selectedChallengeIdx === idx;
+                  const isHovered = hoveredChallengeIdx === idx;
+                  return (
+                    <div
+                      key={idx}
+                      onClick={() => setSelectedChallengeIdx(idx)}
+                      onMouseMove={(e) => handleChallengeMouseMove(e, idx)}
+                      onMouseLeave={() => setHoveredChallengeIdx(null)}
+                      className={`relative cursor-pointer rounded-2xl border p-4 transition-all duration-300 flex items-center justify-between group overflow-hidden ${
+                        isSelected 
+                          ? "bg-[#0C2340] border-[#0c2340] text-white shadow-lg"
+                          : "bg-white border-slate-200/60 text-slate-700 hover:border-blue-300/60 shadow-sm"
+                      }`}
+                    >
+                      {/* Spotlight Glow Effect */}
+                      {isHovered && !isSelected && (
+                        <div 
+                          className="absolute inset-0 pointer-events-none opacity-45 transition-opacity duration-300 bg-[radial-gradient(200px_circle_at_var(--x)_var(--y),rgba(59,130,246,0.12),transparent_80%)]"
+                          style={{
+                            // @ts-ignore
+                            "--x": `${mouseCoords.x}px`,
+                            "--y": `${mouseCoords.y}px`
+                          }}
+                        />
+                      )}
 
-                    <div className="space-y-2">
-                      <h3 className="text-sm font-extrabold text-[#0c2340] font-display">
-                        {chal.title}
-                      </h3>
-                      <p className="text-xs text-slate-500 leading-relaxed font-body">
-                        {chal.desc}
-                      </p>
+                      <div className="flex items-center gap-3.5 z-10">
+                        <div className={`flex h-10 w-10 items-center justify-center rounded-xl transition-all duration-300 ${
+                          isSelected 
+                            ? "bg-blue-600 text-white shadow-md shadow-blue-500/20"
+                            : "bg-blue-50 text-blue-600"
+                        }`}>
+                          <Icon className="h-5 w-5" />
+                        </div>
+                        <div className="text-left">
+                          <h3 className="text-xs font-extrabold font-display tracking-wide">
+                            {chal.title}
+                          </h3>
+                          <span className={`text-[8px] font-bold font-mono uppercase tracking-wider block mt-0.5 ${
+                            isSelected ? "text-blue-300" : "text-slate-400"
+                          }`}>
+                            {chal.code}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Blinking Warning Node */}
+                      <div className="flex items-center gap-2 z-10">
+                        <span className={`h-2 w-2 rounded-full ${
+                          isSelected ? "bg-red-400 animate-pulse" : "bg-red-500"
+                        }`} />
+                        <ChevronRight className={`h-4 w-4 transition-transform duration-300 ${
+                          isSelected ? "translate-x-1 text-white" : "text-slate-400 group-hover:text-blue-600"
+                        }`} />
+                      </div>
                     </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Right Column: Interactive Diagnostic Terminal (col-span-7) */}
+            <div className="lg:col-span-7 rounded-2xl border border-slate-200/60 bg-white p-6 sm:p-8 flex flex-col justify-between shadow-inner min-h-[410px] relative">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl pointer-events-none" />
+              
+              <div className="space-y-6">
+                {/* Diagnostic title */}
+                <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-red-50 text-red-500 text-[10px] font-extrabold animate-pulse">!</span>
+                    <h3 className="text-sm font-extrabold text-[#0c2340] font-display">Risk Analysis: {challenges[selectedChallengeIdx].title}</h3>
+                  </div>
+                  <span className="text-[9px] font-mono font-bold text-red-600 bg-red-50 border border-red-100 px-2 py-0.5 rounded uppercase tracking-wider">
+                    Severity: {challenges[selectedChallengeIdx].severity}
+                  </span>
+                </div>
+
+                <div className="space-y-4 text-left">
+                  {/* Issue description */}
+                  <div className="space-y-1.5">
+                    <span className="text-[8px] font-bold text-slate-400 font-mono uppercase tracking-wider block">Bio-Hazard / Risk</span>
+                    <p className="text-xs text-slate-600 leading-relaxed font-body">
+                      {challenges[selectedChallengeIdx].desc} In extreme cases, thermal deviations trigger complete batch write-offs, compliance auditable violations, and safety compromise.
+                    </p>
                   </div>
 
-                  <div className="pt-6 border-t border-slate-50 mt-6 flex items-center gap-1 text-[10px] font-bold text-slate-400 group-hover:text-blue-600 transition-colors uppercase tracking-wider font-mono">
-                    <span>Mitigation ready</span>
-                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  {/* WHO FDA Guideline */}
+                  <div className="rounded-xl bg-slate-50 border border-slate-200/50 p-4 space-y-1.5 font-mono text-[9px] text-slate-500 leading-relaxed shadow-sm">
+                    <span className="text-[8.5px] font-bold text-slate-400 uppercase tracking-wider block">Regulatory Protocol</span>
+                    <div>{challenges[selectedChallengeIdx].guideline}</div>
                   </div>
-                </motion.div>
-              );
-            })}
+                </div>
+              </div>
+
+              {/* Mitigation block */}
+              <div className="pt-6 border-t border-slate-100 mt-6 space-y-3.5 text-left">
+                <span className="text-[8px] font-bold text-emerald-600 font-mono uppercase tracking-wider block">ThermoVault Mitigation Solution</span>
+                
+                <div className="flex flex-col sm:flex-row gap-4 items-stretch">
+                  <div className="flex-1 rounded-xl bg-emerald-500/5 border border-emerald-500/10 p-4 flex gap-3 items-center">
+                    <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0" />
+                    <div>
+                      <h4 className="text-xs font-bold text-[#0c2340] font-display">Active Engineering Safeguard</h4>
+                      <p className="text-[10px] text-slate-500 mt-0.5 leading-normal">{challenges[selectedChallengeIdx].mitigation}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -732,20 +854,20 @@ export default function PharmaServicesPage() {
               {/* Counter badges */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-slate-100 text-center font-mono">
                 <div className="space-y-1">
-                  <div className="text-lg font-extrabold text-[#0c2340] font-display">500+</div>
-                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Projects Delivered</div>
+                  <div className="text-lg font-extrabold text-[#0c2340] font-display">WHO-GDP</div>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Compliance Standard</div>
                 </div>
                 <div className="space-y-1">
-                  <div className="text-lg font-extrabold text-[#0c2340] font-display">15+ Years</div>
-                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Of Experience</div>
+                  <div className="text-lg font-extrabold text-[#0c2340] font-display">100%</div>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">IQ/OQ Validation</div>
                 </div>
                 <div className="space-y-1">
                   <div className="text-lg font-extrabold text-[#0c2340] font-display">24/7</div>
-                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Service Support</div>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Real-time Telemetry</div>
                 </div>
                 <div className="space-y-1">
-                  <div className="text-lg font-extrabold text-[#0c2340] font-display">Pan India</div>
-                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Service Network</div>
+                  <div className="text-lg font-extrabold text-[#0c2340] font-display">Zero</div>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Temp Excursions</div>
                 </div>
               </div>
 

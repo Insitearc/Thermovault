@@ -51,6 +51,20 @@ export default function SeafoodServicesPage() {
   // FAQ Accordion State
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
+  // Interactive Diagnostic states
+  const [selectedChallengeIdx, setSelectedChallengeIdx] = useState(0);
+  const [hoveredChallengeIdx, setHoveredChallengeIdx] = useState<number | null>(null);
+  const [mouseCoords, setMouseCoords] = useState({ x: 0, y: 0 });
+
+  const handleChallengeMouseMove = (e: React.MouseEvent<HTMLButtonElement | HTMLDivElement>, idx: number) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setMouseCoords({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+    setHoveredChallengeIdx(idx);
+  };
+
   const handleCallbackSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !phone) return;
@@ -63,52 +77,56 @@ export default function SeafoodServicesPage() {
 
   const challenges = [
     {
-      title: "Temperature Abuse",
-      desc: "Even small temperature changes cause spoilage and quality loss.",
-      icon: Thermometer,
-      color: "from-red-500/20 to-red-600/5",
-      iconColor: "text-red-500",
-      borderColor: "hover:border-red-500/30",
-    },
-    {
-      title: "High Bacterial Growth",
-      desc: "Seafood is highly perishable and prone to bacterial contamination.",
-      icon: ShieldAlert,
-      color: "from-orange-500/20 to-orange-600/5",
-      iconColor: "text-orange-500",
-      borderColor: "hover:border-orange-500/30",
-    },
-    {
-      title: "Cross Contamination",
-      desc: "Improper storage can lead to contamination between different species.",
-      icon: AlertTriangle,
-      color: "from-yellow-500/20 to-yellow-600/5",
-      iconColor: "text-yellow-500",
-      borderColor: "hover:border-yellow-500/30",
-    },
-    {
-      title: "Freezer Burn",
-      desc: "Improper freezing results in dryness, texture loss and weight loss.",
+      title: "Cellular Rupture",
+      desc: "Standard slow freezing forms needle-like ice crystals, puncturing delicate cellular walls of marine tissues.",
       icon: Snowflake,
       color: "from-blue-500/20 to-blue-600/5",
       iconColor: "text-blue-500",
       borderColor: "hover:border-blue-500/30",
+      code: "ERR-CELL-RUPT",
+      normalPerformance: "Needle crystals. 45% moisture loss upon defrosting. Spongy, degraded texture.",
+      thermovaultMitigation: "Microscopic spherical crystals. 98% cellular moisture retention. Pristine fresh-frozen texture.",
+      retentionRate: "98% Retention",
+      criticality: "Critical Risk"
     },
     {
-      title: "Odor & Hygiene Issues",
-      desc: "Strong odor spreads easily and affects product quality and environment.",
-      icon: Droplet,
-      color: "from-purple-500/20 to-purple-600/5",
-      iconColor: "text-purple-500",
-      borderColor: "hover:border-purple-500/30",
+      title: "Saline Corrosion",
+      desc: "High moisture and salt-water exposure corrode mechanical frames and coil fins in standard storage rooms.",
+      icon: ShieldAlert,
+      color: "from-red-500/20 to-red-600/5",
+      iconColor: "text-red-500",
+      borderColor: "hover:border-red-500/30",
+      code: "WARN-SALINE-INGR",
+      normalPerformance: "Aluminum coils corrode rapidly. Rust marks on sheet borders. Bacterial traps in crevices.",
+      thermovaultMitigation: "Marine-grade SS-304 interior sheet cladding. Polyurethane (PUF) insulation. Epoxy coated coils.",
+      retentionRate: "100% Protection",
+      criticality: "High Warning"
     },
     {
-      title: "High Energy Costs",
-      desc: "Inefficient systems increase power consumption and operational cost.",
-      icon: Zap,
-      color: "from-emerald-500/20 to-emerald-600/5",
-      iconColor: "text-emerald-500",
-      borderColor: "hover:border-emerald-500/30",
+      title: "Rapid Fat Oxidation",
+      desc: "Exposure to heat during transfers triggers lipid oxidation in fatty fish (tuna, salmon), causing rancidity.",
+      icon: AlertTriangle,
+      color: "from-yellow-500/20 to-yellow-600/5",
+      iconColor: "text-yellow-500",
+      borderColor: "hover:border-yellow-500/30",
+      code: "WARN-OXYD-RAPID",
+      normalPerformance: "Frequent air infiltration. Discoloration. Loss of premium grade pricing.",
+      thermovaultMitigation: "Dual hermetic entry airlocks. Rapid-acting air curtains. Fast temperature recovery below -25°C.",
+      retentionRate: "95% Color Retention",
+      criticality: "Medium Warning"
+    },
+    {
+      title: "Bacterial Degradation",
+      desc: "Highly active enzymes in marine organisms lead to quick decay and severe odor leakage at positive temps.",
+      icon: Thermometer,
+      color: "from-orange-500/20 to-orange-600/5",
+      iconColor: "text-orange-500",
+      borderColor: "hover:border-orange-500/30",
+      code: "CRIT-BACT-DEGR",
+      normalPerformance: "Slow temperature pull-down. High biological load. Short shelf-life (2-3 days).",
+      thermovaultMitigation: "Ultra-fast blast chilling from +15°C to 0°C under 60 minutes. Locks enzymatic activity.",
+      retentionRate: "99% Bio-Security",
+      criticality: "Critical Risk"
     },
   ];
 
@@ -479,45 +497,122 @@ export default function SeafoodServicesPage() {
             </p>
           </div>
 
-          {/* Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {challenges.map((chal, idx) => {
-              const Icon = chal.icon;
-              return (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.5, delay: idx * 0.05 }}
-                  whileHover={{ 
-                    y: -6,
-                    boxShadow: "0 20px 25px -5px rgba(24, 95, 165, 0.08), 0 10px 10px -5px rgba(24, 95, 165, 0.03)"
-                  }}
-                  className={`group rounded-2xl border border-slate-100 bg-white p-6 transition-all duration-300 flex flex-col justify-between ${chal.borderColor}`}
-                >
+          {/* Interactive Diagnostic Tab Panel */}
+          <div className="space-y-8 text-slate-800">
+            {/* Horizontal Tabs */}
+            <div className="flex flex-wrap justify-center gap-3">
+              {challenges.map((chal, idx) => {
+                const Icon = chal.icon;
+                const isSelected = selectedChallengeIdx === idx;
+                const isHovered = hoveredChallengeIdx === idx;
+                return (
+                  <button
+                    key={idx}
+                    onClick={() => setSelectedChallengeIdx(idx)}
+                    onMouseMove={(e) => handleChallengeMouseMove(e, idx)}
+                    onMouseLeave={() => setHoveredChallengeIdx(null)}
+                    className={`relative px-5 py-3.5 rounded-2xl border transition-all duration-300 flex items-center gap-3 group overflow-hidden ${
+                      isSelected 
+                        ? "bg-[#0C2340] border-[#0c2340] text-white shadow-lg shadow-blue-900/10"
+                        : "bg-slate-50 border-slate-200/60 text-slate-700 hover:border-blue-300 hover:bg-slate-100/50"
+                    }`}
+                  >
+                    {/* Spotlight hover effect */}
+                    {isHovered && !isSelected && (
+                      <div 
+                        className="absolute inset-0 pointer-events-none opacity-45 transition-opacity duration-300 bg-[radial-gradient(150px_circle_at_var(--x)_var(--y),rgba(59,130,246,0.15),transparent_80%)]"
+                        style={{
+                          // @ts-ignore
+                          "--x": `${mouseCoords.x}px`,
+                          "--y": `${mouseCoords.y}px`
+                        }}
+                      />
+                    )}
+                    
+                    <Icon className={`h-4.5 w-4.5 shrink-0 ${isSelected ? "text-blue-400" : "text-slate-500"}`} />
+                    <span className="text-xs font-bold font-display tracking-wide">{chal.title}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Diagnostic comparison board */}
+            <div className="relative rounded-3xl border border-slate-200/60 bg-slate-50 p-6 sm:p-8 overflow-hidden shadow-sm">
+              <div className="absolute inset-0 cyber-grid opacity-[0.02] pointer-events-none" />
+              
+              <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                {/* Left Side: Diagnostic Details (col-span-5) */}
+                <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
                   <div className="space-y-4">
-                    <div className={`flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br ${chal.color} ${chal.iconColor} border border-white/10 shadow-sm transition-transform duration-300 group-hover:scale-105`}>
-                      <Icon className="h-5 w-5" />
+                    {/* Code & Criticality tag */}
+                    <div className="flex items-center gap-3">
+                      <span className="font-mono text-[9px] font-bold text-slate-400 bg-white border border-slate-200/80 px-2 py-0.5 rounded uppercase tracking-wider">
+                        {challenges[selectedChallengeIdx].code}
+                      </span>
+                      <span className="font-mono text-[9px] font-bold text-red-600 bg-red-50 border border-red-100 px-2 py-0.5 rounded uppercase tracking-wider animate-pulse">
+                        {challenges[selectedChallengeIdx].criticality}
+                      </span>
                     </div>
 
-                    <div className="space-y-2">
-                      <h3 className="text-sm font-extrabold text-[#0c2340] font-display">
-                        {chal.title}
-                      </h3>
+                    <h3 className="text-xl font-extrabold text-[#0c2340] font-display text-left">
+                      {challenges[selectedChallengeIdx].title}
+                    </h3>
+                    <p className="text-xs text-slate-600 leading-relaxed font-body text-left">
+                      {challenges[selectedChallengeIdx].desc}
+                    </p>
+                  </div>
+
+                  {/* Retention Rate Stat Badge */}
+                  <div className="rounded-2xl bg-white border border-slate-200/60 p-4 flex items-center justify-between shadow-sm">
+                    <div className="space-y-0.5 text-left">
+                      <span className="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-wider block">Thermodynamic Quality Lock</span>
+                      <span className="text-xs font-extrabold text-[#0c2340] font-display">Freshness Retention</span>
+                    </div>
+                    <span className="text-xs font-extrabold text-blue-600 font-mono tracking-tight bg-blue-50 border border-blue-100 px-3 py-1.5 rounded-xl">
+                      {challenges[selectedChallengeIdx].retentionRate}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Right Side: Comparative Columns (col-span-7) */}
+                <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+                  {/* Standard Column */}
+                  <div className="rounded-2xl border border-slate-200/60 bg-white p-5 flex flex-col justify-between shadow-sm text-left">
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-2 pb-3 border-b border-slate-100">
+                        <div className="h-2 w-2 rounded-full bg-slate-400" />
+                        <h4 className="text-xs font-bold text-slate-500 font-display uppercase tracking-wider">Standard Cold Room</h4>
+                      </div>
                       <p className="text-xs text-slate-500 leading-relaxed font-body">
-                        {chal.desc}
+                        {challenges[selectedChallengeIdx].normalPerformance}
                       </p>
                     </div>
+                    <div className="pt-4 text-[9px] font-mono font-bold text-red-500 bg-red-50/50 border border-red-100/50 rounded-lg p-2.5 mt-6 text-center">
+                      High Quality Spoilage Rate
+                    </div>
                   </div>
 
-                  <div className="pt-6 border-t border-slate-50 mt-6 flex items-center gap-1 text-[10px] font-bold text-slate-400 group-hover:text-blue-600 transition-colors uppercase tracking-wider font-mono">
-                    <span>Mitigation ready</span>
-                    <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  {/* ThermoVault Column */}
+                  <div className="rounded-2xl border border-blue-500/30 bg-white p-5 flex flex-col justify-between shadow-md relative overflow-hidden text-left">
+                    <div className="absolute top-0 right-0 w-16 h-16 bg-blue-500/5 rounded-full blur-xl pointer-events-none" />
+                    
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-2 pb-3 border-b border-slate-100">
+                        <div className="h-2 w-2 rounded-full bg-blue-600 animate-pulse" />
+                        <h4 className="text-xs font-bold text-blue-600 font-display uppercase tracking-wider">ThermoVault Solution</h4>
+                      </div>
+                      <p className="text-xs text-slate-600 leading-relaxed font-body font-medium">
+                        {challenges[selectedChallengeIdx].thermovaultMitigation}
+                      </p>
+                    </div>
+                    <div className="pt-4 text-[9px] font-mono font-bold text-emerald-600 bg-emerald-50 border border-emerald-100 rounded-lg p-2.5 mt-6 text-center flex items-center justify-center gap-1.5">
+                      <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+                      <span>Certified Quality Preservation</span>
+                    </div>
                   </div>
-                </motion.div>
-              );
-            })}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -733,20 +828,20 @@ export default function SeafoodServicesPage() {
               {/* Counter badges */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-slate-100 text-center font-mono">
                 <div className="space-y-1">
-                  <div className="text-lg font-extrabold text-[#0c2340] font-display">500+</div>
-                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Projects Delivered</div>
+                  <div className="text-lg font-extrabold text-[#0c2340] font-display">IQF Ready</div>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Freezing System</div>
                 </div>
                 <div className="space-y-1">
-                  <div className="text-lg font-extrabold text-[#0c2340] font-display">15+ Years</div>
-                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Of Experience</div>
+                  <div className="text-lg font-extrabold text-[#0c2340] font-display">Anti-Corrosive</div>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Saline Protection</div>
                 </div>
                 <div className="space-y-1">
-                  <div className="text-lg font-extrabold text-[#0c2340] font-display">24/7</div>
-                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Service Support</div>
+                  <div className="text-lg font-extrabold text-[#0c2340] font-display">-35°C</div>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Deep Freeze Performance</div>
                 </div>
                 <div className="space-y-1">
-                  <div className="text-lg font-extrabold text-[#0c2340] font-display">Pan India</div>
-                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Service Network</div>
+                  <div className="text-lg font-extrabold text-[#0c2340] font-display">Pristine</div>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Cellular Integrity</div>
                 </div>
               </div>
 
