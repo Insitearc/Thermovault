@@ -169,17 +169,27 @@ export default function DairyServicesPage() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative bg-[#0C2340] text-white pt-10 pb-20 overflow-hidden min-h-[580px] flex items-center">
-        {/* Cyber-grid background overlay */}
-        <div className="absolute inset-0 bg-[radial-gradient(#ffffff03_1px,transparent_1px)] [background-size:16px_16px] opacity-40 z-0" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-[#0C2340] via-[#0E2F56] to-[#0A1A30] opacity-90 z-0" />
+      <section className="relative bg-[#0C2340] text-white pt-16 pb-24 overflow-hidden min-h-[620px] flex items-center">
+        {/* Engineering Blueprint Grid Background Overlay */}
+        <div 
+          className="absolute inset-0 opacity-15 pointer-events-none z-0" 
+          style={{
+            backgroundImage: `
+              radial-gradient(rgba(59, 130, 246, 0.15) 1px, transparent 1px),
+              linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px)
+            `,
+            backgroundSize: "20px 20px, 40px 40px, 40px 40px"
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-tr from-[#0C2340] via-[#0E2F56]/90 to-[#0A1A30]/95 z-0" />
         
-        {/* Decorative elements */}
-        <div className="absolute top-1/4 -left-20 w-80 h-80 rounded-full bg-blue-500/10 blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-1/4 right-0 w-96 h-96 rounded-full bg-cyan-500/10 blur-[150px] pointer-events-none" />
+        {/* Soft glowing ambient orbs */}
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-blue-500/10 blur-[130px] pointer-events-none z-0" />
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-teal-500/5 blur-[120px] pointer-events-none z-0" />
 
         <div className="mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8 relative z-10">
-          {/* Breadcrumb & Navigation Back */}
+          {/* Breadcrumb & Navigation */}
           <div className="flex flex-wrap items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono mb-8">
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <span>&gt;</span>
@@ -188,75 +198,166 @@ export default function DairyServicesPage() {
             <span className="text-blue-400">Dairy & Milk Products</span>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Left side info sheet */}
-            <div className="lg:col-span-7 space-y-6">
+          {/* Immersive 3-Column Split-Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+            
+            {/* Left Side: Text Sheet (col-span-5) */}
+            <div className="lg:col-span-5 space-y-6">
               {/* Category tag */}
-              <div className="inline-flex items-center gap-2 rounded-xl bg-blue-500/10 border border-blue-500/25 px-4 py-2 text-xs font-bold text-blue-400 font-mono">
-                <Snowflake className="h-4 w-4 text-blue-400 shrink-0" />
+              <div className="inline-flex items-center gap-2 rounded-xl bg-blue-500/10 border border-blue-500/25 px-4 py-2 text-xs font-bold text-blue-400 font-mono w-fit">
+                <Snowflake className="h-4 w-4 text-blue-400 shrink-0 animate-pulse" />
                 <span>DAIRY & MILK PRODUCTS</span>
               </div>
 
               {/* Title */}
-              <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight font-display leading-[1.15]">
+              <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight font-display leading-[1.12]">
                 Reliable Cold Storage for <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-emerald-400">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-emerald-400 font-display">
                   Dairy & Milk Products
                 </span>
               </h1>
 
               {/* Description */}
-              <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl font-body">
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-body">
                 We provide temperature controlled storage solutions to preserve freshness, 
                 nutrition and quality of milk and its products from farm to distribution.
               </p>
 
-              {/* Temp Pills */}
-              <div className="flex flex-wrap gap-4 pt-2">
-                <div className="flex items-center gap-2.5 rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-xs sm:text-sm font-semibold font-mono text-blue-300">
-                  <Thermometer className="h-4.5 w-4.5 text-blue-400" />
-                  <span>Operating Range: <strong className="text-white">2°C to 4°C</strong></span>
+              {/* Temp Pills (Premium Capsule Design) */}
+              <div className="flex flex-wrap gap-4 pt-1">
+                <div className="flex items-center gap-2.5 rounded-full bg-gradient-to-r from-blue-950/50 via-[#0A1A30]/50 to-blue-900/30 border border-blue-500/30 px-4 py-2 text-xs font-bold font-mono text-blue-300 shadow-[0_0_15px_rgba(59,130,246,0.15)] backdrop-blur-md hover:border-blue-400/50 transition-all select-none">
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-500/20 text-blue-400 text-[10px] shadow-[0_0_8px_rgba(59,130,246,0.4)] animate-pulse shrink-0">❄</span>
+                  <span>Chilled: <strong className="text-white font-extrabold tracking-wide">2°C to 4°C</strong></span>
                 </div>
-                <div className="flex items-center gap-2.5 rounded-2xl bg-white/5 border border-white/10 px-4 py-3 text-xs sm:text-sm font-semibold font-mono text-cyan-300">
-                  <Snowflake className="h-4.5 w-4.5 text-cyan-400" />
-                  <span>Frozen Storage: <strong className="text-white">-18°C to -25°C</strong></span>
+                <div className="flex items-center gap-2.5 rounded-full bg-gradient-to-r from-cyan-950/50 via-[#0A1A30]/50 to-cyan-900/30 border border-cyan-500/30 px-4 py-2 text-xs font-bold font-mono text-cyan-300 shadow-[0_0_15px_rgba(34,211,238,0.15)] backdrop-blur-md hover:border-cyan-400/50 transition-all select-none">
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-cyan-500/20 text-cyan-400 text-[10px] shadow-[0_0_8px_rgba(34,211,238,0.4)] animate-pulse shrink-0">❄</span>
+                  <span>Frozen: <strong className="text-white font-extrabold tracking-wide">-18°C to -25°C</strong></span>
                 </div>
               </div>
 
-              {/* Badges strip */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 text-[11px] font-bold text-slate-200 uppercase tracking-wider font-mono">
+              {/* Better CTA Positioning: Scroll to Consultation */}
+              <div className="pt-2 flex flex-wrap gap-4">
+                <button
+                  onClick={() => {
+                    const el = document.getElementById("sizing-form-card");
+                    if (el) {
+                      el.scrollIntoView({ behavior: "smooth" });
+                    }
+                  }}
+                  className="inline-flex items-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-500 px-6 py-3 text-xs font-bold text-white shadow-lg active:scale-[0.98] transition-all font-display"
+                >
+                  <span>Request Sizing Consultation</span>
+                  <ArrowRight className="h-4 w-4" />
+                </button>
+              </div>
+
+              {/* Mini Features row */}
+              <div className="grid grid-cols-2 gap-x-4 gap-y-3 pt-4 border-t border-white/5 text-[10px] font-bold text-slate-300 uppercase tracking-wider font-mono">
                 <div className="flex items-center gap-2">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20 shadow-sm">
-                    <Zap className="h-3.5 w-3.5" />
-                  </div>
+                  <div className="h-2 w-2 rounded-full bg-blue-500" />
                   <span>Energy Efficient</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20 shadow-sm">
-                    <Network className="h-3.5 w-3.5" />
-                  </div>
+                  <div className="h-2 w-2 rounded-full bg-cyan-500" />
                   <span>IoT Monitoring</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20 shadow-sm">
-                    <Zap className="h-3.5 w-3.5" />
-                  </div>
+                  <div className="h-2 w-2 rounded-full bg-teal-500" />
                   <span>Fast Installation</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20 shadow-sm">
-                    <ShieldCheck className="h-3.5 w-3.5" />
-                  </div>
+                  <div className="h-2 w-2 rounded-full bg-emerald-500" />
                   <span>Hygienic Design</span>
                 </div>
               </div>
             </div>
 
-            {/* Right side form */}
-            <div className="lg:col-span-5 relative">
+            {/* Center Column: Premium CAD Blueprint & Product Visualizer (col-span-3) */}
+            <div className="lg:col-span-3 hidden lg:flex justify-center relative">
+              <div className="absolute inset-0 bg-blue-500/5 blur-[80px] pointer-events-none z-0" />
+              
+              {/* Technical Drawing Framer */}
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.7 }}
+                className="relative w-full max-w-[240px] aspect-[4/5] rounded-2xl border border-blue-500/20 bg-white/2 p-2 shadow-2xl backdrop-blur-sm overflow-hidden group select-none"
+              >
+                {/* Laser scan line anim */}
+                <div 
+                  className="absolute left-0 right-0 h-[2px] bg-cyan-400/50 shadow-[0_0_10px_rgba(34,211,238,0.5)] z-20 pointer-events-none"
+                  style={{
+                    animation: "scan 3.5s linear infinite",
+                  }}
+                />
+                
+                {/* CAD Border Elements */}
+                <div className="absolute top-2 left-2 text-[8px] font-mono text-blue-400/40 font-bold">SCALE: 1:25</div>
+                <div className="absolute bottom-2 right-2 text-[8px] font-mono text-blue-400/40 font-bold">TV-DS-2026</div>
+
+                <div className="relative w-full h-full rounded-xl overflow-hidden bg-[#0A1A30]">
+                  <Image
+                    src="/images/dairy_hero_bg.png"
+                    alt="HD Cold Room Visualization"
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    sizes="25vw"
+                    priority
+                  />
+                  {/* Subtle bluish radial shading */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0A1A30]/60 via-transparent to-transparent z-10" />
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Right Column: Sizing Consultation Form (col-span-4) */}
+            <div id="sizing-form-card" className="lg:col-span-4 relative scroll-mt-24">
               <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 opacity-20 blur-lg" />
               
-              <div className="relative rounded-2xl border border-white/10 bg-[#0C2340]/80 p-6 sm:p-8 shadow-2xl backdrop-blur-md">
+              <div 
+                className="relative rounded-2xl border border-white/10 bg-[#0C2340]/80 p-6 sm:p-8 shadow-2xl backdrop-blur-md overflow-hidden"
+                style={{
+                  backgroundImage: `
+                    linear-gradient(to right, rgba(59, 130, 246, 0.08) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(59, 130, 246, 0.08) 1px, transparent 1px)
+                  `,
+                  backgroundSize: "16px 16px"
+                }}
+              >
+                {/* Ambient glowing radial blur behind illustration */}
+                <div className="absolute top-0 right-0 w-36 h-36 bg-blue-500/10 rounded-full blur-2xl pointer-events-none" />
+
+                {/* Technical Vector Drawing Blueprint Schematic */}
+                <div className="relative h-20 w-full rounded-xl bg-slate-950/40 border border-white/5 overflow-hidden mb-6 flex items-center justify-center">
+                  <div 
+                    className="absolute inset-0 opacity-20" 
+                    style={{
+                      backgroundImage: "radial-gradient(rgba(59, 130, 246, 0.3) 1.2px, transparent 1.2px)",
+                      backgroundSize: "12px 12px"
+                    }}
+                  />
+                  <svg className="absolute inset-0 h-full w-full stroke-blue-500/25 fill-none" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <circle cx="50" cy="50" r="32" strokeWidth="0.5" strokeDasharray="2 2" />
+                    <circle cx="50" cy="50" r="16" strokeWidth="0.5" />
+                    <line x1="10" y1="50" x2="90" y2="50" strokeWidth="0.5" strokeDasharray="4 4" />
+                    <line x1="50" y1="10" x2="50" y2="90" strokeWidth="0.5" strokeDasharray="4 4" />
+                    <path d="M 20 20 L 80 80 M 20 80 L 80 20" strokeWidth="0.25" strokeDasharray="1 3" />
+                  </svg>
+                  
+                  <div className="relative z-10 flex items-center gap-3 px-4 py-2">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/10 border border-blue-500/35 text-blue-400">
+                      <Settings className="h-5 w-5 animate-spin-slow text-blue-400" />
+                    </div>
+                    <div className="text-left">
+                      <div className="text-[10px] font-extrabold font-mono uppercase tracking-wider text-blue-400">CAD Blueprint Sizing</div>
+                      <div className="text-[8px] font-bold text-slate-300 font-mono flex items-center gap-1">
+                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                        <span>DRAFTSMAN STATUS: ONLINE</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <div className="flex items-center gap-2 text-blue-400 mb-2">
                   <Phone className="h-4.5 w-4.5" />
                   <h3 className="text-base font-extrabold text-white font-display">Sizing Consultation</h3>
@@ -318,17 +419,17 @@ export default function DairyServicesPage() {
                       />
                     </div>
 
-                    <div className="flex items-center gap-2 text-[10px] text-emerald-400 font-semibold font-mono py-1">
-                      <Clock className="h-3.5 w-3.5 animate-pulse" />
+                    <div className="flex items-center gap-2 text-[10px] text-emerald-400 font-bold font-mono py-2 bg-emerald-500/5 border border-emerald-500/10 rounded-xl justify-center w-full shadow-inner select-none">
+                      <Clock className="h-3.5 w-3.5 animate-pulse text-emerald-400" />
                       <span>Response within 30 mins</span>
                     </div>
 
                     <div className="flex flex-col gap-3 pt-2">
                       <button
                         type="submit"
-                        className="w-full flex items-center justify-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-500 py-3.5 text-xs font-bold text-white shadow-lg active:scale-[0.98] transition-all"
+                        className="w-full flex items-center justify-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-500 py-3.5 text-xs font-bold text-white shadow-lg active:scale-[0.98] transition-all font-display group/btn"
                       >
-                        <Send className="h-3.5 w-3.5" />
+                        <Send className="h-3.5 w-3.5 text-inherit transition-transform group-hover/btn:translate-x-0.5" />
                         <span>Talk to Cold Chain Expert</span>
                       </button>
 
@@ -336,9 +437,9 @@ export default function DairyServicesPage() {
                         href="https://wa.me/918055010620?text=Hi,%20I'm%20interested%20in%20Dairy%20Cold%20Storage%20Solutions.%20Please%20connect%20me%20with%20an%20expert."
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 py-3.5 text-xs font-bold text-white transition-all active:scale-[0.98]"
+                        className="w-full flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 py-3.5 text-xs font-bold text-white transition-all active:scale-[0.98] font-display group/btn"
                       >
-                        <MessageSquare className="h-3.5 w-3.5 text-emerald-400" />
+                        <MessageSquare className="h-3.5 w-3.5 text-emerald-400 transition-transform group-hover/btn:scale-110" />
                         <span>Chat on WhatsApp</span>
                       </a>
                     </div>
@@ -346,6 +447,7 @@ export default function DairyServicesPage() {
                 )}
               </div>
             </div>
+            
           </div>
         </div>
       </section>

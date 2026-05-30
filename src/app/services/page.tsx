@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import PerformanceFeatureBar from "@/components/layout/PerformanceFeatureBar";
 import {
   Snowflake,
   ShieldCheck,
@@ -646,6 +647,11 @@ export default function ServicesPage() {
           </div>
         </div>
       </section>
+
+      {/* Modern & Premium Performance / Feature Bar */}
+      <div className="py-12 border-t border-slate-100 bg-slate-50">
+        <PerformanceFeatureBar />
+      </div>
 
       <Footer />
     </div>
