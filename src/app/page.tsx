@@ -6,6 +6,7 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import PerformanceFeatureBar from "@/components/layout/PerformanceFeatureBar";
 import {
   ArrowRight,
   TrendingUp,
@@ -165,40 +166,10 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Floating White Features Box Ribbon overlapping the Hero */}
-      <section className="relative z-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full -mt-10">
-        <motion.div 
-          initial={{ opacity: 0, y: 50, rotateX: 20 }}
-          whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="rounded-xl bg-white/90 backdrop-blur-md border border-slate-100 p-6 md:p-8 shadow-2xl shadow-slate-900/10 grid grid-cols-2 md:grid-cols-5 gap-6 text-center perspective-1000 preserve-3d"
-        >
-          {[
-            { icon: Thermometer, label: "PRECISE TEMPERATURE CONTROL" },
-            { icon: Zap, label: "ENERGY EFFICIENT SYSTEMS" },
-            { icon: ShieldAlert, label: "DURABLE & HYGIENIC DESIGN" },
-            { icon: FileSpreadsheet, label: "GOVERNMENT SUBSIDY SUPPORT" },
-            { icon: Activity, label: "RELIABLE AFTER SALES SERVICE" },
-          ].map((feat, idx) => {
-            const Icon = feat.icon;
-            return (
-              <motion.div 
-                key={idx} 
-                whileHover={{ y: -5, scale: 1.03, rotateY: 5 }}
-                className="flex flex-col items-center gap-3 p-2 md:border-r md:border-slate-100 md:last:border-0 border-0 transition-all duration-300 hover:shadow-neon-glow rounded-lg preserve-3d"
-              >
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-50 text-blue-600 shadow-inner">
-                  <Icon className="h-5 w-5" />
-                </div>
-                <span className="text-[9px] font-bold text-[#0c2340] tracking-wider leading-relaxed uppercase">
-                  {feat.label}
-                </span>
-              </motion.div>
-            );
-          })}
-        </motion.div>
-      </section>
+      {/* Floating Features Box Ribbon overlapping the Hero */}
+      <div className="-mt-10 relative z-20">
+        <PerformanceFeatureBar />
+      </div>
 
       {/* About ThermoVault Section */}
       <section className="py-24 bg-white relative overflow-hidden">

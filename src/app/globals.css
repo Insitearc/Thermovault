@@ -269,3 +269,19 @@ section,
     box-shadow: none !important;
   }
 }
+
+/* Custom laser scan keyframe animation for CAD frames */
+@keyframes scan {
+  0% {
+    top: 0%;
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    top: 100%;
+    opacity: 0.3;
+  }
+}
+
