@@ -210,9 +210,11 @@ export default function ServicesPage() {
 
         {/* Left Side Content */}
         <div className="relative px-6 py-16 sm:px-12 lg:px-20 z-10 space-y-6">
-          <div className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-blue-400 font-mono">
+          <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-blue-400 font-mono">
             <Sparkles className="h-3.5 w-3.5 animate-spin-slow" />
-            <span>Home &gt; Services</span>
+            <Link href="/" className="hover:text-white transition-colors">Home</Link>
+            <span className="text-white/40">/</span>
+            <span className="text-blue-300">Services</span>
           </div>
 
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl font-display leading-[1.1]">

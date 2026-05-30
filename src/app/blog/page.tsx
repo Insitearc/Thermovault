@@ -138,9 +138,11 @@ export default function BlogIndexPage() {
         <div className="absolute inset-0 bg-[#0C2340]/80" />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-4 z-10 text-center md:text-left">
-          <div className="flex items-center justify-center md:justify-start gap-1 text-[10px] font-bold uppercase tracking-wider text-teal-light font-mono">
+          <div className="flex items-center justify-center md:justify-start gap-2 text-[10px] font-bold uppercase tracking-wider text-teal-light font-mono">
             <Sparkles className="h-3.5 w-3.5" />
-            <span>Home &gt; Knowledge Center</span>
+            <Link href="/" className="hover:text-white transition-colors">Home</Link>
+            <span className="text-white/40">/</span>
+            <span className="text-slate-300">Knowledge Center</span>
           </div>
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl font-display">
             ThermoVault <span className="text-blue-400">Blog & Insights</span>
