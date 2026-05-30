@@ -57,13 +57,13 @@ export default function PerformanceFeatureBar() {
         {/* Soft grid micro-dots background overlay */}
         <div className="absolute inset-0 bg-[radial-gradient(#ffffff01_1.2px,transparent_1.2px)] [background-size:24px_24px] opacity-40 pointer-events-none" />
 
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-8 items-center justify-center text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-6 md:gap-8 items-center justify-center text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
           {features.map((item, idx) => {
             const Icon = item.icon;
             return (
               <div
                 key={idx}
-                className={`group flex flex-col items-center gap-3.5 pt-6 md:pt-0 ${
+                className={`group flex flex-col items-center gap-3.5 pt-6 md:pt-0 first:pt-0 ${
                   idx > 0 ? "md:pl-8" : ""
                 }`}
               >
