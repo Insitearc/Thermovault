@@ -2,8 +2,10 @@
 
 import React, { use, useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+
 import PerformanceFeatureBar from "@/components/layout/PerformanceFeatureBar";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -1686,7 +1688,6 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
 }
 
 export default function ServiceDetailPage({
-
   params,
 }: {
   params: Promise<{ slug: string }>;
@@ -1715,6 +1716,37 @@ export default function ServiceDetailPage({
   const [business, setBusiness] = useState("");
   const [notes, setNotes] = useState("");
   const [expandedFaqIdx, setExpandedFaqIdx] = useState<number | null>(null);
+
+  // New states for premium interactions
+  const [heroView, setHeroView] = useState<"photo" | "blueprint">("photo");
+  const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
+
+  const [hoveredSpecIdx, setHoveredSpecIdx] = useState<number | null>(null);
+  const [specMouseCoords, setSpecMouseCoords] = useState({ x: 0, y: 0 });
+
+  const [hoveredAppIdx, setHoveredAppIdx] = useState<number | null>(null);
+  const [appMouseCoords, setAppMouseCoords] = useState({ x: 0, y: 0 });
+
+  const [hoveredWhyIdx, setHoveredWhyIdx] = useState<number | null>(null);
+  const [whyMouseCoords, setWhyMouseCoords] = useState({ x: 0, y: 0 });
+
+  const handleSpecMouseMove = (e: React.MouseEvent<any>, idx: number) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setSpecMouseCoords({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+    setHoveredSpecIdx(idx);
+  };
+
+  const handleAppMouseMove = (e: React.MouseEvent<any>, idx: number) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setAppMouseCoords({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+    setHoveredAppIdx(idx);
+  };
+
+  const handleWhyMouseMove = (e: React.MouseEvent<any>, idx: number) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setWhyMouseCoords({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+    setHoveredWhyIdx(idx);
+  };
 
   // Run thermodynamic equations when inputs change
   useEffect(() => {
@@ -1798,6 +1830,72 @@ export default function ServiceDetailPage({
     setFormSent(true);
   };
 
+  // Dynamic Image Mapping for Hero & Gallery
+  const heroImageMap: Record<string, string> = {
+    "modular-cold-rooms": "/images/cold_room_modular.png",
+    "refrigeration-systems": "/images/refrigeration_system.png",
+    "display-cold-rooms": "/images/display_cold_room.png",
+    "clean-rooms": "/images/cold_room_door.png",
+    "ripening-chambers": "/images/ripening_chamber.png",
+    "blast-chillers": "/images/blast_chiller.png",
+    "amc": "/images/amc_maintenance.png",
+    "consultation": "/images/technician.png",
+  };
+  const heroImage = heroImageMap[slug] || "/images/cold_room_modular.png";
+
+  const galleryDb: Record<string, { src: string; title: string; desc: string; tag: string }[]> = {
+    "modular-cold-rooms": [
+      { src: "/images/cold_room_modular.png", title: "Modular Cold Store Sizing", desc: "Cam-lock panel alignment & insulation holding test", tag: "MODULAR BUILD" },
+      { src: "/images/deep_freezer_room.png", title: "Sub-Zero Holding Room", desc: "Heavy duty aluminum flooring & pressure valves setup", tag: "-25°C CHAMBER" },
+      { src: "/images/puf_panels.png", title: "High Density PUF Panels", desc: "Dual cam-locked joint layout with absolute vapor seal", tag: "INSULATION CORE" },
+      { src: "/images/cold_room_unit.png", title: "Dairy Distribution Depot", desc: "Uniform airflow delivery & hygienic walls inspection", tag: "ACTIVE NODE" },
+    ],
+    "refrigeration-systems": [
+      { src: "/images/refrigeration_system.png", title: "Condensing Unit Rigging", desc: "Tropical grade fan condensing plant setup at site", tag: "PLANT ENG" },
+      { src: "/images/compressors.png", title: "Semi-Hermetic Compressor Rack", desc: "Vibration isolation mounting & dual pressure checks", tag: "TR COMPRESSOR" },
+      { src: "/images/control_panel_unit.png", title: "PLC Control Starter Panel", desc: "Dixell electronic controller wiring & HOA diagnostics", tag: "SYSTEM CONTROL" },
+      { src: "/images/evaporator.png", title: "Forced Draft Evaporator Coil", desc: "Electrical heater defrost loop inspection at MIDC", tag: "COIL HEAT" },
+    ],
+    "display-cold-rooms": [
+      { src: "/images/display_cold_room.png", title: "Glass Showcase Cold Storage", desc: "Self-closing rise hinged vacuum heated glass doors", tag: "RETAIL DISPLAY" },
+      { src: "/images/cold_room_door.png", title: "EPDM Framed Walk-In Doors", desc: "Dual lip gaskets preventing air infiltration checks", tag: "EPDM BARRIER" },
+      { src: "/images/control_panel_unit.png", title: "Lighting & Heating Controls", desc: "Integrated vertical led diffuse light panel wiring", tag: "LIGHT & TEMP" },
+      { src: "/images/cold_room_modular.png", title: "Supermarket Backroom Hold", desc: "Walk-in storage sizing setup matching retail flow", tag: "MODULAR HOLD" },
+    ],
+    "clean-rooms": [
+      { src: "/images/cold_room_door.png", title: "Sterile Cleanroom Entryway", desc: "Double interlocking flush doors airlock compliance", tag: "ISO CLASS 5" },
+      { src: "/images/control_panel_unit.png", title: "Differential Pressure Gauge", desc: "Automatic pressure cascade sensor loops validation", tag: "CASCADE VALVE" },
+      { src: "/images/puf_panels.png", title: "Stainless Steel Wall Cladding", desc: "Smooth anti-bacterial Ra polish clean panel joints", tag: "STERILE PANEL" },
+      { src: "/images/evaporator.png", title: "HEPA Absolute Airflow Unit", desc: "ISO standard laminar airflow HEPA filters rigging", tag: "HEPA FLOW" },
+    ],
+    "ripening-chambers": [
+      { src: "/images/ripening_chamber.png", title: "Banana Ripening Chamber", desc: "Pressurized forced-air ventilation tunnels layout", tag: "AGRI RIPENING" },
+      { src: "/images/evaporator.png", title: "Ripening Room Evaporator", desc: "Dual speed air throw fans for uniform ripening check", tag: "AIR TUNNEL" },
+      { src: "/images/control_panel_unit.png", title: "PLC Ethylene Dosing Panel", desc: "Ethylene gas concentration automatic control loops", tag: "GAS DOSING" },
+      { src: "/images/technician.png", title: "Compliance Sensor Calibration", desc: "Carbon dioxide extraction venting sensors test", tag: "CO2 CHECK" },
+    ],
+    "blast-chillers": [
+      { src: "/images/blast_chiller.png", title: "Shock Freezer Chamber", desc: "High velocity evaporator fan pulling -38°C speed", tag: "BLAST FREEZE" },
+      { src: "/images/ice_flake_machine.png", title: "Industrial Ice Flake Node", desc: "Evaporator drum refrigeration assembly validation", tag: "SUB-COOLED ICE" },
+      { src: "/images/control_panel_unit.png", title: "Needle Temperature Controller", desc: "Core product probe auto defrost log curves setup", tag: "CORE PROBE" },
+      { src: "/images/compressors.png", title: "Booster Compressor Rack", desc: "High volume compression loops running blast cycles", tag: "BOOSTER TR" },
+    ],
+    "amc": [
+      { src: "/images/amc_maintenance.png", title: "Preventative Coil Cleaning", desc: "Condenser coil chemical washing & refrigerant tests", tag: "SLA AMC" },
+      { src: "/images/technician.png", title: "On-site Electrical Review", desc: "Current draws measurements & overload relay checkups", tag: "TECH RESPONSE" },
+      { src: "/images/compressors.png", title: "Compressor Valve Inspection", desc: "Copeland scroll oil changes & vibration diagnostics", tag: "OEM SERVICE" },
+      { src: "/images/control_panel_unit.png", title: "Telemetry Signal Calibration", desc: "IoT sensor telemetry alert systems validation check", tag: "ALARM TEST" },
+    ],
+    "consultation": [
+      { src: "/images/technician.png", title: "Engineering Blueprint Drafting", desc: "Computer heat gain simulations & piping isometric CAD", tag: "CAD CONSULT" },
+      { src: "/images/control_panel_unit.png", title: "Subsidy DPR Compilation", desc: "NHM and MIDH grant bankable project dossiers setup", tag: "GOV SCHEMES" },
+      { src: "/images/puf_panels.png", title: "Structural Load Sizing Review", desc: "Underdeck insulation & floor load equations check", tag: "LOAD CALCUL" },
+      { src: "/images/refrigeration_system.png", title: "Plant Capacity Calculations", desc: "Condensing unit coefficient of performance simulations", tag: "COP MATH" },
+    ],
+  };
+
+  const galleryItems = galleryDb[slug] || galleryDb["modular-cold-rooms"];
+
   return (
     <div className="flex flex-col flex-1 min-h-screen bg-[#0C2340] text-white selection:bg-[#0F6E56] overflow-x-hidden">
       {/* Header */}
@@ -1842,7 +1940,7 @@ export default function ServiceDetailPage({
                 <span>TECHNICAL UTILITY DESIGN</span>
               </div>
 
-              <h1 className="text-4.5xl sm:text-5xl font-extrabold tracking-tight font-display leading-[1.12]">
+              <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight font-display leading-[1.12]">
                 ThermoVault Solutions:<br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 font-display">
                   {service.title}
@@ -1855,9 +1953,14 @@ export default function ServiceDetailPage({
 
               {/* Temp Range Pill & Sizing Quick Link */}
               <div className="flex flex-wrap gap-4 pt-1 items-center">
-                <div className="flex items-center gap-2.5 rounded-full bg-gradient-to-r from-emerald-950/50 via-[#0A1A30]/50 to-emerald-900/30 border border-emerald-500/30 px-4 py-2 text-xs font-bold font-mono text-emerald-300 shadow-[0_0_15px_rgba(16,185,129,0.15)] backdrop-blur-md">
-                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] shadow-[0_0_8px_rgba(16,185,129,0.4)] animate-pulse shrink-0">❄</span>
-                  <span>Operational Range: <strong className="text-white font-extrabold tracking-wide">{service.tempRange}</strong></span>
+                <div className="flex items-center gap-2.5 rounded-full bg-slate-900/50 backdrop-blur-md border border-white/10 hover:border-cyan-500/30 transition-all duration-300 px-4.5 py-2 text-xs font-bold text-slate-300 shadow-[0_0_20px_rgba(34,211,238,0.08)] select-none">
+                  <span className="flex h-5.5 w-5.5 items-center justify-center rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-xs shadow-[0_0_8px_rgba(6,182,212,0.3)] animate-pulse shrink-0 font-sans">
+                    ❄
+                  </span>
+                  <span className="font-mono text-[10px] tracking-wider text-slate-400">
+                    OPERATIONAL CORE: <strong className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-teal-200 to-emerald-300 font-mono tracking-normal">{service.tempRange}</strong>
+                  </span>
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-ping ml-1" />
                 </div>
 
                 <button
@@ -1865,7 +1968,7 @@ export default function ServiceDetailPage({
                     const el = document.getElementById("sizing-calculator-section");
                     if (el) el.scrollIntoView({ behavior: "smooth" });
                   }}
-                  className="rounded-full bg-teal-accent/15 hover:bg-teal-accent/25 border border-teal-light/20 text-teal-light px-4 py-2 text-xs font-bold font-mono transition-all flex items-center gap-1 hover:border-teal-light/40"
+                  className="rounded-full bg-teal-accent/15 hover:bg-teal-accent/25 border border-teal-light/20 text-teal-light px-4 py-2 text-xs font-bold font-mono transition-all flex items-center gap-1 hover:border-teal-light/40 shadow-sm"
                 >
                   <Calculator className="h-3.5 w-3.5" />
                   <span>Run Sizing Calculator</span>
@@ -1873,15 +1976,37 @@ export default function ServiceDetailPage({
               </div>
             </div>
 
-            {/* Right side: Interactive CAD blueprint vector panel (col-span-5) */}
-            <div className="lg:col-span-5 hidden lg:flex justify-center relative">
+            {/* Right side: Dual-View Media Widget (col-span-5) */}
+            <div className="lg:col-span-5 flex flex-col items-center justify-center relative mt-10 lg:mt-0 w-full max-w-[380px] mx-auto lg:max-w-none">
               <div className="absolute inset-0 bg-emerald-500/5 blur-[80px] pointer-events-none z-0" />
               
+              {/* High-tech selector tab */}
+              <div className="flex items-center bg-slate-950/40 border border-white/5 rounded-lg p-1 mb-4 select-none z-10 font-mono text-[9px] uppercase tracking-wider shadow-inner">
+                <button
+                  onClick={() => setHeroView("photo")}
+                  className={`px-3.5 py-1.5 rounded transition-all duration-300 font-bold ${
+                    heroView === "photo" 
+                      ? "bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 shadow-[0_0_10px_rgba(16,185,129,0.2)]" 
+                      : "text-slate-400 hover:text-white"
+                  }`}
+                >
+                  Real-World Build
+                </button>
+                <button
+                  onClick={() => setHeroView("blueprint")}
+                  className={`px-3.5 py-1.5 rounded transition-all duration-300 font-bold ${
+                    heroView === "blueprint" 
+                      ? "bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 shadow-[0_0_10px_rgba(16,185,129,0.2)]" 
+                      : "text-slate-400 hover:text-white"
+                  }`}
+                >
+                  CAD Blueprint
+                </button>
+              </div>
+
               <motion.div 
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.7 }}
-                className="relative w-full max-w-[340px] aspect-[4/3] rounded-2xl border border-emerald-500/20 bg-white/2 p-2.5 shadow-2xl backdrop-blur-sm overflow-hidden group select-none"
+                layout
+                className="relative w-full aspect-[4/3] rounded-2xl border border-white/10 bg-white/2 p-2 shadow-2xl backdrop-blur-sm overflow-hidden group select-none z-10"
               >
                 {/* Laser scan line overlay */}
                 <div 
@@ -1889,44 +2014,90 @@ export default function ServiceDetailPage({
                   style={{ animation: "scan 3.5s linear infinite" }}
                 />
 
-                <div className="absolute top-2 left-2 text-[8px] font-mono text-emerald-400/40 font-bold">SCALE: 1:35</div>
-                <div className="absolute bottom-2 right-2 text-[8px] font-mono text-emerald-400/40 font-bold">TV-BLUEPRINT-v1</div>
+                <div className="absolute top-3 left-3 text-[8px] font-mono text-emerald-400/40 font-bold z-20">SCALE: 1:35</div>
+                <div className="absolute bottom-3 right-3 text-[8px] font-mono text-emerald-400/40 font-bold z-20">TV-NODE-{slug.toUpperCase()}</div>
 
-                {/* High tech SVG wireframe layout drawing */}
-                <div className="relative w-full h-full rounded-xl bg-[#0A1A30]/90 p-4 border border-white/5 flex flex-col justify-between">
-                  <div className="w-full flex-1 relative flex items-center justify-center">
-                    <svg className="stroke-teal-light/35 fill-none w-full h-full max-h-40" viewBox="0 0 120 90">
-                      {/* Blueprint Grid Lines */}
-                      <path d="M 0 15 H 120 M 0 30 H 120 M 0 45 H 120 M 0 60 H 120 M 0 75 H 120" strokeWidth="0.1" />
-                      <path d="M 20 0 V 90 M 40 0 V 90 M 60 0 V 90 M 80 0 V 90 M 100 0 V 90" strokeWidth="0.1" />
+                <AnimatePresence mode="wait">
+                  {heroView === "photo" ? (
+                    <motion.div
+                      key="photo"
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      transition={{ duration: 0.4 }}
+                      className="relative w-full h-full rounded-xl overflow-hidden bg-slate-900 border border-white/5"
+                    >
+                      {/* Industrial image */}
+                      <Image
+                        src={heroImage}
+                        alt={service.title}
+                        fill
+                        priority
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        sizes="(max-width: 1024px) 100vw, 35vw"
+                      />
+                      {/* Tech blueprint grid pattern overlay */}
+                      <div 
+                        className="absolute inset-0 opacity-15 pointer-events-none mix-blend-overlay"
+                        style={{
+                          backgroundImage: `
+                            linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px),
+                            linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px)
+                          `,
+                          backgroundSize: "20px 20px"
+                        }}
+                      />
+                      {/* Soft dark vignettes */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/40 pointer-events-none" />
                       
-                      {/* Chamber Walls */}
-                      <rect x="25" y="20" width="70" height="50" strokeWidth="1" className="stroke-teal-light" />
-                      
-                      {/* Door Swing */}
-                      <path d="M 95 45 C 95 35, 90 30, 85 30" strokeWidth="0.75" strokeDasharray="1.5 1.5" className="stroke-emerald-400" />
-                      <line x1="95" y1="45" x2="85" y2="45" strokeWidth="1" className="stroke-emerald-400" />
-                      
-                      {/* Evaporator placement */}
-                      <rect x="30" y="32" width="10" height="26" strokeWidth="0.75" className="stroke-teal-light/70" />
-                      {/* Air throw direction arrows */}
-                      <path d="M 42 37 L 54 37 M 42 45 L 54 45 M 42 53 L 54 53" strokeWidth="0.5" className="stroke-cyan-400" />
-                      
-                      {/* Labels */}
-                      <text x="31" y="27" fill="#1d9e75" fontSize="4.5" className="font-mono">EVAPORATOR</text>
-                      <text x="50" y="60" fill="#6b7e94" fontSize="4.5" className="font-mono">COLD ROOM CORE</text>
-                      <text x="76" y="25" fill="#34d399" fontSize="4.5" className="font-mono">EPDM DOOR SEAL</text>
-                    </svg>
-                  </div>
-                  <div className="flex items-center justify-between border-t border-white/5 pt-2 text-[9px] font-mono text-slate-400">
-                    <span>GRID REF: MIDH-95</span>
-                    <span className="flex items-center gap-1 text-teal-light">
-                      <span className="h-1.5 w-1.5 rounded-full bg-teal-light animate-ping" />
-
-                      ENGINEERING MODEL
-                    </span>
-                  </div>
-                </div>
+                      <div className="absolute bottom-3 left-3 text-left">
+                        <div className="text-[10px] font-bold text-white uppercase tracking-wider font-display">{service.title}</div>
+                        <div className="text-[7.5px] font-mono text-slate-300">ACTUAL INSTALLATION IN OPERATION</div>
+                      </div>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="blueprint"
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      transition={{ duration: 0.4 }}
+                      className="relative w-full h-full rounded-xl bg-[#0A1A30]/90 p-4 border border-white/5 flex flex-col justify-between"
+                    >
+                      <div className="w-full flex-1 relative flex items-center justify-center">
+                        <svg className="stroke-teal-light/35 fill-none w-full h-full max-h-40" viewBox="0 0 120 90">
+                          {/* Blueprint Grid Lines */}
+                          <path d="M 0 15 H 120 M 0 30 H 120 M 0 45 H 120 M 0 60 H 120 M 0 75 H 120" strokeWidth="0.1" />
+                          <path d="M 20 0 V 90 M 40 0 V 90 M 60 0 V 90 M 80 0 V 90 M 100 0 V 90" strokeWidth="0.1" />
+                          
+                          {/* Chamber Walls */}
+                          <rect x="25" y="20" width="70" height="50" strokeWidth="1" className="stroke-teal-light" />
+                          
+                          {/* Door Swing */}
+                          <path d="M 95 45 C 95 35, 90 30, 85 30" strokeWidth="0.75" strokeDasharray="1.5 1.5" className="stroke-emerald-400" />
+                          <line x1="95" y1="45" x2="85" y2="45" strokeWidth="1" className="stroke-emerald-400" />
+                          
+                          {/* Evaporator placement */}
+                          <rect x="30" y="32" width="10" height="26" strokeWidth="0.75" className="stroke-teal-light/70" />
+                          {/* Air throw direction arrows */}
+                          <path d="M 42 37 L 54 37 M 42 45 L 54 45 M 42 53 L 54 53" strokeWidth="0.5" className="stroke-cyan-400" />
+                          
+                          {/* Labels */}
+                          <text x="31" y="27" fill="#1d9e75" fontSize="4.5" className="font-mono">EVAPORATOR</text>
+                          <text x="50" y="60" fill="#6b7e94" fontSize="4.5" className="font-mono">COLD ROOM CORE</text>
+                          <text x="76" y="25" fill="#34d399" fontSize="4.5" className="font-mono">EPDM DOOR SEAL</text>
+                        </svg>
+                      </div>
+                      <div className="flex items-center justify-between border-t border-white/5 pt-2 text-[9px] font-mono text-slate-400">
+                        <span>GRID REF: MIDH-95</span>
+                        <span className="flex items-center gap-1 text-teal-light">
+                          <span className="h-1.5 w-1.5 rounded-full bg-teal-light animate-ping" />
+                          ENGINEERING MODEL
+                        </span>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
             </div>
           </div>
@@ -1940,32 +2111,54 @@ export default function ServiceDetailPage({
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
           {/* Main Info Columns */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-12">
             
             {/* Technical Specifications list */}
-            <div className="space-y-4">
-              <h3 className="text-xs font-bold text-teal-light font-display uppercase tracking-wider flex items-center gap-1.5">
-                <Settings className="h-4 w-4" />
-                Technical Specifications
-              </h3>
+            <div className="space-y-6">
+              <div className="space-y-1.5 border-l-2 border-emerald-500 pl-4 mb-6 text-left">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 font-mono block">SYSTEM SPECIFICATIONS</span>
+                <h2 className="text-xl sm:text-2xl font-extrabold text-white font-display uppercase tracking-tight flex items-center gap-2">
+                  <Settings className="h-5 w-5 text-emerald-400 animate-spin-slow" />
+                  Technical Specifications
+                </h2>
+              </div>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {service.specs.map((item, idx) => {
                   const specIcons = [Layers, ShieldCheck, Box, Gauge];
                   const IconComponent = specIcons[idx % specIcons.length];
+                  const isHovered = hoveredSpecIdx === idx;
                   
                   return (
                     <motion.div 
                       key={idx}
                       whileHover={{ y: -3, scale: 1.01 }}
-                      className="group relative rounded-2xl border border-white/5 bg-[#0C2340]/40 p-5 shadow-sm hover:bg-white/5 hover:border-teal-light/20 hover:shadow-[0_0_15px_rgba(29,158,117,0.15)] flex flex-col justify-between"
+                      onMouseMove={(e) => handleSpecMouseMove(e, idx)}
+                      onMouseLeave={() => setHoveredSpecIdx(null)}
+                      className="group relative rounded-2xl border border-white/5 bg-[#0C2340]/40 p-5 shadow-sm hover:bg-white/5 hover:border-emerald-500/20 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)] flex flex-col justify-between overflow-hidden"
                     >
-                      <div className="space-y-3">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-teal-accent/10 border border-teal-accent/25 text-teal-light transition-transform duration-300 group-hover:scale-110">
+                      {/* Spotlight Glow Effect */}
+                      {isHovered && (
+                        <div 
+                          className="absolute inset-0 pointer-events-none opacity-45 transition-opacity duration-300 bg-[radial-gradient(150px_circle_at_var(--x)_var(--y),rgba(16,185,129,0.12),transparent_80%)]"
+                          style={{
+                            // @ts-ignore
+                            "--x": `${specMouseCoords.x}px`,
+                            "--y": `${specMouseCoords.y}px`
+                          }}
+                        />
+                      )}
+
+                      <div className="absolute top-4 right-4 text-[9px] font-mono font-bold text-slate-500 group-hover:text-emerald-400/50 transition-colors">
+                        [{String(idx + 1).padStart(2, "0")}]
+                      </div>
+
+                      <div className="space-y-3.5 z-10 text-left">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 transition-transform duration-300 group-hover:scale-110">
                           <IconComponent className="h-4.5 w-4.5" />
                         </div>
                         <div className="space-y-1">
-                          <h4 className="text-xs font-bold text-white font-display tracking-wide group-hover:text-teal-light transition-colors">
+                          <h4 className="text-xs font-bold text-white font-display tracking-wide group-hover:text-emerald-300 transition-colors">
                             {item.title}
                           </h4>
                           <p className="text-[11px] text-slate-300 leading-relaxed font-body">
@@ -1979,12 +2172,12 @@ export default function ServiceDetailPage({
               </div>
             </div>
 
-            {/* NEW: Thermodynamic Heat Load & Sizing Calculator Section */}
-            <div id="sizing-calculator-section" className="rounded-2xl border border-white/10 bg-[#0C2340]/60 p-6 md:p-8 shadow-xl relative scroll-mt-24">
+            {/* Thermodynamic Heat Load & Sizing Calculator Section */}
+            <div id="sizing-calculator-section" className="rounded-2xl border border-white/10 bg-[#0C2340]/60 p-6 md:p-8 shadow-xl relative scroll-mt-24 text-left">
               <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-full blur-2xl pointer-events-none" />
 
               <div className="flex items-center gap-2.5 mb-4 border-b border-white/5 pb-3">
-                <Calculator className="h-5 w-5 text-teal-light" />
+                <Calculator className="h-5 w-5 text-emerald-400 animate-pulse" />
                 <h3 className="text-sm font-extrabold text-white font-display uppercase tracking-wider">
                   Thermodynamic Heat Load &amp; Sizing Calculator
                 </h3>
@@ -2059,7 +2252,7 @@ export default function ServiceDetailPage({
                 {/* Outputs Column (col-span-7) */}
                 <div className="md:col-span-7 space-y-4">
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-[#0A1A30]/50 border border-white/5 rounded-xl p-3.5">
+                    <div className="bg-[#0A1A30]/50 border border-white/5 rounded-xl p-3.5 text-left">
                       <span className="text-[8px] text-slate-400 font-mono block uppercase">Volume</span>
                       <span className="text-sm font-bold font-mono text-white">
                         {volumeCuFt} <span className="text-[10px] text-slate-400">cu.ft.</span>
@@ -2067,15 +2260,15 @@ export default function ServiceDetailPage({
                       <span className="text-[9px] text-slate-400 font-mono block">({volumeCuM} m³)</span>
                     </div>
 
-                    <div className="bg-[#0A1A30]/50 border border-white/5 rounded-xl p-3.5">
+                    <div className="bg-[#0A1A30]/50 border border-white/5 rounded-xl p-3.5 text-left">
                       <span className="text-[8px] text-slate-400 font-mono block uppercase">Calculated Load</span>
-                      <span className="text-sm font-bold font-mono text-teal-light">
+                      <span className="text-sm font-bold font-mono text-emerald-400">
                         {coolingTR} <span className="text-[10px] text-slate-400">TR</span>
                       </span>
                       <span className="text-[8px] text-slate-400 font-mono block">Tons of Refrigeration</span>
                     </div>
 
-                    <div className="bg-[#0A1A30]/50 border border-white/5 rounded-xl p-3.5">
+                    <div className="bg-[#0A1A30]/50 border border-white/5 rounded-xl p-3.5 text-left">
                       <span className="text-[8px] text-slate-400 font-mono block uppercase">PUF Thickness</span>
                       <span className="text-sm font-bold font-mono text-white">
                         {pufThickness}
@@ -2083,7 +2276,7 @@ export default function ServiceDetailPage({
                       <span className="text-[8px] text-slate-400 font-mono block">Rigid Cam-lock Panel</span>
                     </div>
 
-                    <div className="bg-[#0A1A30]/50 border border-white/5 rounded-xl p-3.5">
+                    <div className="bg-[#0A1A30]/50 border border-white/5 rounded-xl p-3.5 text-left">
                       <span className="text-[8px] text-slate-400 font-mono block uppercase">Est. Gov Subsidy</span>
                       <span className="text-sm font-bold font-mono text-emerald-400">
                         {estimatedSubsidy}
@@ -2094,7 +2287,7 @@ export default function ServiceDetailPage({
 
                   <button
                     onClick={handleApplySizingToForm}
-                    className="w-full flex items-center justify-center gap-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 py-3 text-xs font-bold text-white shadow-md transition-all active:scale-[0.98]"
+                    className="w-full flex items-center justify-center gap-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 py-3 text-xs font-bold text-white shadow-md transition-all active:scale-[0.98] cursor-pointer"
                   >
                     <Sliders className="h-4 w-4" />
                     <span>Apply Sizing to Consultation Form</span>
@@ -2105,21 +2298,23 @@ export default function ServiceDetailPage({
 
             </div>
 
-
-            {/* NEW: Engineering Parameters Datasheet Board */}
-            <div className="space-y-4 pt-6 border-t border-white/5">
-              <h3 className="text-xs font-bold text-teal-light font-display uppercase tracking-wider flex items-center gap-1.5">
-                <Gauge className="h-4 w-4" />
-                Engineering Parameters &amp; Compliance
-              </h3>
+            {/* Engineering Parameters Datasheet Board */}
+            <div className="space-y-4 pt-6 border-t border-white/5 text-left">
+              <div className="space-y-1.5 border-l-2 border-emerald-500 pl-4 mb-4">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 font-mono block">COMPLIANCE STATS</span>
+                <h3 className="text-sm font-extrabold text-white font-display uppercase tracking-wider flex items-center gap-1.5">
+                  <Gauge className="h-4.5 w-4.5 text-emerald-400" />
+                  Engineering Parameters &amp; Compliance
+                </h3>
+              </div>
 
               <div className="rounded-2xl border border-white/5 bg-[#0C2340]/40 overflow-hidden shadow-sm">
                 <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y sm:divide-y-0 divide-white/5 font-mono">
                   {getTechnicalParameters(slug).map((param, i) => (
-                    <div key={i} className="p-4 space-y-1">
+                    <div key={i} className="p-4 space-y-1 text-left">
                       <span className="text-[8px] text-slate-400 uppercase tracking-wider block font-bold">{param.label}</span>
                       <div className="text-xs font-bold text-white">
-                        {param.value} <span className="text-[9px] text-teal-light font-normal">{param.metric}</span>
+                        {param.value} <span className="text-[9px] text-emerald-400 font-normal">{param.metric}</span>
                       </div>
                     </div>
                   ))}
@@ -2130,36 +2325,107 @@ export default function ServiceDetailPage({
             {/* System Visuals Section */}
             <SystemVisuals slug={slug} serviceTitle={service.title} />
 
+            {/* Real Project / Installation Gallery */}
+            <div className="space-y-6 pt-6 border-t border-white/5 text-left">
+              <div className="space-y-1.5 border-l-2 border-emerald-500 pl-4 mb-6">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 font-mono block">REAL-WORLD DEPLOYMENTS</span>
+                <h2 className="text-xl sm:text-2xl font-extrabold text-white font-display uppercase tracking-tight flex items-center gap-2">
+                  <Layers className="h-5 w-5 text-emerald-400" />
+                  Project &amp; Installation Gallery
+                </h2>
+              </div>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {galleryItems.map((item, idx) => (
+                  <div
+                    key={idx}
+                    onClick={() => setLightboxIdx(idx)}
+                    className="group relative h-48 rounded-2xl overflow-hidden border border-white/5 bg-[#0C2340]/40 shadow-sm cursor-pointer hover:border-emerald-500/20 transition-all duration-300"
+                  >
+                    <Image
+                      src={item.src}
+                      alt={item.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    
+                    {/* Tech blueprint grid overlay */}
+                    <div 
+                      className="absolute inset-0 opacity-10 pointer-events-none mix-blend-overlay"
+                      style={{
+                        backgroundImage: `
+                          linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+                          linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)
+                        `,
+                        backgroundSize: "16px 16px"
+                      }}
+                    />
+
+                    {/* Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent opacity-90 group-hover:opacity-95 transition-opacity duration-300" />
+
+                    {/* Top Right Tag */}
+                    <div className="absolute top-3 right-3 bg-slate-900/80 backdrop-blur-sm border border-white/10 px-2 py-0.5 rounded text-[8px] font-bold font-mono text-emerald-400 tracking-wider">
+                      {item.tag}
+                    </div>
+
+                    {/* Content */}
+                    <div className="absolute bottom-3 left-3 right-3 text-left">
+                      <h4 className="text-xs font-bold text-white font-display tracking-wide">{item.title}</h4>
+                      <p className="text-[10px] text-slate-300 leading-normal font-body mt-0.5 opacity-80 group-hover:opacity-100 transition-opacity">
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {/* Ideal Applications Section */}
-            <div className="space-y-4 pt-6 border-t border-white/5">
-              <div className="space-y-1">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-teal-light font-mono block">
-                  DEPLOYMENT SOLUTIONS
-                </span>
-                <h3 className="text-xs font-bold text-white font-display uppercase tracking-wider flex items-center gap-1.5">
-                  <Ruler className="h-4 w-4" />
+            <div className="space-y-6 pt-6 border-t border-white/5 text-left">
+              <div className="space-y-1.5 border-l-2 border-emerald-500 pl-4 mb-6">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 font-mono block">DEPLOYMENT SOLUTIONS</span>
+                <h2 className="text-xl sm:text-2xl font-extrabold text-white font-display uppercase tracking-tight flex items-center gap-2">
+                  <Ruler className="h-5 w-5 text-emerald-400" />
                   Ideal Applications
-                </h3>
+                </h2>
               </div>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {getApplicationItems(slug).map((app, idx) => {
                   const Icon = app.icon;
+                  const isHovered = hoveredAppIdx === idx;
                   return (
                     <Link
                       key={idx}
                       href={app.link}
-                      className="group flex gap-4 rounded-2xl border border-white/5 bg-[#0C2340]/40 p-5 shadow-sm transition-all duration-300 hover:scale-[1.02] hover:bg-white/5 hover:border-teal-light/20 hover:shadow-[0_0_15px_rgba(29,158,117,0.15)] text-left"
+                      onMouseMove={(e) => handleAppMouseMove(e, idx)}
+                      onMouseLeave={() => setHoveredAppIdx(null)}
+                      className="group relative flex gap-4 rounded-2xl border border-white/5 bg-[#0C2340]/40 p-5 shadow-sm transition-all duration-300 hover:scale-[1.01] hover:bg-white/5 hover:border-emerald-500/20 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)] text-left overflow-hidden"
                     >
-                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-accent/10 border border-teal-accent/25 text-teal-light shrink-0 transition-transform duration-300 group-hover:scale-110">
+                      {/* Spotlight Glow Effect */}
+                      {isHovered && (
+                        <div 
+                          className="absolute inset-0 pointer-events-none opacity-45 transition-opacity duration-300 bg-[radial-gradient(150px_circle_at_var(--x)_var(--y),rgba(16,185,129,0.12),transparent_80%)]"
+                          style={{
+                            // @ts-ignore
+                            "--x": `${appMouseCoords.x}px`,
+                            "--y": `${appMouseCoords.y}px`
+                          }}
+                        />
+                      )}
+
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 shrink-0 transition-transform duration-300 group-hover:scale-110 z-10">
                         <Icon className="h-5 w-5" />
                       </div>
-                      <div className="space-y-1 flex-1">
+                      
+                      <div className="space-y-1 flex-1 z-10">
                         <div className="flex items-center justify-between gap-2">
-                          <h4 className="text-xs font-bold text-white font-display tracking-wide group-hover:text-teal-light transition-colors">
+                          <h4 className="text-xs font-bold text-white font-display tracking-wide group-hover:text-emerald-300 transition-colors">
                             {app.title}
                           </h4>
-                          <ChevronRight className="h-3.5 w-3.5 text-teal-light/50 group-hover:translate-x-1 transition-transform" />
+                          <ChevronRight className="h-3.5 w-3.5 text-emerald-400 group-hover:translate-x-1 transition-transform" />
                         </div>
                         <p className="text-[11px] text-slate-300 leading-relaxed font-body">
                           {app.desc}
@@ -2178,15 +2444,13 @@ export default function ServiceDetailPage({
             />
 
             {/* Dynamic Accordion FAQ Section */}
-            <div className="space-y-4 pt-8 border-t border-white/5">
-              <div className="space-y-1">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-teal-light font-mono block">
-                  SEO &amp; SEARCH ASSISTANCE
-                </span>
-                <h3 className="text-xs font-bold text-white font-display uppercase tracking-wider flex items-center gap-1.5">
-                  <HelpCircle className="h-4.5 w-4.5 text-teal-light" />
+            <div className="space-y-6 pt-8 border-t border-white/5 text-left">
+              <div className="space-y-1.5 border-l-2 border-emerald-500 pl-4 mb-6">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 font-mono block">SEO &amp; SEARCH SUPPORT</span>
+                <h2 className="text-xl sm:text-2xl font-extrabold text-white font-display uppercase tracking-tight flex items-center gap-2">
+                  <HelpCircle className="h-5 w-5 text-emerald-400" />
                   Frequently Asked Questions
-                </h3>
+                </h2>
               </div>
 
               <div className="space-y-3">
@@ -2195,20 +2459,22 @@ export default function ServiceDetailPage({
                   return (
                     <div 
                       key={idx}
-                      className="rounded-2xl border border-white/5 bg-[#0C2340]/40 overflow-hidden transition-all duration-300"
+                      className={`rounded-2xl border transition-all duration-300 overflow-hidden text-left ${
+                        isExpanded ? "bg-[#0C2340]/80 border-emerald-500/30 shadow-[0_0_15px_rgba(16,185,129,0.05)]" : "bg-[#0C2340]/40 border-white/5 hover:border-white/10"
+                      }`}
                     >
                       <button
                         onClick={() => setExpandedFaqIdx(isExpanded ? null : idx)}
-                        className="w-full flex items-center justify-between gap-4 p-5 text-left transition-all hover:bg-white/5 select-none"
+                        className="w-full flex items-center justify-between gap-4 p-5 text-left transition-all select-none"
                       >
                         <div className="flex items-center gap-3">
-                          <HelpCircle className="h-4.5 w-4.5 text-teal-light shrink-0" />
-                          <span className="text-xs font-bold text-white font-display tracking-wide">
+                          <HelpCircle className={`h-4.5 w-4.5 shrink-0 transition-colors ${isExpanded ? "text-emerald-400" : "text-slate-400"}`} />
+                          <span className={`text-xs font-bold font-display tracking-wide transition-colors ${isExpanded ? "text-emerald-300" : "text-white"}`}>
                             {item.q}
                           </span>
                         </div>
-                        <ChevronDown className={`h-4 w-4 text-teal-light/60 transition-transform duration-300 ${
-                          isExpanded ? "rotate-180 text-teal-light" : ""
+                        <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${
+                          isExpanded ? "rotate-180 text-emerald-400" : "text-slate-400"
                         }`} />
                       </button>
 
@@ -2233,52 +2499,104 @@ export default function ServiceDetailPage({
             </div>
 
             {/* Related Solutions (internal linking + SEO) */}
-            <div className="space-y-3 pt-6 border-t border-white/5">
-              <h3 className="text-xs font-bold text-white font-display uppercase tracking-wider text-teal-light">
-                Related Solutions
-              </h3>
-              <div className="flex flex-col gap-2">
-                {(relatedMap[slug] || []).map((k) => (
-                  <Link
-                    key={k}
-                    href={`/services/${k}`}
-                    className="inline-flex items-center justify-between gap-3 rounded-lg bg-white/2 hover:bg-white/5 transition-colors px-4 py-2 text-xs text-white border border-white/5"
-                  >
-                    <span className="truncate">{serviceDb[k]?.title || k}</span>
-                    <ChevronRight className="h-4 w-4 text-teal-light" />
-                  </Link>
-                ))}
+            <div className="space-y-4 pt-6 border-t border-white/5 text-left">
+              <div className="space-y-1.5 border-l-2 border-emerald-500 pl-4 mb-4">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 font-mono block">SUGGESTED COMBINATIONS</span>
+                <h3 className="text-sm font-extrabold text-white font-display uppercase tracking-wider">
+                  Related Solutions
+                </h3>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {(relatedMap[slug] || []).map((k) => {
+                  const title = serviceDb[k]?.title || k;
+                  const iconsMap: Record<string, React.ComponentType<any>> = {
+                    "modular-cold-rooms": Box,
+                    "refrigeration-systems": Settings,
+                    "display-cold-rooms": Snowflake,
+                    "clean-rooms": ShieldCheck,
+                    "ripening-chambers": Sliders,
+                    "blast-chillers": Wind,
+                    "amc": Wrench,
+                    "consultation": Ruler,
+                  };
+                  const RelatedIcon = iconsMap[k] || Settings;
+                  return (
+                    <Link
+                      key={k}
+                      href={`/services/${k}`}
+                      className="group flex flex-col justify-between p-4 rounded-xl border border-white/5 bg-[#0C2340]/40 transition-all duration-300 hover:border-emerald-500/20 hover:bg-white/5 text-left h-24"
+                    >
+                      <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 group-hover:scale-105 transition-transform">
+                        <RelatedIcon className="h-4 w-4" />
+                      </div>
+                      <div className="flex items-center justify-between gap-1.5">
+                        <span className="text-[11px] font-bold text-white tracking-wide truncate group-hover:text-emerald-300 transition-colors">{title}</span>
+                        <ChevronRight className="h-3.5 w-3.5 text-emerald-400 shrink-0 group-hover:translate-x-0.5 transition-transform" />
+                      </div>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
 
             {/* Why ThermoVault - Trust & Differentiators */}
-            <div className="rounded-2xl border border-white/5 bg-[#0C2340]/40 p-6 space-y-3">
-              <h3 className="text-xs font-bold text-white font-display uppercase tracking-wider text-teal-light">
-                Why ThermoVault
-              </h3>
-              <ul className="space-y-2 text-xs text-white">
+            <div className="space-y-4 pt-6 border-t border-white/5 text-left">
+              <div className="space-y-1.5 border-l-2 border-emerald-500 pl-4 mb-6">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 font-mono block">TRUST &amp; RELIABILITY</span>
+                <h2 className="text-xl sm:text-2xl font-extrabold text-white font-display uppercase tracking-tight flex items-center gap-2">
+                  <ShieldCheck className="h-5 w-5 text-emerald-400" />
+                  Why ThermoVault
+                </h2>
+              </div>
+              
+              <div className="grid grid-cols-1 gap-3">
                 {[
-                  "Customized Engineering: Tailored design parameters matching product load matrices.",
-                  "Energy Efficient Systems: Sub-cooler cycles reducing ongoing electricity bills.",
-                  "Subsidy Guidance: Compiling bankable DPR reports for MIDH, NHM, and NABARD grants.",
-                  "Reliable After-Sales Support: Emergency 4-hour breakdown SLAs across Pune MIDC.",
-                  "IoT Monitoring Ready: Integrated remote digital temperature & humidity telemetry.",
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-2 text-slate-300">
-                    <CheckCircle2 className="h-4 w-4 text-teal-light shrink-0 mt-0.5" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
+                  { title: "Customized Engineering", desc: "Tailored design parameters matching product thermal load matrices.", icon: Settings },
+                  { title: "Energy Efficient Systems", desc: "Sub-cooler cycles and optimized compressor COP reducing electricity bills.", icon: Zap },
+                  { title: "Subsidy Guidance", desc: "Compiling bankable project reports (DPR) for MIDH, NHM, and NABARD grants.", icon: Layers },
+                  { title: "Reliable After-Sales Support", desc: "Emergency priority response with on-site SLAs across Pune surrounding MIDC.", icon: Wrench },
+                  { title: "IoT Monitoring Ready", desc: "Integrated remote digital temperature & humidity telemetry dashboards.", icon: Gauge },
+                ].map((item, i) => {
+                  const Icon = item.icon;
+                  const isHovered = hoveredWhyIdx === i;
+                  return (
+                    <div
+                      key={i}
+                      onMouseMove={(e) => handleWhyMouseMove(e, i)}
+                      onMouseLeave={() => setHoveredWhyIdx(null)}
+                      className="group relative rounded-xl border border-white/5 bg-[#0C2340]/40 p-4 transition-all duration-300 hover:border-emerald-500/20 flex gap-4 overflow-hidden"
+                    >
+                      {isHovered && (
+                        <div 
+                          className="absolute inset-0 pointer-events-none opacity-45 transition-opacity duration-300 bg-[radial-gradient(150px_circle_at_var(--x)_var(--y),rgba(16,185,129,0.1),transparent_80%)]"
+                          style={{
+                            // @ts-ignore
+                            "--x": `${whyMouseCoords.x}px`,
+                            "--y": `${whyMouseCoords.y}px`
+                          }}
+                        />
+                      )}
+                      
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 shrink-0 group-hover:scale-105 transition-transform duration-300">
+                        <Icon className="h-5 w-5" />
+                      </div>
+                      <div className="space-y-1 text-left flex-1">
+                        <h4 className="text-xs font-bold text-white font-display">{item.title}</h4>
+                        <p className="text-[11px] text-slate-300 leading-relaxed font-body">{item.desc}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
 
           {/* Callback Quote Intake form (col-span-1) */}
-          <div id="sizing-form-card" className="relative h-fit lg:sticky lg:top-24 z-20 scroll-mt-24">
+          <div id="sizing-form-card" className="relative h-fit lg:sticky lg:top-24 z-20 scroll-mt-24 w-full">
             <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 opacity-25 blur-md pointer-events-none" />
             
             <div 
-              className="relative rounded-2xl border border-white/15 bg-[#0C2340]/90 p-6 sm:p-8 shadow-2xl backdrop-blur-md overflow-hidden"
+              className="relative rounded-2xl border border-white/15 bg-[#0C2340]/90 p-6 sm:p-8 shadow-2xl backdrop-blur-md overflow-hidden text-left"
               style={{
                 backgroundImage: `
                   linear-gradient(to right, rgba(16, 185, 129, 0.08) 1px, transparent 1px),
@@ -2290,32 +2608,37 @@ export default function ServiceDetailPage({
               {/* Ambient glowing radial blur */}
               <div className="absolute top-0 right-0 w-36 h-36 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none" />
 
-              {/* Technical Vector Drawing Blueprint Schematic */}
-              <div className="relative h-20 w-full rounded-xl bg-slate-950/40 border border-white/5 overflow-hidden mb-6 flex items-center justify-center">
+              {/* Technical Vector Drawing Blueprint Schematic with Masked Engineer Image */}
+              <div className="relative h-24 w-full rounded-xl bg-slate-950/40 border border-white/5 overflow-hidden mb-6 flex items-center justify-start p-4 select-none">
                 <div 
-                  className="absolute inset-0 opacity-20" 
+                  className="absolute inset-0 opacity-15" 
                   style={{
                     backgroundImage: "radial-gradient(rgba(16, 185, 129, 0.3) 1.2px, transparent 1.2px)",
                     backgroundSize: "12px 12px"
                   }}
                 />
-                <svg className="absolute inset-0 h-full w-full stroke-emerald-500/25 fill-none" viewBox="0 0 100 100" preserveAspectRatio="none">
-                  <circle cx="50" cy="50" r="32" strokeWidth="0.5" strokeDasharray="2 2" />
-                  <circle cx="50" cy="50" r="16" strokeWidth="0.5" />
-                  <line x1="10" y1="50" x2="90" y2="50" strokeWidth="0.5" strokeDasharray="4 4" />
-                  <line x1="50" y1="10" x2="50" y2="90" strokeWidth="0.5" strokeDasharray="4 4" />
-                  <path d="M 20 20 L 80 80 M 20 80 L 80 20" strokeWidth="0.25" strokeDasharray="1 3" />
+                <svg className="absolute inset-0 h-full w-full stroke-emerald-500/15 fill-none" viewBox="0 0 100 100" preserveAspectRatio="none">
+                  <circle cx="70" cy="50" r="32" strokeWidth="0.5" strokeDasharray="2 2" />
+                  <line x1="0" y1="50" x2="100" y2="50" strokeWidth="0.5" strokeDasharray="4 4" />
                 </svg>
                 
-                <div className="relative z-10 flex items-center gap-3 px-4 py-2">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/35 text-emerald-400">
-                    <Settings className="h-5 w-5 animate-spin-slow text-emerald-400" />
+                <div className="relative z-10 flex items-center gap-3.5 w-full">
+                  <div className="relative h-12 w-12 rounded-full border border-emerald-500/40 p-0.5 overflow-hidden bg-slate-900 shrink-0 shadow-[0_0_12px_rgba(16,185,129,0.25)]">
+                    <div className="relative h-full w-full rounded-full overflow-hidden">
+                      <Image
+                        src="/images/technician.png"
+                        alt="Cold Chain Expert"
+                        fill
+                        className="object-cover object-top scale-105"
+                      />
+                    </div>
                   </div>
                   <div className="text-left">
-                    <div className="text-[10px] font-extrabold font-mono uppercase tracking-wider text-emerald-400">CAD Blueprint Sizing</div>
-                    <div className="text-[8px] font-bold text-slate-300 font-mono flex items-center gap-1">
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                      <span>DRAFTSMAN STATUS: ONLINE</span>
+                    <div className="text-[10px] font-extrabold font-mono uppercase tracking-wider text-emerald-400">Cold Chain Expert</div>
+                    <div className="text-[9px] font-bold text-white font-display">Talk to Design Engineer</div>
+                    <div className="text-[8px] font-bold text-slate-400 font-mono flex items-center gap-1 mt-0.5">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-ping" />
+                      <span>RESPONSE SLA: &lt; 30 MINS</span>
                     </div>
                   </div>
                 </div>
@@ -2359,7 +2682,7 @@ export default function ServiceDetailPage({
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="e.g. Kuldeep"
-                      className="w-full rounded-xl bg-[#0C2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all font-body animate-reveal-input"
+                      className="w-full rounded-xl bg-[#0C2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30 transition-all font-body animate-reveal-input"
                     />
                   </div>
                   <div>
@@ -2372,7 +2695,7 @@ export default function ServiceDetailPage({
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="e.g. +91 80550 10620"
-                      className="w-full rounded-xl bg-[#0C2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all font-mono"
+                      className="w-full rounded-xl bg-[#0C2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30 transition-all font-mono"
                     />
                   </div>
 
@@ -2385,7 +2708,7 @@ export default function ServiceDetailPage({
                       value={business}
                       onChange={(e) => setBusiness(e.target.value)}
                       placeholder="e.g. Cooperative / Farm"
-                      className="w-full rounded-xl bg-[#0C2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all font-body"
+                      className="w-full rounded-xl bg-[#0C2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30 transition-all font-body"
                     />
                   </div>
 
@@ -2397,7 +2720,7 @@ export default function ServiceDetailPage({
                       value={notes}
                       onChange={(e) => setNotes(e.target.value)}
                       placeholder="Enter details or click 'Apply Sizing' from the calculator above..."
-                      className="w-full rounded-xl bg-[#0C2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all font-body h-20 resize-none text-[10px] leading-relaxed"
+                      className="w-full rounded-xl bg-[#0C2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30 transition-all font-body h-20 resize-none text-[10px] leading-relaxed"
                     />
                   </div>
 
@@ -2409,7 +2732,7 @@ export default function ServiceDetailPage({
                   <div className="flex flex-col gap-3 pt-2">
                     <button
                       type="submit"
-                      className="w-full flex items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 py-3.5 text-xs font-bold text-white shadow-lg active:scale-[0.98] transition-all font-display group/btn"
+                      className="w-full flex items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 py-3.5 text-xs font-bold text-white shadow-lg active:scale-[0.98] transition-all font-display group/btn cursor-pointer"
                     >
                       <Phone className="h-3.5 w-3.5 text-inherit transition-transform group-hover/btn:scale-110" />
                       <span>Request Callback</span>
@@ -2432,9 +2755,73 @@ export default function ServiceDetailPage({
             </div>
           </div>
 
-
         </div>
       </div>
+
+      {/* Lightbox Modal */}
+      <AnimatePresence>
+        {lightboxIdx !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/90 backdrop-blur-md p-4"
+            onClick={() => setLightboxIdx(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              className="relative max-w-4xl w-full rounded-2xl border border-white/10 bg-[#0C2340] overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Image side */}
+              <div className="relative w-full md:w-3/5 aspect-[4/3] md:aspect-auto bg-slate-950 md:h-[60vh]">
+                <Image
+                  src={galleryItems[lightboxIdx].src}
+                  alt={galleryItems[lightboxIdx].title}
+                  fill
+                  className="object-contain"
+                />
+              </div>
+
+              {/* Description side */}
+              <div className="p-6 md:p-8 flex flex-col justify-between w-full md:w-2/5 font-sans border-t md:border-t-0 md:border-l border-white/5 text-left">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="bg-emerald-500/10 border border-emerald-500/25 px-2.5 py-0.5 rounded text-[8px] font-bold font-mono text-emerald-400 tracking-wider">
+                      {galleryItems[lightboxIdx].tag}
+                    </span>
+                    <button
+                      onClick={() => setLightboxIdx(null)}
+                      className="text-slate-400 hover:text-white transition-colors text-xs font-bold uppercase tracking-wider font-mono"
+                    >
+                      [ Close ]
+                    </button>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <h3 className="text-lg font-extrabold text-white font-display uppercase tracking-wide">
+                      {galleryItems[lightboxIdx].title}
+                    </h3>
+                    <p className="text-xs text-slate-300 leading-relaxed font-body">
+                      {galleryItems[lightboxIdx].desc}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-8 pt-4 border-t border-white/5 space-y-2">
+                  <div className="text-[8px] font-mono text-slate-400">THERMOVAULT TECHNICAL COMPLIANCE</div>
+                  <div className="flex items-center gap-1.5 text-[9px] font-bold font-mono text-emerald-400">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <span>VERIFIED INSTALLATION NODE</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Modern & Premium Performance / Feature Bar */}
       <div className="py-12 border-t border-white/5 bg-[#0C2340]">
