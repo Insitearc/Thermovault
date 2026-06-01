@@ -18,7 +18,19 @@ export default function Navbar() {
   const navLinks = [
     { label: "HOME", href: "/" },
     { label: "ABOUT US", href: "/about" },
-    { label: "SERVICES", href: "/services" },
+    { 
+      label: "SERVICES", 
+      href: "/services",
+      dropdown: [
+        { label: "SERVICES HUB", href: "/services" },
+        { label: "MODULAR COLD ROOMS", href: "/services/modular-cold-rooms" },
+        { label: "REFRIGERATION SYSTEMS", href: "/services/refrigeration-systems" },
+        { label: "DISPLAY COLD ROOMS", href: "/services/display-cold-rooms" },
+        { label: "RIPENING CHAMBERS", href: "/services/ripening-chambers" },
+        { label: "BLAST CHILLERS", href: "/services/blast-chillers" },
+        { label: "AMC & MAINTENANCE", href: "/services/amc" }
+      ]
+    },
     { label: "PRODUCTS", href: "/products" },
     { label: "PROJECTS", href: "/projects" },
     { label: "SUBSIDY ASSISTANCE", href: "/subsidy" },
@@ -137,7 +149,7 @@ export default function Navbar() {
                     </button>
                     
                     {/* Dropdown Menu */}
-                    <div className="absolute left-0 mt-2 w-36 rounded-lg bg-white border border-slate-100 shadow-lg py-1.5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 transform translate-y-1 group-hover:translate-y-0">
+                    <div className="absolute left-0 mt-2 w-52 rounded-lg bg-white border border-slate-100 shadow-lg py-1.5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 transform translate-y-1 group-hover:translate-y-0">
                       {link.dropdown.map((subLink) => {
                         const isSubActive = pathname === subLink.href;
                         return (
