@@ -136,7 +136,7 @@ export default function Footer() {
             <div className="flex items-start gap-2.5">
               <MapPin className="h-4 w-4 shrink-0 text-teal-light mt-0.5" />
               <span>
-                Sector 4, Bhosari Industrial Area, MIDC, Pune, Maharashtra, India - 411026
+                At post Kadadhe Colony Rajgurunagar, Pune
               </span>
             </div>
             <div className="flex items-center gap-2.5">

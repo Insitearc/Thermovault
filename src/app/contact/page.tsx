@@ -113,8 +113,7 @@ export default function ContactPage() {
                 <div className="flex items-start gap-3">
                   <MapPin className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
                   <span>
-                    Sector 4, Bhosari Industrial Area, MIDC, Pune, Maharashtra,
-                    India - 411026
+                      At post Kadadhe Colony Rajgurunagar, Pune
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
