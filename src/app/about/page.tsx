@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/layout/Navbar";
@@ -239,31 +239,6 @@ const BananaIcon = () => (
 
 export default function AboutPage() {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
-  const heroRef = useRef<HTMLElement | null>(null);
-  const [showLeftBreadcrumb, setShowLeftBreadcrumb] = useState(false);
-  const [headerHeight, setHeaderHeight] = useState(0);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const measure = () => {
-      const headerEl = document.querySelector("header");
-      const hh = headerEl ? Math.ceil(headerEl.getBoundingClientRect().height) : 0;
-      setHeaderHeight(hh);
-
-      const hero = heroRef.current;
-      const triggerPoint = hero ? hero.getBoundingClientRect().bottom : 200;
-      setShowLeftBreadcrumb(triggerPoint <= hh + 8);
-    };
-
-    measure();
-    window.addEventListener("scroll", measure, { passive: true });
-    window.addEventListener("resize", measure);
-    return () => {
-      window.removeEventListener("scroll", measure);
-      window.removeEventListener("resize", measure);
-    };
-  }, []);
 
   const openModal = () => {
     const event = new CustomEvent("open-quote-modal");
@@ -449,21 +424,8 @@ export default function AboutPage() {
     <div className="flex flex-col flex-1 min-h-screen bg-white text-slate-800 selection:bg-blue-600 selection:text-white">
       <Navbar />
 
-      {showLeftBreadcrumb && (
-        <div className="fixed z-50 left-1/2 transform -translate-x-1/2 md:left-4 md:transform-none" style={{ top: headerHeight + 6 }}>
-          <div className="bg-white/95 border border-slate-200 rounded-md px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-blue-600 shadow md:px-3 md:py-1 md:text-xs md:tracking-wider">
-            <Link href="/" className="hover:text-slate-800">
-              Home
-            </Link>
-            <span className="mx-2 text-slate-400">/</span>
-            <span className="text-slate-800">About Us</span>
-          </div>
-        </div>
-      )}
-
       {/* Hero Section */}
       <section
-        ref={heroRef}
         className="relative bg-cover bg-center bg-no-repeat py-24 text-white overflow-hidden"
         style={{
           backgroundImage: "url('/images/dairy_warehouse_storage.png')",

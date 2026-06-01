@@ -13,7 +13,24 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [forceOpaque, setForceOpaque] = useState(false);
   const headerRef = useRef<HTMLElement | null>(null);
-  const isServiceDetailPage = pathname.startsWith("/services/");
+  const isServiceDetailPage = pathname ? pathname.startsWith("/services/") : false;
+
+  const isHomePage = pathname === "/";
+  const isDashboard = pathname ? (pathname === "/dashboard" || pathname.startsWith("/dashboard/")) : false;
+  const showStickyBreadcrumbs = !isHomePage && !isDashboard && scrolled;
+
+  const segments = pathname ? pathname.split("/").filter(Boolean) : [];
+  const crumbs = segments.map((seg, idx) => {
+    const label = seg
+      .replace(/[-_]/g, " ")
+      .split(" ")
+      .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+      .join(" ");
+    return {
+      label: decodeURIComponent(label),
+      href: "/" + segments.slice(0, idx + 1).join("/"),
+    };
+  });
 
   const navLinks = [
     { label: "HOME", href: "/" },
@@ -282,6 +299,58 @@ export default function Navbar() {
                   >
                     Get Free Consultation
                   </Link>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Sticky Breadcrumb Bar */}
+        <AnimatePresence>
+          {showStickyBreadcrumbs && (
+            <motion.div
+              initial={{ opacity: 0, height: 0, y: -10 }}
+              animate={{ opacity: 1, height: "auto", y: 0 }}
+              exit={{ opacity: 0, height: 0, y: -10 }}
+              transition={{ duration: 0.25, ease: "easeInOut" }}
+              className="border-t border-slate-200/50 bg-white/95 backdrop-blur-sm overflow-hidden"
+            >
+              <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-between">
+                {/* Left: Breadcrumbs Trail */}
+                <div 
+                  className="flex items-center gap-1.5 text-[11px] font-semibold text-slate-500 max-w-full overflow-x-auto whitespace-nowrap"
+                  style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+                >
+                  <Link href="/" className="hover:text-blue-600 text-slate-400 hover:scale-105 transition-all flex items-center gap-1 shrink-0">
+                    <span className="tracking-wider uppercase text-[10px] font-bold">Home</span>
+                  </Link>
+                  {crumbs.map((c, idx) => {
+                    const isLast = idx === crumbs.length - 1;
+                    return (
+                      <React.Fragment key={c.href}>
+                        <svg className="h-2.5 w-2.5 text-slate-300 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="3">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                        {isLast ? (
+                          <span className="text-[#0c2340] font-extrabold truncate max-w-[150px] md:max-w-[300px]">
+                            {c.label}
+                          </span>
+                        ) : (
+                          <Link href={c.href} className="hover:text-blue-600 transition-colors truncate max-w-[120px] shrink-0">
+                            {c.label}
+                          </Link>
+                        )}
+                      </React.Fragment>
+                    );
+                  })}
+                </div>
+
+                {/* Right: Premium Accent Tag */}
+                <div className="hidden md:flex items-center gap-3 shrink-0 select-none">
+                  <span className="inline-flex items-center gap-1.5 bg-blue-50/70 text-blue-600 text-[9px] font-extrabold tracking-wider uppercase px-2.5 py-1 rounded-full border border-blue-100/50 shadow-sm font-mono">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    ThermoVault Engineered
+                  </span>
                 </div>
               </div>
             </motion.div>
