@@ -187,15 +187,12 @@ export default function Navbar() {
 
           {/* Right Action buttons */}
           <div className="flex items-center gap-2 sm:gap-4 shrink-0">
-            <button
-              onClick={() => {
-                const event = new CustomEvent("open-quote-modal");
-                window.dispatchEvent(event);
-              }}
+            <Link
+              href="/contact"
               className="hidden sm:inline-block rounded-md bg-[#0c2340] px-5 py-2 text-xs font-bold text-white transition-all hover:bg-[#183960] shadow-md hover:shadow-lg active:scale-95"
             >
               Get Free Consultation
-            </button>
+            </Link>
 
             <a
               href="tel:+918055010620"
@@ -278,16 +275,13 @@ export default function Navbar() {
 
                 {/* Consultation button in mobile menu */}
                 <div className="pt-4 border-t border-slate-100 sm:hidden">
-                  <button
-                    onClick={() => {
-                      setIsMobileMenuOpen(false);
-                      const event = new CustomEvent("open-quote-modal");
-                      window.dispatchEvent(event);
-                    }}
+                  <Link
+                    href="/contact"
+                    onClick={() => setIsMobileMenuOpen(false)}
                     className="w-full text-center rounded-lg bg-[#0c2340] py-3 text-xs font-bold text-white transition-all hover:bg-[#183960] active:scale-95"
                   >
                     Get Free Consultation
-                  </button>
+                  </Link>
                 </div>
               </div>
             </motion.div>

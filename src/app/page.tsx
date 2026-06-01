@@ -126,15 +126,12 @@ export default function LandingPage() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="flex flex-wrap items-center gap-4 pt-4"
           >
-            <button
-              onClick={() => {
-                const event = new CustomEvent("open-quote-modal");
-                window.dispatchEvent(event);
-              }}
+            <Link
+              href="/contact"
               className="flex items-center gap-2 rounded-md bg-gradient-to-r from-blue-600 to-blue-500 px-6 py-3.5 text-xs font-bold text-white transition-all hover:scale-103 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/35 active:scale-95"
             >
               Get Free Consultation
-            </button>
+            </Link>
 
             <Link
               href="/dashboard"

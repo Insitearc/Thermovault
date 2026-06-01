@@ -638,15 +638,12 @@ export default function ServicesPage() {
             </div>
 
             <div className="flex gap-3">
-              <button
-                onClick={() => {
-                  const ev = new CustomEvent("open-quote-modal");
-                  window.dispatchEvent(ev);
-                }}
+              <Link
+                href="/contact"
                 className="rounded-md bg-blue-500 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-blue-600/20 hover:scale-103 transition-transform"
               >
                 Get Free Consultation
-              </button>
+              </Link>
               <Link
                 href="/contact"
                 className="rounded-md border border-white/20 px-6 py-3 text-sm font-bold hover:bg-white/10 transition-colors"
