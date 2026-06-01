@@ -1,5 +1,13 @@
-import React, { useState } from "react";
-import { Zap, Cpu, Clock, ShieldCheck, HeartHandshake, ChevronLeft, ChevronRight } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import {
+  Zap,
+  Cpu,
+  Clock,
+  ShieldCheck,
+  HeartHandshake,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function PerformanceFeatureBar() {
@@ -51,6 +59,40 @@ export default function PerformanceFeatureBar() {
     setActiveIndex((prev) => (prev - 1 + features.length) % features.length);
   };
 
+  useEffect(() => {
+    const mobileQuery = window.matchMedia("(max-width: 767px)");
+
+    const startAutoScroll = () => {
+      if (!mobileQuery.matches) {
+        return undefined;
+      }
+
+      return window.setInterval(() => {
+        setActiveIndex((prev) => (prev + 1) % features.length);
+      }, 2000);
+    };
+
+    let intervalId = startAutoScroll();
+
+    const handleChange = () => {
+      if (intervalId) {
+        window.clearInterval(intervalId);
+      }
+
+      intervalId = startAutoScroll();
+    };
+
+    mobileQuery.addEventListener("change", handleChange);
+
+    return () => {
+      if (intervalId) {
+        window.clearInterval(intervalId);
+      }
+
+      mobileQuery.removeEventListener("change", handleChange);
+    };
+  }, [features.length]);
+
   return (
     <section className="relative z-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
       <motion.div
@@ -83,7 +125,7 @@ export default function PerformanceFeatureBar() {
                 >
                   <Icon className="h-5.5 w-5.5 text-inherit animate-pulse" />
                 </div>
-                
+
                 <div className="space-y-0.5">
                   <h4 className="text-xs font-extrabold text-white font-display tracking-wider uppercase group-hover:text-blue-400 transition-colors">
                     {item.title}
@@ -101,7 +143,7 @@ export default function PerformanceFeatureBar() {
         <div className="md:hidden flex flex-col items-center justify-center space-y-5">
           <div className="relative w-full flex items-center justify-between px-2 sm:px-6">
             {/* Left Arrow */}
-            <button 
+            <button
               onClick={prevSlide}
               className="h-9 w-9 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/10 transition-colors active:scale-90"
               title="Previous Feature"
@@ -125,9 +167,11 @@ export default function PerformanceFeatureBar() {
                       features[activeIndex].iconColor
                     } ${features[activeIndex].glow}`}
                   >
-                    {React.createElement(features[activeIndex].icon, { className: "h-5.5 w-5.5 text-inherit animate-pulse" })}
+                    {React.createElement(features[activeIndex].icon, {
+                      className: "h-5.5 w-5.5 text-inherit animate-pulse",
+                    })}
                   </div>
-                  
+
                   <div className="space-y-0.5">
                     <h4 className="text-xs font-extrabold text-white font-display tracking-wider uppercase">
                       {features[activeIndex].title}
@@ -141,7 +185,7 @@ export default function PerformanceFeatureBar() {
             </div>
 
             {/* Right Arrow */}
-            <button 
+            <button
               onClick={nextSlide}
               className="h-9 w-9 rounded-full border border-white/10 bg-white/5 flex items-center justify-center text-slate-300 hover:text-white hover:bg-white/10 transition-colors active:scale-90"
               title="Next Feature"
