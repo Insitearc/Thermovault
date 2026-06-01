@@ -47,7 +47,7 @@ export default function RootLayout({
         <div className="fixed bottom-24 right-6 z-50 flex flex-col gap-2.5 items-center select-none">
           {/* LinkedIn */}
           <a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/ominaikade0106?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
             target="_blank"
             rel="noopener noreferrer"
             className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-900 border border-slate-700/50 text-cyan-400 shadow-lg hover:shadow-cyan-500/25 hover:border-cyan-500/50 hover:bg-[#0a66c2] hover:text-white hover:scale-110 transition-all duration-300"
@@ -75,7 +75,7 @@ export default function RootLayout({
 
           {/* Facebook */}
           <a
-            href="https://facebook.com"
+            href="https://www.facebook.com/profile.php?id=100067437094413"
             target="_blank"
             rel="noopener noreferrer"
             className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-900 border border-slate-700/50 text-blue-400 shadow-lg hover:shadow-blue-500/25 hover:border-blue-500/50 hover:bg-[#1877f2] hover:text-white hover:scale-110 transition-all duration-300"
