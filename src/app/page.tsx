@@ -250,91 +250,11 @@ export default function LandingPage() {
                     <div className="absolute inset-0 bg-red-600/10 border-2 border-red-500/40 pointer-events-none animate-pulse" />
                   )}
 
-                  {/* Top-Left Telemetry Door Status Badge */}
-                  <div className="absolute top-4 left-4 bg-slate-950/90 backdrop-blur-md border border-slate-700/50 rounded-lg px-2.5 py-1.5 flex items-center gap-1.5 shadow-lg pointer-events-none select-none">
-                    <span className={`h-2.5 w-2.5 rounded-full ${doorOpen ? 'bg-red-500 animate-pulse' : 'bg-blue-500'}`} />
-                    <span className="text-[9px] font-mono font-bold tracking-wider text-slate-200 uppercase">
-                      {doorOpen ? 'DOOR VALVE: OPEN' : 'DOOR VALVE: SEALED'}
-                    </span>
-                  </div>
-
-                  {/* Top-Right LCD Temp Display Overlay */}
-                  <div className="absolute top-4 right-4 bg-black/90 backdrop-blur-md border border-cyan-500/30 rounded-lg p-2.5 text-right shadow-lg min-w-[100px] pointer-events-none select-none">
-                    <div className="text-[7px] font-mono text-cyan-400 font-bold uppercase tracking-widest mb-0.5">INTERNAL TEMP</div>
-                    <div className="text-sm font-mono font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
-                      {temp.toFixed(1)}°C
-                    </div>
-                  </div>
-
-                  {/* Bottom-Left Compressor Status Badge */}
-                  <div className="absolute bottom-4 left-4 bg-slate-950/90 backdrop-blur-md border border-slate-700/50 rounded-lg px-2.5 py-1.5 flex items-center gap-2 shadow-lg pointer-events-none select-none">
-                    <div className="relative flex items-center justify-center">
-                      <Settings className={`h-4.5 w-4.5 text-blue-400 ${compressorActive ? 'animate-spin' : ''}`} style={{ animationDuration: '3s' }} />
-                    </div>
-                    <div className="text-left">
-                      <div className="text-[7px] text-slate-400 font-mono font-bold uppercase tracking-wider">COMPRESSOR</div>
-                      <div className="text-[9px] text-slate-200 font-mono font-extrabold">
-                        {compressorActive ? 'ACTIVE (1450 RPM)' : 'SYSTEM IDLE'}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Telemetry Scanning Line */}
-                  <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_8px_rgba(34,211,238,0.5)] pointer-events-none animate-bounce" style={{ animationDuration: "5s" }} />
+                  {/* Overlays removed per design request */}
                 </div>
               </div>
 
-              {/* Telemetry Control Dashboard HUD */}
-              <div className="rounded-xl border border-slate-150 bg-slate-50 p-4 shadow-md grid grid-cols-3 gap-3 items-center text-center relative overflow-hidden">
-                <div className="absolute inset-0 cyber-grid opacity-[0.05] pointer-events-none" />
-                
-                {/* Temperature Telemetry dial */}
-                <div className="space-y-1 relative z-10">
-                  <div className="text-[8px] font-bold text-slate-400 uppercase font-mono tracking-wider">TEMP CONTROL</div>
-                  <div className="flex items-center justify-center gap-1">
-                    <span className="text-xs font-extrabold text-blue-600 font-mono">{temp.toFixed(1)}°C</span>
-                  </div>
-                  <input
-                    type="range"
-                    min="-25"
-                    max="15"
-                    step="0.5"
-                    value={temp}
-                    onChange={(e) => setTemp(parseFloat(e.target.value))}
-                    className="w-full h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
-                  />
-                </div>
-
-                {/* Door open controller */}
-                <div className="space-y-1 relative z-10">
-                  <div className="text-[8px] font-bold text-slate-400 uppercase font-mono tracking-wider">DOOR VALVE</div>
-                  <button
-                    onClick={() => setDoorOpen(!doorOpen)}
-                    className={`w-full rounded-lg py-1.5 text-[9px] font-bold border transition-all shadow-sm ${
-                      doorOpen
-                        ? "bg-amber-50 border-amber-200 text-amber-600 shadow-neon-blue"
-                        : "bg-blue-50 border-blue-100 text-blue-600"
-                    }`}
-                  >
-                    {doorOpen ? "Open / Warning" : "Sealed / Ok"}
-                  </button>
-                </div>
-
-                {/* Compressor controller */}
-                <div className="space-y-1 relative z-10">
-                  <div className="text-[8px] font-bold text-slate-400 uppercase font-mono tracking-wider">COMPRESSOR</div>
-                  <button
-                    onClick={() => setCompressorActive(!compressorActive)}
-                    className={`w-full rounded-lg py-1.5 text-[9px] font-bold border transition-all shadow-sm ${
-                      compressorActive
-                        ? "bg-blue-50 border-blue-200 text-blue-600 shadow-neon-blue"
-                        : "bg-red-50 border-red-100 text-red-600"
-                    }`}
-                  >
-                    {compressorActive ? "Active Fan" : "Idle Fan"}
-                  </button>
-                </div>
-              </div>
+              {/* Telemetry controls removed per design request */}
             </motion.div>
           </div>
         </div>

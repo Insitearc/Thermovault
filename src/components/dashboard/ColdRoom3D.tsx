@@ -355,26 +355,7 @@ export default function ColdRoom3D({
          Drag to rotate | Scroll to zoom
       </div>
 
-      {/* Overlay Status badges */}
-      <div className="absolute top-4 right-4 flex flex-col gap-2 pointer-events-none">
-        <div className={`rounded-lg px-2.5 py-1 text-[10px] font-semibold border flex items-center gap-1.5 backdrop-blur-sm ${
-          doorOpen 
-            ? "bg-amber-500/10 text-amber-400 border-amber-500/20" 
-            : "bg-teal-accent/10 text-teal-light border-teal-accent/20"
-        }`}>
-          <span className={`h-1.5 w-1.5 rounded-full ${doorOpen ? "bg-amber-400 animate-ping" : "bg-teal-light"}`} />
-          {doorOpen ? "Door Open" : "Door Sealed"}
-        </div>
-
-        <div className={`rounded-lg px-2.5 py-1 text-[10px] font-semibold border flex items-center gap-1.5 backdrop-blur-sm ${
-          compressorActive 
-            ? "bg-teal-accent/10 text-teal-light border-teal-accent/20" 
-            : "bg-red-500/10 text-red-400 border-red-500/20"
-        }`}>
-          <span className={`h-1.5 w-1.5 rounded-full ${compressorActive ? "bg-teal-light animate-pulse" : "bg-red-400"}`} />
-          {compressorActive ? "Compressor Running" : "Compressor Idle"}
-        </div>
-      </div>
+      {/* Overlays removed per design request */}
     </div>
   );
 }
