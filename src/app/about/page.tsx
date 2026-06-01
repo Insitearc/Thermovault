@@ -64,16 +64,16 @@ export default function AboutPage() {
 
       {/* Navy Stats Ribbon */}
       <section className="bg-[#0C2340] text-white py-6 border-b border-white/5 relative z-10">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-5 gap-6 text-center">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-5 gap-1.5 sm:gap-6 text-center">
           {stats.map((stat, idx) => {
             const Icon = stat.icon;
             return (
-              <div key={idx} className="flex flex-col items-center gap-1.5 p-2">
-                <Icon className="h-5 w-5 text-blue-400" />
-                <div className="text-2xl font-extrabold font-mono leading-none">
+              <div key={idx} className="flex flex-col items-center gap-1 p-0.5 sm:p-2">
+                <Icon className="h-3.5 w-3.5 sm:h-5 sm:w-5 text-blue-400" />
+                <div className="text-[10px] sm:text-2xl font-extrabold font-mono leading-none">
                   {stat.value}
                 </div>
-                <div className="text-[9px] font-bold uppercase tracking-wider text-slate-300 font-mono">
+                <div className="text-[6px] sm:text-[9px] font-bold uppercase tracking-wider text-slate-300 font-mono text-center leading-tight">
                   {stat.label}
                 </div>
               </div>

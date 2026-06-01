@@ -14,6 +14,7 @@ import {
   Thermometer,
   ChevronLeft,
   ChevronRight,
+  X,
   Send,
   CheckCircle2,
   Layers,
@@ -3535,6 +3536,40 @@ export default function ServiceDetailPage({
 
   const galleryItems = galleryDb[slug] || galleryDb["modular-cold-rooms"];
 
+  const handlePrevGalleryItem = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    if (lightboxIdx !== null) {
+      if (lightboxIdx > 0) {
+        setLightboxIdx(lightboxIdx - 1);
+      } else {
+        setLightboxIdx(galleryItems.length - 1);
+      }
+    }
+  };
+
+  const handleNextGalleryItem = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    if (lightboxIdx !== null) {
+      if (lightboxIdx < galleryItems.length - 1) {
+        setLightboxIdx(lightboxIdx + 1);
+      } else {
+        setLightboxIdx(0);
+      }
+    }
+  };
+
+  // Keyboard navigation for service page lightbox
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (lightboxIdx === null) return;
+      if (e.key === "Escape") setLightboxIdx(null);
+      if (e.key === "ArrowLeft") handlePrevGalleryItem();
+      if (e.key === "ArrowRight") handleNextGalleryItem();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [lightboxIdx, galleryItems]);
+
   return (
     <div className="flex flex-col flex-1 min-h-screen bg-[#0C2340] text-white selection:bg-blue-600 overflow-x-hidden">
       {/* Header */}
@@ -4139,11 +4174,11 @@ export default function ServiceDetailPage({
             <div className="space-y-6 pt-6 border-t border-white/5 text-left">
               <div className="space-y-1.5 border-l-2 border-blue-500 pl-4 mb-6">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400 font-mono block">
-                  REAL-WORLD DEPLOYMENTS
+                  PROPOSED 3D CONCEPTS
                 </span>
                 <h2 className="text-xl sm:text-2xl font-extrabold text-white font-display uppercase tracking-tight flex items-center gap-2">
                   <Layers className="h-5 w-5 text-blue-400" />
-                  Project &amp; Installation Gallery
+                  Proposed Designs &amp; Gallery
                 </h2>
               </div>
 
@@ -4617,9 +4652,33 @@ export default function ServiceDetailPage({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/90 backdrop-blur-md p-4"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/90 backdrop-blur-md p-4 select-none"
             onClick={() => setLightboxIdx(null)}
           >
+            {/* Close button top right */}
+            <button
+              onClick={() => setLightboxIdx(null)}
+              className="absolute top-4 right-4 z-50 p-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-white transition-all active:scale-95 shadow-lg"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            {/* Left Nav Arrow */}
+            <button
+              onClick={handlePrevGalleryItem}
+              className="absolute left-4 z-40 p-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-white transition-all active:scale-95 shadow-lg"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+
+            {/* Right Nav Arrow */}
+            <button
+              onClick={handleNextGalleryItem}
+              className="absolute right-4 z-40 p-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-white transition-all active:scale-95 shadow-lg"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}

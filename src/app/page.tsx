@@ -456,12 +456,13 @@ export default function LandingPage() {
             </motion.div>
 
             {/* Right outline stats counters */}
-            <div className="grid grid-cols-2 gap-4 preserve-3d">
+            <div className="grid grid-cols-5 lg:grid-cols-2 gap-1.5 sm:gap-4 preserve-3d">
               {[
                 { val: "40 kg/m³", label: "PUF Core Density" },
                 { val: "0.022 W/mK", label: "Thermal Conductivity" },
                 { val: "35% - 50%", label: "Govt Subsidy Audited" },
-                { val: "24/7", label: "Micro-Climate Tracking" }
+                { val: "24/7", label: "Micro-Climate Tracking" },
+                { val: "100%", label: "Food-Grade Materials" }
               ].map((stat, idx) => (
                 <motion.div
                   key={idx}
@@ -475,10 +476,10 @@ export default function LandingPage() {
                     borderColor: "rgba(59, 130, 246, 0.4)",
                     boxShadow: "0 10px 20px -5px rgba(59, 130, 246, 0.2)"
                   }}
-                  className="rounded-xl border border-white/10 bg-white/5 p-6 text-center space-y-2 transition-all duration-300 cursor-default"
+                  className="rounded-lg sm:rounded-xl border border-white/10 bg-white/5 p-1 sm:p-6 text-center space-y-1.5 sm:space-y-2 transition-all duration-300 cursor-default"
                 >
-                  <div className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300 font-mono">{stat.val}</div>
-                  <div className="text-[9px] font-bold uppercase tracking-wider text-slate-300 font-mono">
+                  <div className="text-[10px] sm:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300 font-mono leading-none">{stat.val}</div>
+                  <div className="text-[6px] sm:text-[9px] font-bold uppercase tracking-wider text-slate-300 font-mono text-center">
                     {stat.label}
                   </div>
                 </motion.div>

@@ -89,14 +89,7 @@ export default function ProjectsPage() {
       image: "/images/control_panel_unit.png",
       desc: "Features interactive touch controls, high-voltage phase sequence selectors, and real-time remote cloud telemetry integrations.",
     },
-    {
-      title: "Hygienic Seafood Processing Lines",
-      location: "Kochi, Kerala",
-      category: "execution",
-      size: "ISO Class Clean Room",
-      image: "/images/fish_processing.png",
-      desc: "Marine-grade stainless steel workspaces and walk-ins designed to fulfill strict US-FDA health parameters.",
-    },
+
     {
       title: "Dairy Processing & Chilling Plant",
       location: "Anand, Gujarat",
@@ -204,12 +197,12 @@ export default function ProjectsPage() {
     {
       name: "Rahul Deshmukh",
       role: "Dairy Farm Owner, Pune",
-      quote: "ThermoVault Systems delivered our cold room exactly as promised. Excellent build quality and professional team.",
+      quote: "ThermoVault's engineering team provided extremely thorough consultation and detailed 3D designs for our planned dairy expansion.",
     },
     {
       name: "Vikram Patil",
       role: "Food Processing Unit, Sangli",
-      quote: "Their refrigeration system is working perfectly and has significantly improved our storage efficiency.",
+      quote: "Highly impressive technical knowledge in refrigeration systems. Their thermal simulation report gave us complete confidence.",
     },
     {
       name: "Ankita Sharma",
@@ -245,10 +238,10 @@ export default function ProjectsPage() {
             <span className="text-slate-300">Projects</span>
           </div>
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl font-display">
-            Real Project <span className="text-blue-400">Installation Gallery</span>
+            Proposed Engineering &amp; <span className="text-blue-400">3D Concept Gallery</span>
           </h1>
           <p className="max-w-2xl text-xs sm:text-sm text-slate-200/90 leading-relaxed font-body">
-            Explore photos of our actual installations, cold room interiors, heavy-duty compressors, electrical PLC automation grids, and clean rooms.
+            Explore 3D blueprints, custom engineering layouts, and concept designs illustrating how our upcoming cold chain systems and refrigeration projects will look.
           </p>
 
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-5 pt-2 text-[10px] font-bold text-slate-300">
@@ -262,7 +255,7 @@ export default function ProjectsPage() {
 
       {/* Navy Stats Ribbon */}
       <section className="bg-[#0C2340] text-white py-6 border-b border-white/5 relative z-10">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-5 gap-6 text-center">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-5 gap-1.5 sm:gap-6 text-center">
           {[
             { label: "PUF Core Density", value: "40 kg/m³", icon: ShieldCheck },
             { label: "Thermal Conductivity", value: "0.022 W/mK", icon: Thermometer },
@@ -272,10 +265,10 @@ export default function ProjectsPage() {
           ].map((stat, idx) => {
             const Icon = stat.icon;
             return (
-              <div key={idx} className="flex flex-col items-center gap-1.5 p-2">
-                <Icon className="h-5 w-5 text-blue-400" />
-                <div className="text-2xl font-extrabold font-mono leading-none">{stat.value}</div>
-                <div className="text-[9px] font-bold uppercase tracking-wider text-slate-300 font-mono">
+              <div key={idx} className="flex flex-col items-center gap-1 p-0.5 sm:p-2">
+                <Icon className="h-3.5 w-3.5 sm:h-5 sm:w-5 text-blue-400" />
+                <div className="text-[10px] sm:text-2xl font-extrabold font-mono leading-none">{stat.value}</div>
+                <div className="text-[6px] sm:text-[9px] font-bold uppercase tracking-wider text-slate-300 font-mono text-center leading-tight">
                   {stat.label}
                 </div>
               </div>
@@ -291,23 +284,23 @@ export default function ProjectsPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12 relative z-10">
           <div className="text-center space-y-3 max-w-3xl mx-auto">
             <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 font-mono block">
-              REAL SITE IMAGES & VISUALS
+              PROPOSED DESIGNS &amp; 3D CONCEPTS
             </span>
             <h2 className="text-3xl font-extrabold text-[#0c2340] font-display">
-              Real Installations. <span className="text-blue-600">Uncompromised Quality.</span>
+              Proposed Cold Storage Concepts. <span className="text-blue-600">Uncompromised Engineering.</span>
             </h2>
             <p className="text-xs text-slate-500 font-body leading-relaxed">
-              Browse through authentic execution photos showing the absolute precision of our structural panels, clean rooms, heavy-duty condensing machinery, and real-time electronic panel installations. Click any project card to open full-screen lightbox details.
+              Browse through our 3D CAD blueprints and conceptual models showing the design precision of our planned structural panels, clean rooms, heavy-duty condensing machinery, and real-time electronic panel setups. Click any project card to open full-screen lightbox details.
             </p>
           </div>
 
           {/* Dynamic Tabs Filters with Counters */}
           <div className="flex flex-wrap justify-center gap-2 pb-8 max-w-3xl mx-auto border-b border-slate-200">
             {[
-              { id: "all", label: "All Visuals", count: allCount },
-              { id: "interiors", label: "Cold Room Interiors", count: interiorsCount },
-              { id: "machinery", label: "Machinery & Systems", count: machineryCount },
-              { id: "execution", label: "On-Site Execution", count: executionCount },
+              { id: "all", label: "All Concepts", count: allCount },
+              { id: "interiors", label: "Interior Concepts", count: interiorsCount },
+              { id: "machinery", label: "Machinery Systems", count: machineryCount },
+              { id: "execution", label: "Proposed Deployments", count: executionCount },
             ].map((btn) => (
               <button
                 key={btn.id}
@@ -491,7 +484,7 @@ export default function ProjectsPage() {
                   </div>
                   <div className="flex items-center gap-2 text-xs text-slate-300 font-mono">
                     <Clock className="h-4 w-4 text-teal-light shrink-0" />
-                    <span>Status: <strong className="text-emerald-400">100% Operational</strong></span>
+                    <span>Status: <strong className="text-blue-400">Proposed Concept Design / Under Engineering</strong></span>
                   </div>
                 </div>
               </div>

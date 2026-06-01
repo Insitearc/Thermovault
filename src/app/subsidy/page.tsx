@@ -19,6 +19,7 @@ export default function SubsidyPage() {
   const [step, setStep] = useState(1);
   const [form, setForm] = useState({
     state: "Maharashtra",
+    areaType: "Rural",
     bizType: "Farmer / FPO",
     capacity: "5-20 MT",
     name: "",
@@ -26,8 +27,7 @@ export default function SubsidyPage() {
   });
   const [calculationResult, setCalculationResult] = useState<{
     scheme: string;
-    percentage: number;
-    amount: string;
+    percentage: string;
     description: string;
   } | null>(null);
   const [consultationSent, setConsultationSent] = useState(false);
@@ -40,6 +40,7 @@ export default function SubsidyPage() {
     "Himachal Pradesh",
     "Other State",
   ];
+  const areaTypes = ["Urban", "Suburban", "Rural"];
   const bizTypes = [
     "Farmer / FPO",
     "Dairy Cooperative",
@@ -55,48 +56,43 @@ export default function SubsidyPage() {
   ];
 
   const handleCalculate = () => {
-    let percentage = 35;
+    let percentage = "35% - 50%";
     let scheme = "MIDH (Horticulture Development)";
     let desc =
       "Standard credit-linked back-ended capital subsidy for cold storage enclosures.";
 
-    // Settle rates
-    if (form.bizType === "Farmer / FPO") {
-      percentage = 50;
-      scheme = "NHB (National Horticulture Mission)";
-      desc =
-        "Special cooperative category subsidy matching farming producer groups.";
-    } else if (form.state === "Himachal Pradesh") {
-      percentage = 50;
-      scheme = "MIDH Hilly State Scheme";
-      desc = "Hilly state elevation capital grant for cold chain components.";
-    } else if (form.bizType === "Dairy Cooperative") {
-      percentage = 35;
-      scheme = "NABARD Cold Chain Infrastructure Fund";
-      desc = "Infrastructure fund credit grant matching milk chilling plants.";
+    // Settle rates depending on areaType and categories
+    if (form.areaType === "Urban") {
+      percentage = "15%";
+      scheme = "PMEGP / PMFME Urban Subsidy Support";
+      desc = "Standard urban area capital subsidy under self-employment incentives.";
+    } else if (form.areaType === "Suburban") {
+      percentage = "16% - 34%";
+      scheme = "PMKSY / MIDH Semi-Urban Cold Chain Support";
+      desc = "Semi-urban cold chain creation and preservation infrastructure support.";
+    } else {
+      // Rural
+      if (form.bizType === "Farmer / FPO") {
+        percentage = "50%";
+        scheme = "NHB (National Horticulture Board)";
+        desc = "Special cooperative category subsidy matching farming producer groups in rural areas.";
+      } else if (form.state === "Himachal Pradesh") {
+        percentage = "50%";
+        scheme = "MIDH Hilly State Scheme";
+        desc = "Hilly state elevation rural capital grant for cold chain components.";
+      } else {
+        percentage = "35% - 50%";
+        scheme = "NHB / MIDH Rural Cold Chain Support";
+        desc = "Standard credit-linked rural back-ended capital grant matching cold rooms.";
+      }
     }
-
-    // Cost estimation
-    let cost = 600000; // default for under 5
-    if (form.capacity === "5-20 MT") cost = 1200000;
-    if (form.capacity === "20-50 MT") cost = 2400000;
-    if (form.capacity === "50-100 MT") cost = 4800000;
-    if (form.capacity === "Above 100 MT") cost = 9500000;
-
-    const subsidyVal = (cost * percentage) / 100;
-    const formattedAmount = new Intl.NumberFormat("en-IN", {
-      style: "currency",
-      currency: "INR",
-      maximumFractionDigits: 0,
-    }).format(subsidyVal);
 
     setCalculationResult({
       scheme,
       percentage,
-      amount: formattedAmount,
       description: desc,
     });
-    setStep(4); // Show results page
+    setStep(5); // Show results page (Step 5)
   };
 
   const handleRequestConsultation = (e: React.FormEvent) => {
@@ -189,9 +185,9 @@ export default function SubsidyPage() {
                 </h3>
               </div>
 
-              {step <= 3 && (
+              {step <= 4 && (
                 <div className="flex items-center gap-1 mb-6">
-                  {[1, 2, 3].map((s) => (
+                  {[1, 2, 3, 4].map((s) => (
                     <div
                       key={s}
                       className={`h-1.5 flex-1 rounded-full transition-all duration-300 ${
@@ -226,8 +222,32 @@ export default function SubsidyPage() {
                 </div>
               )}
 
-              {/* Step 2: Applicant */}
+              {/* Step 2: Area Type */}
               {step === 2 && (
+                <div className="space-y-4">
+                  <span className="text-[10px] font-mono text-slate-500 uppercase block mb-1">
+                    Select Area Type
+                  </span>
+                  <div className="space-y-2">
+                    {areaTypes.map((type) => (
+                      <button
+                        key={type}
+                        onClick={() => setForm({ ...form, areaType: type })}
+                        className={`w-full text-left rounded-xl p-3 text-xs border font-medium transition-all ${
+                          form.areaType === type
+                            ? "bg-blue-50 border-blue-600 text-blue-600"
+                            : "bg-slate-50 border-slate-100 text-slate-600 hover:bg-slate-100"
+                        }`}
+                      >
+                        {type}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Step 3: Applicant Category */}
+              {step === 3 && (
                 <div className="space-y-4">
                   <span className="text-[10px] font-mono text-slate-500 uppercase block mb-1">
                     Applicant Business Category
@@ -250,8 +270,8 @@ export default function SubsidyPage() {
                 </div>
               )}
 
-              {/* Step 3: Capacity */}
-              {step === 3 && (
+              {/* Step 4: Capacity */}
+              {step === 4 && (
                 <div className="space-y-4">
                   <span className="text-[10px] font-mono text-slate-500 uppercase block mb-1">
                     Chamber Storage Capacity
@@ -274,8 +294,8 @@ export default function SubsidyPage() {
                 </div>
               )}
 
-              {/* Step 4: Results */}
-              {step === 4 && calculationResult && (
+              {/* Step 5: Results */}
+              {step === 5 && calculationResult && (
                 <div className="space-y-6">
                   <div className="text-center py-2">
                     <CheckCircle2 className="h-10 w-10 text-blue-600 mx-auto mb-3" />
@@ -296,12 +316,23 @@ export default function SubsidyPage() {
                         Subsidy Percentage:
                       </span>
                       <span className="font-bold text-blue-600 font-mono">
-                        {calculationResult.percentage}%
+                        {calculationResult.percentage}
                       </span>
                     </div>
                     <p className="text-[10px] text-slate-500 leading-relaxed pt-1">
                       {calculationResult.description}
                     </p>
+
+                    {/* Eligibility Notes */}
+                    <div className="border-t border-dashed border-blue-200/60 pt-3 mt-3 space-y-1">
+                      <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                        Note — depends on eligibility criteria
+                      </div>
+                      <div className="flex gap-2.5 text-[9px] font-mono text-blue-600 font-extrabold">
+                        <span>• PMJP</span>
+                        <span>• PMFP</span>
+                      </div>
+                    </div>
                   </div>
 
                   {consultationSent ? (
@@ -358,7 +389,7 @@ export default function SubsidyPage() {
               )}
 
               {/* Wizard Footer controls */}
-              {step <= 3 && (
+              {step <= 4 && (
                 <div className="flex justify-end gap-3 mt-6 border-t border-slate-100 pt-4">
                   {step > 1 && (
                     <button
@@ -370,13 +401,13 @@ export default function SubsidyPage() {
                   )}
                   <button
                     onClick={
-                      step === 3
+                      step === 4
                         ? handleCalculate
                         : () => setStep((prev) => prev + 1)
                     }
                     className="flex items-center gap-1 rounded-xl bg-blue-600 px-5 py-2.5 text-xs font-semibold text-white hover:bg-blue-500 shadow-sm"
                   >
-                    <span>{step === 3 ? "Calculate Grant" : "Continue"}</span>
+                    <span>{step === 4 ? "Calculate Grant" : "Continue"}</span>
                     <ChevronRight className="h-4 w-4" />
                   </button>
                 </div>

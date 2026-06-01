@@ -782,10 +782,10 @@ export default function SeafoodServicesPage() {
               <div className="flex items-end justify-between">
                 <div className="space-y-2">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 font-mono block">
-                    PROJECT PORTFOLIO
+                    PROPOSED 3D CONCEPTS
                   </span>
                   <h3 className="text-2xl font-extrabold text-[#0c2340] font-display">
-                    Our Seafood & Fish Installations
+                    Proposed Seafood &amp; Fish Concepts
                   </h3>
                 </div>
                 <Link 
@@ -800,9 +800,10 @@ export default function SeafoodServicesPage() {
               {/* 4-Image Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {installations.map((inst, index) => (
-                  <div 
+                  <Link 
                     key={index}
-                    className="group rounded-2xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-md transition-shadow bg-white flex flex-col"
+                    href="/projects"
+                    className="group rounded-2xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-md transition-shadow bg-white flex flex-col cursor-pointer"
                   >
                     <div className="relative h-44 w-full overflow-hidden bg-slate-50">
                       <Image
@@ -821,7 +822,7 @@ export default function SeafoodServicesPage() {
                         <ArrowRight className="h-3 w-3" />
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
 
