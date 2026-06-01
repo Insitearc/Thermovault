@@ -32,10 +32,16 @@ import { motion, AnimatePresence } from "framer-motion";
 // Custom SVG Brand Logos for Marquee
 const KingspanLogo = () => (
   <div className="flex items-center gap-2">
-    <svg className="h-6 w-6 text-[#1a5f7a]" viewBox="0 0 24 24" fill="currentColor">
+    <svg
+      className="h-6 w-6 text-[#1a5f7a]"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+    >
       <path d="M12 2L9 8h6l-3-6zm-6 8l-2 5h16l-2-5H6zm-4 7h20v2H2v-2z" />
     </svg>
-    <span className="font-extrabold text-[#0c2340] tracking-tight text-base">Kingspan</span>
+    <span className="font-extrabold text-[#0c2340] tracking-tight text-base">
+      Kingspan
+    </span>
   </div>
 );
 
@@ -49,11 +55,19 @@ const JSWLogo = () => (
 
 const MountLogo = () => (
   <div className="flex items-center gap-1.5">
-    <svg className="h-5 w-5 text-[#0d47a1]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+    <svg
+      className="h-5 w-5 text-[#0d47a1]"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+    >
       <path d="M3 20h18L12 4z" />
       <path d="M12 4l-4 9h8z" />
     </svg>
-    <span className="font-black text-[#1a237e] text-sm tracking-wider">MOUNT</span>
+    <span className="font-black text-[#1a237e] text-sm tracking-wider">
+      MOUNT
+    </span>
   </div>
 );
 
@@ -65,46 +79,86 @@ const VoltasLogo = () => (
 
 const DaikinLogo = () => (
   <div className="flex items-center gap-1">
-    <svg className="h-4.5 w-4.5 text-[#03a9f4]" viewBox="0 0 24 24" fill="currentColor">
+    <svg
+      className="h-4.5 w-4.5 text-[#03a9f4]"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+    >
       <path d="M2 3h8l8 14H10z" />
     </svg>
-    <span className="font-black text-[#01579b] text-base tracking-tighter italic">DAIKIN</span>
+    <span className="font-black text-[#01579b] text-base tracking-tighter italic">
+      DAIKIN
+    </span>
   </div>
 );
 
 const CopelandLogo = () => (
   <div className="flex items-center gap-1.5">
-    <svg className="h-4.5 w-4.5 text-[#0d47a1]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+    <svg
+      className="h-4.5 w-4.5 text-[#0d47a1]"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+    >
       <circle cx="12" cy="12" r="10" />
       <path d="M8 12a4 4 0 018 0" />
     </svg>
-    <span className="font-black text-[#0d47a1] text-sm tracking-tight">COPELAND</span>
+    <span className="font-black text-[#0d47a1] text-sm tracking-tight">
+      COPELAND
+    </span>
   </div>
 );
 
 const EmersonLogo = () => (
   <div className="flex items-center gap-1">
-    <svg className="h-4.5 w-4.5 text-[#0b5c9c]" viewBox="0 0 24 24" fill="currentColor">
-      <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" strokeWidth="2" />
+    <svg
+      className="h-4.5 w-4.5 text-[#0b5c9c]"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+    >
+      <circle
+        cx="12"
+        cy="12"
+        r="10"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
       <path d="M8 8h8v2H10v2h5v2H10v2h6v2H8z" />
     </svg>
-    <span className="font-extrabold text-[#0b5c9c] text-sm tracking-wide">EMERSON</span>
+    <span className="font-extrabold text-[#0b5c9c] text-sm tracking-wide">
+      EMERSON
+    </span>
   </div>
 );
 
 const DanfossLogo = () => (
   <div className="flex items-center">
-    <span className="font-black text-[#e53935] text-lg tracking-tighter italic">Danfoss</span>
+    <span className="font-black text-[#e53935] text-lg tracking-tighter italic">
+      Danfoss
+    </span>
   </div>
 );
 
 const BitzerLogo = () => (
   <div className="flex items-center gap-1.5">
-    <svg className="h-5 w-5 text-[#2e7d32]" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M6 4h12l3 8-3 8H6l-3-8z" fill="none" stroke="currentColor" strokeWidth="2" />
+    <svg
+      className="h-5 w-5 text-[#2e7d32]"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+    >
+      <path
+        d="M6 4h12l3 8-3 8H6l-3-8z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
       <path d="M9 7h6l2 5-2 5H9l-2-5z" />
     </svg>
-    <span className="font-black text-[#2e7d32] text-sm tracking-normal">BITZER</span>
+    <span className="font-black text-[#2e7d32] text-sm tracking-normal">
+      BITZER
+    </span>
   </div>
 );
 
@@ -125,34 +179,59 @@ const DixellLogo = () => (
 
 const SchneiderLogo = () => (
   <div className="flex items-center gap-1.5">
-    <svg className="h-4.5 w-4.5 text-[#388e3c]" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M3 3h18v18H3z" fill="none" stroke="currentColor" strokeWidth="2" />
+    <svg
+      className="h-4.5 w-4.5 text-[#388e3c]"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+    >
+      <path
+        d="M3 3h18v18H3z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
       <path d="M7 7h10v3H7zm0 5h10v5H7z" />
     </svg>
     <span className="font-extrabold text-[#2e7d32] text-[10px] tracking-tight leading-none text-left">
-      Schneider<br /><span className="text-[8px] font-normal">Electric</span>
+      Schneider
+      <br />
+      <span className="text-[8px] font-normal">Electric</span>
     </span>
   </div>
 );
 
 const CarrierLogo = () => (
   <div className="flex items-center justify-center px-3 py-0.5 rounded-full border border-[#0d47a1] bg-[#0d47a1]/5">
-    <span className="font-black text-[#0d47a1] text-xs italic tracking-tight font-serif">Carrier</span>
+    <span className="font-black text-[#0d47a1] text-xs italic tracking-tight font-serif">
+      Carrier
+    </span>
   </div>
 );
 
 const BlueStarLogo = () => (
   <div className="flex items-center gap-1">
-    <svg className="h-4.5 w-4.5 text-[#0d47a1]" viewBox="0 0 24 24" fill="currentColor">
+    <svg
+      className="h-4.5 w-4.5 text-[#0d47a1]"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+    >
       <path d="M12 2l2.4 7.4H22l-6 4.8 2.3 7.4-6-4.8-6 4.8 2.3-7.4-6-4.8h7.6z" />
     </svg>
-    <span className="font-extrabold text-[#0d47a1] text-xs tracking-wide uppercase">Blue Star</span>
+    <span className="font-extrabold text-[#0d47a1] text-xs tracking-wide uppercase">
+      Blue Star
+    </span>
   </div>
 );
 
 // Banana SVG for Ripening Chambers
 const BananaIcon = () => (
-  <svg className="h-6 w-6 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+  <svg
+    className="h-6 w-6 text-blue-600"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5"
+  >
     <path d="M4 22c7.5-3 12.5-9 14.5-16.5.5-2 .5-3 .5-3.5a1 1 0 00-1-1c-.5 0-1.5 0-3.5.5C7 4 1 9-2 16.5" />
     <path d="M19.5 2c.5 1 1 2.5 1.5 4" />
   </svg>
@@ -225,19 +304,57 @@ export default function AboutPage() {
     { name: "Fruits & Vegetables", img: "/images/industry_fruits.png" },
     { name: "Seafood & Fish", img: "/images/industry_seafood.png" },
     { name: "Pharmaceuticals", img: "/images/industry_pharma.png" },
-    { name: "Dark Stores & Last-Mile Delivery", img: "/images/industry_retail.png" },
+    {
+      name: "Dark Stores & Last-Mile Delivery",
+      img: "/images/industry_retail.png",
+    },
     { name: "Mushroom Cultivation", img: "/images/mushroom_cultivation.png" },
     { name: "Saffron Cultivation", img: "/images/saffron_cultivation.png" },
   ];
 
   const timelines = [
-    { step: 1, title: "Consultation", desc: "Understanding requirements", icon: Users },
-    { step: 2, title: "Site Survey", desc: "On-site evaluation and feasibility", icon: MapPin },
-    { step: 3, title: "Engineering Design", desc: "Customized design and planning", icon: Settings },
-    { step: 4, title: "Manufacturing", desc: "Precision manufacturing with quality control", icon: Cpu },
-    { step: 5, title: "Installation", desc: "Professional installation by expert team", icon: Wrench },
-    { step: 6, title: "Commissioning", desc: "Testing and successful commissioning", icon: ShieldCheck },
-    { step: 7, title: "Support", desc: "AMC & long-term technical support", icon: Clock },
+    {
+      step: 1,
+      title: "Consultation",
+      desc: "Understanding requirements",
+      icon: Users,
+    },
+    {
+      step: 2,
+      title: "Site Survey",
+      desc: "On-site evaluation and feasibility",
+      icon: MapPin,
+    },
+    {
+      step: 3,
+      title: "Engineering Design",
+      desc: "Customized design and planning",
+      icon: Settings,
+    },
+    {
+      step: 4,
+      title: "Manufacturing",
+      desc: "Precision manufacturing with quality control",
+      icon: Cpu,
+    },
+    {
+      step: 5,
+      title: "Installation",
+      desc: "Professional installation by expert team",
+      icon: Wrench,
+    },
+    {
+      step: 6,
+      title: "Commissioning",
+      desc: "Testing and successful commissioning",
+      icon: ShieldCheck,
+    },
+    {
+      step: 7,
+      title: "Support",
+      desc: "AMC & long-term technical support",
+      icon: Clock,
+    },
   ];
 
   const credentials = [
@@ -283,7 +400,9 @@ export default function AboutPage() {
       {/* Hero Section */}
       <section
         className="relative bg-cover bg-center bg-no-repeat py-24 text-white overflow-hidden"
-        style={{ backgroundImage: "url('/images/dairy_warehouse_storage.png')" }}
+        style={{
+          backgroundImage: "url('/images/dairy_warehouse_storage.png')",
+        }}
       >
         <div className="absolute inset-0 bg-[#0C2340]/85 z-0" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-4 z-10 text-center md:text-left">
@@ -301,12 +420,14 @@ export default function AboutPage() {
             Engineering Reliable Cold Chain Infrastructure
           </p>
           <p className="max-w-3xl text-xs sm:text-sm text-slate-300/95 leading-relaxed font-body">
-            ThermoVault Systems is a leading cold chain engineering company specializing in the design, supply,
-            installation and maintenance of advanced cold storage and refrigeration solutions.
+            ThermoVault Systems is a leading cold chain engineering company
+            specializing in the design, supply, installation and maintenance of
+            advanced cold storage and refrigeration solutions.
             <br />
             <br />
-            Founded in 2026, we help businesses across India preserve product quality, reduce wastage and operate
-            more efficiently with reliable and energy-efficient cold chain infrastructure.
+            Founded in 2026, we help businesses across India preserve product
+            quality, reduce wastage and operate more efficiently with reliable
+            and energy-efficient cold chain infrastructure.
           </p>
 
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 pt-4">
@@ -344,8 +465,12 @@ export default function AboutPage() {
                 />
               </div>
               <div className="space-y-0.5">
-                <h3 className="text-lg font-bold text-[#0c2340] font-display">Omkar Naikade</h3>
-                <p className="text-xs font-semibold text-blue-600 font-mono">Founder, ThermoVault Systems</p>
+                <h3 className="text-lg font-bold text-[#0c2340] font-display">
+                  Omkar Naikade
+                </h3>
+                <p className="text-xs font-semibold text-blue-600 font-mono">
+                  Founder, ThermoVault Systems
+                </p>
               </div>
             </div>
 
@@ -365,16 +490,20 @@ export default function AboutPage() {
 
               <div className="relative pl-6 border-l-4 border-blue-600/80 space-y-4">
                 <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium italic">
-                  "ThermoVault Systems was built on a simple belief — every business deserves reliable cold chain
-                  solutions backed by engineering excellence and honest service."
+                  "ThermoVault Systems was built on a simple belief — every
+                  business deserves reliable cold chain solutions backed by
+                  engineering excellence and honest service."
                 </p>
                 <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-body">
-                  We started this journey in 2026 with a vision to deliver customized, energy-efficient and
-                  future-ready cold storage solutions that help businesses grow without compromising on quality.
+                  We started this journey in 2026 with a vision to deliver
+                  customized, energy-efficient and future-ready cold storage
+                  solutions that help businesses grow without compromising on
+                  quality.
                 </p>
                 <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-body">
-                  Our commitment is to build long-term partnerships by delivering projects that are dependable,
-                  efficient and designed for performance.
+                  Our commitment is to build long-term partnerships by
+                  delivering projects that are dependable, efficient and
+                  designed for performance.
                 </p>
               </div>
             </div>
@@ -404,8 +533,12 @@ export default function AboutPage() {
                     <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
                       <IconComp className="h-6 w-6" />
                     </div>
-                    <h3 className="text-base font-bold text-[#0c2340] font-display">{svc.title}</h3>
-                    <p className="text-xs text-slate-500 leading-relaxed font-body">{svc.desc}</p>
+                    <h3 className="text-base font-bold text-[#0c2340] font-display">
+                      {svc.title}
+                    </h3>
+                    <p className="text-xs text-slate-500 leading-relaxed font-body">
+                      {svc.desc}
+                    </p>
                   </div>
                 </div>
               );
@@ -422,14 +555,18 @@ export default function AboutPage() {
               INDUSTRIES WE SERVE
             </h2>
             <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-body">
-              We utilize globally recognized refrigeration components and insulated panel systems to deliver reliable and
-              energy-efficient cold chain infrastructure.
+              We utilize globally recognized refrigeration components and
+              insulated panel systems to deliver reliable and energy-efficient
+              cold chain infrastructure.
             </p>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 lg:gap-8">
             {industries.map((ind, idx) => (
-              <div key={idx} className="flex flex-col items-center text-center space-y-3 group">
+              <div
+                key={idx}
+                className="flex flex-col items-center text-center space-y-3 group"
+              >
                 <div className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-2xl overflow-hidden shadow-sm border border-slate-200 bg-white transition-transform duration-300 group-hover:scale-105">
                   <Image
                     src={ind.img}
@@ -456,64 +593,75 @@ export default function AboutPage() {
               TRUSTED COMPONENTS & ENGINEERING PARTNERS
             </h2>
             <p className="text-xs text-slate-500 leading-relaxed font-body">
-              We partner with industry-leading global brands to source components that ensure long life, safety, and high performance.
+              We partner with industry-leading global brands to source
+              components that ensure long life, safety, and high performance.
             </p>
           </div>
         </div>
 
         {/* Scrolling Marquees */}
         <div className="space-y-4 max-w-7xl mx-auto px-4 relative">
-          {/* Row 1 - Left */}
+          {/* Row 1 - Right */}
           <div className="overflow-hidden flex w-full relative py-1">
             <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none" />
             <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none" />
 
-            <div className="flex shrink-0 w-max animate-marquee-left gap-4 pr-4">
-              {row1Brands.map((b, idx) => (
-                <div
-                  key={`${b.name}-1-${idx}`}
-                  className="bg-white border border-slate-150/70 shadow-sm rounded-xl py-3 px-8 min-w-[170px] h-16 flex items-center justify-center shrink-0"
-                >
-                  {b.logo}
-                </div>
-              ))}
-            </div>
-            <div className="flex shrink-0 w-max animate-marquee-left gap-4 pr-4" aria-hidden="true">
-              {row1Brands.map((b, idx) => (
-                <div
-                  key={`${b.name}-1-dup-${idx}`}
-                  className="bg-white border border-slate-150/70 shadow-sm rounded-xl py-3 px-8 min-w-[170px] h-16 flex items-center justify-center shrink-0"
-                >
-                  {b.logo}
-                </div>
-              ))}
+            <div className="flex w-max animate-marquee-right gap-4 pr-4">
+              <div className="flex shrink-0 w-max gap-4 pr-4">
+                {row1Brands.map((b, idx) => (
+                  <div
+                    key={`${b.name}-1-${idx}`}
+                    className="bg-white border border-slate-150/70 shadow-sm rounded-xl py-3 px-8 min-w-[170px] h-16 flex items-center justify-center shrink-0"
+                  >
+                    {b.logo}
+                  </div>
+                ))}
+              </div>
+              <div
+                className="flex shrink-0 w-max gap-4 pr-4"
+                aria-hidden="true"
+              >
+                {row1Brands.map((b, idx) => (
+                  <div
+                    key={`${b.name}-1-dup-${idx}`}
+                    className="bg-white border border-slate-150/70 shadow-sm rounded-xl py-3 px-8 min-w-[170px] h-16 flex items-center justify-center shrink-0"
+                  >
+                    {b.logo}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Row 2 - Right */}
+          {/* Row 2 - Left */}
           <div className="overflow-hidden flex w-full relative py-1">
             <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none" />
             <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none" />
 
-            <div className="flex shrink-0 w-max animate-marquee-right gap-4 pr-4">
-              {row2Brands.map((b, idx) => (
-                <div
-                  key={`${b.name}-2-${idx}`}
-                  className="bg-white border border-slate-150/70 shadow-sm rounded-xl py-3 px-8 min-w-[170px] h-16 flex items-center justify-center shrink-0"
-                >
-                  {b.logo}
-                </div>
-              ))}
-            </div>
-            <div className="flex shrink-0 w-max animate-marquee-right gap-4 pr-4" aria-hidden="true">
-              {row2Brands.map((b, idx) => (
-                <div
-                  key={`${b.name}-2-dup-${idx}`}
-                  className="bg-white border border-slate-150/70 shadow-sm rounded-xl py-3 px-8 min-w-[170px] h-16 flex items-center justify-center shrink-0"
-                >
-                  {b.logo}
-                </div>
-              ))}
+            <div className="flex w-max animate-marquee-left gap-4 pr-4">
+              <div className="flex shrink-0 w-max gap-4 pr-4">
+                {row2Brands.map((b, idx) => (
+                  <div
+                    key={`${b.name}-2-${idx}`}
+                    className="bg-white border border-slate-150/70 shadow-sm rounded-xl py-3 px-8 min-w-[170px] h-16 flex items-center justify-center shrink-0"
+                  >
+                    {b.logo}
+                  </div>
+                ))}
+              </div>
+              <div
+                className="flex shrink-0 w-max gap-4 pr-4"
+                aria-hidden="true"
+              >
+                {row2Brands.map((b, idx) => (
+                  <div
+                    key={`${b.name}-2-dup-${idx}`}
+                    className="bg-white border border-slate-150/70 shadow-sm rounded-xl py-3 px-8 min-w-[170px] h-16 flex items-center justify-center shrink-0"
+                  >
+                    {b.logo}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -554,12 +702,19 @@ export default function AboutPage() {
             ].map((item, idx) => {
               const IconComp = item.icon;
               return (
-                <div key={idx} className="bg-white rounded-2xl border border-slate-100 p-6 space-y-4 shadow-sm">
+                <div
+                  key={idx}
+                  className="bg-white rounded-2xl border border-slate-100 p-6 space-y-4 shadow-sm"
+                >
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-50 text-blue-600">
                     <IconComp className="h-5 w-5" />
                   </div>
-                  <h4 className="text-sm font-bold text-[#0c2340] font-display">{item.title}</h4>
-                  <p className="text-xs text-slate-500 leading-relaxed font-body">{item.desc}</p>
+                  <h4 className="text-sm font-bold text-[#0c2340] font-display">
+                    {item.title}
+                  </h4>
+                  <p className="text-xs text-slate-500 leading-relaxed font-body">
+                    {item.desc}
+                  </p>
                 </div>
               );
             })}
@@ -586,7 +741,10 @@ export default function AboutPage() {
               {timelines.map((t, idx) => {
                 const IconComp = t.icon;
                 return (
-                  <div key={idx} className="flex flex-col items-center text-center space-y-3 group">
+                  <div
+                    key={idx}
+                    className="flex flex-col items-center text-center space-y-3 group"
+                  >
                     <div className="relative flex h-14 w-14 items-center justify-center rounded-full bg-blue-50 text-blue-600 border-2 border-white shadow-md group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
                       <IconComp className="h-5 w-5" />
                       {/* Step Number Badge */}
@@ -626,7 +784,9 @@ export default function AboutPage() {
                   <div
                     key={idx}
                     className={`flex items-center justify-between py-2 text-xs font-semibold ${
-                      idx !== credentials.length - 1 ? "border-b border-slate-100" : ""
+                      idx !== credentials.length - 1
+                        ? "border-b border-slate-100"
+                        : ""
                     }`}
                   >
                     <span className="text-slate-500">{cred.label}</span>
@@ -636,7 +796,9 @@ export default function AboutPage() {
                         <span>Registered</span>
                       </span>
                     ) : (
-                      <span className="text-[#0c2340] font-bold font-mono text-right">{cred.value}</span>
+                      <span className="text-[#0c2340] font-bold font-mono text-right">
+                        {cred.value}
+                      </span>
                     )}
                   </div>
                 ))}
@@ -704,7 +866,8 @@ export default function AboutPage() {
               Let's Build Your Cold Chain Infrastructure
             </h2>
             <p className="text-xs text-slate-300 font-body">
-              Partner with ThermoVault Systems for dependable, energy-efficient and future-ready cold chain solutions.
+              Partner with ThermoVault Systems for dependable, energy-efficient
+              and future-ready cold chain solutions.
             </p>
           </div>
 
