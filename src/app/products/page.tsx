@@ -19,8 +19,9 @@ import {
   CheckCircle2,
   Clock,
   Users,
+  X,
 } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface ProductCardItem {
   name: string;
@@ -32,6 +33,7 @@ interface ProductCardItem {
 export default function ProductsPage() {
   const router = useRouter();
   const [activeCategory, setActiveCategory] = useState("all");
+  const [activeComingSoonProduct, setActiveComingSoonProduct] = useState<string | null>(null);
 
   const categories = [
     { id: "all", label: "All Products" },
@@ -255,21 +257,9 @@ export default function ProductsPage() {
                       boxShadow:
                         "0 20px 25px -5px rgba(24, 95, 165, 0.08), 0 10px 10px -5px rgba(24, 95, 165, 0.03)",
                     }}
-                    onClick={() => {
-                      const slug = p.name
-                        .toLowerCase()
-                        .replace(/\s+/g, "-")
-                        .replace(/[^a-z0-9-]/g, "");
-                      router.push(`/products/${slug}`);
-                    }}
+                    onClick={() => setActiveComingSoonProduct(p.name)}
                     onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        const slug = p.name
-                          .toLowerCase()
-                          .replace(/\s+/g, "-")
-                          .replace(/[^a-z0-9-]/g, "");
-                        router.push(`/products/${slug}`);
-                      }
+                      if (e.key === "Enter") setActiveComingSoonProduct(p.name);
                     }}
                     role="link"
                     tabIndex={0}
@@ -299,11 +289,7 @@ export default function ProductsPage() {
                       <button
                         onClick={(e) => {
                           e.stopPropagation();
-                          const slug = p.name
-                            .toLowerCase()
-                            .replace(/\s+/g, "-")
-                            .replace(/[^a-z0-9-]/g, "");
-                          router.push(`/products/${slug}`);
+                          setActiveComingSoonProduct(p.name);
                         }}
                         onKeyDown={(e) => e.stopPropagation()}
                         className="inline-flex items-center gap-1 text-[11px] font-bold text-blue-600 hover:text-blue-500 transition-colors"
@@ -376,6 +362,60 @@ export default function ProductsPage() {
           </div>
         </div>
       </section>
+
+      {/* Coming Soon Modal */}
+      <AnimatePresence>
+        {activeComingSoonProduct !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-md p-4 select-none"
+            onClick={() => setActiveComingSoonProduct(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              className="relative max-w-md w-full rounded-2xl border border-white/10 bg-[#0C2340]/95 p-6 sm:p-8 text-center shadow-2xl space-y-6"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close button top right */}
+              <button
+                onClick={() => setActiveComingSoonProduct(null)}
+                className="absolute top-4 right-4 p-2 rounded-full hover:bg-white/5 text-slate-400 hover:text-white transition-colors"
+              >
+                <X className="h-4.5 w-4.5" />
+              </button>
+
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                <Snowflake className="h-7 w-7 animate-spin-slow" />
+              </div>
+
+              <div className="space-y-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400 font-mono">
+                  EXQUISITE COMPONENT LAUNCH
+                </span>
+                <h3 className="text-xl font-extrabold text-white font-display tracking-tight uppercase">
+                  {activeComingSoonProduct}
+                </h3>
+                <p className="text-xs text-slate-300 leading-relaxed font-body">
+                  Our state-of-the-art cold chain product range is currently undergoing final quality benchmarks and will be available soon.
+                </p>
+              </div>
+
+              <div className="pt-2">
+                <button
+                  onClick={() => setActiveComingSoonProduct(null)}
+                  className="w-full rounded-xl bg-blue-600 hover:bg-blue-500 px-5 py-3 text-xs font-bold text-white transition-all active:scale-95 shadow-md"
+                >
+                  Acknowledge &amp; Return
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Footer */}
       <Footer />
