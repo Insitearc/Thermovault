@@ -23,7 +23,14 @@ export default function Navbar() {
     { label: "PROJECTS", href: "/projects" },
     { label: "SUBSIDY ASSISTANCE", href: "/subsidy" },
     { label: "BLOG", href: "/blog" },
-    { label: "CONTACT", href: "/contact" },
+    { 
+      label: "CONTACT", 
+      href: "/contact",
+      dropdown: [
+        { label: "CONTACT US", href: "/contact" },
+        { label: "CAREERS", href: "/careers" }
+      ]
+    },
   ];
 
   useEffect(() => {
@@ -113,7 +120,43 @@ export default function Navbar() {
           {/* Centered Navigation Links (Desktop) */}
           <nav className="hidden lg:flex items-center gap-5 xl:gap-7">
             {navLinks.map((link) => {
-              const isActive = pathname === link.href;
+              const isActive = pathname === link.href || (link.dropdown && link.dropdown.some((sub) => pathname === sub.href));
+              
+              if (link.dropdown) {
+                return (
+                  <div key={link.label} className="relative group py-2">
+                    <button
+                      className={`text-[10px] xl:text-[11px] font-bold tracking-wider transition-all duration-200 relative pb-1 border-b-2 flex items-center gap-1 hover:text-blue-600 cursor-pointer ${
+                        isActive
+                          ? "text-blue-600 border-blue-600 font-extrabold"
+                          : "text-[#0c2340] border-transparent"
+                      }`}
+                    >
+                      {link.label}
+                      <span className="text-[7px] text-slate-400 group-hover:text-blue-600 transition-transform duration-200 group-hover:rotate-180">▼</span>
+                    </button>
+                    
+                    {/* Dropdown Menu */}
+                    <div className="absolute left-0 mt-2 w-36 rounded-lg bg-white border border-slate-100 shadow-lg py-1.5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 transform translate-y-1 group-hover:translate-y-0">
+                      {link.dropdown.map((subLink) => {
+                        const isSubActive = pathname === subLink.href;
+                        return (
+                          <Link
+                            key={subLink.href}
+                            href={subLink.href}
+                            className={`block px-4 py-2 text-[10px] font-bold tracking-wider hover:bg-slate-50 hover:text-blue-600 transition-colors ${
+                              isSubActive ? "text-blue-600 font-extrabold bg-blue-50/50" : "text-[#0c2340]"
+                            }`}
+                          >
+                            {subLink.label}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              }
+
               return (
                 <Link
                   key={link.href}
@@ -177,6 +220,33 @@ export default function Navbar() {
             >
               <div className="px-4 pt-2 pb-6 space-y-2">
                 {navLinks.map((link) => {
+                  if (link.dropdown) {
+                    return (
+                      <div key={link.label} className="space-y-1">
+                        <div className="px-3 pt-2.5 pb-1 text-[9px] font-extrabold uppercase tracking-wider text-slate-400 font-mono">
+                          {link.label}
+                        </div>
+                        {link.dropdown.map((subLink) => {
+                          const isSubActive = pathname === subLink.href;
+                          return (
+                            <Link
+                              key={subLink.href}
+                              href={subLink.href}
+                              onClick={() => setIsMobileMenuOpen(false)}
+                              className={`block py-2 px-6 text-xs font-bold rounded-lg transition-colors ${
+                                isSubActive
+                                  ? "bg-blue-50 text-blue-600 font-extrabold"
+                                  : "text-[#0c2340] hover:bg-slate-50"
+                              }`}
+                            >
+                              {subLink.label}
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    );
+                  }
+
                   const isActive = pathname === link.href;
                   return (
                     <Link
