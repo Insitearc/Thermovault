@@ -88,7 +88,7 @@ export default function AboutPage() {
             {/* Story text */}
             <div className="space-y-6">
               <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 font-mono block">
-                OUR STORY
+                LEARN MORE ABOUT US
               </span>
               <h2 className="text-3xl font-bold tracking-tight text-[#0c2340] font-display">
                 Securing the Cold Chain{" "}

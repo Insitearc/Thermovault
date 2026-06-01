@@ -175,7 +175,6 @@ h2 {
 }
 
 /* Stronger section spacing */
-section,
 .section {
   padding-block-start: var(--space-section);
   padding-block-end: var(--space-section);

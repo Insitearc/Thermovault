@@ -216,7 +216,7 @@ export default function LandingPage() {
                   href="/about"
                   className="rounded-md bg-[#0C2340] text-white px-5 py-3 text-xs font-bold hover:bg-[#15345a] hover:scale-103 hover:shadow-lg transition-all inline-flex items-center gap-2 active:scale-95"
                 >
-                  <span>Know More About Us</span>
+                  <span>Learn More About Us</span>
                   <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
               </div>
