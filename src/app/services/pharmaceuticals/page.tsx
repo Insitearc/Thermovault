@@ -129,9 +129,9 @@ export default function PharmaServicesPage() {
       title: "Traceability & Monitoring",
       desc: "Lack of real-time monitoring leads to compliance and quality issues.",
       icon: Network,
-      color: "from-emerald-500/20 to-emerald-600/5",
-      iconColor: "text-emerald-500",
-      borderColor: "hover:border-emerald-500/30",
+      color: "from-blue-500/20 to-blue-600/5",
+      iconColor: "text-blue-500",
+      borderColor: "hover:border-blue-500/30",
       severity: "80% (Medium-High)",
       code: "SYS-DATA-TRK",
       guideline: "EU GMP Annex 11 - Software logging and system verification required.",
@@ -249,7 +249,7 @@ export default function PharmaServicesPage() {
         
         {/* Soft glowing ambient orbs */}
         <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-blue-500/10 blur-[130px] pointer-events-none z-0" />
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-teal-500/5 blur-[120px] pointer-events-none z-0" />
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-cyan-500/5 blur-[120px] pointer-events-none z-0" />
 
         <div className="mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Breadcrumb Navigation */}
@@ -275,7 +275,7 @@ export default function PharmaServicesPage() {
               {/* Title */}
               <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight font-display leading-[1.12]">
                 Reliable Cold Storage for <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-emerald-400 font-display">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-400 font-display">
                   Pharmaceutical Products
                 </span>
               </h1>
@@ -325,11 +325,11 @@ export default function PharmaServicesPage() {
                   <span>IoT Monitoring</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="h-2 w-2 rounded-full bg-teal-500" />
+                  <div className="h-2 w-2 rounded-full bg-cyan-500" />
                   <span>Redundant Cooling</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="h-2 w-2 rounded-full bg-emerald-500" />
+                  <div className="h-2 w-2 rounded-full bg-blue-500" />
                   <span>sterile design</span>
                 </div>
               </div>
@@ -390,9 +390,9 @@ export default function PharmaServicesPage() {
                   <motion.div 
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-6 text-center space-y-4 py-10"
+                    className="rounded-xl border border-blue-500/20 bg-blue-500/5 p-6 text-center space-y-4 py-10"
                   >
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-400 mx-auto">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-500/15 text-blue-400 mx-auto">
                       <CheckCircle2 className="h-6 w-6" />
                     </div>
                     <div className="space-y-1">
@@ -439,7 +439,7 @@ export default function PharmaServicesPage() {
                       />
                     </div>
 
-                    <div className="flex items-center gap-2 text-[10px] text-emerald-400 font-semibold font-mono py-1">
+                    <div className="flex items-center gap-2 text-[10px] text-blue-400 font-semibold font-mono py-1">
                       <Clock className="h-3.5 w-3.5 animate-pulse" />
                       <span>Response within 30 mins</span>
                     </div>
@@ -459,7 +459,7 @@ export default function PharmaServicesPage() {
                         rel="noopener noreferrer"
                         className="w-full flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 py-3.5 text-xs font-bold text-white transition-all active:scale-[0.98] font-display"
                       >
-                        <MessageSquare className="h-3.5 w-3.5 text-emerald-400" />
+                        <MessageSquare className="h-3.5 w-3.5 text-blue-400" />
                         <span>Chat on WhatsApp</span>
                       </a>
                     </div>
@@ -626,11 +626,11 @@ export default function PharmaServicesPage() {
 
               {/* Mitigation block */}
               <div className="pt-6 border-t border-slate-100 mt-6 space-y-3.5 text-left">
-                <span className="text-[8px] font-bold text-emerald-600 font-mono uppercase tracking-wider block">ThermoVault Mitigation Solution</span>
+                <span className="text-[8px] font-bold text-blue-600 font-mono uppercase tracking-wider block">ThermoVault Mitigation Solution</span>
                 
                 <div className="flex flex-col sm:flex-row gap-4 items-stretch">
-                  <div className="flex-1 rounded-xl bg-emerald-500/5 border border-emerald-500/10 p-4 flex gap-3 items-center">
-                    <CheckCircle2 className="h-5 w-5 text-emerald-500 shrink-0" />
+                  <div className="flex-1 rounded-xl bg-blue-500/5 border border-blue-500/10 p-4 flex gap-3 items-center">
+                    <CheckCircle2 className="h-5 w-5 text-blue-500 shrink-0" />
                     <div>
                       <h4 className="text-xs font-bold text-[#0c2340] font-display">Active Engineering Safeguard</h4>
                       <p className="text-[10px] text-slate-500 mt-0.5 leading-normal">{challenges[selectedChallengeIdx].mitigation}</p>

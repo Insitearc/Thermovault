@@ -608,8 +608,8 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
 
   // Telemetry sensor data mapping
   const sensorData = {
-    sensor1: { label: "Ambient Temp (Air)", val: "-18.2°C", status: "Optimal", color: "text-emerald-400" },
-    sensor2: { label: "Evaporator Temp", val: "-22.5°C", status: "Optimal", color: "text-teal-400" },
+    sensor1: { label: "Ambient Temp (Air)", val: "-18.2°C", status: "Optimal", color: "text-blue-400" },
+    sensor2: { label: "Evaporator Temp", val: "-22.5°C", status: "Optimal", color: "text-cyan-400" },
     sensor3: { label: "Product Core Temp", val: "-17.9°C", status: "Warning", color: "text-amber-400" }
   };
 
@@ -756,7 +756,7 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
               <div className="flex justify-between items-start border-b border-white/5 pb-2 mb-2 text-[9px] text-slate-400">
                 <span>SYSTEM ID: TV-NODE-409</span>
                 <span className="flex items-center gap-1">
-                  <span className={`h-1.5 w-1.5 rounded-full animate-ping ${alarmActive ? "bg-red-500" : "bg-emerald-500"}`} />
+                  <span className={`h-1.5 w-1.5 rounded-full animate-ping ${alarmActive ? "bg-red-500" : "bg-blue-500"}`} />
                   {alarmActive ? "ALERTING" : "STREAMING ONLINE"}
                 </span>
               </div>
@@ -769,11 +769,11 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
                       key={key}
                       onClick={() => setSelectedSensor(key as any)}
                       className={`text-left p-2 rounded border transition-all ${
-                        isActive ? "bg-emerald-500/15 border-emerald-500" : "bg-transparent border-white/5 hover:border-white/10"
+                        isActive ? "bg-blue-500/15 border-blue-500" : "bg-transparent border-white/5 hover:border-white/10"
                       }`}
                     >
                       <span className="text-[7px] text-slate-400 block truncate">{data.label}</span>
-                      <span className={`text-xs font-bold block ${isActive ? "text-emerald-300" : "text-white"}`}>{data.val}</span>
+                      <span className={`text-xs font-bold block ${isActive ? "text-blue-300" : "text-white"}`}>{data.val}</span>
                       <span className="text-[6px] text-slate-500 block uppercase font-bold">{data.status}</span>
                     </button>
                   );
@@ -809,7 +809,7 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
               {alarmActive ? (
                 <div className="text-red-500 font-bold">&gt; WARNING: high threshold exceeded on sensor: {sensorData[selectedSensor].label}</div>
               ) : (
-                <div className="text-emerald-400">&gt; monitoring status: optimal. no deviations recorded.</div>
+                <div className="text-blue-400">&gt; monitoring status: optimal. no deviations recorded.</div>
               )}
             </div>
           </div>
@@ -900,12 +900,12 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
           <div className="w-full h-full bg-[#030F26] rounded-xl border border-white/5 p-4 flex gap-4 font-mono">
             {/* Control Panel Door */}
             <div className="w-2/5 border border-[#10b981]/50 bg-slate-900 rounded-lg p-3 flex flex-col justify-between select-none">
-              <div className="text-[8px] text-center text-emerald-400 border-b border-white/5 pb-1">PANEL OVERRIDE</div>
+              <div className="text-[8px] text-center text-blue-400 border-b border-white/5 pb-1">PANEL OVERRIDE</div>
               
               {/* LED lamps */}
               <div className="flex justify-around py-2">
                 <div className="text-center">
-                  <div className={`h-4 w-4 rounded-full mx-auto mb-1 transition-all ${panelSwitches.power ? "bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.7)]" : "bg-emerald-950"}`} />
+                  <div className={`h-4 w-4 rounded-full mx-auto mb-1 transition-all ${panelSwitches.power ? "bg-blue-500 shadow-[0_0_8px_rgba(16,185,129,0.7)]" : "bg-blue-950"}`} />
                   <span className="text-[6px] text-slate-500">POWER</span>
                 </div>
                 <div className="text-center">
@@ -922,7 +922,7 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
               <div className="space-y-2">
                 <button 
                   onClick={() => setPanelSwitches(prev => ({ ...prev, power: !prev.power }))}
-                  className={`w-full text-center py-1 text-[7px] font-bold rounded border ${panelSwitches.power ? "bg-emerald-500/10 border-emerald-500 text-emerald-300" : "bg-transparent border-white/5 text-slate-500"}`}
+                  className={`w-full text-center py-1 text-[7px] font-bold rounded border ${panelSwitches.power ? "bg-blue-500/10 border-blue-500 text-blue-300" : "bg-transparent border-white/5 text-slate-500"}`}
                 >
                   MAINS {panelSwitches.power ? "ON" : "OFF"}
                 </button>
@@ -940,20 +940,20 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
               <div className="border border-white/5 rounded bg-black/40 p-2 space-y-1.5">
                 <div className="flex justify-between items-center text-[8px] text-slate-400">
                   <span>LINE VOLTAGE</span>
-                  <span className="text-emerald-400 font-bold">415 V</span>
+                  <span className="text-blue-400 font-bold">415 V</span>
                 </div>
                 <div className="h-1.5 w-full bg-slate-950 rounded overflow-hidden">
-                  <div className="h-full bg-emerald-500" style={{ width: panelSwitches.power ? "85%" : "0%" }} />
+                  <div className="h-full bg-blue-500" style={{ width: panelSwitches.power ? "85%" : "0%" }} />
                 </div>
               </div>
 
               <div className="border border-white/5 rounded bg-black/40 p-2 space-y-1.5">
                 <div className="flex justify-between items-center text-[8px] text-slate-400">
                   <span>MOTOR CURRENT</span>
-                  <span className="text-emerald-400 font-bold">{panelSwitches.power ? (panelSwitches.defrost ? "4.5 A" : "18.2 A") : "0.0 A"}</span>
+                  <span className="text-blue-400 font-bold">{panelSwitches.power ? (panelSwitches.defrost ? "4.5 A" : "18.2 A") : "0.0 A"}</span>
                 </div>
                 <div className="h-1.5 w-full bg-slate-950 rounded overflow-hidden">
-                  <div className="h-full bg-emerald-500 transition-all duration-500" style={{ width: panelSwitches.power ? (panelSwitches.defrost ? "25%" : "72%") : "0%" }} />
+                  <div className="h-full bg-blue-500 transition-all duration-500" style={{ width: panelSwitches.power ? (panelSwitches.defrost ? "25%" : "72%") : "0%" }} />
                 </div>
               </div>
 
@@ -1152,18 +1152,18 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
                 <div className="border border-white/5 p-2 rounded bg-black/20">
                   <span className="text-[6px] text-slate-500 block">PM 0.3 CHANNEL</span>
                   <span className="text-sm font-bold text-white">12 <span className="text-[7px] text-slate-400">pcs/m³</span></span>
-                  <span className="text-[5px] text-emerald-400 block font-bold uppercase">ISO CLASS 5 OK</span>
+                  <span className="text-[5px] text-blue-400 block font-bold uppercase">ISO CLASS 5 OK</span>
                 </div>
                 <div className="border border-white/5 p-2 rounded bg-black/20">
                   <span className="text-[6px] text-slate-500 block">PM 0.5 CHANNEL</span>
                   <span className="text-sm font-bold text-white">4 <span className="text-[7px] text-slate-400">pcs/m³</span></span>
-                  <span className="text-[5px] text-emerald-400 block font-bold uppercase">ISO CLASS 5 OK</span>
+                  <span className="text-[5px] text-blue-400 block font-bold uppercase">ISO CLASS 5 OK</span>
                 </div>
               </div>
 
               <div className="flex justify-between items-center text-[7px] text-slate-400 border-t border-white/5 pt-2 mt-2">
                 <span>FILTER HEPA RESISTANCE:</span>
-                <span className="text-teal-400 font-bold">120 Pa</span>
+                <span className="text-cyan-400 font-bold">120 Pa</span>
               </div>
             </div>
 
@@ -1174,7 +1174,7 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
                   setTimeout(() => setDoorOpen(false), 2000);
                 }}
                 disabled={doorOpen}
-                className="w-1/2 text-center py-2 text-[8px] font-bold rounded bg-emerald-600 hover:bg-emerald-500 text-white disabled:opacity-50"
+                className="w-1/2 text-center py-2 text-[8px] font-bold rounded bg-blue-600 hover:bg-blue-500 text-white disabled:opacity-50"
               >
                 {doorOpen ? "DOOR AJAR (Cascade active)" : "SIMULATE DOOR OPEN"}
               </button>
@@ -1239,7 +1239,7 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
               <div className="space-y-2 text-[10px]">
                 <div className="flex justify-between items-center">
                   <span className="text-slate-400">ETHYLENE SETPOINT:</span>
-                  <span className="text-emerald-400 font-bold">100 PPM</span>
+                  <span className="text-blue-400 font-bold">100 PPM</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-slate-400">CO2 CONCENTRATION:</span>
@@ -1247,7 +1247,7 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-slate-400">RELATIVE HUMIDITY:</span>
-                  <span className="text-teal-400 font-bold">92%</span>
+                  <span className="text-cyan-400 font-bold">92%</span>
                 </div>
               </div>
             </div>
@@ -1258,13 +1258,13 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
                   setEthyleneActive(true);
                   setTimeout(() => setEthyleneActive(false), 3000);
                 }}
-                className="w-1/2 py-2 text-[8px] font-bold rounded bg-emerald-600 hover:bg-emerald-500 text-white"
+                className="w-1/2 py-2 text-[8px] font-bold rounded bg-blue-600 hover:bg-blue-500 text-white"
               >
                 START ETHYLENE DOSE
               </button>
               <div className="w-1/2 text-left bg-slate-900/60 p-2 rounded border border-white/5 text-[7px] text-slate-400">
                 {ethyleneActive ? (
-                  <span className="text-emerald-400 font-bold animate-pulse">&gt; Dosing solenoid active. Gas injection path open.</span>
+                  <span className="text-blue-400 font-bold animate-pulse">&gt; Dosing solenoid active. Gas injection path open.</span>
                 ) : (
                   <span>&gt; Standby mode. Venting exhaust fans off.</span>
                 )}
@@ -1391,7 +1391,7 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
               <div className="flex gap-4 mb-2">
                 <button 
                   onClick={() => setChillingCycle("soft")}
-                  className={`px-3 py-1 text-[7px] font-bold rounded border ${chillingCycle === "soft" ? "bg-emerald-500/20 border-emerald-500 text-emerald-300" : "bg-transparent border-white/5"}`}
+                  className={`px-3 py-1 text-[7px] font-bold rounded border ${chillingCycle === "soft" ? "bg-blue-500/20 border-blue-500 text-blue-300" : "bg-transparent border-white/5"}`}
                 >
                   SOFT CHILL
                 </button>
@@ -1462,11 +1462,11 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
   return (
     <div className="rounded-2xl border border-white/10 bg-[#0C2340]/60 p-6 md:p-8 shadow-xl relative scroll-mt-24">
       {/* Decorative top blur glow */}
-      <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-full blur-2xl pointer-events-none" />
+      <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 rounded-full blur-2xl pointer-events-none" />
 
       {/* Header */}
       <div className="flex items-center gap-2.5 mb-4 border-b border-white/5 pb-3">
-        <Eye className="h-5 w-5 text-emerald-400" />
+        <Eye className="h-5 w-5 text-blue-400" />
         <h3 className="text-sm font-extrabold text-white font-display uppercase tracking-wider">
           System Visuals &amp; Engineering Diagrams
         </h3>
@@ -1480,7 +1480,7 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
         {/* Left Column: Visual Showcase (col-span-8) */}
         <div className="md:col-span-8 flex justify-center relative select-none">
-          <div className="absolute inset-0 bg-emerald-500/5 blur-[80px] pointer-events-none z-0" />
+          <div className="absolute inset-0 bg-blue-500/5 blur-[80px] pointer-events-none z-0" />
           <div className="w-full aspect-[4/3] relative z-10">
             {renderVisualGraphic()}
           </div>
@@ -1504,7 +1504,7 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
                         key={spd}
                         onClick={() => setFanSpeed(spd)}
                         className={`text-[8px] font-bold py-1 rounded capitalize border transition-all ${
-                          fanSpeed === spd ? "bg-emerald-500/20 border-emerald-500 text-emerald-300" : "bg-transparent border-white/5 text-slate-500"
+                          fanSpeed === spd ? "bg-blue-500/20 border-blue-500 text-blue-300" : "bg-transparent border-white/5 text-slate-500"
                         }`}
                       >
                         {spd}
@@ -1516,7 +1516,7 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
                 <button 
                   onClick={() => setHeatmap(!heatmap)}
                   className={`w-full py-2 text-[8.5px] font-bold rounded border transition-all flex items-center justify-center gap-1.5 ${
-                    heatmap ? "bg-emerald-500/20 border-emerald-500 text-emerald-300" : "bg-transparent border-white/5 text-slate-500"
+                    heatmap ? "bg-blue-500/20 border-blue-500 text-blue-300" : "bg-transparent border-white/5 text-slate-500"
                   }`}
                 >
                   <Sparkles className="h-3.5 w-3.5" />
@@ -1530,7 +1530,7 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
                 <button 
                   onClick={() => setCamLocked(!camLocked)}
                   className={`w-full py-2 text-[8.5px] font-bold rounded border transition-all flex items-center justify-center gap-1.5 ${
-                    camLocked ? "bg-emerald-600 border-emerald-500 text-white" : "bg-transparent border-white/5 text-slate-500 hover:border-white/10"
+                    camLocked ? "bg-blue-600 border-blue-500 text-white" : "bg-transparent border-white/5 text-slate-500 hover:border-white/10"
                   }`}
                 >
                   <span>{camLocked ? "Release Cam-Lock Joint" : "Engage Cam-Lock Joint"}</span>
@@ -1544,7 +1544,7 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
                         key={thk}
                         onClick={() => setPufThickness(thk)}
                         className={`text-[8px] font-bold py-1 rounded border transition-all ${
-                          pufThickness === thk ? "bg-emerald-500/20 border-emerald-500 text-emerald-300" : "bg-transparent border-white/5 text-slate-500"
+                          pufThickness === thk ? "bg-blue-500/20 border-blue-500 text-blue-300" : "bg-transparent border-white/5 text-slate-500"
                         }`}
                       >
                         {thk}mm
@@ -1583,7 +1583,7 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
                         key={ld}
                         onClick={() => setRefrigLoad(ld)}
                         className={`text-[8px] font-bold py-1 rounded capitalize border transition-all ${
-                          refrigLoad === ld ? "bg-emerald-500/20 border-emerald-500 text-emerald-300" : "bg-transparent border-white/5 text-slate-500"
+                          refrigLoad === ld ? "bg-blue-500/20 border-blue-500 text-blue-300" : "bg-transparent border-white/5 text-slate-500"
                         }`}
                       >
                         {ld} Load
@@ -1604,7 +1604,7 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
                         key={spd}
                         onClick={() => setFanSpeed(spd)}
                         className={`text-[8px] font-bold py-1 rounded capitalize border transition-all ${
-                          fanSpeed === spd ? "bg-emerald-500/20 border-emerald-500 text-emerald-300" : "bg-transparent border-white/5 text-slate-500"
+                          fanSpeed === spd ? "bg-blue-500/20 border-blue-500 text-blue-300" : "bg-transparent border-white/5 text-slate-500"
                         }`}
                       >
                         {spd}
@@ -1631,7 +1631,7 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
                   max="100"
                   value={ledIntensity}
                   onChange={(e) => setLedIntensity(parseInt(e.target.value))}
-                  className="w-full accent-emerald-500"
+                  className="w-full accent-blue-500"
                 />
               </div>
             )}
@@ -1641,7 +1641,7 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
                 <button 
                   onClick={() => setHeaterOn(!heaterOn)}
                   className={`w-full py-2 text-[8.5px] font-bold rounded border transition-all flex items-center justify-center gap-1.5 ${
-                    heaterOn ? "bg-emerald-500/20 border-emerald-500 text-emerald-300" : "bg-transparent border-white/5 text-slate-500 hover:border-white/10"
+                    heaterOn ? "bg-blue-500/20 border-blue-500 text-blue-300" : "bg-transparent border-white/5 text-slate-500 hover:border-white/10"
                   }`}
                 >
                   <span>{heaterOn ? "Disable Frame Heater" : "Enable Frame Heater"}</span>
@@ -1675,7 +1675,7 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
             onClick={() => setActiveTab(tab.id)}
             className={`px-4 py-2 rounded-xl text-xs font-bold font-mono transition-all shrink-0 border ${
               activeTab === tab.id
-                ? "bg-emerald-500/10 border-emerald-500/40 text-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.1)]"
+                ? "bg-blue-500/10 border-blue-500/40 text-blue-400 shadow-[0_0_12px_rgba(16,185,129,0.1)]"
                 : "bg-[#0C2340]/40 border-white/5 text-slate-400 hover:border-white/10 hover:text-white"
             }`}
           >
@@ -1918,8 +1918,8 @@ export default function ServiceDetailPage({
         <div className="absolute inset-0 bg-gradient-to-tr from-[#0C2340] via-[#0D3830]/90 to-[#0A1D1A]/95 z-0" />
         
         {/* Soft glowing ambient orbs */}
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-emerald-500/10 blur-[130px] pointer-events-none z-0" />
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-teal-500/5 blur-[120px] pointer-events-none z-0" />
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-blue-500/10 blur-[130px] pointer-events-none z-0" />
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-cyan-500/5 blur-[120px] pointer-events-none z-0" />
 
         <div className="mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8 relative z-10">
           
@@ -1929,20 +1929,20 @@ export default function ServiceDetailPage({
             <span className="text-white/40">/</span>
             <Link href="/services" className="hover:text-white transition-colors">Services</Link>
             <span className="text-white/40">/</span>
-            <span className="text-emerald-400">{service.title}</span>
+            <span className="text-blue-400">{service.title}</span>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Left side: Text Details (col-span-7) */}
             <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-2 rounded-xl bg-emerald-500/10 border border-emerald-500/25 px-4 py-2 text-xs font-bold text-emerald-400 font-mono w-fit shadow-sm">
-                <Snowflake className="h-4 w-4 text-emerald-400 shrink-0 animate-pulse" />
+              <div className="inline-flex items-center gap-2 rounded-xl bg-blue-500/10 border border-blue-500/25 px-4 py-2 text-xs font-bold text-blue-400 font-mono w-fit shadow-sm">
+                <Snowflake className="h-4 w-4 text-blue-400 shrink-0 animate-pulse" />
                 <span>TECHNICAL UTILITY DESIGN</span>
               </div>
 
               <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight font-display leading-[1.12]">
                 ThermoVault Solutions:<br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 font-display">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-cyan-400 font-display">
                   {service.title}
                 </span>
               </h1>
@@ -1958,9 +1958,9 @@ export default function ServiceDetailPage({
                     ❄
                   </span>
                   <span className="font-mono text-[10px] tracking-wider text-slate-400">
-                    OPERATIONAL CORE: <strong className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-teal-200 to-emerald-300 font-mono tracking-normal">{service.tempRange}</strong>
+                    OPERATIONAL CORE: <strong className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-cyan-200 to-blue-300 font-mono tracking-normal">{service.tempRange}</strong>
                   </span>
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-ping ml-1" />
+                  <span className="h-1.5 w-1.5 rounded-full bg-blue-500 animate-ping ml-1" />
                 </div>
 
                 <button
@@ -1968,7 +1968,7 @@ export default function ServiceDetailPage({
                     const el = document.getElementById("sizing-calculator-section");
                     if (el) el.scrollIntoView({ behavior: "smooth" });
                   }}
-                  className="rounded-full bg-teal-accent/15 hover:bg-teal-accent/25 border border-teal-light/20 text-teal-light px-4 py-2 text-xs font-bold font-mono transition-all flex items-center gap-1 hover:border-teal-light/40 shadow-sm"
+                  className="rounded-full bg-cyan-accent/15 hover:bg-cyan-accent/25 border border-cyan-light/20 text-cyan-light px-4 py-2 text-xs font-bold font-mono transition-all flex items-center gap-1 hover:border-cyan-light/40 shadow-sm"
                 >
                   <Calculator className="h-3.5 w-3.5" />
                   <span>Run Sizing Calculator</span>
@@ -1978,7 +1978,7 @@ export default function ServiceDetailPage({
 
             {/* Right side: Dual-View Media Widget (col-span-5) */}
             <div className="lg:col-span-5 flex flex-col items-center justify-center relative mt-10 lg:mt-0 w-full max-w-[380px] mx-auto lg:max-w-none">
-              <div className="absolute inset-0 bg-emerald-500/5 blur-[80px] pointer-events-none z-0" />
+              <div className="absolute inset-0 bg-blue-500/5 blur-[80px] pointer-events-none z-0" />
               
               {/* High-tech selector tab */}
               <div className="flex items-center bg-slate-950/40 border border-white/5 rounded-lg p-1 mb-4 select-none z-10 font-mono text-[9px] uppercase tracking-wider shadow-inner">
@@ -1986,7 +1986,7 @@ export default function ServiceDetailPage({
                   onClick={() => setHeroView("photo")}
                   className={`px-3.5 py-1.5 rounded transition-all duration-300 font-bold ${
                     heroView === "photo" 
-                      ? "bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 shadow-[0_0_10px_rgba(16,185,129,0.2)]" 
+                      ? "bg-blue-500/20 border border-blue-500/30 text-blue-300 shadow-[0_0_10px_rgba(16,185,129,0.2)]" 
                       : "text-slate-400 hover:text-white"
                   }`}
                 >
@@ -1996,7 +1996,7 @@ export default function ServiceDetailPage({
                   onClick={() => setHeroView("blueprint")}
                   className={`px-3.5 py-1.5 rounded transition-all duration-300 font-bold ${
                     heroView === "blueprint" 
-                      ? "bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 shadow-[0_0_10px_rgba(16,185,129,0.2)]" 
+                      ? "bg-blue-500/20 border border-blue-500/30 text-blue-300 shadow-[0_0_10px_rgba(16,185,129,0.2)]" 
                       : "text-slate-400 hover:text-white"
                   }`}
                 >
@@ -2014,8 +2014,8 @@ export default function ServiceDetailPage({
                   style={{ animation: "scan 3.5s linear infinite" }}
                 />
 
-                <div className="absolute top-3 left-3 text-[8px] font-mono text-emerald-400/40 font-bold z-20">SCALE: 1:35</div>
-                <div className="absolute bottom-3 right-3 text-[8px] font-mono text-emerald-400/40 font-bold z-20">TV-NODE-{slug.toUpperCase()}</div>
+                <div className="absolute top-3 left-3 text-[8px] font-mono text-blue-400/40 font-bold z-20">SCALE: 1:35</div>
+                <div className="absolute bottom-3 right-3 text-[8px] font-mono text-blue-400/40 font-bold z-20">TV-NODE-{slug.toUpperCase()}</div>
 
                 <AnimatePresence mode="wait">
                   {heroView === "photo" ? (
@@ -2065,20 +2065,20 @@ export default function ServiceDetailPage({
                       className="relative w-full h-full rounded-xl bg-[#0A1A30]/90 p-4 border border-white/5 flex flex-col justify-between"
                     >
                       <div className="w-full flex-1 relative flex items-center justify-center">
-                        <svg className="stroke-teal-light/35 fill-none w-full h-full max-h-40" viewBox="0 0 120 90">
+                        <svg className="stroke-cyan-light/35 fill-none w-full h-full max-h-40" viewBox="0 0 120 90">
                           {/* Blueprint Grid Lines */}
                           <path d="M 0 15 H 120 M 0 30 H 120 M 0 45 H 120 M 0 60 H 120 M 0 75 H 120" strokeWidth="0.1" />
                           <path d="M 20 0 V 90 M 40 0 V 90 M 60 0 V 90 M 80 0 V 90 M 100 0 V 90" strokeWidth="0.1" />
                           
                           {/* Chamber Walls */}
-                          <rect x="25" y="20" width="70" height="50" strokeWidth="1" className="stroke-teal-light" />
+                          <rect x="25" y="20" width="70" height="50" strokeWidth="1" className="stroke-cyan-light" />
                           
                           {/* Door Swing */}
-                          <path d="M 95 45 C 95 35, 90 30, 85 30" strokeWidth="0.75" strokeDasharray="1.5 1.5" className="stroke-emerald-400" />
-                          <line x1="95" y1="45" x2="85" y2="45" strokeWidth="1" className="stroke-emerald-400" />
+                          <path d="M 95 45 C 95 35, 90 30, 85 30" strokeWidth="0.75" strokeDasharray="1.5 1.5" className="stroke-blue-400" />
+                          <line x1="95" y1="45" x2="85" y2="45" strokeWidth="1" className="stroke-blue-400" />
                           
                           {/* Evaporator placement */}
-                          <rect x="30" y="32" width="10" height="26" strokeWidth="0.75" className="stroke-teal-light/70" />
+                          <rect x="30" y="32" width="10" height="26" strokeWidth="0.75" className="stroke-cyan-light/70" />
                           {/* Air throw direction arrows */}
                           <path d="M 42 37 L 54 37 M 42 45 L 54 45 M 42 53 L 54 53" strokeWidth="0.5" className="stroke-cyan-400" />
                           
@@ -2090,8 +2090,8 @@ export default function ServiceDetailPage({
                       </div>
                       <div className="flex items-center justify-between border-t border-white/5 pt-2 text-[9px] font-mono text-slate-400">
                         <span>GRID REF: MIDH-95</span>
-                        <span className="flex items-center gap-1 text-teal-light">
-                          <span className="h-1.5 w-1.5 rounded-full bg-teal-light animate-ping" />
+                        <span className="flex items-center gap-1 text-cyan-light">
+                          <span className="h-1.5 w-1.5 rounded-full bg-cyan-light animate-ping" />
                           ENGINEERING MODEL
                         </span>
                       </div>
@@ -2115,10 +2115,10 @@ export default function ServiceDetailPage({
             
             {/* Technical Specifications list */}
             <div className="space-y-6">
-              <div className="space-y-1.5 border-l-2 border-emerald-500 pl-4 mb-6 text-left">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 font-mono block">SYSTEM SPECIFICATIONS</span>
+              <div className="space-y-1.5 border-l-2 border-blue-500 pl-4 mb-6 text-left">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400 font-mono block">SYSTEM SPECIFICATIONS</span>
                 <h2 className="text-xl sm:text-2xl font-extrabold text-white font-display uppercase tracking-tight flex items-center gap-2">
-                  <Settings className="h-5 w-5 text-emerald-400 animate-spin-slow" />
+                  <Settings className="h-5 w-5 text-blue-400 animate-spin-slow" />
                   Technical Specifications
                 </h2>
               </div>
@@ -2135,7 +2135,7 @@ export default function ServiceDetailPage({
                       whileHover={{ y: -3, scale: 1.01 }}
                       onMouseMove={(e) => handleSpecMouseMove(e, idx)}
                       onMouseLeave={() => setHoveredSpecIdx(null)}
-                      className="group relative rounded-2xl border border-white/5 bg-[#0C2340]/40 p-5 shadow-sm hover:bg-white/5 hover:border-emerald-500/20 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)] flex flex-col justify-between overflow-hidden"
+                      className="group relative rounded-2xl border border-white/5 bg-[#0C2340]/40 p-5 shadow-sm hover:bg-white/5 hover:border-blue-500/20 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)] flex flex-col justify-between overflow-hidden"
                     >
                       {/* Spotlight Glow Effect */}
                       {isHovered && (
@@ -2149,16 +2149,16 @@ export default function ServiceDetailPage({
                         />
                       )}
 
-                      <div className="absolute top-4 right-4 text-[9px] font-mono font-bold text-slate-500 group-hover:text-emerald-400/50 transition-colors">
+                      <div className="absolute top-4 right-4 text-[9px] font-mono font-bold text-slate-500 group-hover:text-blue-400/50 transition-colors">
                         [{String(idx + 1).padStart(2, "0")}]
                       </div>
 
                       <div className="space-y-3.5 z-10 text-left">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 transition-transform duration-300 group-hover:scale-110">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-500/10 border border-blue-500/25 text-blue-400 transition-transform duration-300 group-hover:scale-110">
                           <IconComponent className="h-4.5 w-4.5" />
                         </div>
                         <div className="space-y-1">
-                          <h4 className="text-xs font-bold text-white font-display tracking-wide group-hover:text-emerald-300 transition-colors">
+                          <h4 className="text-xs font-bold text-white font-display tracking-wide group-hover:text-blue-300 transition-colors">
                             {item.title}
                           </h4>
                           <p className="text-[11px] text-slate-300 leading-relaxed font-body">
@@ -2174,10 +2174,10 @@ export default function ServiceDetailPage({
 
             {/* Thermodynamic Heat Load & Sizing Calculator Section */}
             <div id="sizing-calculator-section" className="rounded-2xl border border-white/10 bg-[#0C2340]/60 p-6 md:p-8 shadow-xl relative scroll-mt-24 text-left">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-full blur-2xl pointer-events-none" />
+              <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 rounded-full blur-2xl pointer-events-none" />
 
               <div className="flex items-center gap-2.5 mb-4 border-b border-white/5 pb-3">
-                <Calculator className="h-5 w-5 text-emerald-400 animate-pulse" />
+                <Calculator className="h-5 w-5 text-blue-400 animate-pulse" />
                 <h3 className="text-sm font-extrabold text-white font-display uppercase tracking-wider">
                   Thermodynamic Heat Load &amp; Sizing Calculator
                 </h3>
@@ -2199,7 +2199,7 @@ export default function ServiceDetailPage({
                         type="number"
                         value={calcLength}
                         onChange={(e) => setCalcLength(e.target.value)}
-                        className="w-full rounded-lg bg-[#0C2340] border border-white/10 p-2 text-xs font-mono text-white text-center focus:outline-none focus:border-emerald-500"
+                        className="w-full rounded-lg bg-[#0C2340] border border-white/10 p-2 text-xs font-mono text-white text-center focus:outline-none focus:border-blue-500"
                       />
                     </div>
                     <div>
@@ -2208,7 +2208,7 @@ export default function ServiceDetailPage({
                         type="number"
                         value={calcWidth}
                         onChange={(e) => setCalcWidth(e.target.value)}
-                        className="w-full rounded-lg bg-[#0C2340] border border-white/10 p-2 text-xs font-mono text-white text-center focus:outline-none focus:border-emerald-500"
+                        className="w-full rounded-lg bg-[#0C2340] border border-white/10 p-2 text-xs font-mono text-white text-center focus:outline-none focus:border-blue-500"
                       />
                     </div>
                     <div>
@@ -2217,7 +2217,7 @@ export default function ServiceDetailPage({
                         type="number"
                         value={calcHeight}
                         onChange={(e) => setCalcHeight(e.target.value)}
-                        className="w-full rounded-lg bg-[#0C2340] border border-white/10 p-2 text-xs font-mono text-white text-center focus:outline-none focus:border-emerald-500"
+                        className="w-full rounded-lg bg-[#0C2340] border border-white/10 p-2 text-xs font-mono text-white text-center focus:outline-none focus:border-blue-500"
                       />
                     </div>
                   </div>
@@ -2227,7 +2227,7 @@ export default function ServiceDetailPage({
                     <select
                       value={calcTempProfile}
                       onChange={(e) => setCalcTempProfile(e.target.value)}
-                      className="w-full rounded-lg bg-[#0C2340] border border-white/10 p-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                      className="w-full rounded-lg bg-[#0C2340] border border-white/10 p-2 text-xs text-white focus:outline-none focus:border-blue-500"
                     >
                       <option value="chilling">Chilling (0°C to +8°C)</option>
                       <option value="freezing">Freezing (-15°C to -18°C)</option>
@@ -2241,7 +2241,7 @@ export default function ServiceDetailPage({
                     <select
                       value={calcApplicant}
                       onChange={(e) => setCalcApplicant(e.target.value)}
-                      className="w-full rounded-lg bg-[#0C2340] border border-white/10 p-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                      className="w-full rounded-lg bg-[#0C2340] border border-white/10 p-2 text-xs text-white focus:outline-none focus:border-blue-500"
                     >
                       <option value="private">Private Enterprise (35% Grant)</option>
                       <option value="fpo">Farmer Group / FPO (50% Grant)</option>
@@ -2262,7 +2262,7 @@ export default function ServiceDetailPage({
 
                     <div className="bg-[#0A1A30]/50 border border-white/5 rounded-xl p-3.5 text-left">
                       <span className="text-[8px] text-slate-400 font-mono block uppercase">Calculated Load</span>
-                      <span className="text-sm font-bold font-mono text-emerald-400">
+                      <span className="text-sm font-bold font-mono text-blue-400">
                         {coolingTR} <span className="text-[10px] text-slate-400">TR</span>
                       </span>
                       <span className="text-[8px] text-slate-400 font-mono block">Tons of Refrigeration</span>
@@ -2278,7 +2278,7 @@ export default function ServiceDetailPage({
 
                     <div className="bg-[#0A1A30]/50 border border-white/5 rounded-xl p-3.5 text-left">
                       <span className="text-[8px] text-slate-400 font-mono block uppercase">Est. Gov Subsidy</span>
-                      <span className="text-sm font-bold font-mono text-emerald-400">
+                      <span className="text-sm font-bold font-mono text-blue-400">
                         {estimatedSubsidy}
                       </span>
                       <span className="text-[8px] text-slate-400 font-mono block">MIDH / NHM Scheme</span>
@@ -2287,7 +2287,7 @@ export default function ServiceDetailPage({
 
                   <button
                     onClick={handleApplySizingToForm}
-                    className="w-full flex items-center justify-center gap-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 py-3 text-xs font-bold text-white shadow-md transition-all active:scale-[0.98] cursor-pointer"
+                    className="w-full flex items-center justify-center gap-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 py-3 text-xs font-bold text-white shadow-md transition-all active:scale-[0.98] cursor-pointer"
                   >
                     <Sliders className="h-4 w-4" />
                     <span>Apply Sizing to Consultation Form</span>
@@ -2300,10 +2300,10 @@ export default function ServiceDetailPage({
 
             {/* Engineering Parameters Datasheet Board */}
             <div className="space-y-4 pt-6 border-t border-white/5 text-left">
-              <div className="space-y-1.5 border-l-2 border-emerald-500 pl-4 mb-4">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 font-mono block">COMPLIANCE STATS</span>
+              <div className="space-y-1.5 border-l-2 border-blue-500 pl-4 mb-4">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400 font-mono block">COMPLIANCE STATS</span>
                 <h3 className="text-sm font-extrabold text-white font-display uppercase tracking-wider flex items-center gap-1.5">
-                  <Gauge className="h-4.5 w-4.5 text-emerald-400" />
+                  <Gauge className="h-4.5 w-4.5 text-blue-400" />
                   Engineering Parameters &amp; Compliance
                 </h3>
               </div>
@@ -2314,7 +2314,7 @@ export default function ServiceDetailPage({
                     <div key={i} className="p-4 space-y-1 text-left">
                       <span className="text-[8px] text-slate-400 uppercase tracking-wider block font-bold">{param.label}</span>
                       <div className="text-xs font-bold text-white">
-                        {param.value} <span className="text-[9px] text-emerald-400 font-normal">{param.metric}</span>
+                        {param.value} <span className="text-[9px] text-blue-400 font-normal">{param.metric}</span>
                       </div>
                     </div>
                   ))}
@@ -2327,10 +2327,10 @@ export default function ServiceDetailPage({
 
             {/* Real Project / Installation Gallery */}
             <div className="space-y-6 pt-6 border-t border-white/5 text-left">
-              <div className="space-y-1.5 border-l-2 border-emerald-500 pl-4 mb-6">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 font-mono block">REAL-WORLD DEPLOYMENTS</span>
+              <div className="space-y-1.5 border-l-2 border-blue-500 pl-4 mb-6">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400 font-mono block">REAL-WORLD DEPLOYMENTS</span>
                 <h2 className="text-xl sm:text-2xl font-extrabold text-white font-display uppercase tracking-tight flex items-center gap-2">
-                  <Layers className="h-5 w-5 text-emerald-400" />
+                  <Layers className="h-5 w-5 text-blue-400" />
                   Project &amp; Installation Gallery
                 </h2>
               </div>
@@ -2340,7 +2340,7 @@ export default function ServiceDetailPage({
                   <div
                     key={idx}
                     onClick={() => setLightboxIdx(idx)}
-                    className="group relative h-48 rounded-2xl overflow-hidden border border-white/5 bg-[#0C2340]/40 shadow-sm cursor-pointer hover:border-emerald-500/20 transition-all duration-300"
+                    className="group relative h-48 rounded-2xl overflow-hidden border border-white/5 bg-[#0C2340]/40 shadow-sm cursor-pointer hover:border-blue-500/20 transition-all duration-300"
                   >
                     <Image
                       src={item.src}
@@ -2366,7 +2366,7 @@ export default function ServiceDetailPage({
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent opacity-90 group-hover:opacity-95 transition-opacity duration-300" />
 
                     {/* Top Right Tag */}
-                    <div className="absolute top-3 right-3 bg-slate-900/80 backdrop-blur-sm border border-white/10 px-2 py-0.5 rounded text-[8px] font-bold font-mono text-emerald-400 tracking-wider">
+                    <div className="absolute top-3 right-3 bg-slate-900/80 backdrop-blur-sm border border-white/10 px-2 py-0.5 rounded text-[8px] font-bold font-mono text-blue-400 tracking-wider">
                       {item.tag}
                     </div>
 
@@ -2384,10 +2384,10 @@ export default function ServiceDetailPage({
 
             {/* Ideal Applications Section */}
             <div className="space-y-6 pt-6 border-t border-white/5 text-left">
-              <div className="space-y-1.5 border-l-2 border-emerald-500 pl-4 mb-6">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 font-mono block">DEPLOYMENT SOLUTIONS</span>
+              <div className="space-y-1.5 border-l-2 border-blue-500 pl-4 mb-6">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400 font-mono block">DEPLOYMENT SOLUTIONS</span>
                 <h2 className="text-xl sm:text-2xl font-extrabold text-white font-display uppercase tracking-tight flex items-center gap-2">
-                  <Ruler className="h-5 w-5 text-emerald-400" />
+                  <Ruler className="h-5 w-5 text-blue-400" />
                   Ideal Applications
                 </h2>
               </div>
@@ -2402,7 +2402,7 @@ export default function ServiceDetailPage({
                       href={app.link}
                       onMouseMove={(e) => handleAppMouseMove(e, idx)}
                       onMouseLeave={() => setHoveredAppIdx(null)}
-                      className="group relative flex gap-4 rounded-2xl border border-white/5 bg-[#0C2340]/40 p-5 shadow-sm transition-all duration-300 hover:scale-[1.01] hover:bg-white/5 hover:border-emerald-500/20 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)] text-left overflow-hidden"
+                      className="group relative flex gap-4 rounded-2xl border border-white/5 bg-[#0C2340]/40 p-5 shadow-sm transition-all duration-300 hover:scale-[1.01] hover:bg-white/5 hover:border-blue-500/20 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)] text-left overflow-hidden"
                     >
                       {/* Spotlight Glow Effect */}
                       {isHovered && (
@@ -2416,16 +2416,16 @@ export default function ServiceDetailPage({
                         />
                       )}
 
-                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 shrink-0 transition-transform duration-300 group-hover:scale-110 z-10">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 shrink-0 transition-transform duration-300 group-hover:scale-110 z-10">
                         <Icon className="h-5 w-5" />
                       </div>
                       
                       <div className="space-y-1 flex-1 z-10">
                         <div className="flex items-center justify-between gap-2">
-                          <h4 className="text-xs font-bold text-white font-display tracking-wide group-hover:text-emerald-300 transition-colors">
+                          <h4 className="text-xs font-bold text-white font-display tracking-wide group-hover:text-blue-300 transition-colors">
                             {app.title}
                           </h4>
-                          <ChevronRight className="h-3.5 w-3.5 text-emerald-400 group-hover:translate-x-1 transition-transform" />
+                          <ChevronRight className="h-3.5 w-3.5 text-blue-400 group-hover:translate-x-1 transition-transform" />
                         </div>
                         <p className="text-[11px] text-slate-300 leading-relaxed font-body">
                           {app.desc}
@@ -2445,10 +2445,10 @@ export default function ServiceDetailPage({
 
             {/* Dynamic Accordion FAQ Section */}
             <div className="space-y-6 pt-8 border-t border-white/5 text-left">
-              <div className="space-y-1.5 border-l-2 border-emerald-500 pl-4 mb-6">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 font-mono block">SEO &amp; SEARCH SUPPORT</span>
+              <div className="space-y-1.5 border-l-2 border-blue-500 pl-4 mb-6">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400 font-mono block">SEO &amp; SEARCH SUPPORT</span>
                 <h2 className="text-xl sm:text-2xl font-extrabold text-white font-display uppercase tracking-tight flex items-center gap-2">
-                  <HelpCircle className="h-5 w-5 text-emerald-400" />
+                  <HelpCircle className="h-5 w-5 text-blue-400" />
                   Frequently Asked Questions
                 </h2>
               </div>
@@ -2460,7 +2460,7 @@ export default function ServiceDetailPage({
                     <div 
                       key={idx}
                       className={`rounded-2xl border transition-all duration-300 overflow-hidden text-left ${
-                        isExpanded ? "bg-[#0C2340]/80 border-emerald-500/30 shadow-[0_0_15px_rgba(16,185,129,0.05)]" : "bg-[#0C2340]/40 border-white/5 hover:border-white/10"
+                        isExpanded ? "bg-[#0C2340]/80 border-blue-500/30 shadow-[0_0_15px_rgba(16,185,129,0.05)]" : "bg-[#0C2340]/40 border-white/5 hover:border-white/10"
                       }`}
                     >
                       <button
@@ -2468,13 +2468,13 @@ export default function ServiceDetailPage({
                         className="w-full flex items-center justify-between gap-4 p-5 text-left transition-all select-none"
                       >
                         <div className="flex items-center gap-3">
-                          <HelpCircle className={`h-4.5 w-4.5 shrink-0 transition-colors ${isExpanded ? "text-emerald-400" : "text-slate-400"}`} />
-                          <span className={`text-xs font-bold font-display tracking-wide transition-colors ${isExpanded ? "text-emerald-300" : "text-white"}`}>
+                          <HelpCircle className={`h-4.5 w-4.5 shrink-0 transition-colors ${isExpanded ? "text-blue-400" : "text-slate-400"}`} />
+                          <span className={`text-xs font-bold font-display tracking-wide transition-colors ${isExpanded ? "text-blue-300" : "text-white"}`}>
                             {item.q}
                           </span>
                         </div>
                         <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${
-                          isExpanded ? "rotate-180 text-emerald-400" : "text-slate-400"
+                          isExpanded ? "rotate-180 text-blue-400" : "text-slate-400"
                         }`} />
                       </button>
 
@@ -2500,8 +2500,8 @@ export default function ServiceDetailPage({
 
             {/* Related Solutions (internal linking + SEO) */}
             <div className="space-y-4 pt-6 border-t border-white/5 text-left">
-              <div className="space-y-1.5 border-l-2 border-emerald-500 pl-4 mb-4">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 font-mono block">SUGGESTED COMBINATIONS</span>
+              <div className="space-y-1.5 border-l-2 border-blue-500 pl-4 mb-4">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400 font-mono block">SUGGESTED COMBINATIONS</span>
                 <h3 className="text-sm font-extrabold text-white font-display uppercase tracking-wider">
                   Related Solutions
                 </h3>
@@ -2524,14 +2524,14 @@ export default function ServiceDetailPage({
                     <Link
                       key={k}
                       href={`/services/${k}`}
-                      className="group flex flex-col justify-between p-4 rounded-xl border border-white/5 bg-[#0C2340]/40 transition-all duration-300 hover:border-emerald-500/20 hover:bg-white/5 text-left h-24"
+                      className="group flex flex-col justify-between p-4 rounded-xl border border-white/5 bg-[#0C2340]/40 transition-all duration-300 hover:border-blue-500/20 hover:bg-white/5 text-left h-24"
                     >
-                      <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 group-hover:scale-105 transition-transform">
+                      <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-400 group-hover:scale-105 transition-transform">
                         <RelatedIcon className="h-4 w-4" />
                       </div>
                       <div className="flex items-center justify-between gap-1.5">
-                        <span className="text-[11px] font-bold text-white tracking-wide truncate group-hover:text-emerald-300 transition-colors">{title}</span>
-                        <ChevronRight className="h-3.5 w-3.5 text-emerald-400 shrink-0 group-hover:translate-x-0.5 transition-transform" />
+                        <span className="text-[11px] font-bold text-white tracking-wide truncate group-hover:text-blue-300 transition-colors">{title}</span>
+                        <ChevronRight className="h-3.5 w-3.5 text-blue-400 shrink-0 group-hover:translate-x-0.5 transition-transform" />
                       </div>
                     </Link>
                   );
@@ -2541,10 +2541,10 @@ export default function ServiceDetailPage({
 
             {/* Why ThermoVault - Trust & Differentiators */}
             <div className="space-y-4 pt-6 border-t border-white/5 text-left">
-              <div className="space-y-1.5 border-l-2 border-emerald-500 pl-4 mb-6">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 font-mono block">TRUST &amp; RELIABILITY</span>
+              <div className="space-y-1.5 border-l-2 border-blue-500 pl-4 mb-6">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400 font-mono block">TRUST &amp; RELIABILITY</span>
                 <h2 className="text-xl sm:text-2xl font-extrabold text-white font-display uppercase tracking-tight flex items-center gap-2">
-                  <ShieldCheck className="h-5 w-5 text-emerald-400" />
+                  <ShieldCheck className="h-5 w-5 text-blue-400" />
                   Why ThermoVault
                 </h2>
               </div>
@@ -2564,7 +2564,7 @@ export default function ServiceDetailPage({
                       key={i}
                       onMouseMove={(e) => handleWhyMouseMove(e, i)}
                       onMouseLeave={() => setHoveredWhyIdx(null)}
-                      className="group relative rounded-xl border border-white/5 bg-[#0C2340]/40 p-4 transition-all duration-300 hover:border-emerald-500/20 flex gap-4 overflow-hidden"
+                      className="group relative rounded-xl border border-white/5 bg-[#0C2340]/40 p-4 transition-all duration-300 hover:border-blue-500/20 flex gap-4 overflow-hidden"
                     >
                       {isHovered && (
                         <div 
@@ -2577,7 +2577,7 @@ export default function ServiceDetailPage({
                         />
                       )}
                       
-                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 shrink-0 group-hover:scale-105 transition-transform duration-300">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/10 border border-blue-500/25 text-blue-400 shrink-0 group-hover:scale-105 transition-transform duration-300">
                         <Icon className="h-5 w-5" />
                       </div>
                       <div className="space-y-1 text-left flex-1">
@@ -2593,7 +2593,7 @@ export default function ServiceDetailPage({
 
           {/* Callback Quote Intake form (col-span-1) */}
           <div id="sizing-form-card" className="relative h-fit lg:sticky lg:top-24 z-20 scroll-mt-24 w-full">
-            <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 opacity-25 blur-md pointer-events-none" />
+            <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 opacity-25 blur-md pointer-events-none" />
             
             <div 
               className="relative rounded-2xl border border-white/15 bg-[#0C2340]/90 p-6 sm:p-8 shadow-2xl backdrop-blur-md overflow-hidden text-left"
@@ -2606,7 +2606,7 @@ export default function ServiceDetailPage({
               }}
             >
               {/* Ambient glowing radial blur */}
-              <div className="absolute top-0 right-0 w-36 h-36 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none" />
+              <div className="absolute top-0 right-0 w-36 h-36 bg-blue-500/10 rounded-full blur-2xl pointer-events-none" />
 
               {/* Technical Vector Drawing Blueprint Schematic with Masked Engineer Image */}
               <div className="relative h-24 w-full rounded-xl bg-slate-950/40 border border-white/5 overflow-hidden mb-6 flex items-center justify-start p-4 select-none">
@@ -2617,13 +2617,13 @@ export default function ServiceDetailPage({
                     backgroundSize: "12px 12px"
                   }}
                 />
-                <svg className="absolute inset-0 h-full w-full stroke-emerald-500/15 fill-none" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <svg className="absolute inset-0 h-full w-full stroke-blue-500/15 fill-none" viewBox="0 0 100 100" preserveAspectRatio="none">
                   <circle cx="70" cy="50" r="32" strokeWidth="0.5" strokeDasharray="2 2" />
                   <line x1="0" y1="50" x2="100" y2="50" strokeWidth="0.5" strokeDasharray="4 4" />
                 </svg>
                 
                 <div className="relative z-10 flex items-center gap-3.5 w-full">
-                  <div className="relative h-12 w-12 rounded-full border border-emerald-500/40 p-0.5 overflow-hidden bg-slate-900 shrink-0 shadow-[0_0_12px_rgba(16,185,129,0.25)]">
+                  <div className="relative h-12 w-12 rounded-full border border-blue-500/40 p-0.5 overflow-hidden bg-slate-900 shrink-0 shadow-[0_0_12px_rgba(16,185,129,0.25)]">
                     <div className="relative h-full w-full rounded-full overflow-hidden">
                       <Image
                         src="/images/technician.png"
@@ -2634,17 +2634,17 @@ export default function ServiceDetailPage({
                     </div>
                   </div>
                   <div className="text-left">
-                    <div className="text-[10px] font-extrabold font-mono uppercase tracking-wider text-emerald-400">Cold Chain Expert</div>
+                    <div className="text-[10px] font-extrabold font-mono uppercase tracking-wider text-blue-400">Cold Chain Expert</div>
                     <div className="text-[9px] font-bold text-white font-display">Talk to Design Engineer</div>
                     <div className="text-[8px] font-bold text-slate-400 font-mono flex items-center gap-1 mt-0.5">
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-ping" />
+                      <span className="h-1.5 w-1.5 rounded-full bg-blue-500 animate-ping" />
                       <span>RESPONSE SLA: &lt; 30 MINS</span>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 text-emerald-400 mb-2">
+              <div className="flex items-center gap-2 text-blue-400 mb-2">
                 <Phone className="h-4.5 w-4.5" />
                 <h3 className="text-sm font-extrabold text-white font-display uppercase tracking-wider">
                   Sizing Consultation
@@ -2658,9 +2658,9 @@ export default function ServiceDetailPage({
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-6 text-center space-y-4 py-10"
+                  className="rounded-xl border border-blue-500/20 bg-blue-500/5 p-6 text-center space-y-4 py-10"
                 >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-400 mx-auto">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-500/15 text-blue-400 mx-auto">
                     <CheckCircle2 className="h-6 w-6" />
                   </div>
                   <div className="space-y-1">
@@ -2682,7 +2682,7 @@ export default function ServiceDetailPage({
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="e.g. Kuldeep"
-                      className="w-full rounded-xl bg-[#0C2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30 transition-all font-body animate-reveal-input"
+                      className="w-full rounded-xl bg-[#0C2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-all font-body animate-reveal-input"
                     />
                   </div>
                   <div>
@@ -2695,7 +2695,7 @@ export default function ServiceDetailPage({
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="e.g. +91 80550 10620"
-                      className="w-full rounded-xl bg-[#0C2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30 transition-all font-mono"
+                      className="w-full rounded-xl bg-[#0C2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-all font-mono"
                     />
                   </div>
 
@@ -2708,7 +2708,7 @@ export default function ServiceDetailPage({
                       value={business}
                       onChange={(e) => setBusiness(e.target.value)}
                       placeholder="e.g. Cooperative / Farm"
-                      className="w-full rounded-xl bg-[#0C2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30 transition-all font-body"
+                      className="w-full rounded-xl bg-[#0C2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-all font-body"
                     />
                   </div>
 
@@ -2720,19 +2720,19 @@ export default function ServiceDetailPage({
                       value={notes}
                       onChange={(e) => setNotes(e.target.value)}
                       placeholder="Enter details or click 'Apply Sizing' from the calculator above..."
-                      className="w-full rounded-xl bg-[#0C2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30 transition-all font-body h-20 resize-none text-[10px] leading-relaxed"
+                      className="w-full rounded-xl bg-[#0C2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-all font-body h-20 resize-none text-[10px] leading-relaxed"
                     />
                   </div>
 
-                  <div className="flex items-center gap-2 text-[10px] text-emerald-400 font-bold font-mono py-2 bg-emerald-500/5 border border-emerald-500/10 rounded-xl justify-center w-full shadow-inner select-none">
-                    <Clock className="h-3.5 w-3.5 animate-pulse text-emerald-400" />
+                  <div className="flex items-center gap-2 text-[10px] text-blue-400 font-bold font-mono py-2 bg-blue-500/5 border border-blue-500/10 rounded-xl justify-center w-full shadow-inner select-none">
+                    <Clock className="h-3.5 w-3.5 animate-pulse text-blue-400" />
                     <span>Response within 30 mins</span>
                   </div>
 
                   <div className="flex flex-col gap-3 pt-2">
                     <button
                       type="submit"
-                      className="w-full flex items-center justify-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 py-3.5 text-xs font-bold text-white shadow-lg active:scale-[0.98] transition-all font-display group/btn cursor-pointer"
+                      className="w-full flex items-center justify-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-500 py-3.5 text-xs font-bold text-white shadow-lg active:scale-[0.98] transition-all font-display group/btn cursor-pointer"
                     >
                       <Phone className="h-3.5 w-3.5 text-inherit transition-transform group-hover/btn:scale-110" />
                       <span>Request Callback</span>
@@ -2742,12 +2742,12 @@ export default function ServiceDetailPage({
                       href={`https://wa.me/918055010620?text=Hi,%20I'm%20interested%20in%20ThermoVault%20${encodeURIComponent(service.title)}.%20Please%20connect%20me%20with%20an%20expert.`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full flex items-center justify-center gap-2 rounded-xl border border-emerald-500/25 bg-emerald-500/5 hover:bg-emerald-500/10 py-3.5 text-xs font-bold text-white transition-all active:scale-[0.98] font-display group/btn"
+                      className="w-full flex items-center justify-center gap-2 rounded-xl border border-blue-500/25 bg-blue-500/5 hover:bg-blue-500/10 py-3.5 text-xs font-bold text-white transition-all active:scale-[0.98] font-display group/btn"
                     >
-                      <svg className="h-3.5 w-3.5 fill-emerald-400 transition-transform group-hover/btn:scale-110" viewBox="0 0 24 24">
+                      <svg className="h-3.5 w-3.5 fill-blue-400 transition-transform group-hover/btn:scale-110" viewBox="0 0 24 24">
                         <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.73-1.464L0 24zm6.59-4.846c1.6.95 3.197 1.451 4.785 1.453 5.424 0 9.835-4.403 9.838-9.817.002-2.622-1.018-5.086-2.87-6.941C16.49 1.993 14.032.975 11.41.974 5.986.974 1.574 5.376 1.571 10.79c-.001 1.702.457 3.361 1.32 4.867L1.87 21.652l6.027-1.579.034-.02-.284.148zM17.43 14.1c-.29-.145-1.722-.85-1.99-.948-.266-.1-.462-.146-.656.145-.194.291-.75.947-.919 1.14-.17.194-.339.219-.63.073-.29-.146-1.229-.452-2.34-1.444-.864-.771-1.448-1.723-1.618-2.014-.17-.291-.018-.448.128-.593.131-.131.29-.34.436-.51.145-.17.194-.291.291-.485.1-.194.05-.364-.025-.51-.073-.145-.656-1.579-.9-2.162-.236-.57-.478-.493-.656-.502-.17-.008-.364-.01-.557-.01-.194 0-.51.072-.776.364-.267.291-1.02 1.02-1.02 2.48s1.068 2.868 1.214 3.063c.146.194 2.102 3.21 5.093 4.5.712.307 1.267.49 1.7.629.715.227 1.365.195 1.88.118.574-.087 1.723-.704 1.965-1.385.243-.68.243-1.263.17-1.384-.073-.122-.267-.194-.557-.34z"/>
                       </svg>
-                      <span className="text-emerald-400">Chat on WhatsApp</span>
+                      <span className="text-blue-400">Chat on WhatsApp</span>
                     </a>
                   </div>
                 </form>
@@ -2789,7 +2789,7 @@ export default function ServiceDetailPage({
               <div className="p-6 md:p-8 flex flex-col justify-between w-full md:w-2/5 font-sans border-t md:border-t-0 md:border-l border-white/5 text-left">
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <span className="bg-emerald-500/10 border border-emerald-500/25 px-2.5 py-0.5 rounded text-[8px] font-bold font-mono text-emerald-400 tracking-wider">
+                    <span className="bg-blue-500/10 border border-blue-500/25 px-2.5 py-0.5 rounded text-[8px] font-bold font-mono text-blue-400 tracking-wider">
                       {galleryItems[lightboxIdx].tag}
                     </span>
                     <button
@@ -2812,8 +2812,8 @@ export default function ServiceDetailPage({
 
                 <div className="mt-8 pt-4 border-t border-white/5 space-y-2">
                   <div className="text-[8px] font-mono text-slate-400">THERMOVAULT TECHNICAL COMPLIANCE</div>
-                  <div className="flex items-center gap-1.5 text-[9px] font-bold font-mono text-emerald-400">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <div className="flex items-center gap-1.5 text-[9px] font-bold font-mono text-blue-400">
+                    <span className="h-1.5 w-1.5 rounded-full bg-blue-500 animate-pulse" />
                     <span>VERIFIED INSTALLATION NODE</span>
                   </div>
                 </div>

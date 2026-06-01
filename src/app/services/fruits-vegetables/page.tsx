@@ -228,7 +228,7 @@ export default function FruitsServicesPage() {
         
         {/* Soft glowing ambient orbs */}
         <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-blue-500/10 blur-[130px] pointer-events-none z-0" />
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-teal-500/5 blur-[120px] pointer-events-none z-0" />
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-cyan-500/5 blur-[120px] pointer-events-none z-0" />
 
         <div className="mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Breadcrumb Navigation */}
@@ -254,7 +254,7 @@ export default function FruitsServicesPage() {
               {/* Title */}
               <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight font-display leading-[1.12]">
                 Reliable Cold Storage for <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-emerald-400 font-display">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-400 font-display">
                   Fruits & Vegetables
                 </span>
               </h1>
@@ -304,11 +304,11 @@ export default function FruitsServicesPage() {
                   <span>IoT Monitoring</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="h-2 w-2 rounded-full bg-teal-500" />
+                  <div className="h-2 w-2 rounded-full bg-cyan-500" />
                   <span>Ripening Controls</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="h-2 w-2 rounded-full bg-emerald-500" />
+                  <div className="h-2 w-2 rounded-full bg-blue-500" />
                   <span>Airtight PUF panels</span>
                 </div>
               </div>
@@ -393,7 +393,7 @@ export default function FruitsServicesPage() {
                     <div className="text-left">
                       <div className="text-[10px] font-extrabold font-mono uppercase tracking-wider text-blue-400">CAD Blueprint Sizing</div>
                       <div className="text-[8px] font-bold text-slate-300 font-mono flex items-center gap-1">
-                        <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                        <span className="h-1.5 w-1.5 rounded-full bg-blue-500 animate-pulse" />
                         <span>DRAFTSMAN STATUS: ONLINE</span>
                       </div>
                     </div>
@@ -412,9 +412,9 @@ export default function FruitsServicesPage() {
                   <motion.div 
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-6 text-center space-y-4 py-10"
+                    className="rounded-xl border border-blue-500/20 bg-blue-500/5 p-6 text-center space-y-4 py-10"
                   >
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-400 mx-auto">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-500/15 text-blue-400 mx-auto">
                       <CheckCircle2 className="h-6 w-6" />
                     </div>
                     <div className="space-y-1">
@@ -461,8 +461,8 @@ export default function FruitsServicesPage() {
                       />
                     </div>
 
-                    <div className="flex items-center gap-2 text-[10px] text-emerald-400 font-bold font-mono py-2 bg-emerald-500/5 border border-emerald-500/10 rounded-xl justify-center w-full shadow-inner select-none">
-                      <Clock className="h-3.5 w-3.5 animate-pulse text-emerald-400" />
+                    <div className="flex items-center gap-2 text-[10px] text-blue-400 font-bold font-mono py-2 bg-blue-500/5 border border-blue-500/10 rounded-xl justify-center w-full shadow-inner select-none">
+                      <Clock className="h-3.5 w-3.5 animate-pulse text-blue-400" />
                       <span>Response within 30 mins</span>
                     </div>
 
@@ -481,7 +481,7 @@ export default function FruitsServicesPage() {
                         rel="noopener noreferrer"
                         className="w-full flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 py-3.5 text-xs font-bold text-white transition-all active:scale-[0.98] font-display group/btn"
                       >
-                        <MessageSquare className="h-3.5 w-3.5 text-emerald-400 transition-transform group-hover/btn:scale-110" />
+                        <MessageSquare className="h-3.5 w-3.5 text-blue-400 transition-transform group-hover/btn:scale-110" />
                         <span>Chat on WhatsApp</span>
                       </a>
                     </div>
@@ -605,7 +605,7 @@ export default function FruitsServicesPage() {
 
                     {/* Mitigation Footer info */}
                     <div className="pt-4 border-t border-slate-200/60 mt-6 text-left space-y-2">
-                      <span className="text-[8.5px] font-bold text-emerald-600 font-mono uppercase tracking-wider block">
+                      <span className="text-[8.5px] font-bold text-blue-600 font-mono uppercase tracking-wider block">
                         Mitigation Safeguard
                       </span>
                       <p className="text-[10px] text-slate-600 leading-normal font-body">

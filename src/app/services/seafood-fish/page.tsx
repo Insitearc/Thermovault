@@ -229,7 +229,7 @@ export default function SeafoodServicesPage() {
         
         {/* Soft glowing ambient orbs */}
         <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-blue-500/10 blur-[130px] pointer-events-none z-0" />
-        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-teal-500/5 blur-[120px] pointer-events-none z-0" />
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-cyan-500/5 blur-[120px] pointer-events-none z-0" />
 
         <div className="mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Breadcrumb Navigation */}
@@ -255,7 +255,7 @@ export default function SeafoodServicesPage() {
               {/* Title */}
               <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight font-display leading-[1.12]">
                 Reliable Cold Storage for <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-emerald-400 font-display">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-400 font-display">
                   Seafood & Fish Products
                 </span>
               </h1>
@@ -305,11 +305,11 @@ export default function SeafoodServicesPage() {
                   <span>IoT Monitoring</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="h-2 w-2 rounded-full bg-teal-500" />
+                  <div className="h-2 w-2 rounded-full bg-cyan-500" />
                   <span>Fast Installation</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="h-2 w-2 rounded-full bg-emerald-500" />
+                  <div className="h-2 w-2 rounded-full bg-blue-500" />
                   <span>Hygienic Design</span>
                 </div>
               </div>
@@ -370,9 +370,9 @@ export default function SeafoodServicesPage() {
                   <motion.div 
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-6 text-center space-y-4 py-10"
+                    className="rounded-xl border border-blue-500/20 bg-blue-500/5 p-6 text-center space-y-4 py-10"
                   >
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-400 mx-auto">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-500/15 text-blue-400 mx-auto">
                       <CheckCircle2 className="h-6 w-6" />
                     </div>
                     <div className="space-y-1">
@@ -419,7 +419,7 @@ export default function SeafoodServicesPage() {
                       />
                     </div>
 
-                    <div className="flex items-center gap-2 text-[10px] text-emerald-400 font-semibold font-mono py-1">
+                    <div className="flex items-center gap-2 text-[10px] text-blue-400 font-semibold font-mono py-1">
                       <Clock className="h-3.5 w-3.5 animate-pulse" />
                       <span>Response within 30 mins</span>
                     </div>
@@ -439,7 +439,7 @@ export default function SeafoodServicesPage() {
                         rel="noopener noreferrer"
                         className="w-full flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 py-3.5 text-xs font-bold text-white transition-all active:scale-[0.98] font-display"
                       >
-                        <MessageSquare className="h-3.5 w-3.5 text-emerald-400" />
+                        <MessageSquare className="h-3.5 w-3.5 text-blue-400" />
                         <span>Chat on WhatsApp</span>
                       </a>
                     </div>
@@ -605,8 +605,8 @@ export default function SeafoodServicesPage() {
                         {challenges[selectedChallengeIdx].thermovaultMitigation}
                       </p>
                     </div>
-                    <div className="pt-4 text-[9px] font-mono font-bold text-emerald-600 bg-emerald-50 border border-emerald-100 rounded-lg p-2.5 mt-6 text-center flex items-center justify-center gap-1.5">
-                      <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+                    <div className="pt-4 text-[9px] font-mono font-bold text-blue-600 bg-blue-50 border border-blue-100 rounded-lg p-2.5 mt-6 text-center flex items-center justify-center gap-1.5">
+                      <CheckCircle2 className="h-3.5 w-3.5 text-blue-500" />
                       <span>Certified Quality Preservation</span>
                     </div>
                   </div>

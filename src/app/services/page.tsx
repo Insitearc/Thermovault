@@ -220,7 +220,7 @@ export default function ServicesPage() {
   ];
 
   return (
-    <div className="flex flex-col flex-1 min-h-screen bg-white text-slate-800 selection:bg-emerald-600 selection:text-white overflow-x-hidden">
+    <div className="flex flex-col flex-1 min-h-screen bg-white text-slate-800 selection:bg-blue-600 selection:text-white overflow-x-hidden">
       {/* Header Navbar */}
       <Navbar />
 
@@ -232,17 +232,17 @@ export default function ServicesPage() {
 
         {/* Left Side Content */}
         <div className="relative px-6 py-16 sm:px-12 lg:px-20 z-10 space-y-6">
-          <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-emerald-400 font-mono">
+          <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-blue-400 font-mono">
             <Sparkles className="h-3.5 w-3.5 animate-spin-slow" />
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <span className="text-white/40">/</span>
-            <span className="text-emerald-300">Services</span>
+            <span className="text-blue-300">Services</span>
           </div>
 
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl font-display leading-[1.1]">
             Our Cold Chain
             <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-300">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">
               Solutions
             </span>
           </h1>
@@ -255,25 +255,25 @@ export default function ServicesPage() {
           {/* 4 Feature Items */}
           <div className="grid grid-cols-2 gap-4 pt-4 text-[10px] font-bold text-slate-200">
             <div className="flex items-center gap-2">
-              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-400">
+              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-500/10 text-blue-400">
                 <ShieldCheck className="h-3.5 w-3.5" />
               </div>
               <span>Custom Built Solutions</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-400">
+              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-500/10 text-blue-400">
                 <Zap className="h-3.5 w-3.5" />
               </div>
               <span>Energy Efficient</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-400">
+              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-500/10 text-blue-400">
                 <ShieldCheck className="h-3.5 w-3.5" />
               </div>
               <span>Hygienic & Safe</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-400">
+              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-500/10 text-blue-400">
                 <Wrench className="h-3.5 w-3.5" />
               </div>
               <span>Reliable Performance</span>
@@ -297,7 +297,7 @@ export default function ServicesPage() {
             priority
           />
           {/* Neon grid scan line */}
-          <div className="absolute inset-y-0 left-0 w-[2px] bg-emerald-500/30 shadow-neon-emerald pointer-events-none" />
+          <div className="absolute inset-y-0 left-0 w-[2px] bg-blue-500/30 shadow-neon-blue pointer-events-none" />
         </motion.div>
       </section>
 
@@ -306,7 +306,7 @@ export default function ServicesPage() {
         <div className="absolute top-1/4 left-0 w-80 h-80 cyber-grid opacity-[0.04] pointer-events-none" />
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12 relative z-10">
           <div className="text-center space-y-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 font-mono block">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 font-mono block">
               WHAT WE BUILD
             </span>
             <h2 className="text-2xl sm:text-3xl font-bold text-[#0c2340] font-display">
@@ -357,7 +357,7 @@ export default function ServicesPage() {
                     {/* Content Section */}
                     <div className="p-6 space-y-3">
                       <div className="flex items-center gap-3">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-50 text-emerald-600 transition-colors group-hover:bg-emerald-600 group-hover:text-white">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-50 text-blue-600 transition-colors group-hover:bg-blue-600 group-hover:text-white">
                           <Icon className="h-4.5 w-4.5" />
                         </div>
                         <h3 className="text-sm font-bold text-[#0c2340] font-display">
@@ -371,7 +371,7 @@ export default function ServicesPage() {
                   </div>
 
                   <div className="p-6 pt-0">
-                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-600 transition-colors">
+                    <span className="inline-flex items-center gap-1 text-[11px] font-bold text-blue-600 transition-colors">
                       <span>Learn More</span>
                       <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                     </span>
@@ -388,7 +388,7 @@ export default function ServicesPage() {
         <div className="absolute inset-0 cyber-grid opacity-[0.05] pointer-events-none" />
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12 relative z-10">
           <div className="text-center max-w-2xl mx-auto space-y-3">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 font-mono block">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 font-mono block">
               INDUSTRIES WE SERVE
             </span>
             <h2 className="text-2xl sm:text-3xl font-bold text-[#0c2340] font-display">
@@ -424,7 +424,7 @@ export default function ServicesPage() {
                   role={hasLink ? "link" : undefined}
                   tabIndex={hasLink ? 0 : undefined}
                   className={`rounded-2xl border border-slate-100 bg-white p-4 shadow-sm flex flex-col items-center text-center space-y-4 hover:shadow-md transition-all duration-300 preserve-3d group ${
-                    hasLink ? "cursor-pointer hover:border-emerald-200" : "cursor-default"
+                    hasLink ? "cursor-pointer hover:border-blue-200" : "cursor-default"
                   }`}
                 >
                   {/* Rounded image container */}
@@ -439,11 +439,11 @@ export default function ServicesPage() {
                   </div>
 
                   {/* Circular Icon */}
-                  <div className="-mt-9 relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-emerald-600 text-white shadow-md border-2 border-white transition-colors group-hover:bg-emerald-700">
+                  <div className="-mt-9 relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white shadow-md border-2 border-white transition-colors group-hover:bg-blue-700">
                     <Icon className="h-4 w-4" />
                   </div>
 
-                  <span className="text-[11px] font-bold text-[#0c2340] leading-snug font-display transition-colors group-hover:text-emerald-600">
+                  <span className="text-[11px] font-bold text-[#0c2340] leading-snug font-display transition-colors group-hover:text-blue-600">
                     {ind.title}
                   </span>
                 </motion.div>
@@ -458,7 +458,7 @@ export default function ServicesPage() {
         <div className="absolute bottom-10 right-0 w-80 h-80 cyber-grid opacity-[0.04] pointer-events-none" />
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-16 relative z-10">
           <div className="text-center space-y-2">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 font-mono block">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 font-mono block">
               OUR PROCESS
             </span>
             <h2 className="text-2xl sm:text-3xl font-bold text-[#0c2340] font-display">
@@ -478,7 +478,7 @@ export default function ServicesPage() {
               transition={{ duration: 1.2, ease: "easeOut" }}
               className="absolute top-8 left-12 h-1 z-0 rounded-full overflow-hidden hidden lg:block"
             >
-              <div className="h-full bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-300 opacity-90" />
+              <div className="h-full bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-300 opacity-90" />
             </motion.div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 relative z-10">
@@ -503,7 +503,7 @@ export default function ServicesPage() {
                     }}
                   >
                     {/* small connector to main dashed line (desktop only) */}
-                    <div className="hidden lg:block absolute -top-4 left-1/2 transform -translate-x-1/2 h-4 w-0.5 bg-slate-200 transition-colors group-hover:bg-emerald-600" />
+                    <div className="hidden lg:block absolute -top-4 left-1/2 transform -translate-x-1/2 h-4 w-0.5 bg-slate-200 transition-colors group-hover:bg-blue-600" />
 
                     {/* Circle Icon Wrapper with pulsing halo on first render */}
                     <div className="relative">
@@ -511,16 +511,16 @@ export default function ServicesPage() {
                         initial={{ scale: 0.6, opacity: 0.45 }}
                         animate={{ scale: 1.6, opacity: 0 }}
                         transition={{ duration: 1.1, delay: idx * 0.12, ease: "easeOut" }}
-                        className="absolute -inset-2 rounded-full bg-emerald-400/30 blur-md pointer-events-none"
+                        className="absolute -inset-2 rounded-full bg-blue-400/30 blur-md pointer-events-none"
                       />
 
-                      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white border-2 border-slate-200 text-slate-600 transition-all duration-300 shadow-sm transform group-hover:scale-105 group-hover:border-emerald-600 group-hover:text-emerald-600">
+                      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white border-2 border-slate-200 text-slate-600 transition-all duration-300 shadow-sm transform group-hover:scale-105 group-hover:border-blue-600 group-hover:text-blue-600">
                         <Icon className="h-6 w-6 transition-transform duration-300 group-hover:scale-110" />
                       </div>
                     </div>
 
                     <div className="space-y-1">
-                      <div className="text-[10px] font-bold font-mono text-emerald-600 uppercase tracking-wide">
+                      <div className="text-[10px] font-bold font-mono text-blue-600 uppercase tracking-wide">
                         Step {step.step}
                       </div>
                       <h4 className="text-sm font-bold text-[#0c2340] font-display transition-all duration-200 group-hover:scale-105">
@@ -544,7 +544,7 @@ export default function ServicesPage() {
           {/* Projects Slider */}
           <div className="space-y-6 flex flex-col justify-between">
             <div className="space-y-2">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 font-mono block">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 font-mono block">
                 OUR RECENT PROJECTS
               </span>
               <h2 className="text-2xl font-bold text-[#0c2340] font-display">
@@ -586,7 +586,7 @@ export default function ServicesPage() {
           {/* Testimonial Box */}
           <div className="rounded-2xl border border-slate-100 bg-white p-8 shadow-sm flex flex-col justify-between space-y-8">
             <div className="space-y-2">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 font-mono block">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-blue-600 font-mono block">
                 WHAT OUR CLIENTS SAY
               </span>
               <h3 className="text-xl font-bold text-[#0c2340] font-display">
@@ -643,7 +643,7 @@ export default function ServicesPage() {
                   const ev = new CustomEvent("open-quote-modal");
                   window.dispatchEvent(ev);
                 }}
-                className="rounded-md bg-emerald-500 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-emerald-600/20 hover:scale-103 transition-transform"
+                className="rounded-md bg-blue-500 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-blue-600/20 hover:scale-103 transition-transform"
               >
                 Get Free Consultation
               </button>
