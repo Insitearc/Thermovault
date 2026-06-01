@@ -4,7 +4,14 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import { Search, BookOpen, Clock, Tag, ArrowRight, Sparkles } from "lucide-react";
+import {
+  Search,
+  BookOpen,
+  Clock,
+  Tag,
+  ArrowRight,
+  Sparkles,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface Article {
@@ -19,7 +26,9 @@ interface Article {
 
 export default function BlogIndexPage() {
   const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState<"all" | "technical" | "how-to" | "government" | "beginner">("all");
+  const [filter, setFilter] = useState<
+    "all" | "technical" | "how-to" | "government" | "beginner"
+  >("all");
 
   const articles: Article[] = [
     {
@@ -28,7 +37,8 @@ export default function BlogIndexPage() {
       type: "Beginner Guide",
       category: "beginner",
       readTime: "5 min read",
-      summary: "Understand the fundamental thermodynamics and mechanical cycle of walk-in refrigeration units in India.",
+      summary:
+        "Understand the fundamental thermodynamics and mechanical cycle of walk-in refrigeration units in India.",
       slug: "what-is-a-cold-room",
     },
     {
@@ -37,7 +47,8 @@ export default function BlogIndexPage() {
       type: "Intermediate Sizing",
       category: "how-to",
       readTime: "8 min read",
-      summary: "Learn formulas to translate metric tons (MT) or pallet count into physical internal room sizing dimensions.",
+      summary:
+        "Learn formulas to translate metric tons (MT) or pallet count into physical internal room sizing dimensions.",
       slug: "cold-room-capacity-guide",
     },
     {
@@ -46,7 +57,8 @@ export default function BlogIndexPage() {
       type: "Technical Sizing",
       category: "technical",
       readTime: "6 min read",
-      summary: "Explore thermal conductivity variables of 60mm, 80mm, 100mm, and 120mm cam-locked panels.",
+      summary:
+        "Explore thermal conductivity variables of 60mm, 80mm, 100mm, and 120mm cam-locked panels.",
       slug: "puf-panel-thickness-guide",
     },
     {
@@ -55,7 +67,8 @@ export default function BlogIndexPage() {
       type: "Informational Guidelines",
       category: "government",
       readTime: "10 min read",
-      summary: "Step-by-step documentation walkthrough to apply for 35% to 50% capital grants under NHM and MIDH.",
+      summary:
+        "Step-by-step documentation walkthrough to apply for 35% to 50% capital grants under NHB and MIDH.",
       slug: "government-subsidy-guide-2025",
     },
     {
@@ -64,7 +77,8 @@ export default function BlogIndexPage() {
       type: "Comparison Sizing",
       category: "technical",
       readTime: "7 min read",
-      summary: "Differentiate between shock-freezing cooked items in 90 minutes and long-term bulk freezing chambers.",
+      summary:
+        "Differentiate between shock-freezing cooked items in 90 minutes and long-term bulk freezing chambers.",
       slug: "blast-chiller-vs-cold-room",
     },
     {
@@ -73,7 +87,8 @@ export default function BlogIndexPage() {
       type: "How-to Maintenance",
       category: "how-to",
       readTime: "6 min read",
-      summary: "Preventative checkups for compressor load current, fin spacing, evaporator fan coils, and door heaters.",
+      summary:
+        "Preventative checkups for compressor load current, fin spacing, evaporator fan coils, and door heaters.",
       slug: "cold-room-maintenance-amc-checklist",
     },
     {
@@ -82,7 +97,8 @@ export default function BlogIndexPage() {
       type: "Technical Sizing",
       category: "technical",
       readTime: "9 min read",
-      summary: "Designing automated ethylene gas chambers and forced-air flow designs for banana and mango ripening.",
+      summary:
+        "Designing automated ethylene gas chambers and forced-air flow designs for banana and mango ripening.",
       slug: "fruits-ripening-chamber-guide",
     },
     {
@@ -91,7 +107,8 @@ export default function BlogIndexPage() {
       type: "Industry Sizing",
       category: "technical",
       readTime: "5 min read",
-      summary: "Thermal thresholds for raw milk chilling depots and processed butter deep-freezing parameters.",
+      summary:
+        "Thermal thresholds for raw milk chilling depots and processed butter deep-freezing parameters.",
       slug: "cold-room-dairy-temperature-guide",
     },
     {
@@ -100,7 +117,8 @@ export default function BlogIndexPage() {
       type: "Technical Sizing",
       category: "technical",
       readTime: "8 min read",
-      summary: "Detailed efficiency comparisons of Copeland scroll and Bitzer semi-hermetic plants under high ambient temps.",
+      summary:
+        "Detailed efficiency comparisons of Copeland scroll and Bitzer semi-hermetic plants under high ambient temps.",
       slug: "compressor-scroll-vs-semi-hermetic",
     },
     {
@@ -109,7 +127,8 @@ export default function BlogIndexPage() {
       type: "How-to Construction",
       category: "how-to",
       readTime: "7 min read",
-      summary: "Witness how our engineers assemble cam-locks, run vacuum piping checks, and run pull-down test calibrations.",
+      summary:
+        "Witness how our engineers assemble cam-locks, run vacuum piping checks, and run pull-down test calibrations.",
       slug: "cold-room-installation-process-step-by-step",
     },
   ];
@@ -130,7 +149,7 @@ export default function BlogIndexPage() {
       <Navbar />
 
       {/* Hero Header with image background */}
-      <section 
+      <section
         className="relative bg-cover bg-center bg-no-repeat py-20 text-white overflow-hidden"
         style={{ backgroundImage: "url('/images/hero_background.png')" }}
       >
@@ -140,7 +159,9 @@ export default function BlogIndexPage() {
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-4 z-10 text-center md:text-left">
           <div className="flex items-center justify-center md:justify-start gap-2 text-[10px] font-bold uppercase tracking-wider text-teal-light font-mono">
             <Sparkles className="h-3.5 w-3.5" />
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
+            <Link href="/" className="hover:text-white transition-colors">
+              Home
+            </Link>
             <span className="text-white/40">/</span>
             <span className="text-slate-300">Knowledge Center</span>
           </div>
@@ -148,7 +169,8 @@ export default function BlogIndexPage() {
             ThermoVault <span className="text-blue-400">Blog & Insights</span>
           </h1>
           <p className="max-w-2xl text-xs sm:text-sm text-slate-200/90 leading-relaxed">
-            Read engineering guides, subsidy checklists, and thermal calculation resources curated by design draftsman teams.
+            Read engineering guides, subsidy checklists, and thermal calculation
+            resources curated by design draftsman teams.
           </p>
         </div>
       </section>
@@ -227,7 +249,9 @@ export default function BlogIndexPage() {
                     <h3 className="text-sm font-bold text-[#0c2340] group-hover:text-blue-600 transition-colors font-display leading-snug">
                       {art.title}
                     </h3>
-                    <p className="text-xs text-slate-500 leading-relaxed">{art.summary}</p>
+                    <p className="text-xs text-slate-500 leading-relaxed">
+                      {art.summary}
+                    </p>
                     <div className="text-[10px] text-blue-600 font-mono bg-blue-50/50 p-2 rounded-lg border border-blue-100/50 select-all">
                       SEO Keyword: {art.keyword}
                     </div>
@@ -250,7 +274,9 @@ export default function BlogIndexPage() {
           {filteredArticles.length === 0 && (
             <div className="text-center py-12 text-slate-400">
               <BookOpen className="h-10 w-10 text-slate-300 mx-auto mb-3" />
-              <div className="text-xs font-semibold">No insights match your filter criteria.</div>
+              <div className="text-xs font-semibold">
+                No insights match your filter criteria.
+              </div>
             </div>
           )}
         </div>

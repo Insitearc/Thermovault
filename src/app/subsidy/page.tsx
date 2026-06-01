@@ -4,7 +4,16 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import { HelpCircle, CheckCircle2, ChevronRight, Calculator, FileCheck, Sliders, Send, Sparkles } from "lucide-react";
+import {
+  HelpCircle,
+  CheckCircle2,
+  ChevronRight,
+  Calculator,
+  FileCheck,
+  Sliders,
+  Send,
+  Sparkles,
+} from "lucide-react";
 
 export default function SubsidyPage() {
   const [step, setStep] = useState(1);
@@ -23,20 +32,40 @@ export default function SubsidyPage() {
   } | null>(null);
   const [consultationSent, setConsultationSent] = useState(false);
 
-  const states = ["Maharashtra", "Gujarat", "Karnataka", "Madhya Pradesh", "Himachal Pradesh", "Other State"];
-  const bizTypes = ["Farmer / FPO", "Dairy Cooperative", "Private Cold Store Enterprise", "Food Processor / Exporter"];
-  const capacities = ["Below 5 MT", "5-20 MT", "20-50 MT", "50-100 MT", "Above 100 MT"];
+  const states = [
+    "Maharashtra",
+    "Gujarat",
+    "Karnataka",
+    "Madhya Pradesh",
+    "Himachal Pradesh",
+    "Other State",
+  ];
+  const bizTypes = [
+    "Farmer / FPO",
+    "Dairy Cooperative",
+    "Private Cold Store Enterprise",
+    "Food Processor / Exporter",
+  ];
+  const capacities = [
+    "Below 5 MT",
+    "5-20 MT",
+    "20-50 MT",
+    "50-100 MT",
+    "Above 100 MT",
+  ];
 
   const handleCalculate = () => {
     let percentage = 35;
     let scheme = "MIDH (Horticulture Development)";
-    let desc = "Standard credit-linked back-ended capital subsidy for cold storage enclosures.";
-    
+    let desc =
+      "Standard credit-linked back-ended capital subsidy for cold storage enclosures.";
+
     // Settle rates
     if (form.bizType === "Farmer / FPO") {
       percentage = 50;
-      scheme = "NHM (National Horticulture Mission)";
-      desc = "Special cooperative category subsidy matching farming producer groups.";
+      scheme = "NHB (National Horticulture Mission)";
+      desc =
+        "Special cooperative category subsidy matching farming producer groups.";
     } else if (form.state === "Himachal Pradesh") {
       percentage = 50;
       scheme = "MIDH Hilly State Scheme";
@@ -82,7 +111,7 @@ export default function SubsidyPage() {
       <Navbar />
 
       {/* Hero Header with image background */}
-      <section 
+      <section
         className="relative bg-cover bg-center bg-no-repeat py-20 text-white overflow-hidden"
         style={{ backgroundImage: "url('/images/hero_background.png')" }}
       >
@@ -92,7 +121,9 @@ export default function SubsidyPage() {
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-4 z-10 text-center md:text-left">
           <div className="flex items-center justify-center md:justify-start gap-2 text-[10px] font-bold uppercase tracking-wider text-teal-light font-mono">
             <Sparkles className="h-3.5 w-3.5" />
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
+            <Link href="/" className="hover:text-white transition-colors">
+              Home
+            </Link>
             <span className="text-white/40">/</span>
             <span className="text-slate-300">Government Subsidies</span>
           </div>
@@ -100,7 +131,9 @@ export default function SubsidyPage() {
             Cold Room <span className="text-blue-400">Capital Subsidies</span>
           </h1>
           <p className="max-w-2xl text-xs sm:text-sm text-slate-200/90 leading-relaxed">
-            We guide you through credit-linked capital back-ended subsidies (up to 35% - 50%) under National Horticulture Mission (NHM) and NABARD schemes.
+            We guide you through credit-linked capital back-ended subsidies (up
+            to 35% - 50%) under National Horticulture Mission (NHB) and NABARD
+            schemes.
           </p>
         </div>
       </section>
@@ -118,20 +151,30 @@ export default function SubsidyPage() {
                 Active Capital Subsidy Schemes
               </h2>
               <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
-                The Indian Government, through the Department of Agriculture, encourages cold chain infrastructure setup to prevent food spoilage. Key active programs include:
+                The Indian Government, through the Department of Agriculture,
+                encourages cold chain infrastructure setup to prevent food
+                spoilage. Key active programs include:
               </p>
 
               <div className="space-y-4">
                 <div className="rounded-xl border border-slate-100 bg-slate-50 p-5 space-y-2">
-                  <div className="text-xs font-bold text-[#0c2340]">NHM / MIDH Schemes</div>
+                  <div className="text-xs font-bold text-[#0c2340]">
+                    NHB / MIDH Schemes
+                  </div>
                   <p className="text-[11px] text-slate-500 leading-relaxed">
-                    Offers up to 35% subsidy for private developers, and up to 50% for scheduled tribal regions, hilly terrains, and registered Farmer Producer Organizations (FPOs).
+                    Offers up to 35% subsidy for private developers, and up to
+                    50% for scheduled tribal regions, hilly terrains, and
+                    registered Farmer Producer Organizations (FPOs).
                   </p>
                 </div>
                 <div className="rounded-xl border border-slate-100 bg-slate-50 p-5 space-y-2">
-                  <div className="text-xs font-bold text-[#0c2340]">NABARD Sizing Fund</div>
+                  <div className="text-xs font-bold text-[#0c2340]">
+                    NABARD Sizing Fund
+                  </div>
                   <p className="text-[11px] text-slate-500 leading-relaxed">
-                    Refinancing loans and direct subsidy allocation for milk chilling centers, sorting-grading units, and large-scale multi-chamber warehouses.
+                    Refinancing loans and direct subsidy allocation for milk
+                    chilling centers, sorting-grading units, and large-scale
+                    multi-chamber warehouses.
                   </p>
                 </div>
               </div>
@@ -236,21 +279,33 @@ export default function SubsidyPage() {
                 <div className="space-y-6">
                   <div className="text-center py-2">
                     <CheckCircle2 className="h-10 w-10 text-blue-600 mx-auto mb-3" />
-                    <h4 className="text-sm font-bold text-[#0c2340] font-display">Eligibility Sizing Result</h4>
+                    <h4 className="text-sm font-bold text-[#0c2340] font-display">
+                      Eligibility Sizing Result
+                    </h4>
                   </div>
 
                   <div className="rounded-xl border border-blue-100 bg-blue-50/50 p-5 space-y-3">
                     <div className="flex justify-between text-xs border-b border-slate-100 pb-2">
                       <span className="text-slate-500">Matching Scheme:</span>
-                      <span className="font-bold text-[#0c2340]">{calculationResult.scheme}</span>
+                      <span className="font-bold text-[#0c2340]">
+                        {calculationResult.scheme}
+                      </span>
                     </div>
                     <div className="flex justify-between text-xs border-b border-slate-100 pb-2">
-                      <span className="text-slate-500">Subsidy Percentage:</span>
-                      <span className="font-bold text-blue-600 font-mono">{calculationResult.percentage}%</span>
+                      <span className="text-slate-500">
+                        Subsidy Percentage:
+                      </span>
+                      <span className="font-bold text-blue-600 font-mono">
+                        {calculationResult.percentage}%
+                      </span>
                     </div>
                     <div className="flex justify-between text-xs border-b border-slate-100 pb-2">
-                      <span className="text-slate-500">Estimated Fund Grant:</span>
-                      <span className="font-bold text-blue-600 font-mono">{calculationResult.amount}</span>
+                      <span className="text-slate-500">
+                        Estimated Fund Grant:
+                      </span>
+                      <span className="font-bold text-blue-600 font-mono">
+                        {calculationResult.amount}
+                      </span>
                     </div>
                     <p className="text-[10px] text-slate-500 leading-relaxed pt-1">
                       {calculationResult.description}
@@ -260,13 +315,19 @@ export default function SubsidyPage() {
                   {consultationSent ? (
                     <div className="rounded-xl border border-blue-100 bg-blue-50/50 p-4 text-center">
                       <CheckCircle2 className="h-6 w-6 text-blue-600 mx-auto mb-1" />
-                      <div className="text-xs font-bold text-[#0c2340]">Callback Request Logged</div>
+                      <div className="text-xs font-bold text-[#0c2340]">
+                        Callback Request Logged
+                      </div>
                       <div className="text-[10px] text-slate-500 mt-1 leading-relaxed">
-                        A project engineer will contact you with DPR checklist drafts.
+                        A project engineer will contact you with DPR checklist
+                        drafts.
                       </div>
                     </div>
                   ) : (
-                    <form onSubmit={handleRequestConsultation} className="space-y-3 border-t border-slate-100 pt-4">
+                    <form
+                      onSubmit={handleRequestConsultation}
+                      className="space-y-3 border-t border-slate-100 pt-4"
+                    >
                       <span className="text-[10px] font-mono text-slate-500 uppercase block mb-1">
                         Request Subsidy Sizing Consultation
                       </span>
@@ -276,7 +337,9 @@ export default function SubsidyPage() {
                           required
                           placeholder="Your Name"
                           value={form.name}
-                          onChange={(e) => setForm({ ...form, name: e.target.value })}
+                          onChange={(e) =>
+                            setForm({ ...form, name: e.target.value })
+                          }
                           className="rounded-lg bg-slate-50 border border-slate-200 p-2.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:bg-white"
                         />
                         <input
@@ -284,7 +347,9 @@ export default function SubsidyPage() {
                           required
                           placeholder="Mobile Number"
                           value={form.phone}
-                          onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                          onChange={(e) =>
+                            setForm({ ...form, phone: e.target.value })
+                          }
                           className="rounded-lg bg-slate-50 border border-slate-200 p-2.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:bg-white"
                         />
                       </div>
@@ -312,7 +377,11 @@ export default function SubsidyPage() {
                     </button>
                   )}
                   <button
-                    onClick={step === 3 ? handleCalculate : () => setStep((prev) => prev + 1)}
+                    onClick={
+                      step === 3
+                        ? handleCalculate
+                        : () => setStep((prev) => prev + 1)
+                    }
                     className="flex items-center gap-1 rounded-xl bg-blue-600 px-5 py-2.5 text-xs font-semibold text-white hover:bg-blue-500 shadow-sm"
                   >
                     <span>{step === 3 ? "Calculate Grant" : "Continue"}</span>

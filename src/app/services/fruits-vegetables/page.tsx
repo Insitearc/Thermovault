@@ -52,10 +52,15 @@ export default function FruitsServicesPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   // Interactive Challenges Diagnostics state
-  const [hoveredChallengeIdx, setHoveredChallengeIdx] = useState<number | null>(null);
+  const [hoveredChallengeIdx, setHoveredChallengeIdx] = useState<number | null>(
+    null,
+  );
   const [mouseCoords, setMouseCoords] = useState({ x: 0, y: 0 });
 
-  const handleChallengeMouseMove = (e: React.MouseEvent<HTMLDivElement>, idx: number) => {
+  const handleChallengeMouseMove = (
+    e: React.MouseEvent<HTMLDivElement>,
+    idx: number,
+  ) => {
     const rect = e.currentTarget.getBoundingClientRect();
     setMouseCoords({
       x: e.clientX - rect.left,
@@ -86,7 +91,8 @@ export default function FruitsServicesPage() {
       borderColor: "hover:border-orange-500/30",
       severity: "85% (High)",
       code: "POST-HARV-COOL",
-      mitigation: "Micro-climate cooling profiles with customized core sensor probes to regulate gradual temperature pull-down."
+      mitigation:
+        "Micro-climate cooling profiles with customized core sensor probes to regulate gradual temperature pull-down.",
     },
     {
       stage: "02",
@@ -99,7 +105,8 @@ export default function FruitsServicesPage() {
       borderColor: "hover:border-blue-500/30",
       severity: "90% (High)",
       code: "STOR-HUMID-ERR",
-      mitigation: "Ultrasonic high-pressure humidification grids maintaining a steady 95% Relative Humidity boundary."
+      mitigation:
+        "Ultrasonic high-pressure humidification grids maintaining a steady 95% Relative Humidity boundary.",
     },
     {
       stage: "03",
@@ -112,7 +119,8 @@ export default function FruitsServicesPage() {
       borderColor: "hover:border-red-500/30",
       severity: "92% (Critical)",
       code: "TRANS-ETHY-ACC",
-      mitigation: "Continuous gas sensors linked to automatic exhaust ventilation and scrubbers for atmospheric control."
+      mitigation:
+        "Continuous gas sensors linked to automatic exhaust ventilation and scrubbers for atmospheric control.",
     },
     {
       stage: "04",
@@ -125,8 +133,9 @@ export default function FruitsServicesPage() {
       borderColor: "hover:border-yellow-500/30",
       severity: "82% (Medium)",
       code: "STG-BACT-ROT",
-      mitigation: "Anti-fungal, clean-grade food-safe panel liners and positive pressure dry air curtains at airlocks."
-    }
+      mitigation:
+        "Anti-fungal, clean-grade food-safe panel liners and positive pressure dry air curtains at airlocks.",
+    },
   ];
 
   const valueProps = [
@@ -152,13 +161,16 @@ export default function FruitsServicesPage() {
     },
     {
       title: "Subsidy Guidance",
-      desc: "Capital grants support under NHM, MIDH and NHB schemes.",
+      desc: "Capital grants support under NHB, MIDH and NHB schemes.",
       icon: Award,
     },
   ];
 
   const tempGuide = [
-    { product: "Bananas (Green / Ripening)", temp: "13°C to 15°C (90% - 95% RH)" },
+    {
+      product: "Bananas (Green / Ripening)",
+      temp: "13°C to 15°C (90% - 95% RH)",
+    },
     { product: "Mangoes", temp: "12°C to 14°C (85% - 90% RH)" },
     { product: "Apples", temp: "-1°C to 4°C (90% - 95% RH)" },
     { product: "Potatoes", temp: "4°C to 10°C (90% - 95% RH)" },
@@ -213,19 +225,19 @@ export default function FruitsServicesPage() {
       {/* Hero Section */}
       <section className="relative bg-[#0C2340] text-white pt-16 pb-24 overflow-hidden min-h-[620px] flex items-center">
         {/* Engineering Blueprint Grid Background Overlay */}
-        <div 
-          className="absolute inset-0 opacity-15 pointer-events-none z-0" 
+        <div
+          className="absolute inset-0 opacity-15 pointer-events-none z-0"
           style={{
             backgroundImage: `
               radial-gradient(rgba(59, 130, 246, 0.15) 1px, transparent 1px),
               linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
               linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px)
             `,
-            backgroundSize: "20px 20px, 40px 40px, 40px 40px"
+            backgroundSize: "20px 20px, 40px 40px, 40px 40px",
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-tr from-[#0C2340] via-[#0E2F56]/90 to-[#0A1A30]/95 z-0" />
-        
+
         {/* Soft glowing ambient orbs */}
         <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-blue-500/10 blur-[130px] pointer-events-none z-0" />
         <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-cyan-500/5 blur-[120px] pointer-events-none z-0" />
@@ -233,16 +245,22 @@ export default function FruitsServicesPage() {
         <div className="mx-auto max-w-7xl w-full px-4 sm:px-6 lg:px-8 relative z-10">
           {/* Breadcrumb Navigation */}
           <div className="flex flex-wrap items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-slate-400 font-mono mb-8">
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
+            <Link href="/" className="hover:text-white transition-colors">
+              Home
+            </Link>
             <span>&gt;</span>
-            <Link href="/services" className="hover:text-white transition-colors">Services</Link>
+            <Link
+              href="/services"
+              className="hover:text-white transition-colors"
+            >
+              Services
+            </Link>
             <span>&gt;</span>
             <span className="text-blue-400">Fruits & Vegetables</span>
           </div>
 
           {/* Immersive 3-Column Split-Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-            
             {/* Left Side: Text Sheet (col-span-5) */}
             <div className="lg:col-span-5 space-y-6">
               {/* Category tag */}
@@ -261,19 +279,35 @@ export default function FruitsServicesPage() {
 
               {/* Description */}
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-body">
-                We provide post-harvest cooling and controlled atmosphere ripening chambers designed to preserve 
-                freshness, lock nutrients, and regulate ripening cycles from harvest to distribution.
+                We provide post-harvest cooling and controlled atmosphere
+                ripening chambers designed to preserve freshness, lock
+                nutrients, and regulate ripening cycles from harvest to
+                distribution.
               </p>
 
               {/* Temp Pills (Premium Capsule Design) */}
               <div className="flex flex-wrap gap-4 pt-1">
                 <div className="flex items-center gap-2.5 rounded-full bg-gradient-to-r from-blue-950/50 via-[#0A1A30]/50 to-blue-900/30 border border-blue-500/30 px-4 py-2 text-xs font-bold font-mono text-blue-300 shadow-[0_0_15px_rgba(59,130,246,0.15)] backdrop-blur-md hover:border-blue-400/50 transition-all select-none">
-                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-500/20 text-blue-400 text-[10px] shadow-[0_0_8px_rgba(59,130,246,0.4)] animate-pulse shrink-0">❄</span>
-                  <span>Chilled: <strong className="text-white font-extrabold tracking-wide">0°C to 15°C</strong></span>
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-blue-500/20 text-blue-400 text-[10px] shadow-[0_0_8px_rgba(59,130,246,0.4)] animate-pulse shrink-0">
+                    ❄
+                  </span>
+                  <span>
+                    Chilled:{" "}
+                    <strong className="text-white font-extrabold tracking-wide">
+                      0°C to 15°C
+                    </strong>
+                  </span>
                 </div>
                 <div className="flex items-center gap-2.5 rounded-full bg-gradient-to-r from-cyan-950/50 via-[#0A1A30]/50 to-cyan-900/30 border border-cyan-500/30 px-4 py-2 text-xs font-bold font-mono text-cyan-300 shadow-[0_0_15px_rgba(34,211,238,0.15)] backdrop-blur-md hover:border-cyan-400/50 transition-all select-none">
-                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-cyan-500/20 text-cyan-400 text-[10px] shadow-[0_0_8px_rgba(34,211,238,0.4)] animate-pulse shrink-0">❄</span>
-                  <span>Humidity: <strong className="text-white font-extrabold tracking-wide">90% to 95% RH</strong></span>
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-cyan-500/20 text-cyan-400 text-[10px] shadow-[0_0_8px_rgba(34,211,238,0.4)] animate-pulse shrink-0">
+                    ❄
+                  </span>
+                  <span>
+                    Humidity:{" "}
+                    <strong className="text-white font-extrabold tracking-wide">
+                      90% to 95% RH
+                    </strong>
+                  </span>
                 </div>
               </div>
 
@@ -317,25 +351,29 @@ export default function FruitsServicesPage() {
             {/* Center Column: Premium CAD Blueprint & Product Visualizer (col-span-3) */}
             <div className="lg:col-span-3 hidden lg:flex justify-center relative">
               <div className="absolute inset-0 bg-blue-500/5 blur-[80px] pointer-events-none z-0" />
-              
+
               {/* Technical Drawing Framer */}
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.7 }}
                 className="relative w-full max-w-[240px] aspect-[4/5] rounded-2xl border border-blue-500/20 bg-white/2 p-2 shadow-2xl backdrop-blur-sm overflow-hidden group select-none"
               >
                 {/* Laser scan line anim */}
-                <div 
+                <div
                   className="absolute left-0 right-0 h-[2px] bg-cyan-400/50 shadow-[0_0_10px_rgba(34,211,238,0.5)] z-20 pointer-events-none"
                   style={{
                     animation: "scan 3.5s linear infinite",
                   }}
                 />
-                
+
                 {/* CAD Border Elements */}
-                <div className="absolute top-2 left-2 text-[8px] font-mono text-blue-400/40 font-bold">SCALE: 1:25</div>
-                <div className="absolute bottom-2 right-2 text-[8px] font-mono text-blue-400/40 font-bold">TV-FV-2026</div>
+                <div className="absolute top-2 left-2 text-[8px] font-mono text-blue-400/40 font-bold">
+                  SCALE: 1:25
+                </div>
+                <div className="absolute bottom-2 right-2 text-[8px] font-mono text-blue-400/40 font-bold">
+                  TV-FV-2026
+                </div>
 
                 <div className="relative w-full h-full rounded-xl overflow-hidden bg-[#0A1A30]">
                   <Image
@@ -353,27 +391,26 @@ export default function FruitsServicesPage() {
             </div>
 
             {/* Right Column: Sizing Consultation Form (col-span-4) */}
-            <div id="sizing-form-card" className="lg:col-span-4 relative scroll-mt-24">
+            <div
+              id="sizing-form-card"
+              className="lg:col-span-4 relative scroll-mt-24"
+            >
               <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 opacity-20 blur-lg" />
-              
-              <div 
-                className="relative rounded-2xl border border-white/10 bg-[#0C2340]/80 p-6 sm:p-8 shadow-2xl backdrop-blur-md overflow-hidden"
-                
-              >
+
+              <div className="relative rounded-2xl border border-white/10 bg-[#0C2340]/80 p-6 sm:p-8 shadow-2xl backdrop-blur-md overflow-hidden">
                 {/* Ambient glowing radial blur behind illustration */}
                 <div className="absolute top-0 right-0 w-36 h-36 bg-blue-500/10 rounded-full blur-2xl pointer-events-none" />
 
                 {/* Technical Vector Drawing Blueprint Schematic */}
                 <div className="relative h-20 w-full rounded-xl bg-slate-950/40 border border-white/5 overflow-hidden mb-6 flex items-center justify-center">
-                  
-                  
-                  
                   <div className="relative z-10 flex items-center gap-3 px-4 py-2">
                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/10 border border-blue-500/35 text-blue-400">
                       <Settings className="h-5 w-5 animate-spin-slow text-blue-400" />
                     </div>
                     <div className="text-left">
-                      <div className="text-[10px] font-extrabold font-mono uppercase tracking-wider text-blue-400">CAD Blueprint Sizing</div>
+                      <div className="text-[10px] font-extrabold font-mono uppercase tracking-wider text-blue-400">
+                        CAD Blueprint Sizing
+                      </div>
                       <div className="text-[8px] font-bold text-slate-300 font-mono flex items-center gap-1">
                         <span className="h-1.5 w-1.5 rounded-full bg-blue-500 animate-pulse" />
                         <span>DRAFTSMAN STATUS: ONLINE</span>
@@ -384,14 +421,17 @@ export default function FruitsServicesPage() {
 
                 <div className="flex items-center gap-2 text-blue-400 mb-2">
                   <Phone className="h-4.5 w-4.5" />
-                  <h3 className="text-base font-extrabold text-white font-display">Sizing Consultation</h3>
+                  <h3 className="text-base font-extrabold text-white font-display">
+                    Sizing Consultation
+                  </h3>
                 </div>
                 <p className="text-xs text-slate-300 mb-6 leading-relaxed">
-                  Need engineering calculations or CAD layout blueprints for this specific utility? Request a call.
+                  Need engineering calculations or CAD layout blueprints for
+                  this specific utility? Request a call.
                 </p>
 
                 {formSent ? (
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     className="rounded-xl border border-blue-500/20 bg-blue-500/5 p-6 text-center space-y-4 py-10"
@@ -400,16 +440,22 @@ export default function FruitsServicesPage() {
                       <CheckCircle2 className="h-6 w-6" />
                     </div>
                     <div className="space-y-1">
-                      <h4 className="text-sm font-bold text-white font-display">Callback Request Received</h4>
+                      <h4 className="text-sm font-bold text-white font-display">
+                        Callback Request Received
+                      </h4>
                       <p className="text-xs text-slate-300 leading-relaxed px-2">
-                        Thanks <strong className="text-white">{name}</strong>. Our cold chain draftsman will contact you within 12–24 hours.
+                        Thanks <strong className="text-white">{name}</strong>.
+                        Our cold chain draftsman will contact you within 12–24
+                        hours.
                       </p>
                     </div>
                   </motion.div>
                 ) : (
                   <form onSubmit={handleCallbackSubmit} className="space-y-4">
                     <div>
-                      <label className="text-[10px] text-slate-400 font-semibold font-mono uppercase tracking-wider block mb-1">Your Name</label>
+                      <label className="text-[10px] text-slate-400 font-semibold font-mono uppercase tracking-wider block mb-1">
+                        Your Name
+                      </label>
                       <input
                         type="text"
                         required
@@ -419,9 +465,11 @@ export default function FruitsServicesPage() {
                         className="w-full rounded-xl bg-slate-950/50 border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-body"
                       />
                     </div>
-                    
+
                     <div>
-                      <label className="text-[10px] text-slate-400 font-semibold font-mono uppercase tracking-wider block mb-1">Mobile Number</label>
+                      <label className="text-[10px] text-slate-400 font-semibold font-mono uppercase tracking-wider block mb-1">
+                        Mobile Number
+                      </label>
                       <input
                         type="tel"
                         required
@@ -433,7 +481,9 @@ export default function FruitsServicesPage() {
                     </div>
 
                     <div>
-                      <label className="text-[10px] text-slate-400 font-semibold font-mono uppercase tracking-wider block mb-1">Business / Organization</label>
+                      <label className="text-[10px] text-slate-400 font-semibold font-mono uppercase tracking-wider block mb-1">
+                        Business / Organization
+                      </label>
                       <input
                         type="text"
                         value={business}
@@ -482,8 +532,8 @@ export default function FruitsServicesPage() {
             {valueProps.map((prop, idx) => {
               const Icon = prop.icon;
               return (
-                <div 
-                  key={idx} 
+                <div
+                  key={idx}
                   className={`flex flex-col items-start space-y-2.5 ${idx > 0 ? "pt-6 md:pt-0 lg:pl-6" : ""}`}
                 >
                   <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
@@ -514,10 +564,13 @@ export default function FruitsServicesPage() {
               DIFFICULTIES IN AGRICULTURE
             </span>
             <h2 className="text-3xl font-extrabold text-[#0c2340] font-display leading-tight">
-              Common <span className="text-blue-600">Challenges</span> in Fruits & Vegetables Storage
+              Common <span className="text-blue-600">Challenges</span> in Fruits
+              & Vegetables Storage
             </h2>
             <p className="text-xs text-slate-500 leading-relaxed font-body">
-              Post-harvest respiration and rapid decay are constant biological issues. Overcoming them requires extremely high humidity levels and precise controlled atmospheres.
+              Post-harvest respiration and rapid decay are constant biological
+              issues. Overcoming them requires extremely high humidity levels
+              and precise controlled atmospheres.
             </p>
           </div>
 
@@ -525,7 +578,7 @@ export default function FruitsServicesPage() {
           <div className="relative pt-8">
             {/* Horizontal timeline connector lines for desktop */}
             <div className="absolute top-28 left-[10%] right-[10%] h-0.5 border-t-2 border-dashed border-slate-200 hidden lg:block z-0" />
-            
+
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 relative z-10 text-slate-800">
               {challenges.map((chal, idx) => {
                 const Icon = chal.icon;
@@ -543,12 +596,12 @@ export default function FruitsServicesPage() {
                   >
                     {/* Spotlight Glow Effect */}
                     {isHovered && (
-                      <div 
+                      <div
                         className="absolute inset-0 pointer-events-none opacity-45 transition-opacity duration-300 bg-[radial-gradient(180px_circle_at_var(--x)_var(--y),rgba(59,130,246,0.12),transparent_80%)] rounded-2xl"
                         style={{
                           // @ts-ignore
                           "--x": `${mouseCoords.x}px`,
-                          "--y": `${mouseCoords.y}px`
+                          "--y": `${mouseCoords.y}px`,
                         }}
                       />
                     )}
@@ -566,7 +619,9 @@ export default function FruitsServicesPage() {
 
                       {/* Icon & Phase label */}
                       <div className="flex items-center gap-3">
-                        <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${chal.color} ${chal.iconColor} border border-white/10 shadow-inner group-hover:scale-105 transition-transform duration-300`}>
+                        <div
+                          className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${chal.color} ${chal.iconColor} border border-white/10 shadow-inner group-hover:scale-105 transition-transform duration-300`}
+                        >
                           <Icon className="h-5 w-5" />
                         </div>
                         <div className="text-left leading-tight">
@@ -614,10 +669,14 @@ export default function FruitsServicesPage() {
               OUR ENGINEERING
             </span>
             <h2 className="text-3xl font-extrabold font-display leading-tight">
-              Our Cold Storage Solutions for <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300 font-display">Fruits & Veggies</span>
+              Our Cold Storage Solutions for{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300 font-display">
+                Fruits & Veggies
+              </span>
             </h2>
             <p className="text-xs text-slate-300 leading-relaxed font-body">
-              How ThermoVault delivers elite technical stability and controlled atmospheres for critical agriculture growers.
+              How ThermoVault delivers elite technical stability and controlled
+              atmospheres for critical agriculture growers.
             </p>
           </div>
 
@@ -630,9 +689,12 @@ export default function FruitsServicesPage() {
                 <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20 shadow-sm transition-transform duration-300 group-hover:scale-105">
                   <Grid className="h-4.5 w-4.5" />
                 </div>
-                <h4 className="text-sm font-bold text-white font-display">Controlled Atmosphere (CA)</h4>
+                <h4 className="text-sm font-bold text-white font-display">
+                  Controlled Atmosphere (CA)
+                </h4>
                 <p className="text-xs text-slate-300 leading-relaxed font-body">
-                  Airtight chambers regulating oxygen and carbon dioxide levels to stall decay.
+                  Airtight chambers regulating oxygen and carbon dioxide levels
+                  to stall decay.
                 </p>
               </div>
 
@@ -641,9 +703,12 @@ export default function FruitsServicesPage() {
                 <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20 shadow-sm transition-transform duration-300 group-hover:scale-105">
                   <Settings className="h-4.5 w-4.5" />
                 </div>
-                <h4 className="text-sm font-bold text-white font-display">Fruits Ripening Chambers</h4>
+                <h4 className="text-sm font-bold text-white font-display">
+                  Fruits Ripening Chambers
+                </h4>
                 <p className="text-xs text-slate-300 leading-relaxed font-body">
-                  Automated ethylene gas dosing tunnels for uniform crop ripening.
+                  Automated ethylene gas dosing tunnels for uniform crop
+                  ripening.
                 </p>
               </div>
 
@@ -652,9 +717,12 @@ export default function FruitsServicesPage() {
                 <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20 shadow-sm transition-transform duration-300 group-hover:scale-105">
                   <ShieldCheck className="h-4.5 w-4.5" />
                 </div>
-                <h4 className="text-sm font-bold text-white font-display">Hygienic PUF Insulations</h4>
+                <h4 className="text-sm font-bold text-white font-display">
+                  Hygienic PUF Insulations
+                </h4>
                 <p className="text-xs text-slate-300 leading-relaxed font-body">
-                  Anti-fungal, cam-locked high density panels with airtight joints.
+                  Anti-fungal, cam-locked high density panels with airtight
+                  joints.
                 </p>
               </div>
             </div>
@@ -662,8 +730,8 @@ export default function FruitsServicesPage() {
             {/* Center Image */}
             <div className="lg:col-span-4 flex justify-center relative py-6">
               <div className="absolute inset-0 m-auto w-64 sm:w-80 h-64 sm:h-80 rounded-full border border-blue-500/10 shadow-neon-blue animate-pulse" />
-              
-              <motion.div 
+
+              <motion.div
                 initial={{ opacity: 0, scale: 0.92 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
@@ -687,9 +755,12 @@ export default function FruitsServicesPage() {
                 <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20 shadow-sm transition-transform duration-300 group-hover:scale-105">
                   <Network className="h-4.5 w-4.5" />
                 </div>
-                <h4 className="text-sm font-bold text-white font-display">IoT Remote Telemetry</h4>
+                <h4 className="text-sm font-bold text-white font-display">
+                  IoT Remote Telemetry
+                </h4>
                 <p className="text-xs text-slate-300 leading-relaxed font-body">
-                  Real-time monitoring of CO2, Ethylene, Temperature and Relative Humidity levels.
+                  Real-time monitoring of CO2, Ethylene, Temperature and
+                  Relative Humidity levels.
                 </p>
               </div>
 
@@ -698,9 +769,12 @@ export default function FruitsServicesPage() {
                 <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20 shadow-sm transition-transform duration-300 group-hover:scale-105">
                   <Zap className="h-4.5 w-4.5" />
                 </div>
-                <h4 className="text-sm font-bold text-white font-display">Forced-Air Cooling Tunnels</h4>
+                <h4 className="text-sm font-bold text-white font-display">
+                  Forced-Air Cooling Tunnels
+                </h4>
                 <p className="text-xs text-slate-300 leading-relaxed font-body">
-                  Rapid pull-down ventilation systems drawing high heat away from produce centers.
+                  Rapid pull-down ventilation systems drawing high heat away
+                  from produce centers.
                 </p>
               </div>
 
@@ -709,9 +783,12 @@ export default function FruitsServicesPage() {
                 <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20 shadow-sm transition-transform duration-300 group-hover:scale-105">
                   <Battery className="h-4.5 w-4.5" />
                 </div>
-                <h4 className="text-sm font-bold text-white font-display">Sub-zero Backup Systems</h4>
+                <h4 className="text-sm font-bold text-white font-display">
+                  Sub-zero Backup Systems
+                </h4>
                 <p className="text-xs text-slate-300 leading-relaxed font-body">
-                  Redundant circuits ensuring continuous climate controls under extreme conditions.
+                  Redundant circuits ensuring continuous climate controls under
+                  extreme conditions.
                 </p>
               </div>
             </div>
@@ -723,7 +800,6 @@ export default function FruitsServicesPage() {
       <section className="py-24 bg-white relative">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-16">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            
             {/* Left Side: Storage Temp Guide Table */}
             <div className="lg:col-span-5 space-y-6">
               <div className="space-y-2">
@@ -740,12 +816,17 @@ export default function FruitsServicesPage() {
                   <thead>
                     <tr className="bg-slate-50 border-b border-slate-100 text-slate-400 font-mono uppercase tracking-wider text-[10px]">
                       <th className="p-4 pl-6 font-bold">Product Category</th>
-                      <th className="p-4 pr-6 font-bold text-right">Ideal Temperature / Humidity</th>
+                      <th className="p-4 pr-6 font-bold text-right">
+                        Ideal Temperature / Humidity
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100 font-body text-slate-700">
                     {tempGuide.map((item, index) => (
-                      <tr key={index} className="hover:bg-slate-50/50 transition-colors font-medium">
+                      <tr
+                        key={index}
+                        className="hover:bg-slate-50/50 transition-colors font-medium"
+                      >
                         <td className="p-4 pl-6 flex items-center gap-3">
                           <div className="h-6 w-6 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
                             <Droplet className="h-3 w-3" />
@@ -773,8 +854,8 @@ export default function FruitsServicesPage() {
                     Our Fruits & Vegetables Installations
                   </h3>
                 </div>
-                <Link 
-                  href="/projects" 
+                <Link
+                  href="/projects"
                   className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-500 transition-colors uppercase tracking-wider font-mono shrink-0 mb-1"
                 >
                   <span>View All Projects</span>
@@ -785,7 +866,7 @@ export default function FruitsServicesPage() {
               {/* 4-Image Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {installations.map((inst, index) => (
-                  <div 
+                  <div
                     key={index}
                     className="group rounded-2xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-md transition-shadow bg-white flex flex-col"
                   >
@@ -813,23 +894,38 @@ export default function FruitsServicesPage() {
               {/* Counter badges */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-slate-100 text-center font-mono">
                 <div className="space-y-1">
-                  <div className="text-lg font-extrabold text-[#0c2340] font-display">98%</div>
-                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Freshness Retention</div>
+                  <div className="text-lg font-extrabold text-[#0c2340] font-display">
+                    98%
+                  </div>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
+                    Freshness Retention
+                  </div>
                 </div>
                 <div className="space-y-1">
-                  <div className="text-lg font-extrabold text-[#0c2340] font-display">Multi-Zone</div>
-                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Ripening Precision</div>
+                  <div className="text-lg font-extrabold text-[#0c2340] font-display">
+                    Multi-Zone
+                  </div>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
+                    Ripening Precision
+                  </div>
                 </div>
                 <div className="space-y-1">
-                  <div className="text-lg font-extrabold text-[#0c2340] font-display">30%</div>
-                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Energy Cost Savings</div>
+                  <div className="text-lg font-extrabold text-[#0c2340] font-display">
+                    30%
+                  </div>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
+                    Energy Cost Savings
+                  </div>
                 </div>
                 <div className="space-y-1">
-                  <div className="text-lg font-extrabold text-[#0c2340] font-display">Active</div>
-                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Ethylene Control</div>
+                  <div className="text-lg font-extrabold text-[#0c2340] font-display">
+                    Active
+                  </div>
+                  <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
+                    Ethylene Control
+                  </div>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -851,7 +947,7 @@ export default function FruitsServicesPage() {
             {faqs.map((faq, idx) => {
               const isOpen = openFaq === idx;
               return (
-                <div 
+                <div
                   key={idx}
                   className="rounded-2xl border border-slate-100 bg-white shadow-sm overflow-hidden transition-all duration-300"
                 >
@@ -862,7 +958,9 @@ export default function FruitsServicesPage() {
                     <span className="text-xs sm:text-sm font-bold text-[#0c2340] font-display transition-colors hover:text-blue-600">
                       {faq.q}
                     </span>
-                    <ChevronDown className={`h-4 w-4 text-blue-600 shrink-0 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`} />
+                    <ChevronDown
+                      className={`h-4 w-4 text-blue-600 shrink-0 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+                    />
                   </button>
 
                   <AnimatePresence initial={false}>
@@ -892,15 +990,16 @@ export default function FruitsServicesPage() {
         <div className="absolute bottom-0 right-0 w-[400px] h-[200px] rounded-full bg-blue-500/5 blur-[120px] pointer-events-none" />
 
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 relative z-10 space-y-10">
-          
           <div className="rounded-2xl border border-white/10 bg-[#0A1A30]/60 p-8 sm:p-12 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8 backdrop-blur-sm">
             <div className="space-y-3 text-center md:text-left">
               <h3 className="text-2xl font-extrabold font-display">
-                Build a Reliable Cold Chain for <br className="hidden sm:inline" />
+                Build a Reliable Cold Chain for{" "}
+                <br className="hidden sm:inline" />
                 Your Post-Harvest Crop
               </h3>
               <p className="text-xs sm:text-sm text-slate-300 max-w-xl font-body leading-relaxed">
-                Talk to our experts for custom storage, pre-cooling, and ripening solutions designed for your products.
+                Talk to our experts for custom storage, pre-cooling, and
+                ripening solutions designed for your products.
               </p>
             </div>
 
@@ -947,7 +1046,6 @@ export default function FruitsServicesPage() {
               <span>Built for Performance</span>
             </div>
           </div>
-
         </div>
       </section>
 

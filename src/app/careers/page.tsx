@@ -4,19 +4,19 @@ import React, { useState, useRef } from "react";
 import Link from "next/link";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import { 
-  Briefcase, 
-  MapPin, 
-  Clock, 
-  CheckCircle2, 
-  Send, 
-  Sparkles, 
-  GraduationCap, 
-  Settings, 
+import {
+  Briefcase,
+  MapPin,
+  Clock,
+  CheckCircle2,
+  Send,
+  Sparkles,
+  GraduationCap,
+  Settings,
   HeartHandshake,
   ChevronDown,
   Building,
-  Target
+  Target,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -33,7 +33,9 @@ interface JobRole {
 }
 
 export default function CareersPage() {
-  const [activeTab, setActiveTab] = useState<"All" | "Engineering" | "Sales" | "Operations">("All");
+  const [activeTab, setActiveTab] = useState<
+    "All" | "Engineering" | "Sales" | "Operations"
+  >("All");
   const [expandedJob, setExpandedJob] = useState<string | null>(null);
   const [formSent, setFormSent] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -43,7 +45,7 @@ export default function CareersPage() {
     phone: "",
     position: "Thermal Sizing Engineer (HVAC/R)",
     portfolio: "",
-    coverNote: ""
+    coverNote: "",
   });
 
   const formRef = useRef<HTMLDivElement | null>(null);
@@ -61,14 +63,14 @@ export default function CareersPage() {
         "Calculate project-specific heat loads based on product inbound temperature, insulation thickness, ambient conditions, and daily air change parameters.",
         "Select and specify refrigeration machinery, including semi-hermetic compressor units, evaporator coils, and mechanical valves.",
         "Collaborate with the AutoCAD team to create detailed pipe routing plans, control panel schematics, and isometric cold room layouts.",
-        "Provide remote/on-site troubleshooting support to field commissioning teams during initial plant pull-down tests."
+        "Provide remote/on-site troubleshooting support to field commissioning teams during initial plant pull-down tests.",
       ],
       requirements: [
         "B.E. / B.Tech in Mechanical, Thermal, or HVAC/R Engineering.",
         "Demonstrated competence in industrial heat load calculation software or custom manual mathematical thermodynamic checks.",
         "Familiarity with eco-compliant refrigerants (R404A, R134a, R448A) and compressor sizing standards (Copeland, Bitzer, Danfoss).",
-        "Excellent communication skills to interact with clients on technical panel specifications."
-      ]
+        "Excellent communication skills to interact with clients on technical panel specifications.",
+      ],
     },
     {
       id: "sales-manager",
@@ -82,14 +84,14 @@ export default function CareersPage() {
         "Identify and close capital sales leads for modular cold rooms, blast freezers, and industrial ripening chambers.",
         "Analyze customer storage capacity requirements and present custom ThermoVault technical engineering proposals.",
         "Navigate and secure project quotes, coordinating closely with procurement and sizing designers.",
-        "Help clients audit NHM (National Horticulture Mission) and NABARD back-ended capital subsidies options."
+        "Help clients audit NHB (National Horticulture Mission) and NABARD back-ended capital subsidies options.",
       ],
       requirements: [
         "MBA or Graduate Degree (Mechanical Engineering background is a strong advantage).",
         "Minimum 3 years of proven experience selling high-value capital equipment, industrial refrigeration, cleanrooms, or HVAC solutions.",
         "Willingness to travel across key agricultural and pharmaceutical clusters across India.",
-        "Strong understanding of project execution cycles, payment milestones, and technical client relationships."
-      ]
+        "Strong understanding of project execution cycles, payment milestones, and technical client relationships.",
+      ],
     },
     {
       id: "field-service-technician",
@@ -103,14 +105,14 @@ export default function CareersPage() {
         "Execute precision installations of PUF tongue-and-groove panel enclosures, ensuring vapor-barrier seal integrity.",
         "Install and pipe split refrigeration units, including copper brazing, vacuum tests, and correct refrigerant gas charge.",
         "Wire control panels and calibrate temperature sensors, relays, and IoT telemetry transmission hardware.",
-        "Perform preventive maintenance cycles (AMC checks) and execute swift diagnosis and repair calls on active refrigeration loops."
+        "Perform preventive maintenance cycles (AMC checks) and execute swift diagnosis and repair calls on active refrigeration loops.",
       ],
       requirements: [
         "ITI / Diploma in Refrigeration and Air Conditioning (RAC) or equivalent mechanical trades.",
         "Strong hands-on skills in copper pipe brazing, nitrogen leak tests, vacuuming, and mechanical system tuning.",
         "Basic electrical knowledge to read schematics and wire temperature indicators and relays safely.",
-        "Strong service orientation with high flexibility for field travels."
-      ]
+        "Strong service orientation with high flexibility for field travels.",
+      ],
     },
     {
       id: "graduate-engineering-trainee",
@@ -124,21 +126,22 @@ export default function CareersPage() {
         "Assist designers in compiling technical drawing packets and calculating component dimensions.",
         "Update and maintain internal engineering databases of compressor performance parameters and PUF thermal test records.",
         "Prepare Bill of Materials (BOMs) for procurement and project management trackers.",
-        "Shadow execution teams to observe and document real chamber pull-down tests and air-flow velocity mapping."
+        "Shadow execution teams to observe and document real chamber pull-down tests and air-flow velocity mapping.",
       ],
       requirements: [
         "Fresh Graduate B.E. / B.Tech in Mechanical Engineering (graduated in last 12 months).",
         "Strong fundamental knowledge of thermodynamics, fluid mechanics, and heat transfer.",
         "Proficiency in AutoCAD or SolidWorks; basic scripting/data analysis skills are a plus.",
-        "High curiosity to learn cold-chain technology and execute with micro-level design detail."
-      ]
-    }
+        "High curiosity to learn cold-chain technology and execute with micro-level design detail.",
+      ],
+    },
   ];
 
-  const filteredJobs = activeTab === "All" ? jobs : jobs.filter(j => j.dept === activeTab);
+  const filteredJobs =
+    activeTab === "All" ? jobs : jobs.filter((j) => j.dept === activeTab);
 
   const handleApplyClick = (jobTitle: string) => {
-    setFormData(prev => ({ ...prev, position: jobTitle }));
+    setFormData((prev) => ({ ...prev, position: jobTitle }));
     if (formRef.current) {
       formRef.current.scrollIntoView({ behavior: "smooth" });
     }
@@ -158,7 +161,7 @@ export default function CareersPage() {
         phone: "",
         position: "Thermal Sizing Engineer (HVAC/R)",
         portfolio: "",
-        coverNote: ""
+        coverNote: "",
       });
     }, 1200);
   };
@@ -169,7 +172,7 @@ export default function CareersPage() {
       <Navbar />
 
       {/* Hero Header with image background */}
-      <section 
+      <section
         className="relative bg-cover bg-center bg-no-repeat py-24 text-white overflow-hidden"
         style={{ backgroundImage: "url('/images/hero_background.png')" }}
       >
@@ -180,11 +183,13 @@ export default function CareersPage() {
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-4 z-10 text-center md:text-left">
           <div className="flex items-center justify-center md:justify-start gap-2 text-[10px] font-bold uppercase tracking-wider text-cyan-light font-mono">
             <Sparkles className="h-3.5 w-3.5" />
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
+            <Link href="/" className="hover:text-white transition-colors">
+              Home
+            </Link>
             <span className="text-white/40">/</span>
             <span className="text-slate-300">Careers</span>
           </div>
-          
+
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl font-display leading-tight max-w-3xl">
             Build the Future of <br className="hidden sm:inline" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-400 font-extrabold">
@@ -192,7 +197,9 @@ export default function CareersPage() {
             </span>
           </h1>
           <p className="max-w-2xl text-xs sm:text-sm text-slate-200/90 leading-relaxed font-body">
-            Join a fast-growing, precision-engineering team dedicated to reducing post-harvest losses, optimizing pharmaceutical storage, and driving thermodynamic innovation.
+            Join a fast-growing, precision-engineering team dedicated to
+            reducing post-harvest losses, optimizing pharmaceutical storage, and
+            driving thermodynamic innovation.
           </p>
         </div>
       </section>
@@ -205,16 +212,21 @@ export default function CareersPage() {
               WORK CULTURE AT THERMOVAULT
             </span>
             <h2 className="text-3xl font-bold tracking-tight text-[#0c2340] font-display">
-              Why Engineers Thrive <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">With Us</span>
+              Why Engineers Thrive{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
+                With Us
+              </span>
             </h2>
             <p className="text-xs text-slate-500 max-w-xl mx-auto leading-relaxed">
-              We blend structural physics, thermal sciences, and live telemetry databases to build robust thermal enclosures that protect critical inventories.
+              We blend structural physics, thermal sciences, and live telemetry
+              databases to build robust thermal enclosures that protect critical
+              inventories.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Engineering Excellence */}
-            <motion.div 
+            <motion.div
               whileHover={{ y: -6 }}
               className="rounded-2xl border border-slate-100 bg-slate-50/50 p-8 space-y-4 hover:shadow-lg transition-all duration-300"
             >
@@ -225,12 +237,14 @@ export default function CareersPage() {
                 Precision & Innovation
               </h3>
               <p className="text-xs text-slate-500 leading-relaxed">
-                We reject generic shortcuts. We size heat loads systematically, write customized system loops, and build IoT systems that safeguard operations.
+                We reject generic shortcuts. We size heat loads systematically,
+                write customized system loops, and build IoT systems that
+                safeguard operations.
               </p>
             </motion.div>
 
             {/* Post Harvest Waste Impact */}
-            <motion.div 
+            <motion.div
               whileHover={{ y: -6 }}
               className="rounded-2xl border border-slate-100 bg-slate-50/50 p-8 space-y-4 hover:shadow-lg transition-all duration-300"
             >
@@ -241,12 +255,14 @@ export default function CareersPage() {
                 Real-World Sustainability
               </h3>
               <p className="text-xs text-slate-500 leading-relaxed">
-                By optimizing temperature holding zones, our projects directly help farmers reduce post-harvest waste and ensure vital vaccines remain active.
+                By optimizing temperature holding zones, our projects directly
+                help farmers reduce post-harvest waste and ensure vital vaccines
+                remain active.
               </p>
             </motion.div>
 
             {/* Collaborative learning */}
-            <motion.div 
+            <motion.div
               whileHover={{ y: -6 }}
               className="rounded-2xl border border-slate-100 bg-slate-50/50 p-8 space-y-4 hover:shadow-lg transition-all duration-300"
             >
@@ -257,7 +273,9 @@ export default function CareersPage() {
                 Growth & Ownership
               </h3>
               <p className="text-xs text-slate-500 leading-relaxed">
-                Located in Bhosari MIDC, Pune's industrial hub, we offer flat hierarchy networks where trainees and senior engineers align to design and deliver.
+                Located in Bhosari MIDC, Pune's industrial hub, we offer flat
+                hierarchy networks where trainees and senior engineers align to
+                design and deliver.
               </p>
             </motion.div>
           </div>
@@ -281,22 +299,24 @@ export default function CareersPage() {
 
             {/* Department filters */}
             <div className="flex flex-wrap gap-2">
-              {(["All", "Engineering", "Sales", "Operations"] as const).map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => {
-                    setActiveTab(tab);
-                    setExpandedJob(null);
-                  }}
-                  className={`px-4 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all ${
-                    activeTab === tab 
-                      ? "bg-[#0C2340] text-white shadow-sm" 
-                      : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-100"
-                  }`}
-                >
-                  {tab}
-                </button>
-              ))}
+              {(["All", "Engineering", "Sales", "Operations"] as const).map(
+                (tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => {
+                      setActiveTab(tab);
+                      setExpandedJob(null);
+                    }}
+                    className={`px-4 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all ${
+                      activeTab === tab
+                        ? "bg-[#0C2340] text-white shadow-sm"
+                        : "bg-white border border-slate-200 text-slate-600 hover:bg-slate-100"
+                    }`}
+                  >
+                    {tab}
+                  </button>
+                ),
+              )}
             </div>
           </div>
 
@@ -305,7 +325,9 @@ export default function CareersPage() {
             {filteredJobs.length === 0 ? (
               <div className="text-center py-16 bg-white rounded-2xl border border-slate-100 text-slate-400">
                 <Briefcase className="h-8 w-8 mx-auto mb-2 text-slate-300" />
-                <p className="text-xs font-medium">No open positions matching this filter currently.</p>
+                <p className="text-xs font-medium">
+                  No open positions matching this filter currently.
+                </p>
               </div>
             ) : (
               filteredJobs.map((job) => {
@@ -316,7 +338,7 @@ export default function CareersPage() {
                     className="rounded-2xl border border-slate-200/60 bg-white overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
                   >
                     {/* Header trigger block */}
-                    <div 
+                    <div
                       onClick={() => setExpandedJob(isExpanded ? null : job.id)}
                       className="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 cursor-pointer hover:bg-slate-50/50 transition-colors select-none"
                     >
@@ -334,10 +356,12 @@ export default function CareersPage() {
                         </h3>
                         <div className="flex flex-wrap gap-4 text-[11px] text-slate-500">
                           <span className="flex items-center gap-1">
-                            <MapPin className="h-3.5 w-3.5 text-slate-400" /> {job.location}
+                            <MapPin className="h-3.5 w-3.5 text-slate-400" />{" "}
+                            {job.location}
                           </span>
                           <span className="flex items-center gap-1">
-                            <Clock className="h-3.5 w-3.5 text-slate-400" /> Experience: {job.experience}
+                            <Clock className="h-3.5 w-3.5 text-slate-400" />{" "}
+                            Experience: {job.experience}
                           </span>
                         </div>
                       </div>
@@ -353,7 +377,9 @@ export default function CareersPage() {
                           Apply Now
                         </button>
                         <span className="h-8 w-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:text-slate-600 hover:bg-slate-50 transition-colors">
-                          <ChevronDown className={`h-4.5 w-4.5 transition-transform duration-300 ${isExpanded ? "rotate-180 text-blue-600" : ""}`} />
+                          <ChevronDown
+                            className={`h-4.5 w-4.5 transition-transform duration-300 ${isExpanded ? "rotate-180 text-blue-600" : ""}`}
+                          />
                         </span>
                       </div>
                     </div>
@@ -377,11 +403,15 @@ export default function CareersPage() {
                               {/* Responsibilities list */}
                               <div className="space-y-3">
                                 <h4 className="font-extrabold text-[#0c2340] font-display flex items-center gap-1">
-                                  <Building className="h-4 w-4 text-blue-600" /> Key Responsibilities
+                                  <Building className="h-4 w-4 text-blue-600" />{" "}
+                                  Key Responsibilities
                                 </h4>
                                 <ul className="space-y-2 text-slate-600 leading-relaxed">
                                   {job.responsibilities.map((resp, i) => (
-                                    <li key={i} className="flex items-start gap-2">
+                                    <li
+                                      key={i}
+                                      className="flex items-start gap-2"
+                                    >
                                       <CheckCircle2 className="h-4 w-4 text-blue-500 shrink-0 mt-0.5" />
                                       <span>{resp}</span>
                                     </li>
@@ -392,11 +422,15 @@ export default function CareersPage() {
                               {/* Requirements list */}
                               <div className="space-y-3">
                                 <h4 className="font-extrabold text-[#0c2340] font-display flex items-center gap-1">
-                                  <GraduationCap className="h-4 w-4 text-blue-600" /> Qualifications & Skills
+                                  <GraduationCap className="h-4 w-4 text-blue-600" />{" "}
+                                  Qualifications & Skills
                                 </h4>
                                 <ul className="space-y-2 text-slate-600 leading-relaxed">
                                   {job.requirements.map((req, i) => (
-                                    <li key={i} className="flex items-start gap-2">
+                                    <li
+                                      key={i}
+                                      className="flex items-start gap-2"
+                                    >
                                       <CheckCircle2 className="h-4 w-4 text-blue-500 shrink-0 mt-0.5" />
                                       <span>{req}</span>
                                     </li>
@@ -432,12 +466,13 @@ export default function CareersPage() {
                 Submit Your Application
               </h3>
               <p className="text-xs text-slate-500 leading-relaxed font-body">
-                Please complete the form below. Our HR and technical design managers review applications weekly.
+                Please complete the form below. Our HR and technical design
+                managers review applications weekly.
               </p>
             </div>
 
             {formSent ? (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 className="rounded-xl border border-blue-100 bg-blue-50/50 p-8 text-center space-y-4"
@@ -445,32 +480,47 @@ export default function CareersPage() {
                 <div className="h-12 w-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mx-auto shadow-sm">
                   <CheckCircle2 className="h-6 w-6" />
                 </div>
-                <h4 className="text-sm font-bold text-[#0c2340]">Application Successfully Submitted!</h4>
+                <h4 className="text-sm font-bold text-[#0c2340]">
+                  Application Successfully Submitted!
+                </h4>
                 <p className="text-xs text-slate-500 leading-relaxed max-w-md mx-auto font-body">
-                  Thank you for your interest in ThermoVault Systems. Our recruiting team will review your credentials and contact you directly if there is an engineering match.
+                  Thank you for your interest in ThermoVault Systems. Our
+                  recruiting team will review your credentials and contact you
+                  directly if there is an engineering match.
                 </p>
               </motion.div>
             ) : (
-              <form onSubmit={handleFormSubmit} className="space-y-5 relative z-10">
+              <form
+                onSubmit={handleFormSubmit}
+                className="space-y-5 relative z-10"
+              >
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-[9px] text-slate-500 font-mono block mb-1">Full Name</label>
+                    <label className="text-[9px] text-slate-500 font-mono block mb-1">
+                      Full Name
+                    </label>
                     <input
                       type="text"
                       required
                       value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, name: e.target.value })
+                      }
                       placeholder="e.g. Rahul Sharma"
                       className="w-full rounded-xl bg-slate-50 border border-slate-200 p-3.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:bg-white transition-all shadow-inner focus:shadow-none"
                     />
                   </div>
                   <div>
-                    <label className="text-[9px] text-slate-500 font-mono block mb-1">Contact Number</label>
+                    <label className="text-[9px] text-slate-500 font-mono block mb-1">
+                      Contact Number
+                    </label>
                     <input
                       type="tel"
                       required
                       value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, phone: e.target.value })
+                      }
                       placeholder="e.g. +91 98765 43210"
                       className="w-full rounded-xl bg-slate-50 border border-slate-200 p-3.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:bg-white transition-all shadow-inner focus:shadow-none"
                     />
@@ -479,21 +529,29 @@ export default function CareersPage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-[9px] text-slate-500 font-mono block mb-1">Email Address</label>
+                    <label className="text-[9px] text-slate-500 font-mono block mb-1">
+                      Email Address
+                    </label>
                     <input
                       type="email"
                       required
                       value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
                       placeholder="e.g. rahul@example.com"
                       className="w-full rounded-xl bg-slate-50 border border-slate-200 p-3.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:bg-white transition-all shadow-inner focus:shadow-none"
                     />
                   </div>
                   <div>
-                    <label className="text-[9px] text-slate-500 font-mono block mb-1">Target Position</label>
+                    <label className="text-[9px] text-slate-500 font-mono block mb-1">
+                      Target Position
+                    </label>
                     <select
                       value={formData.position}
-                      onChange={(e) => setFormData({ ...formData, position: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, position: e.target.value })
+                      }
                       className="w-full rounded-xl bg-slate-50 border border-slate-200 p-3.5 text-xs text-slate-800 focus:outline-none focus:border-blue-600 focus:bg-white transition-all shadow-inner focus:shadow-none"
                     >
                       {jobs.map((job) => (
@@ -501,31 +559,42 @@ export default function CareersPage() {
                           {job.title}
                         </option>
                       ))}
-                      <option value="Other / General Application">Other / General Application</option>
+                      <option value="Other / General Application">
+                        Other / General Application
+                      </option>
                     </select>
                   </div>
                 </div>
 
                 <div>
-                  <label className="text-[9px] text-slate-500 font-mono block mb-1">Resume / CV Link</label>
+                  <label className="text-[9px] text-slate-500 font-mono block mb-1">
+                    Resume / CV Link
+                  </label>
                   <input
                     type="url"
                     required
                     value={formData.portfolio}
-                    onChange={(e) => setFormData({ ...formData, portfolio: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, portfolio: e.target.value })
+                    }
                     placeholder="e.g. Google Drive, Dropbox, or LinkedIn PDF URL"
                     className="w-full rounded-xl bg-slate-50 border border-slate-200 p-3.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:bg-white transition-all shadow-inner focus:shadow-none"
                   />
                   <span className="text-[9px] text-slate-400 block mt-1.5 ml-1 font-mono">
-                    Ensure Link sharing permissions are set to 'Anyone with link can view'.
+                    Ensure Link sharing permissions are set to 'Anyone with link
+                    can view'.
                   </span>
                 </div>
 
                 <div>
-                  <label className="text-[9px] text-slate-500 font-mono block mb-1">Statement of Interest (Optional)</label>
+                  <label className="text-[9px] text-slate-500 font-mono block mb-1">
+                    Statement of Interest (Optional)
+                  </label>
                   <textarea
                     value={formData.coverNote}
-                    onChange={(e) => setFormData({ ...formData, coverNote: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, coverNote: e.target.value })
+                    }
                     placeholder="Share a brief overview of your thermal design experience or projects completed..."
                     className="w-full rounded-xl bg-slate-50 border border-slate-200 p-3.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:bg-white transition-all h-24 resize-none shadow-inner focus:shadow-none"
                   />
@@ -537,7 +606,11 @@ export default function CareersPage() {
                   className="w-full flex items-center justify-center gap-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 py-4 text-xs font-bold text-white transition-all active:scale-[0.98] shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed select-none cursor-pointer"
                 >
                   <Send className="h-3.5 w-3.5" />
-                  <span>{isSubmitting ? "Submitting Application..." : "Submit Application Package"}</span>
+                  <span>
+                    {isSubmitting
+                      ? "Submitting Application..."
+                      : "Submit Application Package"}
+                  </span>
                 </button>
               </form>
             )}

@@ -4,7 +4,14 @@ import React, { use, useState } from "react";
 import Link from "next/link";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import { BookOpen, Clock, Tag, ChevronLeft, Send, CheckCircle2 } from "lucide-react";
+import {
+  BookOpen,
+  Clock,
+  Tag,
+  ChevronLeft,
+  Send,
+  CheckCircle2,
+} from "lucide-react";
 
 interface PostData {
   title: string;
@@ -24,44 +31,56 @@ const postDb: Record<string, PostData> = {
     keyword: "cold room how it works India",
     type: "Beginner Guide",
     readTime: "5 min read",
-    intro: "Cold rooms are walk-in insulated chambers designed to maintain specific temperature thresholds, extending the storage shelf-life of perishables. In India, tropical ambient conditions require robust thermal design parameters.",
+    intro:
+      "Cold rooms are walk-in insulated chambers designed to maintain specific temperature thresholds, extending the storage shelf-life of perishables. In India, tropical ambient conditions require robust thermal design parameters.",
     section1Title: "The Mechanical Refrigeration Cycle",
-    section1Body: "A cold room operates by extracting heat from inside the sealed enclosure and venting it outdoors. This loop relies on four major components: the compressor, the condenser, the expansion valve, and the evaporator coil. Refrigerant gas flows continuously through these components, changing states to absorb and dissipate heat.",
+    section1Body:
+      "A cold room operates by extracting heat from inside the sealed enclosure and venting it outdoors. This loop relies on four major components: the compressor, the condenser, the expansion valve, and the evaporator coil. Refrigerant gas flows continuously through these components, changing states to absorb and dissipate heat.",
     section2Title: "Importance of Panel Insulation Sizing",
-    section2Body: "Without proper insulation, ambient tropical heat will leak through the walls, forcing compressors to run continuously. We utilize Cam-locked Polyurethane Foam (PUF) panels with high-density cores (40 kg/m³) to guarantee a complete vapor barrier, reducing monthly electricity consumption by up to 25%.",
+    section2Body:
+      "Without proper insulation, ambient tropical heat will leak through the walls, forcing compressors to run continuously. We utilize Cam-locked Polyurethane Foam (PUF) panels with high-density cores (40 kg/m³) to guarantee a complete vapor barrier, reducing monthly electricity consumption by up to 25%.",
   },
   "cold-room-capacity-guide": {
     title: "Cold Room Capacity Guide: How to Calculate Storage Needs",
     keyword: "cold room capacity calculator",
     type: "Intermediate Sizing",
     readTime: "8 min read",
-    intro: "Sizing a cold storage room requires translating agricultural tonnage (MT) or logistics pallets into physical internal dimensions (Length x Width x Height in feet). Under-sizing leads to poor air circulation, while over-sizing wastes energy.",
+    intro:
+      "Sizing a cold storage room requires translating agricultural tonnage (MT) or logistics pallets into physical internal dimensions (Length x Width x Height in feet). Under-sizing leads to poor air circulation, while over-sizing wastes energy.",
     section1Title: "Volume Calculation Formulas",
-    section1Body: "A general engineering rule of thumb for agricultural products is to allocate approximately 5 to 6 cubic meters of space per metric ton (MT) of inventory. This accommodates necessary spacing for pallets, ventilation corridors, and evaporator air blast ranges. For example, a 10 MT room needs roughly 50-60 cubic meters of interior space.",
+    section1Body:
+      "A general engineering rule of thumb for agricultural products is to allocate approximately 5 to 6 cubic meters of space per metric ton (MT) of inventory. This accommodates necessary spacing for pallets, ventilation corridors, and evaporator air blast ranges. For example, a 10 MT room needs roughly 50-60 cubic meters of interior space.",
     section2Title: "Air Circulation Guidelines",
-    section2Body: "Never stack items directly against walls or block the evaporator fan flow. Leave at least a 6-inch gap along the perimeter panels and 12 inches of clearance below the ceiling coolers to ensure uniform temperature distribution.",
+    section2Body:
+      "Never stack items directly against walls or block the evaporator fan flow. Leave at least a 6-inch gap along the perimeter panels and 12 inches of clearance below the ceiling coolers to ensure uniform temperature distribution.",
   },
   "puf-panel-thickness-guide": {
     title: "PUF Panel Thickness Guide for Temperature Requirements",
     keyword: "PUF panel specifications cold room",
     type: "Technical Sizing",
     readTime: "6 min read",
-    intro: "Selecting the correct thickness of Polyurethane Foam (PUF) panels is critical to balance structural thermal resistance with equipment capital costs.",
+    intro:
+      "Selecting the correct thickness of Polyurethane Foam (PUF) panels is critical to balance structural thermal resistance with equipment capital costs.",
     section1Title: "Thickness Sizing Recommendations",
-    section1Body: "For standard chilling rooms (0°C to +8°C) such as fruit ripening setups, 60mm or 80mm panels are suitable. Freezer rooms (-15°C to -10°C) require 100mm thickness. Deep freeze chambers (-18°C to -25°C) like ice cream vaults must use 120mm panels to prevent thermal leakage.",
+    section1Body:
+      "For standard chilling rooms (0°C to +8°C) such as fruit ripening setups, 60mm or 80mm panels are suitable. Freezer rooms (-15°C to -10°C) require 100mm thickness. Deep freeze chambers (-18°C to -25°C) like ice cream vaults must use 120mm panels to prevent thermal leakage.",
     section2Title: "Vapor Barrier & cam-lock Joints",
-    section2Body: "Vapor seals are critical. Pre-fabricated cam-locks lock panels together, compressing tongue-and-groove joints to create airtight seams that prevent moisture ingress and internal frosting.",
+    section2Body:
+      "Vapor seals are critical. Pre-fabricated cam-locks lock panels together, compressing tongue-and-groove joints to create airtight seams that prevent moisture ingress and internal frosting.",
   },
   "government-subsidy-guide-2025": {
     title: "Government Subsidy for Cold Storage in India 2025",
     keyword: "cold storage subsidy India 2025",
     type: "Informational Guidelines",
     readTime: "10 min read",
-    intro: "To encourage cold chain setups, the Indian Government provides back-ended capital subsidies under the Horticulture Mission (MIDH) and National Horticulture Mission (NHM).",
+    intro:
+      "To encourage cold chain setups, the Indian Government provides back-ended capital subsidies under the Horticulture Mission (MIDH) and National Horticulture Mission (NHB).",
     section1Title: "Subsidy Percentages and Sizing Limits",
-    section1Body: "Standard eligible projects receive a 35% capital subsidy. For hilly terrains, tribal areas, and registered Farmer Producer Organizations (FPOs), the subsidy limit increases to 50% of the project's baseline cost.",
+    section1Body:
+      "Standard eligible projects receive a 35% capital subsidy. For hilly terrains, tribal areas, and registered Farmer Producer Organizations (FPOs), the subsidy limit increases to 50% of the project's baseline cost.",
     section2Title: "DPR Sizing Requirements",
-    section2Body: "Submissions require a Detailed Project Report (DPR), CAD engineering drawings, panel test certificates, and bank loan approval. Sizing details must strictly match MIDH operational guidelines to qualify.",
+    section2Body:
+      "Submissions require a Detailed Project Report (DPR), CAD engineering drawings, panel test certificates, and bank loan approval. Sizing details must strictly match MIDH operational guidelines to qualify.",
   },
 };
 
@@ -128,7 +147,9 @@ export default function BlogPostDetailPage({
 
             {/* Article Body */}
             <div className="prose prose-slate max-w-none text-xs sm:text-sm text-slate-600 leading-relaxed space-y-6">
-              <p className="text-slate-800 font-medium leading-relaxed">{post.intro}</p>
+              <p className="text-slate-800 font-medium leading-relaxed">
+                {post.intro}
+              </p>
 
               <h2 className="text-sm font-bold text-[#0c2340] font-display uppercase tracking-wider text-blue-600 border-b border-slate-100 pb-2 pt-4">
                 {post.section1Title}
@@ -144,15 +165,20 @@ export default function BlogPostDetailPage({
 
           {/* Quick Intake card */}
           <div className="rounded-2xl border border-slate-100 bg-white p-6 shadow-md h-fit">
-            <h3 className="text-sm font-bold text-[#0c2340] mb-2 font-display">Ask an Engineer</h3>
+            <h3 className="text-sm font-bold text-[#0c2340] mb-2 font-display">
+              Ask an Engineer
+            </h3>
             <p className="text-xs text-slate-500 mb-4 leading-relaxed">
-              Have questions regarding thermal sizing or subsidy document compliance? Request call.
+              Have questions regarding thermal sizing or subsidy document
+              compliance? Request call.
             </p>
 
             {formSent ? (
               <div className="rounded-xl border border-blue-100 bg-blue-50/50 p-6 text-center space-y-2">
                 <CheckCircle2 className="h-8 w-8 text-blue-600 mx-auto" />
-                <h4 className="text-xs font-bold text-[#0c2340]">Callback Request Logged</h4>
+                <h4 className="text-xs font-bold text-[#0c2340]">
+                  Callback Request Logged
+                </h4>
                 <p className="text-[10px] text-slate-500 leading-relaxed">
                   Our project engineer will contact you shortly.
                 </p>
@@ -160,7 +186,9 @@ export default function BlogPostDetailPage({
             ) : (
               <form onSubmit={handleAskSubmit} className="space-y-3">
                 <div>
-                  <label className="text-[9px] text-slate-500 font-mono block mb-1">Your Name</label>
+                  <label className="text-[9px] text-slate-500 font-mono block mb-1">
+                    Your Name
+                  </label>
                   <input
                     type="text"
                     required
@@ -171,7 +199,9 @@ export default function BlogPostDetailPage({
                   />
                 </div>
                 <div>
-                  <label className="text-[9px] text-slate-500 font-mono block mb-1">Mobile Number</label>
+                  <label className="text-[9px] text-slate-500 font-mono block mb-1">
+                    Mobile Number
+                  </label>
                   <input
                     type="tel"
                     required

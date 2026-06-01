@@ -118,13 +118,13 @@ export default function Navbar() {
           {/* Brand Logo + Breadcrumbs - Left */}
           <div className="flex flex-col items-start gap-1 shrink-0">
             <Link href="/" className="flex items-center shrink-0">
-              <Image
-                src="/images/logo.png"
+              <img
+                src="/images/logo.png?v=20"
                 alt="ThermoVault Systems Logo"
                 width={240}
                 height={60}
                 className={`w-auto object-contain transition-all duration-300 ${scrolled ? "h-10" : "h-14"}`}
-                priority
+                loading="eager"
               />
             </Link>
           </div>

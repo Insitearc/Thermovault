@@ -4,7 +4,18 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
-import { Phone, Mail, MapPin, Calendar, Clock, Terminal, ChevronDown, CheckCircle2, Send, Sparkles } from "lucide-react";
+import {
+  Phone,
+  Mail,
+  MapPin,
+  Calendar,
+  Clock,
+  Terminal,
+  ChevronDown,
+  CheckCircle2,
+  Send,
+  Sparkles,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface FaqItem {
@@ -13,16 +24,38 @@ interface FaqItem {
 }
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({ name: "", phone: "", email: "", bizType: "Farmer / FPO", size: "Small (Below 10 MT)", notes: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    bizType: "Farmer / FPO",
+    size: "Small (Below 10 MT)",
+    notes: "",
+  });
   const [formSent, setFormSent] = useState(false);
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
 
   const faqs: FaqItem[] = [
-    { q: "What is the minimum cold room size you install?", a: "Our standard modular enclosures start from 8' x 8' x 8' (approx. 3 MT storage capacity). We can customize panel dimensions for smaller laboratory clean spaces as well." },
-    { q: "How long does the installation process take?", a: "Standard walk-in chambers are assembled in 7 to 10 working days once the civil level floor is ready. Large multi-chamber cold storage warehouses take 3 to 5 weeks." },
-    { q: "Do you provide AMC services outside Maharashtra?", a: "Yes, we support active installations across adjacent states with dedicated service engineers. We also provide remote telemetry diagnostics for real-time monitoring." },
-    { q: "Can I apply for government subsidies on my project?", a: "Yes. ThermoVault structures are engineered to meet NHM (National Horticulture Mission) and NABARD criteria, qualifying for back-ended capital subsidies up to 35%." },
-    { q: "What refrigerant gases do your condensing plants use?", a: "We design plants using eco-compliant, non-ozone depleting refrigerants such as R404A, R134a, and R448A to ensure optimal cooling performance and compliance." },
+    {
+      q: "What is the minimum cold room size you install?",
+      a: "Our standard modular enclosures start from 8' x 8' x 8' (approx. 3 MT storage capacity). We can customize panel dimensions for smaller laboratory clean spaces as well.",
+    },
+    {
+      q: "How long does the installation process take?",
+      a: "Standard walk-in chambers are assembled in 7 to 10 working days once the civil level floor is ready. Large multi-chamber cold storage warehouses take 3 to 5 weeks.",
+    },
+    {
+      q: "Do you provide AMC services outside Maharashtra?",
+      a: "Yes, we support active installations across adjacent states with dedicated service engineers. We also provide remote telemetry diagnostics for real-time monitoring.",
+    },
+    {
+      q: "Can I apply for government subsidies on my project?",
+      a: "Yes. ThermoVault structures are engineered to meet NHB (National Horticulture Mission) and NABARD criteria, qualifying for back-ended capital subsidies up to 35%.",
+    },
+    {
+      q: "What refrigerant gases do your condensing plants use?",
+      a: "We design plants using eco-compliant, non-ozone depleting refrigerants such as R404A, R134a, and R448A to ensure optimal cooling performance and compliance.",
+    },
   ];
 
   const handleFormSubmit = (e: React.FormEvent) => {
@@ -37,7 +70,7 @@ export default function ContactPage() {
       <Navbar />
 
       {/* Hero Header with image background */}
-      <section 
+      <section
         className="relative bg-cover bg-center bg-no-repeat py-20 text-white overflow-hidden"
         style={{ backgroundImage: "url('/images/hero_background.png')" }}
       >
@@ -47,7 +80,9 @@ export default function ContactPage() {
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-4 z-10 text-center md:text-left">
           <div className="flex items-center justify-center md:justify-start gap-2 text-[10px] font-bold uppercase tracking-wider text-teal-light font-mono">
             <Sparkles className="h-3.5 w-3.5" />
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
+            <Link href="/" className="hover:text-white transition-colors">
+              Home
+            </Link>
             <span className="text-white/40">/</span>
             <span className="text-slate-300">Contact Us</span>
           </div>
@@ -55,7 +90,8 @@ export default function ContactPage() {
             Contact <span className="text-blue-400">Sizing Engineers</span>
           </h1>
           <p className="max-w-2xl text-xs sm:text-sm text-slate-200/90 leading-relaxed">
-            Get in touch for custom heat load calculations, panel drawings, or subsidy eligibility audits.
+            Get in touch for custom heat load calculations, panel drawings, or
+            subsidy eligibility audits.
           </p>
         </div>
       </section>
@@ -77,18 +113,25 @@ export default function ContactPage() {
                 <div className="flex items-start gap-3">
                   <MapPin className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
                   <span>
-                    Sector 4, Bhosari Industrial Area, MIDC, Pune, Maharashtra, India - 411026
+                    Sector 4, Bhosari Industrial Area, MIDC, Pune, Maharashtra,
+                    India - 411026
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone className="h-5 w-5 text-blue-600 shrink-0" />
-                  <a href="tel:+918055010620" className="hover:text-blue-600 transition-colors">
+                  <a
+                    href="tel:+918055010620"
+                    className="hover:text-blue-600 transition-colors"
+                  >
                     +91 80550 10620
                   </a>
                 </div>
                 <div className="flex items-center gap-3">
                   <Mail className="h-5 w-5 text-blue-600 shrink-0" />
-                  <a href="mailto:info@thermovaultsystems.com" className="hover:text-blue-600 transition-colors">
+                  <a
+                    href="mailto:info@thermovaultsystems.com"
+                    className="hover:text-blue-600 transition-colors"
+                  >
                     info@thermovaultsystems.com
                   </a>
                 </div>
@@ -102,7 +145,7 @@ export default function ContactPage() {
               <div className="rounded-2xl border border-slate-100 bg-[#0C2340] p-6 relative overflow-hidden h-48 flex items-center justify-center text-white shadow-md">
                 <div className="absolute inset-0 bg-[radial-gradient(#ffffff03_1px,transparent_1px)] [background-size:12px_12px] opacity-45" />
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(29,158,117,0.03)_1px,transparent_1px)] bg-[size:3rem_3rem]" />
-                
+
                 <div className="relative z-10 text-center space-y-2">
                   <Terminal className="h-5 w-5 text-blue-400 mx-auto animate-pulse" />
                   <div className="text-[10px] font-bold uppercase tracking-wider font-mono">
@@ -118,40 +161,54 @@ export default function ContactPage() {
 
             {/* Contact Sizing Form */}
             <div className="rounded-2xl border border-slate-100 bg-white p-6 md:p-8 shadow-md">
-              <h3 className="text-sm font-bold text-[#0c2340] mb-2 font-display">Schedule Sizing Call</h3>
+              <h3 className="text-sm font-bold text-[#0c2340] mb-2 font-display">
+                Schedule Sizing Call
+              </h3>
               <p className="text-xs text-slate-500 mb-6 leading-relaxed">
-                Fill out the technical parameters below and our designer will callback.
+                Fill out the technical parameters below and our designer will
+                callback.
               </p>
 
               {formSent ? (
                 <div className="rounded-xl border border-blue-100 bg-blue-50/50 p-8 text-center space-y-3">
                   <CheckCircle2 className="h-10 w-10 text-blue-600 mx-auto" />
-                  <h4 className="text-xs font-bold text-[#0c2340]">Consultation Form Submitted</h4>
+                  <h4 className="text-xs font-bold text-[#0c2340]">
+                    Consultation Form Submitted
+                  </h4>
                   <p className="text-[11px] text-slate-500 leading-relaxed">
-                    Thank you. Sizing engineers will contact you at your convenience.
+                    Thank you. Sizing engineers will contact you at your
+                    convenience.
                   </p>
                 </div>
               ) : (
                 <form onSubmit={handleFormSubmit} className="space-y-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-[9px] text-slate-500 font-mono block mb-1">Your Name</label>
+                      <label className="text-[9px] text-slate-500 font-mono block mb-1">
+                        Your Name
+                      </label>
                       <input
                         type="text"
                         required
                         value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({ ...formData, name: e.target.value })
+                        }
                         placeholder="e.g. Kuldeep"
                         className="w-full rounded-xl bg-slate-50 border border-slate-200 p-3 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:bg-white transition-all"
                       />
                     </div>
                     <div>
-                      <label className="text-[9px] text-slate-500 font-mono block mb-1">Mobile Number</label>
+                      <label className="text-[9px] text-slate-500 font-mono block mb-1">
+                        Mobile Number
+                      </label>
                       <input
                         type="tel"
                         required
                         value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({ ...formData, phone: e.target.value })
+                        }
                         placeholder="e.g. +91 80550 10620"
                         className="w-full rounded-xl bg-slate-50 border border-slate-200 p-3 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:bg-white transition-all"
                       />
@@ -159,12 +216,16 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label className="text-[9px] text-slate-500 font-mono block mb-1">Email Address</label>
+                    <label className="text-[9px] text-slate-500 font-mono block mb-1">
+                      Email Address
+                    </label>
                     <input
                       type="email"
                       required
                       value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
                       placeholder="e.g. info@thermovaultsystems.com"
                       className="w-full rounded-xl bg-slate-50 border border-slate-200 p-3 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:bg-white transition-all"
                     />
@@ -172,37 +233,59 @@ export default function ContactPage() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-[9px] text-slate-500 font-mono block mb-1">Application Sector</label>
+                      <label className="text-[9px] text-slate-500 font-mono block mb-1">
+                        Application Sector
+                      </label>
                       <select
                         value={formData.bizType}
-                        onChange={(e) => setFormData({ ...formData, bizType: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({ ...formData, bizType: e.target.value })
+                        }
                         className="w-full rounded-xl bg-slate-50 border border-slate-200 p-3 text-xs text-slate-800 focus:outline-none focus:border-blue-600 focus:bg-white transition-all"
                       >
                         <option value="Farmer / FPO">Farmer / FPO</option>
-                        <option value="Dairy Processing">Dairy Processing</option>
-                        <option value="Pharma Vaccine Storage">Pharma Vaccine Storage</option>
+                        <option value="Dairy Processing">
+                          Dairy Processing
+                        </option>
+                        <option value="Pharma Vaccine Storage">
+                          Pharma Vaccine Storage
+                        </option>
                         <option value="Cold Warehouse">Cold Warehouse</option>
                       </select>
                     </div>
                     <div>
-                      <label className="text-[9px] text-slate-500 font-mono block mb-1">Room Capacity</label>
+                      <label className="text-[9px] text-slate-500 font-mono block mb-1">
+                        Room Capacity
+                      </label>
                       <select
                         value={formData.size}
-                        onChange={(e) => setFormData({ ...formData, size: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({ ...formData, size: e.target.value })
+                        }
                         className="w-full rounded-xl bg-slate-50 border border-slate-200 p-3 text-xs text-slate-800 focus:outline-none focus:border-blue-600 focus:bg-white transition-all"
                       >
-                        <option value="Small (Below 10 MT)">Small (Below 10 MT)</option>
-                        <option value="Medium (10 - 50 MT)">Medium (10 - 50 MT)</option>
-                        <option value="Large (Above 50 MT)">Large (Above 50 MT)</option>
+                        <option value="Small (Below 10 MT)">
+                          Small (Below 10 MT)
+                        </option>
+                        <option value="Medium (10 - 50 MT)">
+                          Medium (10 - 50 MT)
+                        </option>
+                        <option value="Large (Above 50 MT)">
+                          Large (Above 50 MT)
+                        </option>
                       </select>
                     </div>
                   </div>
 
                   <div>
-                    <label className="text-[9px] text-slate-500 font-mono block mb-1">Chamber Sizing Requirements</label>
+                    <label className="text-[9px] text-slate-500 font-mono block mb-1">
+                      Chamber Sizing Requirements
+                    </label>
                     <textarea
                       value={formData.notes}
-                      onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, notes: e.target.value })
+                      }
                       placeholder="Target temperatures, structural bounds, or subsidy assistance notes..."
                       className="w-full rounded-xl bg-slate-50 border border-slate-200 p-3 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:bg-white transition-all h-16 resize-none"
                     />
@@ -233,7 +316,8 @@ export default function ContactPage() {
               Frequently Asked Questions
             </h2>
             <p className="text-xs text-slate-500">
-              Read quick engineering solutions to common cold room installation queries.
+              Read quick engineering solutions to common cold room installation
+              queries.
             </p>
           </div>
 
@@ -248,13 +332,17 @@ export default function ContactPage() {
                   <button
                     onClick={() => setActiveFaq(isOpen ? null : idx)}
                     className={`w-full flex items-center justify-between p-5 text-left text-xs font-bold transition-colors font-display ${
-                      isOpen ? "text-blue-600 bg-slate-50/50" : "text-[#0c2340] hover:bg-slate-50/30"
+                      isOpen
+                        ? "text-blue-600 bg-slate-50/50"
+                        : "text-[#0c2340] hover:bg-slate-50/30"
                     }`}
                   >
                     <span>{faq.q}</span>
-                    <ChevronDown className={`h-4.5 w-4.5 text-slate-400 transition-transform duration-300 ${
-                      isOpen ? "rotate-180 text-blue-600" : ""
-                    }`} />
+                    <ChevronDown
+                      className={`h-4.5 w-4.5 text-slate-400 transition-transform duration-300 ${
+                        isOpen ? "rotate-180 text-blue-600" : ""
+                      }`}
+                    />
                   </button>
 
                   <AnimatePresence initial={false}>

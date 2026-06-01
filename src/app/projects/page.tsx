@@ -546,7 +546,6 @@ export default function ProjectsPage() {
       </section>
 
       {/* Footer */}
-      <Navbar /> {/* Wait! Navbar is at the bottom? The original file had <Footer /> at the bottom. Let's fix this minor original layout typo too and use <Footer /> here. */}
       <Footer />
     </div>
   );
