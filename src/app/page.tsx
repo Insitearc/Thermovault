@@ -31,8 +31,6 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 
-const ColdRoom3D = dynamic(() => import("@/components/dashboard/ColdRoom3D"), { ssr: false });
-
 export default function LandingPage() {
   const [contactFormSent, setContactFormSent] = useState(false);
   const [formData, setFormData] = useState({
@@ -224,7 +222,7 @@ export default function LandingPage() {
               </div>
             </motion.div>
 
-            {/* Interactive 3D WebGL Telemetry Sandbox on the right */}
+            {/* Interactive Real-Time Telemetry Image on the right */}
             <motion.div 
               initial={{ opacity: 0, x: 60, rotateY: -15 }}
               whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
@@ -237,14 +235,55 @@ export default function LandingPage() {
                 <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-blue-500 rounded-tl-xl pointer-events-none" />
                 <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-blue-500 rounded-br-xl pointer-events-none" />
                 
-                <div className="relative h-[340px] rounded-xl overflow-hidden bg-slate-950 shadow-inner">
-                  <ColdRoom3D
-                    doorOpen={doorOpen}
-                    compressorActive={compressorActive}
-                    temperature={temp}
+                <div className="relative h-[340px] rounded-xl overflow-hidden bg-slate-950 shadow-inner group">
+                  {/* Real-time installation image */}
+                  <Image 
+                    src="/images/cold_room_modular.png" 
+                    alt="Modular Cold Room Telemetry Panel" 
+                    fill 
+                    className="object-cover opacity-60 transition-transform duration-700 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, 50vw"
                   />
-                  {/* Overlay telemetry grid scan line */}
-                  <div className="absolute inset-x-0 top-0 h-[2px] bg-cyan-500/20 shadow-neon-blue pointer-events-none animate-bounce" style={{ animationDuration: "6s" }} />
+                  
+                  {/* Blueprint Overlay Grids */}
+                  <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:20px_20px] opacity-30 pointer-events-none" />
+                  
+                  {/* Alarm Red tint overlay when door is open */}
+                  {doorOpen && (
+                    <div className="absolute inset-0 bg-red-600/10 border-2 border-red-500/40 pointer-events-none animate-pulse" />
+                  )}
+
+                  {/* Top-Left Telemetry Door Status Badge */}
+                  <div className="absolute top-4 left-4 bg-slate-950/90 backdrop-blur-md border border-slate-700/50 rounded-lg px-2.5 py-1.5 flex items-center gap-1.5 shadow-lg pointer-events-none select-none">
+                    <span className={`h-2.5 w-2.5 rounded-full ${doorOpen ? 'bg-red-500 animate-pulse' : 'bg-emerald-500'}`} />
+                    <span className="text-[9px] font-mono font-bold tracking-wider text-slate-200 uppercase">
+                      {doorOpen ? 'DOOR VALVE: OPEN' : 'DOOR VALVE: SEALED'}
+                    </span>
+                  </div>
+
+                  {/* Top-Right LCD Temp Display Overlay */}
+                  <div className="absolute top-4 right-4 bg-black/90 backdrop-blur-md border border-cyan-500/30 rounded-lg p-2.5 text-right shadow-lg min-w-[100px] pointer-events-none select-none">
+                    <div className="text-[7px] font-mono text-cyan-400 font-bold uppercase tracking-widest mb-0.5">INTERNAL TEMP</div>
+                    <div className="text-sm font-mono font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
+                      {temp.toFixed(1)}°C
+                    </div>
+                  </div>
+
+                  {/* Bottom-Left Compressor Status Badge */}
+                  <div className="absolute bottom-4 left-4 bg-slate-950/90 backdrop-blur-md border border-slate-700/50 rounded-lg px-2.5 py-1.5 flex items-center gap-2 shadow-lg pointer-events-none select-none">
+                    <div className="relative flex items-center justify-center">
+                      <Settings className={`h-4.5 w-4.5 text-blue-400 ${compressorActive ? 'animate-spin' : ''}`} style={{ animationDuration: '3s' }} />
+                    </div>
+                    <div className="text-left">
+                      <div className="text-[7px] text-slate-400 font-mono font-bold uppercase tracking-wider">COMPRESSOR</div>
+                      <div className="text-[9px] text-slate-200 font-mono font-extrabold">
+                        {compressorActive ? 'ACTIVE (1450 RPM)' : 'SYSTEM IDLE'}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Telemetry Scanning Line */}
+                  <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent shadow-[0_0_8px_rgba(34,211,238,0.5)] pointer-events-none animate-bounce" style={{ animationDuration: "5s" }} />
                 </div>
               </div>
 
