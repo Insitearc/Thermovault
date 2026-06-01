@@ -60,7 +60,7 @@ export default function RootLayout({
 
           {/* Instagram */}
           <a
-            href="https://instagram.com"
+            href="https://www.instagram.com/thermovault_systems?igsh=NTh3b2lrZ3VhdnA2"
             target="_blank"
             rel="noopener noreferrer"
             className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-900 border border-slate-700/50 text-[#e4405f] shadow-lg hover:shadow-orange-500/25 hover:border-orange-500/50 hover:bg-[#e4405f] hover:text-white hover:scale-110 transition-all duration-300"
