@@ -164,8 +164,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Floating Features Box Ribbon overlapping the Hero */}
-      <div className="-mt-10 relative z-20">
+      {/* Performance / Feature Bar */}
+      <div className="py-10 bg-white relative z-20">
         <PerformanceFeatureBar />
       </div>
 
