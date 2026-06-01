@@ -106,8 +106,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/services/display-cold-rooms" className="hover:text-white transition-colors">
-                  Display Cold Rooms
+                <Link href="/services/mushroom-saffron-cultivation" className="hover:text-white transition-colors">
+                  Mushroom & Saffron Cultivation
                 </Link>
               </li>
               <li>

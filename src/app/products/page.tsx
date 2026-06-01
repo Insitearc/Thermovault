@@ -59,7 +59,7 @@ export default function ProductsPage() {
     {
       name: "Compressors",
       desc: "High-efficiency compressors for reliable cooling and optimal performance.",
-      image: "/images/refrigeration_system.png",
+      image: "/images/compressors.png",
       category: "compressors",
     },
     {
@@ -71,7 +71,7 @@ export default function ProductsPage() {
     {
       name: "Condensing Units",
       desc: "Robust condensing units designed for maximum efficiency and durability.",
-      image: "/images/refrigeration_system.png",
+      image: "/images/condensing_unit.png",
       category: "condensers",
     },
     {
@@ -89,37 +89,37 @@ export default function ProductsPage() {
     {
       name: "Doors & Hardware",
       desc: "Premium quality hardware for smooth operation and long life.",
-      image: "/images/cold_room_door.png",
+      image: "/images/doors_hardware.png",
       category: "hardware",
     },
     {
       name: "Copper Piping",
       desc: "High-grade copper pipes for efficient heat transfer and durability.",
-      image: "/images/refrigeration_system.png",
+      image: "/images/copper_piping.png",
       category: "piping",
     },
     {
       name: "Electrical Systems",
       desc: "Reliable electrical systems and wiring for safe and efficient operations.",
-      image: "/images/control_panel_unit.png",
+      image: "/images/electrical_systems.png",
       category: "electrical",
     },
     {
       name: "Refrigeration Accessories",
       desc: "Complete range of accessories for installation, control and maintenance.",
-      image: "/images/refrigeration_system.png",
+      image: "/images/refrigeration_accessories.png",
       category: "accessories",
     },
     {
       name: "Insulation Materials",
       desc: "High-quality insulation materials for maximum thermal efficiency.",
-      image: "/images/puf_panels.png",
+      image: "/images/insulation_materials.png",
       category: "insulation",
     },
     {
       name: "Spare Parts",
       desc: "Genuine spare parts to keep your systems functioning smoothly.",
-      image: "/images/refrigeration_system.png",
+      image: "/images/spare_parts.png",
       category: "spares",
     },
   ];

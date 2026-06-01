@@ -50,7 +50,7 @@ export default function LandingPage() {
   const services = [
     { title: "Modular Cold Rooms", image: "/images/cold_room_modular.png", slug: "modular-cold-rooms" },
     { title: "Refrigeration Systems", image: "/images/refrigeration_system.png", slug: "refrigeration-systems" },
-    { title: "Display Cold Rooms", image: "/images/display_cold_room.png", slug: "display-cold-rooms" },
+    { title: "Mushroom & Saffron Cultivation", image: "/images/mushroom_saffron_cultivation.png", slug: "mushroom-saffron-cultivation" },
     { title: "Fruits Ripening Chambers", image: "/images/ripening_chamber.png", slug: "ripening-chambers" },
     { title: "Blast Chillers", image: "/images/blast_chiller.png", slug: "blast-chillers" },
     { title: "AMC & Maintenance", image: "/images/amc_maintenance.png", slug: "amc" },
@@ -458,10 +458,10 @@ export default function LandingPage() {
             {/* Right outline stats counters */}
             <div className="grid grid-cols-2 gap-4 preserve-3d">
               {[
-                { val: "200+", label: "Projects Completed" },
-                { val: "100+", label: "Happy Clients" },
-                { val: "15+", label: "States Served" },
-                { val: "10+", label: "Years of Experience" }
+                { val: "40 kg/m³", label: "PUF Core Density" },
+                { val: "0.022 W/mK", label: "Thermal Conductivity" },
+                { val: "35% - 50%", label: "Govt Subsidy Audited" },
+                { val: "24/7", label: "Micro-Climate Tracking" }
               ].map((stat, idx) => (
                 <motion.div
                   key={idx}

@@ -299,14 +299,6 @@ export default function SubsidyPage() {
                         {calculationResult.percentage}%
                       </span>
                     </div>
-                    <div className="flex justify-between text-xs border-b border-slate-100 pb-2">
-                      <span className="text-slate-500">
-                        Estimated Fund Grant:
-                      </span>
-                      <span className="font-bold text-blue-600 font-mono">
-                        {calculationResult.amount}
-                      </span>
-                    </div>
                     <p className="text-[10px] text-slate-500 leading-relaxed pt-1">
                       {calculationResult.description}
                     </p>

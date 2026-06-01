@@ -38,6 +38,7 @@ import {
   MessageSquare,
   Wind,
   Zap,
+  Sprout,
   Play,
   Pause,
   TrendingUp,
@@ -119,35 +120,44 @@ const serviceDb: Record<string, ServiceDetail> = {
     detailedDesc:
       "Complete compression refrigeration systems designed to operate under tropical conditions. Our condensing plants feature compressor protection circuits to withstand voltage fluctuations commonly found in rural grids.",
   },
-  "display-cold-rooms": {
-    title: "Glass Display Cold Rooms",
-    tempRange: "0°C to +8°C",
+  "mushroom-saffron-cultivation": {
+    title: "Mushroom & Safron Cultivation Chambers",
+    tempRange: "+12°C to +28°C (Humidity Control: 60% - 95%)",
     specs: [
       {
-        title: "Anti-Fog Glass",
-        desc: "Heated double-pane glass doors (prevents external condensation).",
+        title: "PUF Insulation Panels",
+        desc: "High-density thermal envelope maintaining perfect relative humidity.",
       },
       {
-        title: "LED Diffusers",
-        desc: "Integrated vertical LED light strips with soft diffuser profiles.",
+        title: "Precision Micro-Climate",
+        desc: "Precision temperature & humidity control tailored to growing cycles.",
       },
       {
-        title: "Sleek Shelving",
-        desc: "Adjustable wire shelving grids (white epoxy dust-resistant coating).",
+        title: "HEPA Fresh Air Exchange",
+        desc: "Automated air exchange with medical-grade HEPA particle filters.",
       },
       {
-        title: "Gravity Coolers",
-        desc: "Gravity air coolers minimizing air movement to preserve fresh items.",
+        title: "CO2 Levels Ventilation",
+        desc: "Integrated CO2 monitoring & automated damper ventilation system.",
+      },
+      {
+        title: "Stainless Steel Shelves",
+        desc: "SS-304 grow racks with complete corrosion and rust resistance.",
+      },
+      {
+        title: "IoT growth telemetry",
+        desc: "IoT-enabled remote monitoring & live alerts for cultivation safety.",
       },
     ],
     industries: [
-      "Supermarkets & Hypermarkets",
-      "Organic retail shops",
-      "Hotels & Bakeries",
-      "Florists",
+      "Mushroom Cultivation Rooms",
+      "Safron Cultivation Chambers",
+      "Seed Germination Rooms",
+      "Agri Research Facilities",
+      "Herbal & Medicinal Plants",
     ],
     detailedDesc:
-      "Premium walk-in glass display cold storage rooms that bridge client display with storage needs. Perfect for beer cells, floriculture merchandising, and gourmet cheese retail depots.",
+      "Precision-controlled environment chambers designed for optimal growth, higher yield, and consistent quality in mushroom and saffron cultivation. Our systems ensure ideal temperature, humidity, CO2 levels, and air circulation.",
   },
   "clean-rooms": {
     title: "Clean Rooms & Sterile Chambers",
@@ -298,9 +308,9 @@ const serviceDb: Record<string, ServiceDetail> = {
 };
 
 const relatedMap: Record<string, string[]> = {
-  "modular-cold-rooms": ["refrigeration-systems", "display-cold-rooms", "amc"],
+  "modular-cold-rooms": ["refrigeration-systems", "mushroom-saffron-cultivation", "amc"],
   "refrigeration-systems": ["blast-chillers", "amc", "consultation"],
-  "display-cold-rooms": ["modular-cold-rooms", "refrigeration-systems"],
+  "mushroom-saffron-cultivation": ["modular-cold-rooms", "refrigeration-systems"],
   "clean-rooms": ["consultation", "amc"],
   "ripening-chambers": ["consultation", "amc"],
   "blast-chillers": ["refrigeration-systems", "amc"],
@@ -371,24 +381,24 @@ function getApplicationItems(slug: string): ApplicationItem[] {
         icon: ShoppingCart,
       },
     ],
-    "display-cold-rooms": [
+    "mushroom-saffron-cultivation": [
       {
-        title: "Supermarkets",
-        desc: "Heated double-pane glass walk-ins showcasing chilled foods under vertical diffusers.",
-        link: "/services/last-mile-dark-store",
-        icon: ShoppingCart,
+        title: "Button & Oyster Cultivation",
+        desc: "High relative humidity growth beds with integrated climate and fresh air cycling.",
+        link: "/services/mushroom-saffron-cultivation",
+        icon: Sprout,
       },
       {
-        title: "Organic Retail",
-        desc: "Soft gravity coolers preventing dehydration of delicate greens and fruits.",
-        link: "/services/fruits-vegetables",
-        icon: Apple,
+        title: "Saffron Sprouting Chambers",
+        desc: "Advanced growth light schedules and multi-tiered vertical trays maximizing crop yield.",
+        link: "/services/mushroom-saffron-cultivation",
+        icon: Sprout,
       },
       {
-        title: "Dairy & Beverages",
-        desc: "Display holds keeping milk bottles and yogurts perfectly chilled at point-of-sale.",
-        link: "/services/dairy-milk-products",
-        icon: Droplet,
+        title: "Seed Germination Labs",
+        desc: "Precision temperature and absolute sterile air controls ensuring pristine root spritzes.",
+        link: "/services/mushroom-saffron-cultivation",
+        icon: ShieldCheck,
       },
     ],
     "clean-rooms": [
@@ -517,14 +527,18 @@ function getServiceFaqs(slug: string): FaqItem[] {
         a: "Yes! All our evaporator units include integrated automatic hot gas defrosting bypass valves to prevent operational coil blockages and drop overall running costs.",
       },
     ],
-    "display-cold-rooms": [
+    "mushroom-saffron-cultivation": [
       {
-        q: "Do display cold room glass doors fog up in high-humidity zones?",
-        a: "No. We integrate double-pane vacuum-insulated glass doors with heated wire profiles and low-E coatings to prevent external condensation in tropical, humid retail climates.",
+        q: "How is precise relative humidity maintained in cultivation chambers?",
+        a: "We integrate ultrasonic micro-humidification networks alongside specialized DX-dehumidifiers, allowing relative humidity to be modulated precisely between 60% and 95% via smart PLC loops.",
       },
       {
-        q: "What type of product display lighting is used?",
-        a: "We integrate soft, vertical diffused LED light strips running along the door columns to showcase chilled foods and beverages at maximum aesthetic appeal.",
+        q: "How do you manage CO2 build-up during growing cycles?",
+        a: "Our chambers feature high-sensitivity infrared CO2 sensor arrays linked to automated fresh-air intake damper fans. This ensures continuous HEPA-filtered fresh air exchange whenever CO2 limits are exceeded.",
+      },
+      {
+        q: "What custom lighting is provided for saffron sprouting?",
+        a: "We install customized vertical LED growing light matrices with tailorable spectrum adjustments (focused on deep-blue and red wavelengths) and intensity sliders to maximize saffron yield.",
       },
     ],
     "clean-rooms": [
@@ -617,11 +631,12 @@ function getTechnicalParameters(slug: string): TechnicalParameter[] {
       { label: "Operating Pressure (HP)", value: "18.5", metric: "bar" },
       { label: "Refrigerant GWP", value: "1300 - 2100", metric: "Rating" },
     ],
-    "display-cold-rooms": [
-      { label: "Glass Light Transmission", value: "78", metric: "%" },
-      { label: "LED Brightness", value: "120", metric: "lm/W" },
-      { label: "Heater Wire Load", value: "12.5", metric: "W/m" },
-      { label: "Gravity Fan Throw", value: "2.5", metric: "meters" },
+    "mushroom-saffron-cultivation": [
+      { label: "Humidity Control Range", value: "60 - 95", metric: "% RH" },
+      { label: "Operating Temp Range", value: "12 - 28", metric: "°C" },
+      { label: "CO2 Setpoint Accuracy", value: "±50", metric: "ppm" },
+      { label: "HEPA Air Exchange Rate", value: "20 - 35", metric: "ACH" },
+      { label: "LED Grow Light Peak", value: "450 & 660", metric: "nm (Grow Light)" },
     ],
     "clean-rooms": [
       {
@@ -651,10 +666,10 @@ function getVisualTabs(slug: string) {
       { id: "layout", label: "3D Layout" },
       { id: "panel", label: "Control Panel" },
     ],
-    "display-cold-rooms": [
+    "mushroom-saffron-cultivation": [
       { id: "airflow", label: "Airflow Design" },
-      { id: "lighting", label: "LED Lighting" },
-      { id: "thermostat", label: "Temperature Control" },
+      { id: "panel", label: "Control Panel" },
+      { id: "telemetry", label: "Data Monitoring" },
     ],
     "clean-rooms": [
       { id: "laminar", label: "HEPA Laminar Flow" },
@@ -1647,8 +1662,8 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
       }
     }
 
-    // 3. Glass Display Cold Rooms Visuals
-    if (slug === "display-cold-rooms") {
+    // 3. Mushroom & Saffron Cultivation Chambers Visuals
+    if (slug === "mushroom-saffron-cultivation") {
       if (activeTab === "airflow") {
         return (
           <svg
@@ -1656,146 +1671,61 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
             viewBox="0 0 200 150"
           >
             <style>{`
-              @keyframes gravityflow { to { stroke-dashoffset: 20; } }
-              .g-flow { stroke-dasharray: 3, 3; animation: gravityflow 3s linear infinite; }
+              @keyframes dynamic-flow { to { stroke-dashoffset: -20; } }
+              .air-flow { stroke-dasharray: 4, 4; animation: dynamic-flow 2.5s linear infinite; }
             `}</style>
             <rect width="100%" height="100%" fill="url(#grid)" />
 
-            {/* Ceiling Gravity Coils */}
-            <rect
-              x="20"
-              y="15"
-              width="160"
-              height="12"
-              rx="1"
-              fill="#0C2340"
-              stroke="#3b82f6"
-              strokeWidth="1"
-            />
-            <text
-              x="100"
-              y="23"
-              fill="#3b82f6"
-              fontSize="4.5"
-              fontFamily="monospace"
-              textAnchor="middle"
-            >
-              GRAVITY COOLING COILS
+            {/* Ceiling HEPA Ventilation Duct */}
+            <rect x="25" y="15" width="150" height="10" rx="1" fill="#0C2340" stroke="#3b82f6" strokeWidth="0.75" />
+            <text x="100" y="22" fill="#3b82f6" fontSize="4.5" fontFamily="monospace" textAnchor="middle">
+              CENTRAL HEPA VENTILATION DUCT
             </text>
 
-            {/* Display racks */}
-            <line
-              x1="25"
-              y1="55"
-              x2="175"
-              y2="55"
-              stroke="rgba(255,255,255,0.2)"
-              strokeWidth="1.5"
-            />
-            <line
-              x1="25"
-              y1="90"
-              x2="175"
-              y2="90"
-              stroke="rgba(255,255,255,0.2)"
-              strokeWidth="1.5"
-            />
-            <line
-              x1="25"
-              y1="120"
-              x2="175"
-              y2="120"
-              stroke="rgba(255,255,255,0.2)"
-              strokeWidth="1.5"
-            />
+            {/* Multi-tier Grow Shelves */}
+            {/* Shelf Left */}
+            <rect x="20" y="45" width="65" height="4" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" strokeWidth="0.5" />
+            <rect x="20" y="85" width="65" height="4" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" strokeWidth="0.5" />
+            <rect x="20" y="125" width="65" height="4" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" strokeWidth="0.5" />
 
-            {/* Soft vertical drafts */}
-            <line
-              className="g-flow"
-              x1="45"
-              y1="30"
-              x2="45"
-              y2="135"
-              stroke="#22d3ee"
-              strokeWidth="0.75"
-            />
-            <line
-              className="g-flow"
-              x1="100"
-              y1="30"
-              x2="100"
-              y2="135"
-              stroke="#22d3ee"
-              strokeWidth="0.75"
-            />
-            <line
-              className="g-flow"
-              x1="155"
-              y1="30"
-              x2="155"
-              y2="135"
-              stroke="#22d3ee"
-              strokeWidth="0.75"
-            />
+            {/* Mushrooms growing on left shelves */}
+            <circle cx="28" cy="40" r="2.5" fill="#f1f5f9" />
+            <path d="M 28 42 L 28 45" stroke="#f1f5f9" strokeWidth="1" />
+            <circle cx="45" cy="40" r="2.5" fill="#f1f5f9" />
+            <path d="M 45 42 L 45 45" stroke="#f1f5f9" strokeWidth="1" />
+            <circle cx="65" cy="40" r="2.5" fill="#f1f5f9" />
+            <path d="M 65 42 L 65 45" stroke="#f1f5f9" strokeWidth="1" />
+            
+            {/* Saffron growing on right shelves */}
+            <rect x="115" y="45" width="65" height="4" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" strokeWidth="0.5" />
+            <rect x="115" y="85" width="65" height="4" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" strokeWidth="0.5" />
+            <rect x="115" y="125" width="65" height="4" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" strokeWidth="0.5" />
+            
+            {/* Purple flowers with red stigma on right shelves */}
+            <path d="M 125 40 L 128 35 L 131 40 Z" fill="#c084fc" />
+            <line x1="128" y1="35" x2="128" y2="39" stroke="#ef4444" strokeWidth="0.5" />
+            <path d="M 151 40 L 154 35 L 157 40 Z" fill="#c084fc" />
+            <line x1="154" y1="35" x2="154" y2="39" stroke="#ef4444" strokeWidth="0.5" />
+            <path d="M 165 40 L 168 35 L 171 40 Z" fill="#c084fc" />
+            <line x1="168" y1="35" x2="168" y2="39" stroke="#ef4444" strokeWidth="0.5" />
 
-            {/* Beverage display items */}
-            <rect
-              x="55"
-              y="42"
-              width="6"
-              height="12"
-              fill="rgba(59, 130, 246,0.3)"
-              stroke="#3b82f6"
-              strokeWidth="0.5"
-              rx="0.5"
-            />
-            <rect
-              x="63"
-              y="42"
-              width="6"
-              height="12"
-              fill="rgba(59, 130, 246,0.3)"
-              stroke="#3b82f6"
-              strokeWidth="0.5"
-              rx="0.5"
-            />
-            <rect
-              x="120"
-              y="77"
-              width="6"
-              height="12"
-              fill="rgba(59, 130, 246,0.3)"
-              stroke="#3b82f6"
-              strokeWidth="0.5"
-              rx="0.5"
-            />
+            {/* Dynamic Airflow Loops */}
+            <path className="air-flow" d="M 50 25 L 50 135" fill="none" stroke="#22d3ee" strokeWidth="0.75" />
+            <path className="air-flow" d="M 150 25 L 150 135" fill="none" stroke="#c084fc" strokeWidth="0.75" />
+            <path className="air-flow" d="M 100 25 L 100 135" fill="none" stroke="#3b82f6" strokeWidth="0.75" />
 
-            {/* Front Glass frame */}
-            <rect
-              x="12"
-              y="10"
-              width="176"
-              height="130"
-              fill="none"
-              stroke="rgba(34,211,238,0.2)"
-              strokeWidth="3"
-            />
-            <text
-              x="100"
-              y="145"
-              fill="rgba(255,255,255,0.4)"
-              fontSize="4.5"
-              fontFamily="monospace"
-              textAnchor="middle"
-            >
-              SOFT GRAVITY CONVECTION DRAFTS
-            </text>
+            {/* Horizontal convection cycles */}
+            <path className="air-flow" d="M 20 65 Q 100 55 180 65" fill="none" stroke="rgba(34,211,238,0.3)" strokeWidth="0.5" />
+            <path className="air-flow" d="M 180 105 Q 100 115 20 105" fill="none" stroke="rgba(34,211,238,0.3)" strokeWidth="0.5" />
+
+            {/* Labels */}
+            <text x="52" y="142" fill="#22d3ee" fontSize="3.5" fontFamily="monospace">MUSHROOM BEDS (HIGH CO2)</text>
+            <text x="148" y="142" fill="#c084fc" fontSize="3.5" fontFamily="monospace" textAnchor="end">SAFFRON SHELVES (GROW LIGHTS)</text>
           </svg>
         );
       }
 
-      if (activeTab === "lighting") {
-        const opacityVal = ledIntensity / 100;
+      if (activeTab === "panel") {
         return (
           <svg
             className="w-full h-full bg-[#030F26] rounded-xl border border-white/5"
@@ -1803,95 +1733,53 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
           >
             <rect width="100%" height="100%" fill="url(#grid)" />
 
-            {/* Product racks outline */}
-            <rect
-              x="35"
-              y="25"
-              width="130"
-              height="100"
-              fill="#0C2340"
-              stroke="rgba(255,255,255,0.1)"
-              strokeWidth="1"
-            />
-
-            {/* Shelf lines */}
-            <line
-              x1="35"
-              y1="60"
-              x2="165"
-              y2="60"
-              stroke="rgba(255,255,255,0.2)"
-              strokeWidth="1"
-            />
-            <line
-              x1="35"
-              y1="95"
-              x2="165"
-              y2="95"
-              stroke="rgba(255,255,255,0.2)"
-              strokeWidth="1"
-            />
-
-            {/* Diffused light cones overlay */}
-            <polygon
-              points="35,25 65,25 65,125 35,125"
-              fill="url(#led-glow)"
-              opacity={opacityVal * 0.4}
-            />
-            <polygon
-              points="165,25 135,25 135,125 165,125"
-              fill="url(#led-glow)"
-              opacity={opacityVal * 0.4}
-            />
-
-            <defs>
-              <linearGradient id="led-glow" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#22d3ee" />
-                <stop offset="100%" stopColor="transparent" />
-              </linearGradient>
-            </defs>
-
-            {/* Vertical LED light bars */}
-            <line
-              x1="35"
-              y1="25"
-              x2="35"
-              y2="125"
-              stroke="#22d3ee"
-              strokeWidth="2.5"
-              opacity={opacityVal}
-            />
-            <line
-              x1="165"
-              y1="25"
-              x2="165"
-              y2="125"
-              stroke="#22d3ee"
-              strokeWidth="2.5"
-              opacity={opacityVal}
-            />
-
-            {/* Render items on shelves */}
-            <circle cx="50" cy="50" r="5" fill="#3b82f6" />
-            <circle cx="80" cy="50" r="5" fill="#f59e0b" />
-            <circle cx="110" cy="85" r="5" fill="#ef4444" />
-            <circle cx="140" cy="85" r="5" fill="#3b82f6" />
-
-            <text
-              x="100"
-              y="18"
-              fill="#3b82f6"
-              fontSize="4.5"
-              fontFamily="monospace"
-              textAnchor="middle"
-            >
-              VERTICAL MULLION LIGHTING MATRIX
+            {/* Automation controller interface */}
+            <rect x="15" y="15" width="170" height="120" rx="4" fill="#0C2340" stroke="#3b82f6" strokeWidth="1.5" />
+            <rect x="20" y="20" width="160" height="18" rx="2" fill="#030F26" />
+            
+            <text x="100" y="32" fill="#3b82f6" fontSize="6" fontFamily="monospace" fontWeight="bold" textAnchor="middle">
+              THERMOPLC CULTIVATION ENGINE v4.2
             </text>
+            <circle cx="28" cy="29" r="2.5" fill="#10b981" />
+            <text x="34" y="31" fill="#10b981" fontSize="4.5" fontFamily="monospace">ACTIVE</text>
+
+            {/* 3 Readout Cards */}
+            {/* Card 1: Temp */}
+            <rect x="25" y="45" width="45" height="35" rx="2" fill="#030F26" stroke="rgba(59,130,246,0.15)" />
+            <text x="47.5" y="55" fill="#94a3b8" fontSize="4" fontFamily="monospace" textAnchor="middle">TEMPERATURE</text>
+            <text x="47.5" y="70" fill="#22d3ee" fontSize="10" fontFamily="sans-serif" fontWeight="bold" textAnchor="middle">21.5°C</text>
+            <text x="47.5" y="76" fill="#10b981" fontSize="3" fontFamily="monospace" textAnchor="middle">TARGET: 18.0°C</text>
+
+            {/* Card 2: Humid */}
+            <rect x="77.5" y="45" width="45" height="35" rx="2" fill="#030F26" stroke="rgba(59,130,246,0.15)" />
+            <text x="100" y="55" fill="#94a3b8" fontSize="4" fontFamily="monospace" textAnchor="middle">REL. HUMIDITY</text>
+            <text x="100" y="70" fill="#3b82f6" fontSize="10" fontFamily="sans-serif" fontWeight="bold" textAnchor="middle">
+              {heaterOn ? "82.5%" : "42.0%"}
+            </text>
+            <text x="100" y="76" fill={heaterOn ? "#10b981" : "#ef4444"} fontSize="3" fontFamily="monospace" textAnchor="middle">
+              {heaterOn ? "HUMIDIFIER: ON" : "HUMIDIFIER: OFF"}
+            </text>
+
+            {/* Card 3: CO2 */}
+            <rect x="130" y="45" width="45" height="35" rx="2" fill="#030F26" stroke="rgba(59,130,246,0.15)" />
+            <text x="152.5" y="55" fill="#94a3b8" fontSize="4" fontFamily="monospace" textAnchor="middle">CO2 LEVELS</text>
+            <text x="152.5" y="70" fill="#f59e0b" fontSize="9" fontFamily="sans-serif" fontWeight="bold" textAnchor="middle">840 PPM</text>
+            <text x="152.5" y="76" fill="#10b981" fontSize="3" fontFamily="monospace" textAnchor="middle">DAMPER: CLOSED</text>
+
+            {/* Dynamic Saffron LED Schedule Status */}
+            <rect x="25" y="90" width="150" height="32" rx="2" fill="#030F26" stroke="rgba(192,132,252,0.15)" />
+            <text x="35" y="102" fill="#c084fc" fontSize="4.5" fontFamily="monospace" fontWeight="bold">GROW LIGHT SYSTEM</text>
+            <text x="35" y="112" fill="#94a3b8" fontSize="4" fontFamily="monospace">LED Dimmer Level: {ledIntensity}%</text>
+            <rect x="95" y="107" width="70" height="6" rx="1" fill="#1e1b4b" />
+            <rect x="95" y="107" width={`${ledIntensity * 0.7}`} height="6" rx="1" fill="#c084fc" />
+
+            <circle cx="162" cy="99" r="2" fill="#10b981" className="animate-pulse" />
+            <text x="155" y="100.5" fill="#10b981" fontSize="3" fontFamily="monospace" textAnchor="end">AUTO SPECTRUM PEAK</text>
           </svg>
         );
       }
 
-      if (activeTab === "thermostat") {
+      if (activeTab === "telemetry") {
         return (
           <svg
             className="w-full h-full bg-[#030F26] rounded-xl border border-white/5"
@@ -1899,100 +1787,43 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
           >
             <rect width="100%" height="100%" fill="url(#grid)" />
 
-            {/* Shelf view behind glass */}
-            <rect
-              x="25"
-              y="25"
-              width="150"
-              height="100"
-              fill="#0C2340"
-              opacity="0.6"
-            />
-            <line
-              x1="25"
-              y1="75"
-              x2="175"
-              y2="75"
-              stroke="rgba(255,255,255,0.15)"
-              strokeWidth="1.5"
-            />
+            {/* Real-time Telemetry Graph */}
+            <rect x="15" y="15" width="170" height="95" rx="3" fill="#051430" stroke="rgba(34,211,238,0.1)" />
+            <text x="25" y="27" fill="#22d3ee" fontSize="5" fontFamily="monospace" fontWeight="bold">REAL-TIME MICRO-CLIMATE TELEMETRY</text>
+            
+            {/* Gridlines */}
+            <line x1="20" y1="50" x2="180" y2="50" stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" />
+            <line x1="20" y1="75" x2="180" y2="75" stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" />
+            <line x1="20" y1="100" x2="180" y2="100" stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" />
 
-            {/* Condensation fog overlay if heater is off */}
-            {!heaterOn && (
-              <g opacity="0.65">
-                <rect
-                  x="25"
-                  y="25"
-                  width="150"
-                  height="100"
-                  fill="#e2e8f0"
-                  rx="1"
-                />
-                {/* simulated condensation streaks */}
-                <path
-                  d="M 50 35 L 50 85 M 90 40 L 90 70 M 140 30 L 140 100 M 110 60 L 110 110"
-                  stroke="rgba(255,255,255,0.8)"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                />
-                <text
-                  x="100"
-                  y="78"
-                  fill="#475569"
-                  fontSize="6.5"
-                  fontFamily="sans-serif"
-                  fontWeight="bold"
-                  textAnchor="middle"
-                >
-                  CONDENSATION FOG
-                </text>
-              </g>
-            )}
-
-            {/* Glass door frame with heater warning labels */}
-            <rect
-              x="20"
-              y="20"
-              width="160"
-              height="110"
-              fill="none"
-              stroke="#22d3ee"
-              strokeWidth="2.5"
-            />
-            <rect
-              x="22"
-              y="22"
-              width="156"
-              height="106"
+            {/* Graph Paths */}
+            {/* Humidity Line */}
+            <path
+              d="M 20 60 Q 40 45 60 70 T 100 55 T 140 80 T 180 50"
               fill="none"
               stroke="#3b82f6"
-              strokeWidth="0.75"
+              strokeWidth="1.5"
+            />
+            {/* CO2 Line */}
+            <path
+              d="M 20 90 Q 50 80 80 95 T 140 70 T 180 85"
+              fill="none"
+              stroke="#f59e0b"
+              strokeWidth="1"
+              strokeDasharray="2,2"
             />
 
-            {/* Heated frame callouts */}
-            <text
-              x="100"
-              y="15"
-              fill="#3b82f6"
-              fontSize="4.5"
-              fontFamily="monospace"
-              textAnchor="middle"
-            >
-              ANTI-FOG HEATED FRAME SYSTEM
-            </text>
-            <text
-              x="100"
-              y="142"
-              fill="rgba(255,255,255,0.4)"
-              fontSize="4.5"
-              fontFamily="monospace"
-              textAnchor="middle"
-            >
-              STATUS:{" "}
-              {heaterOn
-                ? "HEATER ON (FOG CLEARED)"
-                : "HEATER OFF (FOG FORMING)"}
-            </text>
+            {/* Sensor Tags */}
+            <circle cx="60" cy="70" r="2.5" fill="#3b82f6" />
+            <text x="65" y="68" fill="#3b82f6" fontSize="4.5" fontFamily="monospace">82.5% RH</text>
+            <circle cx="140" cy="70" r="2.5" fill="#f59e0b" />
+            <text x="145" y="68" fill="#f59e0b" fontSize="4.5" fontFamily="monospace">840 PPM CO2</text>
+
+            {/* Bottom Telemetry Details */}
+            <rect x="15" y="118" width="170" height="20" rx="2" fill="#0C2340" stroke="rgba(59,130,246,0.1)" />
+            <text x="25" y="130.5" fill="#94a3b8" fontSize="4" fontFamily="monospace">GATEWAY: ONLINE</text>
+            <text x="90" y="130.5" fill="#10b981" fontSize="4" fontFamily="monospace">TELEMETRY PRESETS: MIDH & NHB CERTIFIED</text>
+            <text x="175" y="130.5" fill="#22d3ee" fontSize="4" fontFamily="monospace" textAnchor="end">ALERTS: ACTIVE</text>
           </svg>
         );
       }
@@ -3262,40 +3093,36 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
               </div>
             )}
 
-            {/* Controls for display-cold-rooms */}
-            {slug === "display-cold-rooms" && activeTab === "lighting" && (
-              <div className="space-y-2">
-                <label className="text-[8px] text-slate-400 font-mono uppercase block">
-                  LED Light Dimmer ({ledIntensity}%)
-                </label>
-                <input
-                  type="range"
-                  min="0"
-                  max="100"
-                  value={ledIntensity}
-                  onChange={(e) => setLedIntensity(parseInt(e.target.value))}
-                  className="w-full accent-blue-500"
-                />
-              </div>
-            )}
-
-            {slug === "display-cold-rooms" && activeTab === "thermostat" && (
+            {/* Controls for mushroom-saffron-cultivation */}
+            {slug === "mushroom-saffron-cultivation" && activeTab === "panel" && (
               <div className="space-y-3">
+                <div className="space-y-1">
+                  <label className="text-[8px] text-slate-400 font-mono uppercase block">
+                    Grow LED Light Dimmer ({ledIntensity}%)
+                  </label>
+                  <input
+                    type="range"
+                    min="0"
+                    max="100"
+                    value={ledIntensity}
+                    onChange={(e) => setLedIntensity(parseInt(e.target.value))}
+                    className="w-full accent-purple-500"
+                  />
+                </div>
                 <button
                   onClick={() => setHeaterOn(!heaterOn)}
-                  className={`w-full py-2 text-[8.5px] font-bold rounded border transition-all flex items-center justify-center gap-1.5 ${
+                  className={`w-full py-2.5 text-[8.5px] font-bold rounded border transition-all flex items-center justify-center gap-1.5 ${
                     heaterOn
                       ? "bg-blue-500/20 border-blue-500 text-blue-300"
                       : "bg-transparent border-white/5 text-slate-500 hover:border-white/10"
                   }`}
                 >
                   <span>
-                    {heaterOn ? "Disable Frame Heater" : "Enable Frame Heater"}
+                    {heaterOn ? "Disable Humidifier (RH)" : "Enable Humidifier (RH)"}
                   </span>
                 </button>
-                <div className="text-[7.5px] text-slate-500 leading-normal">
-                  Turn the heated frame off to simulate what happens when
-                  external humidity condenses against the glass.
+                <div className="text-[7px] text-slate-500 leading-normal">
+                  Turn the ultrasonic humidifier off to simulate drop in cultivation micro-climate relative humidity.
                 </div>
               </div>
             )}
@@ -3303,7 +3130,7 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
             {/* Fallback description */}
             {((slug !== "modular-cold-rooms" &&
               slug !== "refrigeration-systems" &&
-              slug !== "display-cold-rooms") ||
+              slug !== "mushroom-saffron-cultivation") ||
               activeTab === "default") && (
               <div className="text-[8px] text-slate-400 space-y-1.5 leading-relaxed">
                 <div>
@@ -3364,7 +3191,7 @@ export default function ServiceDetailPage({
   const [volumeCuM, setVolumeCuM] = useState(28.3);
   const [coolingTR, setCoolingTR] = useState(0.8);
   const [pufThickness, setPufThickness] = useState("80mm");
-  const [estimatedSubsidy, setEstimatedSubsidy] = useState("Rs. 1,05,000");
+  const [estimatedSubsidy, setEstimatedSubsidy] = useState("35%");
 
   // Consultation form states
   const [formSent, setFormSent] = useState(false);
@@ -3439,15 +3266,7 @@ export default function ServiceDetailPage({
 
     // Subsidy rate matching (35% private, 50% FPO/Cooperative)
     const rate = calcApplicant === "fpo" ? 50 : 35;
-    const subsidy = (projectCost * rate) / 100;
-
-    const formattedSubsidy = new Intl.NumberFormat("en-IN", {
-      style: "currency",
-      currency: "INR",
-      maximumFractionDigits: 0,
-    }).format(subsidy);
-
-    setEstimatedSubsidy(formattedSubsidy);
+    setEstimatedSubsidy(`${rate}%`);
   }, [calcLength, calcWidth, calcHeight, calcTempProfile, calcApplicant]);
 
   const handleApplySizingToForm = () => {
@@ -3457,7 +3276,7 @@ export default function ServiceDetailPage({
 - Target cooling Profile: ${calcTempProfile.toUpperCase()}
 - Suggested Load: ${coolingTR} TR
 - PUF Panel thickness: ${pufThickness}
-- Expected Subsidy: ${estimatedSubsidy} (${calcApplicant === "fpo" ? "50%" : "35%"})`;
+- Expected Subsidy: ${estimatedSubsidy}`;
     setNotes(formattedNotes);
 
     // Scroll smoothly down to the consultation form
@@ -3491,7 +3310,7 @@ export default function ServiceDetailPage({
   const heroImageMap: Record<string, string> = {
     "modular-cold-rooms": "/images/cold_room_modular.png",
     "refrigeration-systems": "/images/refrigeration_system.png",
-    "display-cold-rooms": "/images/display_cold_room.png",
+    "mushroom-saffron-cultivation": "/images/mushroom_saffron_cultivation.png",
     "clean-rooms": "/images/cold_room_door.png",
     "ripening-chambers": "/images/ripening_chamber.png",
     "blast-chillers": "/images/blast_chiller.png",
@@ -3556,30 +3375,30 @@ export default function ServiceDetailPage({
         tag: "COIL HEAT",
       },
     ],
-    "display-cold-rooms": [
+    "mushroom-saffron-cultivation": [
       {
-        src: "/images/display_cold_room.png",
-        title: "Glass Showcase Cold Storage",
-        desc: "Self-closing rise hinged vacuum heated glass doors",
-        tag: "RETAIL DISPLAY",
-      },
-      {
-        src: "/images/cold_room_door.png",
-        title: "EPDM Framed Walk-In Doors",
-        desc: "Dual lip gaskets preventing air infiltration checks",
-        tag: "EPDM BARRIER",
-      },
-      {
-        src: "/images/control_panel_unit.png",
-        title: "Lighting & Heating Controls",
-        desc: "Integrated vertical led diffuse light panel wiring",
-        tag: "LIGHT & TEMP",
+        src: "/images/mushroom_saffron_cultivation.png",
+        title: "Cleanroom Climate Cultivation Chambers",
+        desc: "Precision vertical growth shelves with smart controls",
+        tag: "CULTIVATION SYSTEM",
       },
       {
         src: "/images/cold_room_modular.png",
-        title: "Supermarket Backroom Hold",
-        desc: "Walk-in storage sizing setup matching retail flow",
-        tag: "MODULAR HOLD",
+        title: "Cam-Lock PUF Shell Walls",
+        desc: "Rigid insulation grids maintaining high humidity hermeticity",
+        tag: "INSULATED CORE",
+      },
+      {
+        src: "/images/control_panel_unit.png",
+        title: "IoT Growth Control Panel",
+        desc: "Automatic CO2, lighting levels, and airflow adjustments",
+        tag: "PLC AUTOMATION",
+      },
+      {
+        src: "/images/evaporator.png",
+        title: "Ventilation and HEPA Filtration Systems",
+        desc: "High velocity HEPA filtered air exchanges",
+        tag: "AIR QUALITY",
       },
     ],
     "clean-rooms": [
@@ -4109,8 +3928,20 @@ export default function ServiceDetailPage({
                       </label>
                       <input
                         type="number"
+                        min="0"
+                        max="100"
                         value={calcLength}
-                        onChange={(e) => setCalcLength(e.target.value)}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          if (val === "") {
+                            setCalcLength("");
+                            return;
+                          }
+                          const num = parseFloat(val);
+                          if (num < 0) setCalcLength("0");
+                          else if (num > 100) setCalcLength("100");
+                          else setCalcLength(val);
+                        }}
                         className="w-full rounded-lg bg-slate-950/50 border border-white/10 p-2 text-xs font-mono text-white text-center focus:outline-none focus:border-blue-500"
                       />
                     </div>
@@ -4120,8 +3951,20 @@ export default function ServiceDetailPage({
                       </label>
                       <input
                         type="number"
+                        min="0"
+                        max="100"
                         value={calcWidth}
-                        onChange={(e) => setCalcWidth(e.target.value)}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          if (val === "") {
+                            setCalcWidth("");
+                            return;
+                          }
+                          const num = parseFloat(val);
+                          if (num < 0) setCalcWidth("0");
+                          else if (num > 100) setCalcWidth("100");
+                          else setCalcWidth(val);
+                        }}
                         className="w-full rounded-lg bg-slate-950/50 border border-white/10 p-2 text-xs font-mono text-white text-center focus:outline-none focus:border-blue-500"
                       />
                     </div>
@@ -4131,8 +3974,20 @@ export default function ServiceDetailPage({
                       </label>
                       <input
                         type="number"
+                        min="0"
+                        max="100"
                         value={calcHeight}
-                        onChange={(e) => setCalcHeight(e.target.value)}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          if (val === "") {
+                            setCalcHeight("");
+                            return;
+                          }
+                          const num = parseFloat(val);
+                          if (num < 0) setCalcHeight("0");
+                          else if (num > 100) setCalcHeight("100");
+                          else setCalcHeight(val);
+                        }}
                         className="w-full rounded-lg bg-slate-950/50 border border-white/10 p-2 text-xs font-mono text-white text-center focus:outline-none focus:border-blue-500"
                       />
                     </div>
@@ -4489,7 +4344,7 @@ export default function ServiceDetailPage({
                   const iconsMap: Record<string, React.ComponentType<any>> = {
                     "modular-cold-rooms": Box,
                     "refrigeration-systems": Settings,
-                    "display-cold-rooms": Snowflake,
+                    "mushroom-saffron-cultivation": Sprout,
                     "clean-rooms": ShieldCheck,
                     "ripening-chambers": Sliders,
                     "blast-chillers": Wind,
@@ -4729,8 +4584,8 @@ export default function ServiceDetailPage({
                       type="submit"
                       className="w-full flex items-center justify-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-500 py-3.5 text-xs font-bold text-white shadow-lg active:scale-[0.98] transition-all font-display group/btn cursor-pointer"
                     >
-                      <Phone className="h-3.5 w-3.5 text-inherit transition-transform group-hover/btn:scale-110" />
-                      <span>Request Callback</span>
+                      <Send className="h-3.5 w-3.5 text-inherit transition-transform group-hover/btn:translate-x-0.5" />
+                      <span>Talk to Cold Chain Expert</span>
                     </button>
 
                     <a

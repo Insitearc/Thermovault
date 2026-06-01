@@ -24,6 +24,8 @@ import {
   ChevronRight,
   X,
   Maximize2,
+  ChevronDown,
+  Thermometer,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -39,6 +41,12 @@ interface ProjectItem {
 export default function ProjectsPage() {
   const [filter, setFilter] = useState<"all" | "interiors" | "machinery" | "execution">("all");
   const [activeLightboxProject, setActiveLightboxProject] = useState<ProjectItem | null>(null);
+  const [visibleCount, setVisibleCount] = useState(6);
+
+  const handleFilterChange = (newFilter: typeof filter) => {
+    setFilter(newFilter);
+    setVisibleCount(6);
+  };
 
   const projects: ProjectItem[] = [
     {
@@ -256,11 +264,11 @@ export default function ProjectsPage() {
       <section className="bg-[#0C2340] text-white py-6 border-b border-white/5 relative z-10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-5 gap-6 text-center">
           {[
-            { label: "Projects Completed", value: "200+", icon: ShieldCheck },
-            { label: "Industries Served", value: "15+", icon: Users },
-            { label: "States Covered", value: "15+", icon: MapPin },
-            { label: "On-Time Delivery", value: "100%", icon: Clock },
-            { label: "Client Satisfaction", value: "100%", icon: Award },
+            { label: "PUF Core Density", value: "40 kg/m³", icon: ShieldCheck },
+            { label: "Thermal Conductivity", value: "0.022 W/mK", icon: Thermometer },
+            { label: "Govt Subsidy Audited", value: "35% - 50%", icon: Award },
+            { label: "Micro-Climate Tracking", value: "24/7", icon: Clock },
+            { label: "Food-Grade Materials", value: "100%", icon: CheckCircle2 },
           ].map((stat, idx) => {
             const Icon = stat.icon;
             return (
@@ -303,7 +311,7 @@ export default function ProjectsPage() {
             ].map((btn) => (
               <button
                 key={btn.id}
-                onClick={() => setFilter(btn.id as any)}
+                onClick={() => handleFilterChange(btn.id as any)}
                 className={`rounded-full px-4 py-2 text-xs font-bold transition-all duration-300 active:scale-95 flex items-center gap-2 border ${
                   filter === btn.id
                     ? "bg-[#0c2340] text-white border-[#0c2340] shadow-md shadow-slate-900/10"
@@ -326,7 +334,7 @@ export default function ProjectsPage() {
             className="columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6 [column-fill:_balance]"
           >
             <AnimatePresence mode="popLayout">
-              {filteredProjects.map((p, idx) => (
+              {filteredProjects.slice(0, visibleCount).map((p, idx) => (
                 <motion.div
                   layout
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -383,6 +391,24 @@ export default function ProjectsPage() {
               ))}
             </AnimatePresence>
           </motion.div>
+
+          {/* Premium Glassmorphic "View More" Button */}
+          {filteredProjects.length > visibleCount && (
+            <div className="flex justify-center pt-10">
+              <button
+                onClick={() => setVisibleCount((prev) => prev + 6)}
+                className="group relative inline-flex items-center gap-2.5 rounded-full bg-[#0C2340] hover:bg-blue-600 border border-white/10 px-8 py-4 text-xs font-bold text-white shadow-lg active:scale-[0.98] transition-all duration-300 font-display select-none cursor-pointer"
+              >
+                <span>View More Projects</span>
+                <motion.div
+                  animate={{ y: [0, 4, 0] }}
+                  transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+                >
+                  <ChevronDown className="h-4 w-4 text-blue-400 group-hover:text-white" />
+                </motion.div>
+              </button>
+            </div>
+          )}
         </div>
       </section>
 

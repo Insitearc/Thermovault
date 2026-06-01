@@ -25,7 +25,7 @@ export default function Navbar() {
         { label: "SERVICES HUB", href: "/services" },
         { label: "MODULAR COLD ROOMS", href: "/services/modular-cold-rooms" },
         { label: "REFRIGERATION SYSTEMS", href: "/services/refrigeration-systems" },
-        { label: "DISPLAY COLD ROOMS", href: "/services/display-cold-rooms" },
+        { label: "MUSHROOM & SAFFRON CULTIVATION", href: "/services/mushroom-saffron-cultivation" },
         { label: "RIPENING CHAMBERS", href: "/services/ripening-chambers" },
         { label: "BLAST CHILLERS", href: "/services/blast-chillers" },
         { label: "AMC & MAINTENANCE", href: "/services/amc" }

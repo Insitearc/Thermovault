@@ -182,7 +182,7 @@ export default function ContactPage() {
                 </div>
               ) : (
                 <form onSubmit={handleFormSubmit} className="space-y-4">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="text-[9px] text-slate-500 font-mono block mb-1">
                         Your Name
@@ -231,7 +231,7 @@ export default function ContactPage() {
                     />
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="text-[9px] text-slate-500 font-mono block mb-1">
                         Application Sector

@@ -19,16 +19,17 @@ import {
   Clock,
   Sparkles,
   CheckCircle2,
+  Thermometer,
 } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function AboutPage() {
   const stats = [
-    { label: "Projects Completed", value: "200+", icon: ShieldCheck },
-    { label: "Happy Clients", value: "100+", icon: Users },
-    { label: "States Served", value: "15+", icon: MapPin },
-    { label: "Years Experience", value: "10+", icon: Award },
-    { label: "Support Available", value: "24/7", icon: Clock },
+    { label: "PUF Core Density", value: "40 kg/m³", icon: ShieldCheck },
+    { label: "Thermal Conductivity", value: "0.022 W/mK", icon: Thermometer },
+    { label: "Govt Subsidy Audited", value: "35% - 50%", icon: Award },
+    { label: "Micro-Climate Tracking", value: "24/7", icon: Clock },
+    { label: "Food-Grade Materials", value: "100%", icon: CheckCircle2 },
   ];
 
   return (
