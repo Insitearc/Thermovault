@@ -727,13 +727,13 @@ export default function AboutPage() {
               <span>WhatsApp Us</span>
             </a>
 
-            <button
-              onClick={openModal}
+            <Link
+              href="/contact"
               className="flex items-center gap-2 rounded-md border border-white/40 bg-white/5 px-5 py-3 text-xs font-bold text-white transition-all hover:bg-white/10 active:scale-95"
             >
               <FileText className="h-4 w-4" />
               <span>Request Quotation</span>
-            </button>
+            </Link>
           </div>
         </div>
       </section>
