@@ -140,20 +140,24 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              {/* Mock active coordinates Pune MIDC map grid visualizer */}
-              <div className="rounded-2xl border border-slate-100 bg-[#0C2340] p-6 relative overflow-hidden h-48 flex items-center justify-center text-white shadow-md">
-                <div className="absolute inset-0 bg-[radial-gradient(#ffffff03_1px,transparent_1px)] [background-size:12px_12px] opacity-45" />
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(29,158,117,0.03)_1px,transparent_1px)] bg-[size:3rem_3rem]" />
-
-                <div className="relative z-10 text-center space-y-2">
-                  <Terminal className="h-5 w-5 text-blue-400 mx-auto animate-pulse" />
-                  <div className="text-[10px] font-bold uppercase tracking-wider font-mono">
-                    Pune Bhosari MIDC Coordinate Map
-                  </div>
-                  <div className="text-[9px] text-slate-300 font-mono leading-relaxed">
-                    Lat: 18.6298° N | Lon: 73.8446° E<br />
-                    Pune Service Fleet Active Area
-                  </div>
+              {/* Interactive Google Map embed */}
+              <div className="rounded-2xl border border-slate-200/80 bg-slate-50 overflow-hidden h-60 w-full shadow-md relative group transition-all duration-300 hover:shadow-lg">
+                <iframe
+                  title="ThermoVault Systems Office Location Map"
+                  src="https://maps.google.com/maps?q=At%20post%20Kadadhe%20Colony%20Rajgurunagar,%20Pune&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="grayscale contrast-[1.1] opacity-95 transition-all duration-300 group-hover:grayscale-0 group-hover:opacity-100"
+                />
+                
+                {/* Visual Glassmorphic Tag overlay */}
+                <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-sm border border-slate-200/50 rounded-lg px-2.5 py-1 flex items-center gap-1.5 shadow-sm pointer-events-none select-none">
+                  <span className="h-2 w-2 rounded-full bg-blue-600 animate-pulse" />
+                  <span className="text-[9px] font-bold text-[#0c2340] tracking-wider uppercase font-mono">Headquarters Location</span>
                 </div>
               </div>
             </div>
