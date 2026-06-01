@@ -652,20 +652,20 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
             )}
             <defs>
               <linearGradient id="heat-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#059669" />
-                <stop offset="40%" stopColor="#0d9488" />
-                <stop offset="100%" stopColor="#0284c7" />
+                <stop offset="0%" stopColor="#3b82f6" />
+                <stop offset="40%" stopColor="#06b6d4" />
+                <stop offset="100%" stopColor="#1d4ed8" />
               </linearGradient>
             </defs>
 
             {/* Outer Chamber outline */}
-            <rect x="10" y="10" width="180" height="130" rx="8" fill="none" stroke="rgba(16,185,129,0.3)" strokeWidth="1.5" />
+            <rect x="10" y="10" width="180" height="130" rx="8" fill="none" stroke="rgba(59, 130, 246,0.3)" strokeWidth="1.5" />
             
             {/* Evaporator Unit */}
-            <rect x="15" y="30" width="20" height="40" rx="2" fill="#0c2340" stroke="#10b981" strokeWidth="1" />
+            <rect x="15" y="30" width="20" height="40" rx="2" fill="#0c2340" stroke="#3b82f6" strokeWidth="1" />
             {/* Evaporator Fan */}
-            <circle cx="25" cy="50" r="7" fill="#030f26" stroke="#10b981" strokeWidth="0.5" />
-            <path className="fan-blade" d="M 25 43 L 25 57 M 18 50 L 32 50" stroke="#10b981" strokeWidth="1.5" />
+            <circle cx="25" cy="50" r="7" fill="#030f26" stroke="#3b82f6" strokeWidth="0.5" />
+            <path className="fan-blade" d="M 25 43 L 25 57 M 18 50 L 32 50" stroke="#3b82f6" strokeWidth="1.5" />
 
             {/* Airflow paths */}
             {fanSpeed !== "off" && (
@@ -680,11 +680,11 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
             {/* Chamber contents / shelves */}
             <line x1="120" y1="65" x2="160" y2="65" stroke="rgba(255,255,255,0.15)" strokeWidth="2" />
             <line x1="120" y1="90" x2="160" y2="90" stroke="rgba(255,255,255,0.15)" strokeWidth="2" />
-            <rect x="125" y="50" width="10" height="15" fill="rgba(16,185,129,0.2)" stroke="#10b981" strokeWidth="0.5" rx="1" />
-            <rect x="145" y="75" width="12" height="15" fill="rgba(16,185,129,0.2)" stroke="#10b981" strokeWidth="0.5" rx="1" />
+            <rect x="125" y="50" width="10" height="15" fill="rgba(59, 130, 246,0.2)" stroke="#3b82f6" strokeWidth="0.5" rx="1" />
+            <rect x="145" y="75" width="12" height="15" fill="rgba(59, 130, 246,0.2)" stroke="#3b82f6" strokeWidth="0.5" rx="1" />
 
             {/* Labels */}
-            <text x="25" y="25" fill="#10b981" fontSize="5" fontFamily="monospace" textAnchor="middle">EVAPORATOR</text>
+            <text x="25" y="25" fill="#3b82f6" fontSize="5" fontFamily="monospace" textAnchor="middle">EVAPORATOR</text>
             <text x="140" y="125" fill="rgba(255,255,255,0.3)" fontSize="5" fontFamily="monospace" textAnchor="middle">PRODUCT CARRIER</text>
           </svg>
         );
@@ -699,18 +699,18 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
             <rect width="100%" height="100%" fill="url(#grid)" />
 
             {/* Left Panel slice */}
-            <rect x="25" y="30" width={widthVal} height="90" fill="#0C2340" stroke="#10b981" strokeWidth="1" rx="2" />
-            <rect x="28" y="33" width={widthVal - 6} height="84" fill="#030F26" stroke="rgba(16,185,129,0.1)" strokeWidth="1" rx="1" />
+            <rect x="25" y="30" width={widthVal} height="90" fill="#0C2340" stroke="#3b82f6" strokeWidth="1" rx="2" />
+            <rect x="28" y="33" width={widthVal - 6} height="84" fill="#030F26" stroke="rgba(59, 130, 246,0.1)" strokeWidth="1" rx="1" />
             {/* Polyurethane insulation filling texture */}
-            <line x1="32" y1="36" x2="32" y2="114" stroke="rgba(16,185,129,0.2)" strokeWidth="1" strokeDasharray="1 3" />
-            <line x1={22 + widthVal} y1="36" x2={22 + widthVal} y2="114" stroke="rgba(16,185,129,0.2)" strokeWidth="1" strokeDasharray="1 3" />
+            <line x1="32" y1="36" x2="32" y2="114" stroke="rgba(59, 130, 246,0.2)" strokeWidth="1" strokeDasharray="1 3" />
+            <line x1={22 + widthVal} y1="36" x2={22 + widthVal} y2="114" stroke="rgba(59, 130, 246,0.2)" strokeWidth="1" strokeDasharray="1 3" />
 
             {/* Right Panel slice (moves dynamically) */}
             <g transform={`translate(${offset}, 0)`}>
-              <rect x="95" y="30" width={widthVal} height="90" fill="#0C2340" stroke="#10b981" strokeWidth="1" rx="2" />
-              <rect x="98" y="33" width={widthVal - 6} height="84" fill="#030F26" stroke="rgba(16,185,129,0.1)" strokeWidth="1" rx="1" />
-              <line x1="102" y1="36" x2="102" y2="114" stroke="rgba(16,185,129,0.2)" strokeWidth="1" strokeDasharray="1 3" />
-              <line x1={92 + widthVal} y1="36" x2={92 + widthVal} y2="114" stroke="rgba(16,185,129,0.2)" strokeWidth="1" strokeDasharray="1 3" />
+              <rect x="95" y="30" width={widthVal} height="90" fill="#0C2340" stroke="#3b82f6" strokeWidth="1" rx="2" />
+              <rect x="98" y="33" width={widthVal - 6} height="84" fill="#030F26" stroke="rgba(59, 130, 246,0.1)" strokeWidth="1" rx="1" />
+              <line x1="102" y1="36" x2="102" y2="114" stroke="rgba(59, 130, 246,0.2)" strokeWidth="1" strokeDasharray="1 3" />
+              <line x1={92 + widthVal} y1="36" x2={92 + widthVal} y2="114" stroke="rgba(59, 130, 246,0.2)" strokeWidth="1" strokeDasharray="1 3" />
 
               {/* Pin receiver inside right panel */}
               <circle cx="102" cy="75" r="4.5" fill="none" stroke="#22d3ee" strokeWidth="1.5" />
@@ -718,7 +718,7 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
             </g>
 
             {/* Cam lock hook inside left panel */}
-            <line x1={20 + widthVal} y1="75" x2={52 + widthVal} y2="75" stroke="#10b981" strokeWidth="2.5" />
+            <line x1={20 + widthVal} y1="75" x2={52 + widthVal} y2="75" stroke="#3b82f6" strokeWidth="2.5" />
             <path 
               d={camLocked ? `M ${40+widthVal} 75 C ${40+widthVal} 68, ${68+widthVal} 68, ${68+widthVal} 75` : `M ${40+widthVal} 75 C ${40+widthVal} 55, ${52+widthVal} 50, ${52+widthVal} 60`} 
               fill="none" 
@@ -728,8 +728,8 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
             />
 
             {/* Label callouts */}
-            <text x="35" y="23" fill="#10b981" fontSize="4.5" fontFamily="monospace">PANEL A ({pufThickness}mm)</text>
-            <text x="110" y="23" fill="#10b981" fontSize="4.5" fontFamily="monospace">PANEL B ({pufThickness}mm)</text>
+            <text x="35" y="23" fill="#3b82f6" fontSize="4.5" fontFamily="monospace">PANEL A ({pufThickness}mm)</text>
+            <text x="110" y="23" fill="#3b82f6" fontSize="4.5" fontFamily="monospace">PANEL B ({pufThickness}mm)</text>
 
             <text x="100" y="138" fill="rgba(255,255,255,0.4)" fontSize="5.5" fontFamily="monospace" textAnchor="middle">
               {camLocked ? "JOINT COMPRESSED & LOCKED" : "ALIGN PANELS & ROTATE LATCH"}
@@ -791,7 +791,7 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
                       : "M 0 10 L 20 15 L 40 18 L 60 12 L 80 8 L 100 11 L 120 14 L 140 9 L 160 10"
                     } 
                     fill="none" 
-                    stroke={alarmActive ? "#ef4444" : "#10b981"} 
+                    stroke={alarmActive ? "#ef4444" : "#3b82f6"} 
                     strokeWidth="1.5"
                     className="transition-all duration-300"
                   />
@@ -830,16 +830,16 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
             <rect width="100%" height="100%" fill="url(#grid)" />
 
             {/* Compressor */}
-            <rect x="25" y="90" width="24" height="24" rx="12" fill="#0C2340" stroke="#10b981" strokeWidth="1" />
-            <text x="37" y="104" fill="#10b981" fontSize="4.5" fontFamily="monospace" textAnchor="middle">COMP</text>
+            <rect x="25" y="90" width="24" height="24" rx="12" fill="#0C2340" stroke="#3b82f6" strokeWidth="1" />
+            <text x="37" y="104" fill="#3b82f6" fontSize="4.5" fontFamily="monospace" textAnchor="middle">COMP</text>
 
             {/* Condenser */}
-            <rect x="85" y="20" width="30" height="20" rx="2" fill="#0C2340" stroke="#10b981" strokeWidth="1" />
-            <text x="100" y="32" fill="#10b981" fontSize="4.5" fontFamily="monospace" textAnchor="middle">CONDENSER</text>
+            <rect x="85" y="20" width="30" height="20" rx="2" fill="#0C2340" stroke="#3b82f6" strokeWidth="1" />
+            <text x="100" y="32" fill="#3b82f6" fontSize="4.5" fontFamily="monospace" textAnchor="middle">CONDENSER</text>
 
             {/* Receiver */}
-            <rect x="150" y="20" width="20" height="30" rx="3" fill="#0C2340" stroke="#10b981" strokeWidth="1" />
-            <text x="160" y="37" fill="#10b981" fontSize="4" fontFamily="monospace" textAnchor="middle">RECEIVER</text>
+            <rect x="150" y="20" width="20" height="30" rx="3" fill="#0C2340" stroke="#3b82f6" strokeWidth="1" />
+            <text x="160" y="37" fill="#3b82f6" fontSize="4" fontFamily="monospace" textAnchor="middle">RECEIVER</text>
 
             {/* Expansion Valve */}
             <polygon points="160,102 170,95 170,109" fill="#0C2340" stroke="#22d3ee" strokeWidth="1" />
@@ -874,22 +874,22 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
             <rect width="100%" height="100%" fill="url(#grid)" />
             
             {/* Condensing unit chassis outer layout blueprint */}
-            <rect x="25" y="25" width="150" height="100" rx="4" fill="none" stroke="rgba(16,185,129,0.3)" strokeWidth="1" />
-            <rect x="30" y="30" width="140" height="90" rx="2" fill="#0C2340" stroke="#10b981" strokeWidth="1" />
+            <rect x="25" y="25" width="150" height="100" rx="4" fill="none" stroke="rgba(59, 130, 246,0.3)" strokeWidth="1" />
+            <rect x="30" y="30" width="140" height="90" rx="2" fill="#0C2340" stroke="#3b82f6" strokeWidth="1" />
 
             {/* Fan guards */}
-            <circle cx="65" cy="75" r="26" fill="#030F26" stroke="#10b981" strokeWidth="0.75" />
-            <circle cx="135" cy="75" r="26" fill="#030F26" stroke="#10b981" strokeWidth="0.75" />
+            <circle cx="65" cy="75" r="26" fill="#030F26" stroke="#3b82f6" strokeWidth="0.75" />
+            <circle cx="135" cy="75" r="26" fill="#030F26" stroke="#3b82f6" strokeWidth="0.75" />
             
             {/* Fan Blades spinning */}
             <path className="fan-blade" style={{ transformOrigin: "65px 75px", animation: `fspin ${fanSpinSpeed} linear infinite` }} d="M 65 52 L 65 98 M 42 75 L 88 75" stroke="#22d3ee" strokeWidth="2.5" />
             <path className="fan-blade" style={{ transformOrigin: "135px 75px", animation: `fspin ${fanSpinSpeed} linear infinite` }} d="M 135 52 L 135 98 M 112 75 L 158 75" stroke="#22d3ee" strokeWidth="2.5" />
 
             {/* Compressor Dome placement visual */}
-            <rect x="90" y="65" width="20" height="30" rx="8" fill="#0c2340" stroke="#10b981" strokeWidth="1" />
+            <rect x="90" y="65" width="20" height="30" rx="8" fill="#0c2340" stroke="#3b82f6" strokeWidth="1" />
             
             {/* Technical labeling */}
-            <text x="100" y="20" fill="#10b981" fontSize="4.5" fontFamily="monospace" textAnchor="middle">OUTDOOR DUAL-FAN CONDENSING UNIT</text>
+            <text x="100" y="20" fill="#3b82f6" fontSize="4.5" fontFamily="monospace" textAnchor="middle">OUTDOOR DUAL-FAN CONDENSING UNIT</text>
             <text x="100" y="112" fill="rgba(255,255,255,0.4)" fontSize="4.5" fontFamily="monospace" textAnchor="middle">COOPELAND RESILIENT GRIDS</text>
           </svg>
         );
@@ -899,13 +899,13 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
         return (
           <div className="w-full h-full bg-[#030F26] rounded-xl border border-white/5 p-4 flex gap-4 font-mono">
             {/* Control Panel Door */}
-            <div className="w-2/5 border border-[#10b981]/50 bg-slate-900 rounded-lg p-3 flex flex-col justify-between select-none">
+            <div className="w-2/5 border border-[#3b82f6]/50 bg-slate-900 rounded-lg p-3 flex flex-col justify-between select-none">
               <div className="text-[8px] text-center text-blue-400 border-b border-white/5 pb-1">PANEL OVERRIDE</div>
               
               {/* LED lamps */}
               <div className="flex justify-around py-2">
                 <div className="text-center">
-                  <div className={`h-4 w-4 rounded-full mx-auto mb-1 transition-all ${panelSwitches.power ? "bg-blue-500 shadow-[0_0_8px_rgba(16,185,129,0.7)]" : "bg-blue-950"}`} />
+                  <div className={`h-4 w-4 rounded-full mx-auto mb-1 transition-all ${panelSwitches.power ? "bg-blue-500 shadow-[0_0_8px_rgba(59, 130, 246,0.7)]" : "bg-blue-950"}`} />
                   <span className="text-[6px] text-slate-500">POWER</span>
                 </div>
                 <div className="text-center">
@@ -980,8 +980,8 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
             <rect width="100%" height="100%" fill="url(#grid)" />
 
             {/* Ceiling Gravity Coils */}
-            <rect x="20" y="15" width="160" height="12" rx="1" fill="#0C2340" stroke="#10b981" strokeWidth="1" />
-            <text x="100" y="23" fill="#10b981" fontSize="4.5" fontFamily="monospace" textAnchor="middle">GRAVITY COOLING COILS</text>
+            <rect x="20" y="15" width="160" height="12" rx="1" fill="#0C2340" stroke="#3b82f6" strokeWidth="1" />
+            <text x="100" y="23" fill="#3b82f6" fontSize="4.5" fontFamily="monospace" textAnchor="middle">GRAVITY COOLING COILS</text>
 
             {/* Display racks */}
             <line x1="25" y1="55" x2="175" y2="55" stroke="rgba(255,255,255,0.2)" strokeWidth="1.5" />
@@ -994,9 +994,9 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
             <line className="g-flow" x1="155" y1="30" x2="155" y2="135" stroke="#22d3ee" strokeWidth="0.75" />
 
             {/* Beverage display items */}
-            <rect x="55" y="42" width="6" height="12" fill="rgba(16,185,129,0.3)" stroke="#10b981" strokeWidth="0.5" rx="0.5" />
-            <rect x="63" y="42" width="6" height="12" fill="rgba(16,185,129,0.3)" stroke="#10b981" strokeWidth="0.5" rx="0.5" />
-            <rect x="120" y="77" width="6" height="12" fill="rgba(16,185,129,0.3)" stroke="#10b981" strokeWidth="0.5" rx="0.5" />
+            <rect x="55" y="42" width="6" height="12" fill="rgba(59, 130, 246,0.3)" stroke="#3b82f6" strokeWidth="0.5" rx="0.5" />
+            <rect x="63" y="42" width="6" height="12" fill="rgba(59, 130, 246,0.3)" stroke="#3b82f6" strokeWidth="0.5" rx="0.5" />
+            <rect x="120" y="77" width="6" height="12" fill="rgba(59, 130, 246,0.3)" stroke="#3b82f6" strokeWidth="0.5" rx="0.5" />
 
             {/* Front Glass frame */}
             <rect x="12" y="10" width="176" height="130" fill="none" stroke="rgba(34,211,238,0.2)" strokeWidth="3" />
@@ -1034,12 +1034,12 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
             <line x1="165" y1="25" x2="165" y2="125" stroke="#22d3ee" strokeWidth="2.5" opacity={opacityVal} />
 
             {/* Render items on shelves */}
-            <circle cx="50" cy="50" r="5" fill="#10b981" />
+            <circle cx="50" cy="50" r="5" fill="#3b82f6" />
             <circle cx="80" cy="50" r="5" fill="#f59e0b" />
             <circle cx="110" cy="85" r="5" fill="#ef4444" />
             <circle cx="140" cy="85" r="5" fill="#3b82f6" />
 
-            <text x="100" y="18" fill="#10b981" fontSize="4.5" fontFamily="monospace" textAnchor="middle">VERTICAL MULLION LIGHTING MATRIX</text>
+            <text x="100" y="18" fill="#3b82f6" fontSize="4.5" fontFamily="monospace" textAnchor="middle">VERTICAL MULLION LIGHTING MATRIX</text>
           </svg>
         );
       }
@@ -1065,10 +1065,10 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
 
             {/* Glass door frame with heater warning labels */}
             <rect x="20" y="20" width="160" height="110" fill="none" stroke="#22d3ee" strokeWidth="2.5" />
-            <rect x="22" y="22" width="156" height="106" fill="none" stroke="#10b981" strokeWidth="0.75" />
+            <rect x="22" y="22" width="156" height="106" fill="none" stroke="#3b82f6" strokeWidth="0.75" />
 
             {/* Heated frame callouts */}
-            <text x="100" y="15" fill="#10b981" fontSize="4.5" fontFamily="monospace" textAnchor="middle">ANTI-FOG HEATED FRAME SYSTEM</text>
+            <text x="100" y="15" fill="#3b82f6" fontSize="4.5" fontFamily="monospace" textAnchor="middle">ANTI-FOG HEATED FRAME SYSTEM</text>
             <text x="100" y="142" fill="rgba(255,255,255,0.4)" fontSize="4.5" fontFamily="monospace" textAnchor="middle">
               STATUS: {heaterOn ? "HEATER ON (FOG CLEARED)" : "HEATER OFF (FOG FORMING)"}
             </text>
@@ -1090,10 +1090,10 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
             <rect width="100%" height="100%" fill="url(#grid)" />
 
             {/* HEPA filter ceiling grid */}
-            <rect x="15" y="15" width="170" height="15" fill="#0C2340" stroke="#10b981" strokeWidth="1" />
-            <line x1="57" y1="15" x2="57" y2="30" stroke="#10b981" strokeWidth="1" />
-            <line x1="100" y1="15" x2="100" y2="30" stroke="#10b981" strokeWidth="1" />
-            <line x1="142" y1="15" x2="142" y2="30" stroke="#10b981" strokeWidth="1" />
+            <rect x="15" y="15" width="170" height="15" fill="#0C2340" stroke="#3b82f6" strokeWidth="1" />
+            <line x1="57" y1="15" x2="57" y2="30" stroke="#3b82f6" strokeWidth="1" />
+            <line x1="100" y1="15" x2="100" y2="30" stroke="#3b82f6" strokeWidth="1" />
+            <line x1="142" y1="15" x2="142" y2="30" stroke="#3b82f6" strokeWidth="1" />
 
             {/* Vertical parallel air loops */}
             <line className="laminar-path" x1="35" y1="30" x2="35" y2="125" stroke="#22d3ee" strokeWidth="1" />
@@ -1102,10 +1102,10 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
             <line className="laminar-path" x1="165" y1="30" x2="165" y2="125" stroke="#22d3ee" strokeWidth="1" />
 
             {/* Low-level return vents */}
-            <rect x="15" y="125" width="20" height="10" fill="#0C2340" stroke="#10b981" strokeWidth="0.5" />
-            <rect x="165" y="125" width="20" height="10" fill="#0C2340" stroke="#10b981" strokeWidth="0.5" />
+            <rect x="15" y="125" width="20" height="10" fill="#0C2340" stroke="#3b82f6" strokeWidth="0.5" />
+            <rect x="165" y="125" width="20" height="10" fill="#0C2340" stroke="#3b82f6" strokeWidth="0.5" />
 
-            <text x="100" y="24" fill="#10b981" fontSize="4.5" fontFamily="monospace" textAnchor="middle">HEPA FILTERS (99.97% EFFICIENCY)</text>
+            <text x="100" y="24" fill="#3b82f6" fontSize="4.5" fontFamily="monospace" textAnchor="middle">HEPA FILTERS (99.97% EFFICIENCY)</text>
             <text x="100" y="142" fill="rgba(255,255,255,0.4)" fontSize="4.5" fontFamily="monospace" textAnchor="middle">VERTICAL UNIDIRECTIONAL LAMINAR AIRFLOW</text>
           </svg>
         );
@@ -1118,25 +1118,25 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
 
             {/* Chamber partitions */}
             {/* Corridor */}
-            <rect x="15" y="30" width="50" height="90" fill="rgba(255,255,255,0.02)" stroke="rgba(16,185,129,0.2)" />
+            <rect x="15" y="30" width="50" height="90" fill="rgba(255,255,255,0.02)" stroke="rgba(59, 130, 246,0.2)" />
             <text x="40" y="45" fill="rgba(255,255,255,0.4)" fontSize="4.5" fontFamily="monospace" textAnchor="middle">CORRIDOR</text>
             <text x="40" y="75" fill="#ef4444" fontSize="6.5" fontFamily="monospace" textAnchor="middle">0 Pa</text>
 
             {/* Ante-room */}
-            <rect x="65" y="30" width="60" height="90" fill="rgba(255,255,255,0.02)" stroke="rgba(16,185,129,0.2)" />
+            <rect x="65" y="30" width="60" height="90" fill="rgba(255,255,255,0.02)" stroke="rgba(59, 130, 246,0.2)" />
             <text x="95" y="45" fill="rgba(255,255,255,0.4)" fontSize="4.5" fontFamily="monospace" textAnchor="middle">ANTE-ROOM</text>
             <text x="95" y="75" fill="#f59e0b" fontSize="6.5" fontFamily="monospace" textAnchor="middle">+15 Pa</text>
 
             {/* Sterile core */}
-            <rect x="125" y="30" width="60" height="90" fill="rgba(16,185,129,0.05)" stroke="#10b981" strokeWidth="1.5" />
-            <text x="155" y="45" fill="#10b981" fontSize="4.5" fontFamily="monospace" textAnchor="middle">STERILE CORE</text>
-            <text x="155" y="75" fill="#10b981" fontSize="7.5" fontFamily="monospace" textAnchor="middle">+30 Pa</text>
+            <rect x="125" y="30" width="60" height="90" fill="rgba(59, 130, 246,0.05)" stroke="#3b82f6" strokeWidth="1.5" />
+            <text x="155" y="45" fill="#3b82f6" fontSize="4.5" fontFamily="monospace" textAnchor="middle">STERILE CORE</text>
+            <text x="155" y="75" fill="#3b82f6" fontSize="7.5" fontFamily="monospace" textAnchor="middle">+30 Pa</text>
 
             {/* Pressure cascade flow indicators */}
-            <path d="M 120 70 L 130 75 L 120 80 Z" fill="#10b981" transform="rotate(180, 125, 75)" />
+            <path d="M 120 70 L 130 75 L 120 80 Z" fill="#3b82f6" transform="rotate(180, 125, 75)" />
             <path d="M 60 70 L 70 75 L 60 80 Z" fill="#f59e0b" transform="rotate(180, 65, 75)" />
 
-            <text x="100" y="20" fill="#10b981" fontSize="4.5" fontFamily="monospace" textAnchor="middle">POSITIVE PRESSURE GRADIENT CASCADES</text>
+            <text x="100" y="20" fill="#3b82f6" fontSize="4.5" fontFamily="monospace" textAnchor="middle">POSITIVE PRESSURE GRADIENT CASCADES</text>
             <text x="100" y="138" fill="rgba(255,255,255,0.4)" fontSize="4" fontFamily="monospace" textAnchor="middle">PREVENTS BACKFLOW CONTAMINATION ON ENTRY</text>
           </svg>
         );
@@ -1203,14 +1203,14 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
             <rect width="100%" height="100%" fill="url(#grid)" />
 
             {/* Pallet crate stack A */}
-            <rect x="25" y="40" width="30" height="70" fill="#0C2340" stroke="#10b981" strokeWidth="1" />
-            <line x1="25" y1="63" x2="55" y2="63" stroke="rgba(16,185,129,0.3)" />
-            <line x1="25" y1="87" x2="55" y2="87" stroke="rgba(16,185,129,0.3)" />
+            <rect x="25" y="40" width="30" height="70" fill="#0C2340" stroke="#3b82f6" strokeWidth="1" />
+            <line x1="25" y1="63" x2="55" y2="63" stroke="rgba(59, 130, 246,0.3)" />
+            <line x1="25" y1="87" x2="55" y2="87" stroke="rgba(59, 130, 246,0.3)" />
 
             {/* Pallet crate stack B */}
-            <rect x="75" y="40" width="30" height="70" fill="#0C2340" stroke="#10b981" strokeWidth="1" />
-            <line x1="75" y1="63" x2="105" y2="63" stroke="rgba(16,185,129,0.3)" />
-            <line x1="75" y1="87" x2="105" y2="87" stroke="rgba(16,185,129,0.3)" />
+            <rect x="75" y="40" width="30" height="70" fill="#0C2340" stroke="#3b82f6" strokeWidth="1" />
+            <line x1="75" y1="63" x2="105" y2="63" stroke="rgba(59, 130, 246,0.3)" />
+            <line x1="75" y1="87" x2="105" y2="87" stroke="rgba(59, 130, 246,0.3)" />
 
             {/* Tarp suction fan on the ceiling/right */}
             <rect x="135" y="45" width="40" height="60" fill="#0C2340" stroke="#22d3ee" strokeWidth="1" />
@@ -1223,7 +1223,7 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
             <path className="ripen-path" d="M 15 98 L 70 98 L 135 98" fill="none" stroke="#22d3ee" strokeWidth="0.8" />
 
             {/* Labels */}
-            <text x="40" y="33" fill="#10b981" fontSize="4.5" fontFamily="monospace" textAnchor="middle">PALLET RACKS</text>
+            <text x="40" y="33" fill="#3b82f6" fontSize="4.5" fontFamily="monospace" textAnchor="middle">PALLET RACKS</text>
             <text x="155" y="33" fill="#22d3ee" fontSize="4.5" fontFamily="monospace" textAnchor="middle">SUCTION WALL</text>
             <text x="100" y="132" fill="rgba(255,255,255,0.4)" fontSize="4.5" fontFamily="monospace" textAnchor="middle">FORCED-AIR TARP RIPENING SYSTEM</text>
           </svg>
@@ -1284,12 +1284,12 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
             <rect width="100%" height="100%" fill="url(#grid)" />
 
             {/* Ethylene gas cylinder */}
-            <rect x="25" y="45" width="24" height="65" rx="8" fill="#0C2340" stroke="#10b981" strokeWidth="1" />
-            <rect x="31" y="38" width="12" height="7" fill="#0C2340" stroke="#10b981" strokeWidth="1" />
-            <text x="37" y="78" fill="#10b981" fontSize="4.5" fontFamily="monospace" textAnchor="middle" transform="rotate(-90, 37, 78)">ETHYLENE</text>
+            <rect x="25" y="45" width="24" height="65" rx="8" fill="#0C2340" stroke="#3b82f6" strokeWidth="1" />
+            <rect x="31" y="38" width="12" height="7" fill="#0C2340" stroke="#3b82f6" strokeWidth="1" />
+            <text x="37" y="78" fill="#3b82f6" fontSize="4.5" fontFamily="monospace" textAnchor="middle" transform="rotate(-90, 37, 78)">ETHYLENE</text>
 
             {/* Gas dosing pipeline */}
-            <path d="M 37 38 L 37 25 L 140 25 L 140 50" fill="none" stroke="#10b981" strokeWidth="1.5" />
+            <path d="M 37 38 L 37 25 L 140 25 L 140 50" fill="none" stroke="#3b82f6" strokeWidth="1.5" />
             
             {/* Solenoid valve body */}
             <polygon points="85,20 95,20 90,25" fill="#0C2340" stroke="#22d3ee" strokeWidth="1" />
@@ -1324,14 +1324,14 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
             <rect width="100%" height="100%" fill="url(#grid)" />
 
             {/* High velocity fans at back */}
-            <rect x="15" y="30" width="20" height="90" fill="#0C2340" stroke="#10b981" strokeWidth="1" />
-            <circle cx="25" cy="50" r="8" fill="#030f26" stroke="#10b981" strokeWidth="0.5" />
+            <rect x="15" y="30" width="20" height="90" fill="#0C2340" stroke="#3b82f6" strokeWidth="1" />
+            <circle cx="25" cy="50" r="8" fill="#030f26" stroke="#3b82f6" strokeWidth="0.5" />
             <path className="fan-blade" style={{ transformOrigin: "25px 50px", animation: "fspin 0.2s linear infinite" }} d="M 25 42 L 25 58 M 17 50 L 33 50" stroke="#22d3ee" strokeWidth="1" />
-            <circle cx="25" cy="100" r="8" fill="#030f26" stroke="#10b981" strokeWidth="0.5" />
+            <circle cx="25" cy="100" r="8" fill="#030f26" stroke="#3b82f6" strokeWidth="0.5" />
             <path className="fan-blade" style={{ transformOrigin: "25px 100px", animation: "fspin 0.2s linear infinite" }} d="M 25 92 L 25 108 M 17 100 L 33 100" stroke="#22d3ee" strokeWidth="1" />
 
             {/* Trolley food rack */}
-            <rect x="90" y="35" width="40" height="80" rx="2" fill="#0c2340" stroke="#10b981" strokeWidth="1" />
+            <rect x="90" y="35" width="40" height="80" rx="2" fill="#0c2340" stroke="#3b82f6" strokeWidth="1" />
             {/* Racks trays lines */}
             <line x1="90" y1="50" x2="130" y2="50" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
             <line x1="90" y1="65" x2="130" y2="65" stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
@@ -1344,8 +1344,8 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
             <line className="blast-flow" x1="35" y1="98" x2="185" y2="98" stroke="#22d3ee" strokeWidth="1.2" />
 
             {/* Labels */}
-            <text x="25" y="22" fill="#10b981" fontSize="4.5" fontFamily="monospace" textAnchor="middle">BLAST FANS</text>
-            <text x="110" y="28" fill="#10b981" fontSize="4.5" fontFamily="monospace" textAnchor="middle">TROLLEY CART</text>
+            <text x="25" y="22" fill="#3b82f6" fontSize="4.5" fontFamily="monospace" textAnchor="middle">BLAST FANS</text>
+            <text x="110" y="28" fill="#3b82f6" fontSize="4.5" fontFamily="monospace" textAnchor="middle">TROLLEY CART</text>
             <text x="100" y="132" fill="rgba(255,255,255,0.4)" fontSize="4.5" fontFamily="monospace" textAnchor="middle">HIGH-VELOCITY HORIZONTAL AIR BLAST (5.0 m/s)</text>
           </svg>
         );
@@ -1357,7 +1357,7 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
             <rect width="100%" height="100%" fill="url(#grid)" />
 
             {/* Product profile cross section */}
-            <circle cx="85" cy="75" r="40" fill="#0C2340" stroke="#10b981" strokeWidth="1.5" />
+            <circle cx="85" cy="75" r="40" fill="#0C2340" stroke="#3b82f6" strokeWidth="1.5" />
             {/* Shell layer */}
             <circle cx="85" cy="75" r="30" fill="none" stroke="rgba(34,211,238,0.2)" strokeWidth="1" strokeDasharray="2 2" />
             {/* Core zone */}
@@ -1370,12 +1370,12 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
             {/* Temp point dots */}
             <circle cx="87" cy="75" r="1.5" fill="#ef4444" />
             <circle cx="115" cy="75" r="1.5" fill="#f59e0b" />
-            <circle cx="140" cy="75" r="1.5" fill="#10b981" />
+            <circle cx="140" cy="75" r="1.5" fill="#3b82f6" />
 
             {/* Legend readouts */}
             <text x="160" y="30" fill="#ef4444" fontSize="4.5" fontFamily="monospace">CORE TEMP: +3.2°C</text>
             <text x="160" y="45" fill="#f59e0b" fontSize="4.5" fontFamily="monospace">MID TEMP: -8.5°C</text>
-            <text x="160" y="60" fill="#10b981" fontSize="4.5" fontFamily="monospace">SHELL TEMP: -18.0°C</text>
+            <text x="160" y="60" fill="#3b82f6" fontSize="4.5" fontFamily="monospace">SHELL TEMP: -18.0°C</text>
 
             <text x="100" y="132" fill="rgba(255,255,255,0.4)" fontSize="4.5" fontFamily="monospace" textAnchor="middle">MULTI-POINT CORE THERMOMETER INSERTION PROBE</text>
           </svg>
@@ -1444,7 +1444,7 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
     return (
       <svg className="w-full h-full bg-[#030F26] rounded-xl border border-white/5" viewBox="0 0 200 150">
         <rect width="100%" height="100%" fill="url(#grid)" />
-        <rect x="20" y="20" width="160" height="110" rx="3" fill="#0C2340" stroke="#10b981" strokeWidth="1" />
+        <rect x="20" y="20" width="160" height="110" rx="3" fill="#0C2340" stroke="#3b82f6" strokeWidth="1" />
         
         {/* Simple schematic representation */}
         <circle cx="65" cy="75" r="22" fill="#030F26" stroke="#22d3ee" strokeWidth="1.5" />
@@ -1453,7 +1453,7 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
         <circle cx="135" cy="75" r="22" fill="#030F26" stroke="#22d3ee" strokeWidth="1.5" />
         <path d="M 135 53 L 135 97 M 113 75 L 157 75" stroke="#22d3ee" strokeWidth="1" />
 
-        <text x="100" y="15" fill="#10b981" fontSize="4.5" fontFamily="monospace" textAnchor="middle">{serviceTitle.toUpperCase()} SCHEMATIC</text>
+        <text x="100" y="15" fill="#3b82f6" fontSize="4.5" fontFamily="monospace" textAnchor="middle">{serviceTitle.toUpperCase()} SCHEMATIC</text>
         <text x="100" y="142" fill="rgba(255,255,255,0.4)" fontSize="4.5" fontFamily="monospace" textAnchor="middle">ENGINEERING SYSTEM SCHEMATIC MODEL</text>
       </svg>
     );
@@ -1675,7 +1675,7 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
             onClick={() => setActiveTab(tab.id)}
             className={`px-4 py-2 rounded-xl text-xs font-bold font-mono transition-all shrink-0 border ${
               activeTab === tab.id
-                ? "bg-blue-500/10 border-blue-500/40 text-blue-400 shadow-[0_0_12px_rgba(16,185,129,0.1)]"
+                ? "bg-blue-500/10 border-blue-500/40 text-blue-400 shadow-[0_0_12px_rgba(59, 130, 246,0.1)]"
                 : "bg-[#0C2340]/40 border-white/5 text-slate-400 hover:border-white/10 hover:text-white"
             }`}
           >
@@ -1897,7 +1897,7 @@ export default function ServiceDetailPage({
   const galleryItems = galleryDb[slug] || galleryDb["modular-cold-rooms"];
 
   return (
-    <div className="flex flex-col flex-1 min-h-screen bg-[#0C2340] text-white selection:bg-[#0F6E56] overflow-x-hidden">
+    <div className="flex flex-col flex-1 min-h-screen bg-[#0C2340] text-white selection:bg-blue-600 overflow-x-hidden">
       {/* Header */}
       <Navbar />
 
@@ -1908,14 +1908,14 @@ export default function ServiceDetailPage({
           className="absolute inset-0 opacity-15 pointer-events-none z-0" 
           style={{
             backgroundImage: `
-              radial-gradient(rgba(16, 185, 129, 0.15) 1px, transparent 1px),
+              radial-gradient(rgba(59, 130, 246, 0.15) 1px, transparent 1px),
               linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
               linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px)
             `,
             backgroundSize: "20px 20px, 40px 40px, 40px 40px"
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-tr from-[#0C2340] via-[#0D3830]/90 to-[#0A1D1A]/95 z-0" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-[#0C2340] via-[#0E2F56]/90 to-[#0A1A30]/95 z-0" />
         
         {/* Soft glowing ambient orbs */}
         <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full bg-blue-500/10 blur-[130px] pointer-events-none z-0" />
@@ -1986,7 +1986,7 @@ export default function ServiceDetailPage({
                   onClick={() => setHeroView("photo")}
                   className={`px-3.5 py-1.5 rounded transition-all duration-300 font-bold ${
                     heroView === "photo" 
-                      ? "bg-blue-500/20 border border-blue-500/30 text-blue-300 shadow-[0_0_10px_rgba(16,185,129,0.2)]" 
+                      ? "bg-blue-500/20 border border-blue-500/30 text-blue-300 shadow-[0_0_10px_rgba(59, 130, 246,0.2)]" 
                       : "text-slate-400 hover:text-white"
                   }`}
                 >
@@ -1996,7 +1996,7 @@ export default function ServiceDetailPage({
                   onClick={() => setHeroView("blueprint")}
                   className={`px-3.5 py-1.5 rounded transition-all duration-300 font-bold ${
                     heroView === "blueprint" 
-                      ? "bg-blue-500/20 border border-blue-500/30 text-blue-300 shadow-[0_0_10px_rgba(16,185,129,0.2)]" 
+                      ? "bg-blue-500/20 border border-blue-500/30 text-blue-300 shadow-[0_0_10px_rgba(59, 130, 246,0.2)]" 
                       : "text-slate-400 hover:text-white"
                   }`}
                 >
@@ -2135,12 +2135,12 @@ export default function ServiceDetailPage({
                       whileHover={{ y: -3, scale: 1.01 }}
                       onMouseMove={(e) => handleSpecMouseMove(e, idx)}
                       onMouseLeave={() => setHoveredSpecIdx(null)}
-                      className="group relative rounded-2xl border border-white/5 bg-[#0C2340]/40 p-5 shadow-sm hover:bg-white/5 hover:border-blue-500/20 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)] flex flex-col justify-between overflow-hidden"
+                      className="group relative rounded-2xl border border-white/5 bg-[#0C2340]/40 p-5 shadow-sm hover:bg-white/5 hover:border-blue-500/20 hover:shadow-[0_0_20px_rgba(59, 130, 246,0.1)] flex flex-col justify-between overflow-hidden"
                     >
                       {/* Spotlight Glow Effect */}
                       {isHovered && (
                         <div 
-                          className="absolute inset-0 pointer-events-none opacity-45 transition-opacity duration-300 bg-[radial-gradient(150px_circle_at_var(--x)_var(--y),rgba(16,185,129,0.12),transparent_80%)]"
+                          className="absolute inset-0 pointer-events-none opacity-45 transition-opacity duration-300 bg-[radial-gradient(150px_circle_at_var(--x)_var(--y),rgba(59, 130, 246,0.12),transparent_80%)]"
                           style={{
                             // @ts-ignore
                             "--x": `${specMouseCoords.x}px`,
@@ -2402,12 +2402,12 @@ export default function ServiceDetailPage({
                       href={app.link}
                       onMouseMove={(e) => handleAppMouseMove(e, idx)}
                       onMouseLeave={() => setHoveredAppIdx(null)}
-                      className="group relative flex gap-4 rounded-2xl border border-white/5 bg-[#0C2340]/40 p-5 shadow-sm transition-all duration-300 hover:scale-[1.01] hover:bg-white/5 hover:border-blue-500/20 hover:shadow-[0_0_20px_rgba(16,185,129,0.1)] text-left overflow-hidden"
+                      className="group relative flex gap-4 rounded-2xl border border-white/5 bg-[#0C2340]/40 p-5 shadow-sm transition-all duration-300 hover:scale-[1.01] hover:bg-white/5 hover:border-blue-500/20 hover:shadow-[0_0_20px_rgba(59, 130, 246,0.1)] text-left overflow-hidden"
                     >
                       {/* Spotlight Glow Effect */}
                       {isHovered && (
                         <div 
-                          className="absolute inset-0 pointer-events-none opacity-45 transition-opacity duration-300 bg-[radial-gradient(150px_circle_at_var(--x)_var(--y),rgba(16,185,129,0.12),transparent_80%)]"
+                          className="absolute inset-0 pointer-events-none opacity-45 transition-opacity duration-300 bg-[radial-gradient(150px_circle_at_var(--x)_var(--y),rgba(59, 130, 246,0.12),transparent_80%)]"
                           style={{
                             // @ts-ignore
                             "--x": `${appMouseCoords.x}px`,
@@ -2460,7 +2460,7 @@ export default function ServiceDetailPage({
                     <div 
                       key={idx}
                       className={`rounded-2xl border transition-all duration-300 overflow-hidden text-left ${
-                        isExpanded ? "bg-[#0C2340]/80 border-blue-500/30 shadow-[0_0_15px_rgba(16,185,129,0.05)]" : "bg-[#0C2340]/40 border-white/5 hover:border-white/10"
+                        isExpanded ? "bg-[#0C2340]/80 border-blue-500/30 shadow-[0_0_15px_rgba(59, 130, 246,0.05)]" : "bg-[#0C2340]/40 border-white/5 hover:border-white/10"
                       }`}
                     >
                       <button
@@ -2568,7 +2568,7 @@ export default function ServiceDetailPage({
                     >
                       {isHovered && (
                         <div 
-                          className="absolute inset-0 pointer-events-none opacity-45 transition-opacity duration-300 bg-[radial-gradient(150px_circle_at_var(--x)_var(--y),rgba(16,185,129,0.1),transparent_80%)]"
+                          className="absolute inset-0 pointer-events-none opacity-45 transition-opacity duration-300 bg-[radial-gradient(150px_circle_at_var(--x)_var(--y),rgba(59, 130, 246,0.1),transparent_80%)]"
                           style={{
                             // @ts-ignore
                             "--x": `${whyMouseCoords.x}px`,
@@ -2599,8 +2599,8 @@ export default function ServiceDetailPage({
               className="relative rounded-2xl border border-white/15 bg-[#0C2340]/90 p-6 sm:p-8 shadow-2xl backdrop-blur-md overflow-hidden text-left"
               style={{
                 backgroundImage: `
-                  linear-gradient(to right, rgba(16, 185, 129, 0.08) 1px, transparent 1px),
-                  linear-gradient(to bottom, rgba(16, 185, 129, 0.08) 1px, transparent 1px)
+                  linear-gradient(to right, rgba(59, 130, 246, 0.08) 1px, transparent 1px),
+                  linear-gradient(to bottom, rgba(59, 130, 246, 0.08) 1px, transparent 1px)
                 `,
                 backgroundSize: "16px 16px"
               }}
@@ -2613,7 +2613,7 @@ export default function ServiceDetailPage({
                 <div 
                   className="absolute inset-0 opacity-15" 
                   style={{
-                    backgroundImage: "radial-gradient(rgba(16, 185, 129, 0.3) 1.2px, transparent 1.2px)",
+                    backgroundImage: "radial-gradient(rgba(59, 130, 246, 0.3) 1.2px, transparent 1.2px)",
                     backgroundSize: "12px 12px"
                   }}
                 />
@@ -2623,7 +2623,7 @@ export default function ServiceDetailPage({
                 </svg>
                 
                 <div className="relative z-10 flex items-center gap-3.5 w-full">
-                  <div className="relative h-12 w-12 rounded-full border border-blue-500/40 p-0.5 overflow-hidden bg-slate-900 shrink-0 shadow-[0_0_12px_rgba(16,185,129,0.25)]">
+                  <div className="relative h-12 w-12 rounded-full border border-blue-500/40 p-0.5 overflow-hidden bg-slate-900 shrink-0 shadow-[0_0_12px_rgba(59, 130, 246,0.25)]">
                     <div className="relative h-full w-full rounded-full overflow-hidden">
                       <Image
                         src="/images/technician.png"

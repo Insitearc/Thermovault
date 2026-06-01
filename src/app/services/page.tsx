@@ -333,7 +333,7 @@ export default function ServicesPage() {
                     y: -8,
                     scale: 1.02,
                     boxShadow:
-                      "0 20px 25px -5px rgba(16, 185, 129, 0.1), 0 10px 10px -5px rgba(16, 185, 129, 0.04)",
+                      "0 20px 25px -5px rgba(59, 130, 246, 0.1), 0 10px 10px -5px rgba(59, 130, 246, 0.04)",
                   }}
                   onClick={() => router.push(to)}
                   onKeyDown={(e) => {
@@ -416,7 +416,7 @@ export default function ServicesPage() {
                     delay: idx * 0.05,
                     ease: "easeOut",
                   }}
-                  whileHover={hasLink ? { y: -6, scale: 1.04, boxShadow: "0 10px 15px -3px rgba(16, 185, 129, 0.1), 0 4px 6px -2px rgba(16, 185, 129, 0.05)" } : { y: -6, scale: 1.04 }}
+                  whileHover={hasLink ? { y: -6, scale: 1.04, boxShadow: "0 10px 15px -3px rgba(59, 130, 246, 0.1), 0 4px 6px -2px rgba(59, 130, 246, 0.05)" } : { y: -6, scale: 1.04 }}
                   onClick={() => hasLink && router.push(to)}
                   onKeyDown={(e) => {
                     if (hasLink && e.key === "Enter") router.push(to);

@@ -208,7 +208,7 @@ export default function ProductDetailPage({
   };
 
   return (
-    <div className="flex flex-col flex-1 min-h-screen bg-[#0C2340] text-white selection:bg-[#0F6E56]">
+    <div className="flex flex-col flex-1 min-h-screen bg-[#0C2340] text-white selection:bg-blue-600">
       {/* Header */}
       <Navbar />
 

@@ -178,7 +178,7 @@ export default function CareersPage() {
         <div className="absolute inset-0 cyber-grid opacity-[0.12] z-0" />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-4 z-10 text-center md:text-left">
-          <div className="flex items-center justify-center md:justify-start gap-2 text-[10px] font-bold uppercase tracking-wider text-teal-light font-mono">
+          <div className="flex items-center justify-center md:justify-start gap-2 text-[10px] font-bold uppercase tracking-wider text-cyan-light font-mono">
             <Sparkles className="h-3.5 w-3.5" />
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <span className="text-white/40">/</span>
@@ -187,7 +187,7 @@ export default function CareersPage() {
           
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl font-display leading-tight max-w-3xl">
             Build the Future of <br className="hidden sm:inline" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-emerald-400 font-extrabold">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-400 font-extrabold">
               Cold Chain Engineering
             </span>
           </h1>
@@ -234,7 +234,7 @@ export default function CareersPage() {
               whileHover={{ y: -6 }}
               className="rounded-2xl border border-slate-100 bg-slate-50/50 p-8 space-y-4 hover:shadow-lg transition-all duration-300"
             >
-              <div className="h-10 w-10 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
+              <div className="h-10 w-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
                 <Target className="h-5 w-5" />
               </div>
               <h3 className="text-sm font-extrabold text-[#0c2340] font-display">
@@ -382,7 +382,7 @@ export default function CareersPage() {
                                 <ul className="space-y-2 text-slate-600 leading-relaxed">
                                   {job.responsibilities.map((resp, i) => (
                                     <li key={i} className="flex items-start gap-2">
-                                      <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
+                                      <CheckCircle2 className="h-4 w-4 text-blue-500 shrink-0 mt-0.5" />
                                       <span>{resp}</span>
                                     </li>
                                   ))}

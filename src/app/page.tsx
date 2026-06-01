@@ -85,7 +85,7 @@ export default function LandingPage() {
         
         {/* Interactive Glowing Mesh Blobs */}
         <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-blue-500/20 blur-[130px] pointer-events-none z-0 animate-pulse-slow" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-emerald-500/15 blur-[120px] pointer-events-none z-0" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-blue-500/15 blur-[120px] pointer-events-none z-0" />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-6 z-10">
           <motion.div
@@ -105,7 +105,7 @@ export default function LandingPage() {
             className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl font-display leading-[1.1] max-w-3xl"
           >
             Advanced Cold Chain &<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-emerald-400 font-extrabold">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-400 font-extrabold">
               Refrigeration Solutions
             </span>
           </motion.h1>
@@ -255,7 +255,7 @@ export default function LandingPage() {
 
                   {/* Top-Left Telemetry Door Status Badge */}
                   <div className="absolute top-4 left-4 bg-slate-950/90 backdrop-blur-md border border-slate-700/50 rounded-lg px-2.5 py-1.5 flex items-center gap-1.5 shadow-lg pointer-events-none select-none">
-                    <span className={`h-2.5 w-2.5 rounded-full ${doorOpen ? 'bg-red-500 animate-pulse' : 'bg-emerald-500'}`} />
+                    <span className={`h-2.5 w-2.5 rounded-full ${doorOpen ? 'bg-red-500 animate-pulse' : 'bg-blue-500'}`} />
                     <span className="text-[9px] font-mono font-bold tracking-wider text-slate-200 uppercase">
                       {doorOpen ? 'DOOR VALVE: OPEN' : 'DOOR VALVE: SEALED'}
                     </span>
@@ -315,7 +315,7 @@ export default function LandingPage() {
                     onClick={() => setDoorOpen(!doorOpen)}
                     className={`w-full rounded-lg py-1.5 text-[9px] font-bold border transition-all shadow-sm ${
                       doorOpen
-                        ? "bg-amber-50 border-amber-200 text-amber-600 shadow-neon-emerald"
+                        ? "bg-amber-50 border-amber-200 text-amber-600 shadow-neon-blue"
                         : "bg-blue-50 border-blue-100 text-blue-600"
                     }`}
                   >
@@ -330,7 +330,7 @@ export default function LandingPage() {
                     onClick={() => setCompressorActive(!compressorActive)}
                     className={`w-full rounded-lg py-1.5 text-[9px] font-bold border transition-all shadow-sm ${
                       compressorActive
-                        ? "bg-emerald-50 border-emerald-200 text-emerald-600 shadow-neon-emerald"
+                        ? "bg-blue-50 border-blue-200 text-blue-600 shadow-neon-blue"
                         : "bg-red-50 border-red-100 text-red-600"
                     }`}
                   >
