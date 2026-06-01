@@ -2199,7 +2199,7 @@ export default function ServiceDetailPage({
                         type="number"
                         value={calcLength}
                         onChange={(e) => setCalcLength(e.target.value)}
-                        className="w-full rounded-lg bg-[#0C2340] border border-white/10 p-2 text-xs font-mono text-white text-center focus:outline-none focus:border-blue-500"
+                        className="w-full rounded-lg bg-slate-950/50 border border-white/10 p-2 text-xs font-mono text-white text-center focus:outline-none focus:border-blue-500"
                       />
                     </div>
                     <div>
@@ -2208,7 +2208,7 @@ export default function ServiceDetailPage({
                         type="number"
                         value={calcWidth}
                         onChange={(e) => setCalcWidth(e.target.value)}
-                        className="w-full rounded-lg bg-[#0C2340] border border-white/10 p-2 text-xs font-mono text-white text-center focus:outline-none focus:border-blue-500"
+                        className="w-full rounded-lg bg-slate-950/50 border border-white/10 p-2 text-xs font-mono text-white text-center focus:outline-none focus:border-blue-500"
                       />
                     </div>
                     <div>
@@ -2217,7 +2217,7 @@ export default function ServiceDetailPage({
                         type="number"
                         value={calcHeight}
                         onChange={(e) => setCalcHeight(e.target.value)}
-                        className="w-full rounded-lg bg-[#0C2340] border border-white/10 p-2 text-xs font-mono text-white text-center focus:outline-none focus:border-blue-500"
+                        className="w-full rounded-lg bg-slate-950/50 border border-white/10 p-2 text-xs font-mono text-white text-center focus:outline-none focus:border-blue-500"
                       />
                     </div>
                   </div>
@@ -2227,7 +2227,7 @@ export default function ServiceDetailPage({
                     <select
                       value={calcTempProfile}
                       onChange={(e) => setCalcTempProfile(e.target.value)}
-                      className="w-full rounded-lg bg-[#0C2340] border border-white/10 p-2 text-xs text-white focus:outline-none focus:border-blue-500"
+                      className="w-full rounded-lg bg-slate-950/50 border border-white/10 p-2 text-xs text-white focus:outline-none focus:border-blue-500"
                     >
                       <option value="chilling">Chilling (0°C to +8°C)</option>
                       <option value="freezing">Freezing (-15°C to -18°C)</option>
@@ -2241,7 +2241,7 @@ export default function ServiceDetailPage({
                     <select
                       value={calcApplicant}
                       onChange={(e) => setCalcApplicant(e.target.value)}
-                      className="w-full rounded-lg bg-[#0C2340] border border-white/10 p-2 text-xs text-white focus:outline-none focus:border-blue-500"
+                      className="w-full rounded-lg bg-slate-950/50 border border-white/10 p-2 text-xs text-white focus:outline-none focus:border-blue-500"
                     >
                       <option value="private">Private Enterprise (35% Grant)</option>
                       <option value="fpo">Farmer Group / FPO (50% Grant)</option>
@@ -2597,30 +2597,15 @@ export default function ServiceDetailPage({
             
             <div 
               className="relative rounded-2xl border border-white/15 bg-[#0C2340]/90 p-6 sm:p-8 shadow-2xl backdrop-blur-md overflow-hidden text-left"
-              style={{
-                backgroundImage: `
-                  linear-gradient(to right, rgba(59, 130, 246, 0.08) 1px, transparent 1px),
-                  linear-gradient(to bottom, rgba(59, 130, 246, 0.08) 1px, transparent 1px)
-                `,
-                backgroundSize: "16px 16px"
-              }}
+              
             >
               {/* Ambient glowing radial blur */}
               <div className="absolute top-0 right-0 w-36 h-36 bg-blue-500/10 rounded-full blur-2xl pointer-events-none" />
 
               {/* Technical Vector Drawing Blueprint Schematic with Masked Engineer Image */}
               <div className="relative h-24 w-full rounded-xl bg-slate-950/40 border border-white/5 overflow-hidden mb-6 flex items-center justify-start p-4 select-none">
-                <div 
-                  className="absolute inset-0 opacity-15" 
-                  style={{
-                    backgroundImage: "radial-gradient(rgba(59, 130, 246, 0.3) 1.2px, transparent 1.2px)",
-                    backgroundSize: "12px 12px"
-                  }}
-                />
-                <svg className="absolute inset-0 h-full w-full stroke-blue-500/15 fill-none" viewBox="0 0 100 100" preserveAspectRatio="none">
-                  <circle cx="70" cy="50" r="32" strokeWidth="0.5" strokeDasharray="2 2" />
-                  <line x1="0" y1="50" x2="100" y2="50" strokeWidth="0.5" strokeDasharray="4 4" />
-                </svg>
+                
+                
                 
                 <div className="relative z-10 flex items-center gap-3.5 w-full">
                   <div className="relative h-12 w-12 rounded-full border border-blue-500/40 p-0.5 overflow-hidden bg-slate-900 shrink-0 shadow-[0_0_12px_rgba(59, 130, 246,0.25)]">
@@ -2638,7 +2623,7 @@ export default function ServiceDetailPage({
                     <div className="text-[9px] font-bold text-white font-display">Talk to Design Engineer</div>
                     <div className="text-[8px] font-bold text-slate-400 font-mono flex items-center gap-1 mt-0.5">
                       <span className="h-1.5 w-1.5 rounded-full bg-blue-500 animate-ping" />
-                      <span>RESPONSE SLA: &lt; 30 MINS</span>
+                      <span>RESPONSE SLA: 12-24 HOURS</span>
                     </div>
                   </div>
                 </div>
@@ -2666,7 +2651,7 @@ export default function ServiceDetailPage({
                   <div className="space-y-1">
                     <h4 className="text-xs font-bold text-white font-display">Callback Request Scheduled</h4>
                     <p className="text-[10px] text-slate-300 leading-relaxed px-1">
-                      Thanks <strong className="text-white">{name}</strong>. Our design draftsman will contact you within 30 minutes.
+                      Thanks <strong className="text-white">{name}</strong>. Our design draftsman will contact you within 12–24 hours.
                     </p>
                   </div>
                 </motion.div>
@@ -2682,7 +2667,7 @@ export default function ServiceDetailPage({
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="e.g. Kuldeep"
-                      className="w-full rounded-xl bg-[#0C2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-all font-body animate-reveal-input"
+                      className="w-full rounded-xl bg-slate-950/50 border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-all font-body animate-reveal-input"
                     />
                   </div>
                   <div>
@@ -2695,7 +2680,7 @@ export default function ServiceDetailPage({
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="e.g. +91 80550 10620"
-                      className="w-full rounded-xl bg-[#0C2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-all font-mono"
+                      className="w-full rounded-xl bg-slate-950/50 border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-all font-mono"
                     />
                   </div>
 
@@ -2708,7 +2693,7 @@ export default function ServiceDetailPage({
                       value={business}
                       onChange={(e) => setBusiness(e.target.value)}
                       placeholder="e.g. Cooperative / Farm"
-                      className="w-full rounded-xl bg-[#0C2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-all font-body"
+                      className="w-full rounded-xl bg-slate-950/50 border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-all font-body"
                     />
                   </div>
 
@@ -2720,13 +2705,13 @@ export default function ServiceDetailPage({
                       value={notes}
                       onChange={(e) => setNotes(e.target.value)}
                       placeholder="Enter details or click 'Apply Sizing' from the calculator above..."
-                      className="w-full rounded-xl bg-[#0C2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-all font-body h-20 resize-none text-[10px] leading-relaxed"
+                      className="w-full rounded-xl bg-slate-950/50 border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500/30 transition-all font-body h-20 resize-none text-[10px] leading-relaxed"
                     />
                   </div>
 
                   <div className="flex items-center gap-2 text-[10px] text-blue-400 font-bold font-mono py-2 bg-blue-500/5 border border-blue-500/10 rounded-xl justify-center w-full shadow-inner select-none">
                     <Clock className="h-3.5 w-3.5 animate-pulse text-blue-400" />
-                    <span>Response within 30 mins</span>
+                    <span>Response within 12–24 Hours</span>
                   </div>
 
                   <div className="flex flex-col gap-3 pt-2">

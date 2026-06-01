@@ -396,7 +396,7 @@ export default function MeatServicesPage() {
                     <div className="space-y-1">
                       <h4 className="text-sm font-bold text-white font-display">Callback Request Received</h4>
                       <p className="text-xs text-slate-300 leading-relaxed px-2">
-                        Thanks <strong className="text-white">{name}</strong>. Our cold chain draftsman will contact you within 30 minutes.
+                        Thanks <strong className="text-white">{name}</strong>. Our cold chain draftsman will contact you within 12–24 hours.
                       </p>
                     </div>
                   </motion.div>
@@ -410,7 +410,7 @@ export default function MeatServicesPage() {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="e.g. Kuldeep"
-                        className="w-full rounded-xl bg-[#0c2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-body"
+                        className="w-full rounded-xl bg-slate-950/50 border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-body"
                       />
                     </div>
                     
@@ -422,7 +422,7 @@ export default function MeatServicesPage() {
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         placeholder="e.g. +91 80550 10620"
-                        className="w-full rounded-xl bg-[#0c2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-mono"
+                        className="w-full rounded-xl bg-slate-950/50 border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-mono"
                       />
                     </div>
 
@@ -433,13 +433,13 @@ export default function MeatServicesPage() {
                         value={business}
                         onChange={(e) => setBusiness(e.target.value)}
                         placeholder="e.g. ABC Foods Pvt. Ltd."
-                        className="w-full rounded-xl bg-[#0c2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-body"
+                        className="w-full rounded-xl bg-slate-950/50 border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-body"
                       />
                     </div>
 
                     <div className="flex items-center gap-2 text-[10px] text-blue-400 font-semibold font-mono py-1">
                       <Clock className="h-3.5 w-3.5 animate-pulse" />
-                      <span>Response within 30 mins</span>
+                      <span>Response within 12–24 Hours</span>
                     </div>
 
                     <div className="flex flex-col gap-3 pt-2">

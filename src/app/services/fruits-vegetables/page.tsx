@@ -358,33 +358,15 @@ export default function FruitsServicesPage() {
               
               <div 
                 className="relative rounded-2xl border border-white/10 bg-[#0C2340]/80 p-6 sm:p-8 shadow-2xl backdrop-blur-md overflow-hidden"
-                style={{
-                  backgroundImage: `
-                    linear-gradient(to right, rgba(59, 130, 246, 0.08) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(59, 130, 246, 0.08) 1px, transparent 1px)
-                  `,
-                  backgroundSize: "16px 16px"
-                }}
+                
               >
                 {/* Ambient glowing radial blur behind illustration */}
                 <div className="absolute top-0 right-0 w-36 h-36 bg-blue-500/10 rounded-full blur-2xl pointer-events-none" />
 
                 {/* Technical Vector Drawing Blueprint Schematic */}
                 <div className="relative h-20 w-full rounded-xl bg-slate-950/40 border border-white/5 overflow-hidden mb-6 flex items-center justify-center">
-                  <div 
-                    className="absolute inset-0 opacity-20" 
-                    style={{
-                      backgroundImage: "radial-gradient(rgba(59, 130, 246, 0.3) 1.2px, transparent 1.2px)",
-                      backgroundSize: "12px 12px"
-                    }}
-                  />
-                  <svg className="absolute inset-0 h-full w-full stroke-blue-500/25 fill-none" viewBox="0 0 100 100" preserveAspectRatio="none">
-                    <circle cx="50" cy="50" r="32" strokeWidth="0.5" strokeDasharray="2 2" />
-                    <circle cx="50" cy="50" r="16" strokeWidth="0.5" />
-                    <line x1="10" y1="50" x2="90" y2="50" strokeWidth="0.5" strokeDasharray="4 4" />
-                    <line x1="50" y1="10" x2="50" y2="90" strokeWidth="0.5" strokeDasharray="4 4" />
-                    <path d="M 20 20 L 80 80 M 20 80 L 80 20" strokeWidth="0.25" strokeDasharray="1 3" />
-                  </svg>
+                  
+                  
                   
                   <div className="relative z-10 flex items-center gap-3 px-4 py-2">
                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/10 border border-blue-500/35 text-blue-400">
@@ -420,7 +402,7 @@ export default function FruitsServicesPage() {
                     <div className="space-y-1">
                       <h4 className="text-sm font-bold text-white font-display">Callback Request Received</h4>
                       <p className="text-xs text-slate-300 leading-relaxed px-2">
-                        Thanks <strong className="text-white">{name}</strong>. Our cold chain draftsman will contact you within 30 minutes.
+                        Thanks <strong className="text-white">{name}</strong>. Our cold chain draftsman will contact you within 12–24 hours.
                       </p>
                     </div>
                   </motion.div>
@@ -434,7 +416,7 @@ export default function FruitsServicesPage() {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="e.g. Kuldeep"
-                        className="w-full rounded-xl bg-[#0c2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-body"
+                        className="w-full rounded-xl bg-slate-950/50 border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-body"
                       />
                     </div>
                     
@@ -446,7 +428,7 @@ export default function FruitsServicesPage() {
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         placeholder="e.g. +91 80550 10620"
-                        className="w-full rounded-xl bg-[#0c2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-mono"
+                        className="w-full rounded-xl bg-slate-950/50 border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-mono"
                       />
                     </div>
 
@@ -457,13 +439,13 @@ export default function FruitsServicesPage() {
                         value={business}
                         onChange={(e) => setBusiness(e.target.value)}
                         placeholder="e.g. Orchard Cooperative, Farms"
-                        className="w-full rounded-xl bg-[#0c2340] border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-body"
+                        className="w-full rounded-xl bg-slate-950/50 border border-white/10 p-3 text-xs text-white placeholder-white/20 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-body"
                       />
                     </div>
 
                     <div className="flex items-center gap-2 text-[10px] text-blue-400 font-bold font-mono py-2 bg-blue-500/5 border border-blue-500/10 rounded-xl justify-center w-full shadow-inner select-none">
                       <Clock className="h-3.5 w-3.5 animate-pulse text-blue-400" />
-                      <span>Response within 30 mins</span>
+                      <span>Response within 12–24 Hours</span>
                     </div>
 
                     <div className="flex flex-col gap-3 pt-2">
