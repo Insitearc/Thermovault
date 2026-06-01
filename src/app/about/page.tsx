@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/layout/Navbar";
@@ -239,6 +239,7 @@ const BananaIcon = () => (
 
 export default function AboutPage() {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
+  const heroRef = useRef<HTMLElement | null>(null);
 
   const openModal = () => {
     const event = new CustomEvent("open-quote-modal");
@@ -395,8 +396,11 @@ export default function AboutPage() {
     <div className="flex flex-col flex-1 min-h-screen bg-white text-slate-800 selection:bg-blue-600 selection:text-white">
       <Navbar />
 
+      
+
       {/* Hero Section */}
       <section
+        ref={heroRef}
         className="relative bg-cover bg-center bg-no-repeat py-24 text-white overflow-hidden"
         style={{
           backgroundImage: "url('/images/dairy_warehouse_storage.png')",
