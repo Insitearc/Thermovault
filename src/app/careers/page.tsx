@@ -44,7 +44,7 @@ export default function CareersPage() {
     email: "",
     phone: "",
     position: "Thermal Sizing Engineer (HVAC/R)",
-    portfolio: "",
+    resumeFile: null as File | null,
     coverNote: "",
   });
 
@@ -160,7 +160,7 @@ export default function CareersPage() {
         email: "",
         phone: "",
         position: "Thermal Sizing Engineer (HVAC/R)",
-        portfolio: "",
+          resumeFile: null,
         coverNote: "",
       });
     }, 1200);
@@ -568,22 +568,23 @@ export default function CareersPage() {
 
                 <div>
                   <label className="text-[9px] text-slate-500 font-mono block mb-1">
-                    Resume / CV Link
+                    Resume / CV (Upload)
                   </label>
                   <input
-                    type="url"
+                    type="file"
                     required
-                    value={formData.portfolio}
-                    onChange={(e) =>
-                      setFormData({ ...formData, portfolio: e.target.value })
-                    }
-                    placeholder="e.g. Google Drive, Dropbox, or LinkedIn PDF URL"
+                    accept=".pdf,.doc,.docx"
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      const file = e.target.files && e.target.files[0] ? e.target.files[0] : null;
+                      setFormData({ ...formData, resumeFile: file });
+                    }}
                     className="w-full rounded-xl bg-slate-50 border border-slate-200 p-3.5 text-xs text-slate-800 placeholder-slate-400 focus:outline-none focus:border-blue-600 focus:bg-white transition-all shadow-inner focus:shadow-none"
                   />
-                  <span className="text-[9px] text-slate-400 block mt-1.5 ml-1 font-mono">
-                    Ensure Link sharing permissions are set to 'Anyone with link
-                    can view'.
-                  </span>
+                  {formData.resumeFile && (
+                    <div className="text-[9px] text-slate-500 mt-1">
+                      Selected: {formData.resumeFile.name}
+                    </div>
+                  )}
                 </div>
 
                 <div>

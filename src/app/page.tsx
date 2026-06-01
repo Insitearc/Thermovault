@@ -81,7 +81,6 @@ export default function LandingPage() {
       >
         {/* Dark Navy Tint Overlay and Futuristic Glowing Mesh Blobs */}
         <div className="absolute inset-0 bg-[#0C2340]/85 z-0" />
-        <div className="absolute inset-0 cyber-grid opacity-[0.15] z-0" />
         
         {/* Interactive Glowing Mesh Blobs */}
         <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-blue-500/20 blur-[130px] pointer-events-none z-0 animate-pulse-slow" />
