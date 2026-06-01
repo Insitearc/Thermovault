@@ -298,18 +298,13 @@ export default function MeatServicesPage() {
 
               {/* Better CTA Positioning */}
               <div className="pt-2 flex flex-wrap gap-4">
-                <button
-                  onClick={() => {
-                    const el = document.getElementById("sizing-form-card");
-                    if (el) {
-                      el.scrollIntoView({ behavior: "smooth" });
-                    }
-                  }}
+                <Link
+                  href="/contact"
                   className="inline-flex items-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-500 px-6 py-3 text-xs font-bold text-white shadow-lg active:scale-[0.98] transition-all font-display"
                 >
                   <span>Request Sizing Consultation</span>
                   <ArrowRight className="h-4 w-4" />
-                </button>
+                </Link>
               </div>
 
               {/* Mini Features row */}

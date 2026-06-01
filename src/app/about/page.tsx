@@ -310,13 +310,13 @@ export default function AboutPage() {
           </p>
 
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 pt-4">
-            <button
-              onClick={openModal}
+            <Link
+              href="/contact"
               className="rounded-md bg-blue-600 px-6 py-3 text-xs font-bold text-white hover:bg-blue-500 transition-colors inline-flex items-center gap-2"
             >
               <span>Get Free Consultation</span>
               <ArrowRight className="h-3.5 w-3.5" />
-            </button>
+            </Link>
             <Link
               href="/services"
               className="rounded-md border border-white/30 bg-white/5 px-6 py-3 text-xs font-bold text-white hover:bg-white/10 transition-colors"
@@ -430,7 +430,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 lg:gap-8">
             {industries.map((ind, idx) => (
               <div key={idx} className="flex flex-col items-center text-center space-y-3 group">
-                <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden shadow-sm border border-slate-200 bg-white transition-transform duration-300 group-hover:scale-105">
+                <div className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-2xl overflow-hidden shadow-sm border border-slate-200 bg-white transition-transform duration-300 group-hover:scale-105">
                   <Image
                     src={ind.img}
                     alt={ind.name}
@@ -709,13 +709,13 @@ export default function AboutPage() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <button
-              onClick={openModal}
+            <Link
+              href="/contact"
               className="flex items-center gap-2 rounded-md bg-blue-600 px-5 py-3 text-xs font-bold text-white transition-all hover:bg-blue-500 shadow-md active:scale-95"
             >
               <Users className="h-4 w-4" />
               <span>Get Free Consultation</span>
-            </button>
+            </Link>
 
             <a
               href="https://wa.me/918055010620?text=Hi%20ThermoVault,%20I%20have%20a%20project%20inquiry."
