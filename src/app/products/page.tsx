@@ -33,7 +33,9 @@ interface ProductCardItem {
 export default function ProductsPage() {
   const router = useRouter();
   const [activeCategory, setActiveCategory] = useState("all");
-  const [activeComingSoonProduct, setActiveComingSoonProduct] = useState<string | null>(null);
+  const [activeComingSoonProduct, setActiveComingSoonProduct] = useState<
+    string | null
+  >(null);
 
   const categories = [
     { id: "all", label: "All Products" },
@@ -147,7 +149,9 @@ export default function ProductsPage() {
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-4 z-10 text-center md:text-left">
           <div className="flex items-center justify-center md:justify-start gap-2 text-[10px] font-bold uppercase tracking-wider text-teal-light font-mono">
             <Sparkles className="h-3.5 w-3.5" />
-            <Link href="/" className="hover:text-white transition-colors">Home</Link>
+            <Link href="/" className="hover:text-white transition-colors">
+              Home
+            </Link>
             <span className="text-white/40">/</span>
             <span className="text-slate-300">Products &amp; Components</span>
           </div>
@@ -241,6 +245,8 @@ export default function ProductsPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 perspective-1000">
                 {filteredProducts.map((p, idx) => (
                   <motion.div
+                    role="button"
+                    tabIndex={0}
                     key={idx}
                     initial={{ opacity: 0, y: 40, rotateX: 12 }}
                     whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
@@ -259,11 +265,12 @@ export default function ProductsPage() {
                     }}
                     onClick={() => setActiveComingSoonProduct(p.name)}
                     onKeyDown={(e) => {
-                      if (e.key === "Enter") setActiveComingSoonProduct(p.name);
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        setActiveComingSoonProduct(p.name);
+                      }
                     }}
-                    role="link"
-                    tabIndex={0}
-                    className="group rounded-2xl overflow-hidden border border-slate-100 bg-white shadow-sm transition-all duration-300 flex flex-col justify-between preserve-3d cursor-pointer"
+                    className="group rounded-2xl overflow-hidden border border-slate-100 bg-white shadow-sm transition-all duration-300 flex flex-col justify-between preserve-3d cursor-pointer text-left"
                   >
                     <div>
                       {/* Thumbnail photo */}
@@ -286,17 +293,25 @@ export default function ProductsPage() {
                     </div>
 
                     <div className="p-5 pt-0 mt-auto">
-                      <button
+                      <div
+                        role="button"
+                        tabIndex={0}
                         onClick={(e) => {
                           e.stopPropagation();
                           setActiveComingSoonProduct(p.name);
                         }}
-                        onKeyDown={(e) => e.stopPropagation()}
-                        className="inline-flex items-center gap-1 text-[11px] font-bold text-blue-600 hover:text-blue-500 transition-colors"
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setActiveComingSoonProduct(p.name);
+                          }
+                        }}
+                        className="inline-flex items-center gap-1 text-[11px] font-bold text-blue-600 hover:text-blue-500 transition-colors cursor-pointer"
                       >
                         <span>View Details</span>
                         <ArrowRight className="h-3.5 w-3.5" />
-                      </button>
+                      </div>
                     </div>
                   </motion.div>
                 ))}
@@ -400,7 +415,9 @@ export default function ProductsPage() {
                   {activeComingSoonProduct}
                 </h3>
                 <p className="text-xs text-slate-300 leading-relaxed font-body">
-                  Our state-of-the-art cold chain product range is currently undergoing final quality benchmarks and will be available soon.
+                  Our state-of-the-art cold chain product range is currently
+                  undergoing final quality benchmarks and will be available
+                  soon.
                 </p>
               </div>
 
