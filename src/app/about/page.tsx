@@ -324,17 +324,46 @@ export default function AboutPage() {
   ];
 
   const industries = [
-    { name: "Dairy & Milk Products", img: "/images/industry_dairy.png" },
-    { name: "Meat & Poultry", img: "/images/industry_meat.png" },
-    { name: "Fruits & Vegetables", img: "/images/industry_fruits.png" },
-    { name: "Seafood & Fish", img: "/images/industry_seafood.png" },
-    { name: "Pharmaceuticals", img: "/images/industry_pharma.png" },
+    {
+      name: "Dairy & Milk Products",
+      img: "/images/industry_dairy.png",
+      href: "/services/dairy-milk-products",
+    },
+    {
+      name: "Meat & Poultry",
+      img: "/images/industry_meat.png",
+      href: "/services/meat-poultry",
+    },
+    {
+      name: "Fruits & Vegetables",
+      img: "/images/industry_fruits.png",
+      href: "/services/fruits-vegetables",
+    },
+    {
+      name: "Seafood & Fish",
+      img: "/images/industry_seafood.png",
+      href: "/services/seafood-fish",
+    },
+    {
+      name: "Pharmaceuticals",
+      img: "/images/industry_pharma.png",
+      href: "/services/pharmaceuticals",
+    },
     {
       name: "Dark Stores & Last-Mile Delivery",
       img: "/images/industry_retail.png",
+      href: "/services/last-mile-dark-store",
     },
-    { name: "Mushroom Cultivation", img: "/images/mushroom_cultivation.png" },
-    { name: "Saffron Cultivation", img: "/images/saffron_cultivation.png" },
+    {
+      name: "Mushroom Cultivation",
+      img: "/images/mushroom_cultivation.png",
+      href: "/services/mushroom-saffron-cultivation",
+    },
+    {
+      name: "Saffron Cultivation",
+      img: "/images/saffron_cultivation.png",
+      href: "/services/mushroom-saffron-cultivation",
+    },
   ];
 
   const timelines = [
@@ -599,9 +628,11 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 lg:gap-8">
             {industries.map((ind, idx) => (
-              <div
+              <Link
                 key={idx}
+                href={ind.href}
                 className="flex flex-col items-center text-center space-y-3 group"
+                aria-label={`Open ${ind.name} service page`}
               >
                 <div className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-2xl overflow-hidden shadow-sm border border-slate-200 bg-white transition-transform duration-300 group-hover:scale-105">
                   <Image
@@ -615,7 +646,7 @@ export default function AboutPage() {
                 <h4 className="text-xs font-bold text-slate-700 font-display group-hover:text-blue-600 transition-colors max-w-[140px]">
                   {ind.name}
                 </h4>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
