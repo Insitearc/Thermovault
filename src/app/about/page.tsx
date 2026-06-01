@@ -364,10 +364,8 @@ export default function AboutPage() {
     { label: "Business Type", value: "Proprietorship Firm" },
     { label: "GST Registered", check: true },
     { label: "MSME Registered", check: true },
-    { label: "Turnkey Project Execution", check: true },
-    { label: "AMC Support Available", check: true },
-    { label: "Subsidy Assistance", check: true },
-    { label: "IoT Monitoring Ready", check: true },
+    { label: "IEC Registered", check: true },
+    { label: "ISO 9001 Certified", check: true },
   ];
 
   const faqs = [
@@ -456,7 +454,7 @@ export default function AboutPage() {
             <div className="lg:col-span-5 space-y-4 flex flex-col items-center lg:items-start text-center lg:text-left">
               <div className="relative w-64 h-64 sm:w-72 sm:h-72 rounded-2xl overflow-hidden shadow-lg border border-slate-200/50 bg-white">
                 <Image
-                  src="/images/founder_portrait.png"
+                  src="/images/founder.png"
                   alt="Omkar Naikade, Founder of ThermoVault Systems"
                   fill
                   className="object-cover object-top"
