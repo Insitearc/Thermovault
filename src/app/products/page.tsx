@@ -274,7 +274,22 @@ export default function ProductsPage() {
                   >
                     <div>
                       {/* Thumbnail photo */}
-                      <div className="relative h-44 w-full bg-slate-50 border-b border-slate-100 flex items-center justify-center overflow-hidden">
+                      <div
+                        role="button"
+                        tabIndex={0}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setActiveComingSoonProduct(p.name);
+                        }}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setActiveComingSoonProduct(p.name);
+                          }
+                        }}
+                        className="relative h-44 w-full bg-slate-50 border-b border-slate-100 flex items-center justify-center overflow-hidden cursor-pointer"
+                      >
                         <Image
                           src={p.image}
                           alt={p.name}
@@ -283,10 +298,40 @@ export default function ProductsPage() {
                         />
                       </div>
                       <div className="p-5 space-y-2.5">
-                        <h3 className="text-sm font-bold text-[#0c2340] font-display">
+                        <h3
+                          role="button"
+                          tabIndex={0}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setActiveComingSoonProduct(p.name);
+                          }}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveComingSoonProduct(p.name);
+                            }
+                          }}
+                          className="text-sm font-bold text-[#0c2340] font-display cursor-pointer"
+                        >
                           {p.name}
                         </h3>
-                        <p className="text-xs text-slate-500 leading-relaxed font-body">
+                        <p
+                          role="button"
+                          tabIndex={0}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setActiveComingSoonProduct(p.name);
+                          }}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              setActiveComingSoonProduct(p.name);
+                            }
+                          }}
+                          className="text-xs text-slate-500 leading-relaxed font-body cursor-pointer"
+                        >
                           {p.desc}
                         </p>
                       </div>
