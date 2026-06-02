@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import ScrollProgress from "@/components/layout/ScrollProgress";
+import ScrollToTop from "@/components/layout/ScrollToTop";
 import MicroInteractions from "@/components/ui/MicroInteractions";
 import "./globals.css";
 
@@ -40,6 +41,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-slate-50 text-slate-800 selection:bg-blue-600 selection:text-white relative">
         <ScrollProgress />
+        <ScrollToTop />
         <MicroInteractions />
         {children}
 

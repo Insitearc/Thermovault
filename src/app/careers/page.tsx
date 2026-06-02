@@ -55,7 +55,7 @@ export default function CareersPage() {
       id: "thermal-sizing-engineer",
       title: "Thermal Sizing Engineer (HVAC/R)",
       dept: "Engineering",
-      location: "Bhosari MIDC, Pune",
+      location: "At post Kadadhe Colony Rajgurunagar, Pune",
       type: "Full-Time",
       experience: "2 - 4 Years",
       desc: "Responsible for engineering precise heat loads, selecting optimal condensing units and evaporators, and drafting custom cold room layout drawings.",
@@ -118,7 +118,7 @@ export default function CareersPage() {
       id: "graduate-engineering-trainee",
       title: "Graduate Engineering Trainee (GET) - Design",
       dept: "Engineering",
-      location: "Bhosari MIDC, Pune",
+      location: "At post Kadadhe Colony Rajgurunagar, Pune",
       type: "Internship (Convertible)",
       experience: "Fresh Graduate",
       desc: "Kickstart your career in thermodynamic sciences by assisting senior project designers in compiling bill of materials, engineering drawings, and quality control checklists.",
@@ -273,7 +273,7 @@ export default function CareersPage() {
                 Growth & Ownership
               </h3>
               <p className="text-xs text-slate-500 leading-relaxed">
-                Located in Bhosari MIDC, Pune's industrial hub, we offer flat
+                Located at post Kadadhe Colony Rajgurunagar, Pune, we offer flat
                 hierarchy networks where trainees and senior engineers align to
                 design and deliver.
               </p>

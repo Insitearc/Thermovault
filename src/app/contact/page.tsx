@@ -148,7 +148,7 @@ export default function ContactPage() {
                 <div className="relative z-10 text-center space-y-2">
                   <Terminal className="h-5 w-5 text-blue-400 mx-auto animate-pulse" />
                   <div className="text-[10px] font-bold uppercase tracking-wider font-mono">
-                    Pune Bhosari MIDC Coordinate Map
+                    Pune Rajgurunagar Coordinate Map
                   </div>
                   <div className="text-[9px] text-slate-300 font-mono leading-relaxed">
                     Lat: 18.6298° N | Lon: 73.8446° E<br />
