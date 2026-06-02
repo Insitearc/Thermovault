@@ -349,7 +349,7 @@ export default function Navbar() {
                 <div className="hidden md:flex items-center gap-3 shrink-0 select-none">
                   <span className="inline-flex items-center gap-1.5 bg-blue-50/70 text-blue-600 text-[9px] font-extrabold tracking-wider uppercase px-2.5 py-1 rounded-full border border-blue-100/50 shadow-sm font-mono">
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    ThermoVault Engineered
+                    ThermoVault System
                   </span>
                 </div>
               </div>

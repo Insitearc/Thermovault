@@ -141,18 +141,25 @@ export default function ContactPage() {
               </div>
 
               {/* Mock active coordinates Pune MIDC map grid visualizer */}
-              <div className="rounded-2xl border border-slate-100 bg-[#0C2340] p-6 relative overflow-hidden h-48 flex items-center justify-center text-white shadow-md">
-                <div className="absolute inset-0 bg-[radial-gradient(#ffffff03_1px,transparent_1px)] [background-size:12px_12px] opacity-45" />
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(29,158,117,0.03)_1px,transparent_1px)] bg-[size:3rem_3rem]" />
+              <div className="rounded-2xl border border-slate-100 bg-[#0C2340] p-6 relative overflow-hidden h-56 sm:h-64 lg:h-48 flex items-center justify-center text-white shadow-md">
+                <div className="absolute inset-0 bg-[radial-gradient(#ffffff03_1px,transparent_1px)] [background-size:12px_12px] opacity-45 pointer-events-none" />
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(29,158,117,0.03)_1px,transparent_1px)] bg-[size:3rem_3rem] pointer-events-none" />
 
-                <div className="relative z-10 text-center space-y-2">
-                  <Terminal className="h-5 w-5 text-blue-400 mx-auto animate-pulse" />
-                  <div className="text-[10px] font-bold uppercase tracking-wider font-mono">
-                    Pune Rajgurunagar Coordinate Map
-                  </div>
-                  <div className="text-[9px] text-slate-300 font-mono leading-relaxed">
-                    Lat: 18.6298° N | Lon: 73.8446° E<br />
-                    Pune Service Fleet Active Area
+                <div className="relative z-10 h-full w-full">
+                  <iframe
+                    title="ThermoVault Rajgurunagar Location"
+                    src="https://www.google.com/maps?q=At%20post%20Kadadhe%20Colony%20Rajgurunagar%2C%20Pune&output=embed"
+                    className="absolute inset-0 w-full h-full rounded-2xl border-0 pointer-events-auto z-10"
+                    loading="lazy"
+                    allowFullScreen
+                    referrerPolicy="no-referrer-when-downgrade"
+                  />
+
+                  <div className="absolute top-3 left-3 z-20 pointer-events-none bg-black/30 text-white rounded-md px-3 py-1">
+                    <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider font-mono">
+                      <Terminal className="h-4 w-4 text-white" />
+                      <span>Pune Rajgurunagar Map</span>
+                    </div>
                   </div>
                 </div>
               </div>
