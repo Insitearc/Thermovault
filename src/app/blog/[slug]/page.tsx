@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use, useState } from "react";
+import React, { use, useState, useEffect } from "react";
 import Link from "next/link";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -12,8 +12,10 @@ import {
   Send,
   CheckCircle2,
 } from "lucide-react";
+import initialBlogs from "@/data/blogs.json";
 
 interface PostData {
+  slug: string;
   title: string;
   keyword: string;
   type: string;
@@ -23,66 +25,9 @@ interface PostData {
   section1Body: string;
   section2Title: string;
   section2Body: string;
+  image?: string;
+  contentImage?: string;
 }
-
-const postDb: Record<string, PostData> = {
-  "what-is-a-cold-room": {
-    title: "What is a Cold Room & How Does It Work?",
-    keyword: "cold room how it works India",
-    type: "Beginner Guide",
-    readTime: "5 min read",
-    intro:
-      "Cold rooms are walk-in insulated chambers designed to maintain specific temperature thresholds, extending the storage shelf-life of perishables. In India, tropical ambient conditions require robust thermal design parameters.",
-    section1Title: "The Mechanical Refrigeration Cycle",
-    section1Body:
-      "A cold room operates by extracting heat from inside the sealed enclosure and venting it outdoors. This loop relies on four major components: the compressor, the condenser, the expansion valve, and the evaporator coil. Refrigerant gas flows continuously through these components, changing states to absorb and dissipate heat.",
-    section2Title: "Importance of Panel Insulation Sizing",
-    section2Body:
-      "Without proper insulation, ambient tropical heat will leak through the walls, forcing compressors to run continuously. We utilize Cam-locked Polyurethane Foam (PUF) panels with high-density cores (40 kg/m³) to guarantee a complete vapor barrier, reducing monthly electricity consumption by up to 25%.",
-  },
-  "cold-room-capacity-guide": {
-    title: "Cold Room Capacity Guide: How to Calculate Storage Needs",
-    keyword: "cold room capacity calculator",
-    type: "Intermediate Sizing",
-    readTime: "8 min read",
-    intro:
-      "Sizing a cold storage room requires translating agricultural tonnage (MT) or logistics pallets into physical internal dimensions (Length x Width x Height in feet). Under-sizing leads to poor air circulation, while over-sizing wastes energy.",
-    section1Title: "Volume Calculation Formulas",
-    section1Body:
-      "A general engineering rule of thumb for agricultural products is to allocate approximately 5 to 6 cubic meters of space per metric ton (MT) of inventory. This accommodates necessary spacing for pallets, ventilation corridors, and evaporator air blast ranges. For example, a 10 MT room needs roughly 50-60 cubic meters of interior space.",
-    section2Title: "Air Circulation Guidelines",
-    section2Body:
-      "Never stack items directly against walls or block the evaporator fan flow. Leave at least a 6-inch gap along the perimeter panels and 12 inches of clearance below the ceiling coolers to ensure uniform temperature distribution.",
-  },
-  "puf-panel-thickness-guide": {
-    title: "PUF Panel Thickness Guide for Temperature Requirements",
-    keyword: "PUF panel specifications cold room",
-    type: "Technical Sizing",
-    readTime: "6 min read",
-    intro:
-      "Selecting the correct thickness of Polyurethane Foam (PUF) panels is critical to balance structural thermal resistance with equipment capital costs.",
-    section1Title: "Thickness Sizing Recommendations",
-    section1Body:
-      "For standard chilling rooms (0°C to +8°C) such as fruit ripening setups, 60mm or 80mm panels are suitable. Freezer rooms (-15°C to -10°C) require 100mm thickness. Deep freeze chambers (-18°C to -25°C) like ice cream vaults must use 120mm panels to prevent thermal leakage.",
-    section2Title: "Vapor Barrier & cam-lock Joints",
-    section2Body:
-      "Vapor seals are critical. Pre-fabricated cam-locks lock panels together, compressing tongue-and-groove joints to create airtight seams that prevent moisture ingress and internal frosting.",
-  },
-  "government-subsidy-guide-2025": {
-    title: "Government Subsidy for Cold Storage in India 2025",
-    keyword: "cold storage subsidy India 2025",
-    type: "Informational Guidelines",
-    readTime: "10 min read",
-    intro:
-      "To encourage cold chain setups, the Indian Government provides back-ended capital subsidies under the Horticulture Mission (MIDH) and National Horticulture Mission (NHB).",
-    section1Title: "Subsidy Percentages and Sizing Limits",
-    section1Body:
-      "Standard eligible projects receive a 35% capital subsidy. For hilly terrains, tribal areas, and registered Farmer Producer Organizations (FPOs), the subsidy limit increases to 50% of the project's baseline cost.",
-    section2Title: "DPR Sizing Requirements",
-    section2Body:
-      "Submissions require a Detailed Project Report (DPR), CAD engineering drawings, panel test certificates, and bank loan approval. Sizing details must strictly match MIDH operational guidelines to qualify.",
-  },
-};
 
 export default function BlogPostDetailPage({
   params,
@@ -90,7 +35,34 @@ export default function BlogPostDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = use(params);
-  const post = postDb[slug] || postDb["what-is-a-cold-room"];
+  const [blogs, setBlogs] = useState<PostData[]>(initialBlogs as PostData[]);
+
+  useEffect(() => {
+    async function fetchBlogs() {
+      try {
+        const res = await fetch("/api/admin");
+        const json = await res.json();
+        if (json.success && json.data.blogs) {
+          setBlogs(json.data.blogs);
+        }
+      } catch (err) {
+        console.error("Error fetching blogs from API, falling back to static files:", err);
+      }
+    }
+    fetchBlogs();
+  }, []);
+
+  const post = blogs.find((b) => b.slug === slug) || blogs[0] || {
+    title: "Not Found",
+    keyword: "",
+    type: "Guide",
+    readTime: "N/A",
+    intro: "Post not found.",
+    section1Title: "",
+    section1Body: "",
+    section2Title: "",
+    section2Body: "",
+  };
 
   const [formSent, setFormSent] = useState(false);
   const [name, setName] = useState("");
@@ -145,6 +117,14 @@ export default function BlogPostDetailPage({
               </div>
             </div>
 
+            {/* Banner Image */}
+            {post.image && (
+              <div className="relative h-64 sm:h-96 w-full rounded-2xl overflow-hidden border border-slate-100 bg-slate-900">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={post.image} alt={post.title} className="object-cover h-full w-full" />
+              </div>
+            )}
+
             {/* Article Body */}
             <div className="prose prose-slate max-w-none text-xs sm:text-sm text-slate-600 leading-relaxed space-y-6">
               <p className="text-slate-800 font-medium leading-relaxed">
@@ -155,6 +135,14 @@ export default function BlogPostDetailPage({
                 {post.section1Title}
               </h2>
               <p>{post.section1Body}</p>
+
+              {/* Content Inline Image */}
+              {post.contentImage && (
+                <div className="relative h-48 sm:h-80 w-full rounded-xl overflow-hidden border border-slate-100 bg-slate-900 my-6">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={post.contentImage} alt={post.section2Title || "Content Image"} className="object-cover h-full w-full" />
+                </div>
+              )}
 
               <h2 className="text-sm font-bold text-[#0c2340] font-display uppercase tracking-wider text-blue-600 border-b border-slate-100 pb-2 pt-4">
                 {post.section2Title}

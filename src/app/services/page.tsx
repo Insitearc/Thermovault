@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -7,44 +8,16 @@ import { useRouter } from "next/navigation";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import PerformanceFeatureBar from "@/components/layout/PerformanceFeatureBar";
-import {
-  Snowflake,
-  ShieldCheck,
-  Zap,
-  ArrowRight,
-  ChevronLeft,
-  ChevronRight,
-  Star,
-  MessageSquare,
-  Sparkles,
-  Droplet,
-  Flame,
-  Apple,
-  Fish,
-  Pill,
-  ShoppingCart,
-  Phone,
-  Settings,
-  Monitor,
-  Calendar,
-  Wind,
-  Sprout,
-  Wrench,
-  Users,
-  Ruler,
-  Factory,
-  Hammer,
-  CheckSquare,
-  HeartHandshake,
-} from "lucide-react";
+import * as LucideIcons from "lucide-react";
 import { motion } from "framer-motion";
+import initialServices from "@/data/services.json";
 
 interface ServiceCard {
   title: string;
   desc: string;
   image: string;
   slug: string;
-  icon: React.ComponentType<any>;
+  icon: string;
 }
 
 interface IndustryCard {
@@ -83,100 +56,58 @@ export default function ServicesPage() {
     );
   };
 
-  const services: ServiceCard[] = [
-    {
-      title: "Modular Cold Rooms",
-      desc: "Custom-built cold rooms for any temperature ranges with PUF panels and precision engineering.",
-      image: "/images/cold_room_modular.png",
-      slug: "modular-cold-rooms",
-      icon: Snowflake,
-    },
-    {
-      title: "Refrigeration Systems",
-      desc: "High-performance refrigeration systems for industrial and commercial applications.",
-      image: "/images/refrigeration_system.png",
-      slug: "refrigeration-systems",
-      icon: Settings,
-    },
-    {
-      title: "Mushroom & Saffron Cultivation",
-      desc: "Precision growth chambers optimized with automated CO2, temperature, grow lights, and humidity controls.",
-      image: "/images/mushroom_saffron_cultivation.png",
-      slug: "mushroom-saffron-cultivation",
-      icon: Sprout,
-    },
-    {
-      title: "Clean Rooms",
-      desc: "ISO-compliant sterile chambers engineered with HEPA filtration, differential pressure controls, and magnetic airlocks.",
-      image: "/images/industry_pharma.png",
-      slug: "clean-rooms",
-      icon: ShieldCheck,
-    },
-    {
-      title: "Fruits Ripening Chambers",
-      desc: "Controlled atmosphere ripening chambers for bananas, mangoes & more.",
-      image: "/images/ripening_chamber.png",
-      slug: "ripening-chambers",
-      icon: Calendar,
-    },
-    {
-      title: "Blast Chillers",
-      desc: "Rapid cooling & freezing solutions to lock freshness and extend shelf life.",
-      image: "/images/blast_chiller.png",
-      slug: "blast-chillers",
-      icon: Wind,
-    },
-    {
-      title: "Consultation & Sizing",
-      desc: "Precision thermal load calculations, custom airflow design, and bankable DPR subsidy planning.",
-      image: "/images/technician.png",
-      slug: "consultation",
-      icon: Ruler,
-    },
-    {
-      title: "AMC & Maintenance",
-      desc: "Annual maintenance contracts for optimal performance and longer equipment life.",
-      image: "/images/amc_maintenance.png",
-      slug: "amc",
-      icon: Wrench,
-    },
-  ];
+  const [services, setServices] = useState<ServiceCard[]>(initialServices as ServiceCard[]);
+
+  useEffect(() => {
+    async function fetchServices() {
+      try {
+        const res = await fetch("/api/admin");
+        const json = await res.json();
+        if (json.success && json.data.services) {
+          setServices(json.data.services);
+        }
+      } catch (err) {
+        console.error("Error fetching services from API:", err);
+      }
+    }
+    fetchServices();
+  }, []);
 
   const industries: IndustryCard[] = [
     {
       title: "Dairy & Milk Products",
       image: "/images/industry_dairy.png",
-      icon: Droplet,
+      icon: LucideIcons.Droplet,
       slug: "dairy-milk-products",
     },
     {
       title: "Meat & Poultry",
       image: "/images/industry_meat.png",
-      icon: Flame,
+      icon: LucideIcons.Flame,
       slug: "meat-poultry",
     },
     {
       title: "Fruits & Vegetables",
       image: "/images/industry_fruits.png",
-      icon: Apple,
+      icon: LucideIcons.Apple,
       slug: "fruits-vegetables",
     },
     {
       title: "Seafood & Fish",
       image: "/images/industry_seafood.png",
-      icon: Fish,
+      icon: LucideIcons.Fish,
       slug: "seafood-fish",
     },
     {
       title: "Pharmaceuticals",
       image: "/images/industry_pharma.png",
-      icon: Pill,
+      icon: LucideIcons.Pill,
       slug: "pharmaceuticals",
     },
     {
       title: "Last Mile & Dark Store",
       image: "/images/industry_retail.png",
-      icon: ShoppingCart,
+      icon: LucideIcons.ShoppingCart,
       slug: "last-mile-dark-store",
     },
   ];
@@ -186,37 +117,37 @@ export default function ServicesPage() {
       step: "01",
       title: "Consultation",
       desc: "We understand your requirements and site conditions.",
-      icon: Users,
+      icon: LucideIcons.Users,
     },
     {
       step: "02",
       title: "Planning & Design",
       desc: "Our experts create the best solution plan for your needs.",
-      icon: Ruler,
+      icon: LucideIcons.Ruler,
     },
     {
       step: "03",
       title: "Manufacturing",
       desc: "Precision manufacturing using premium quality materials.",
-      icon: Factory,
+      icon: LucideIcons.Factory,
     },
     {
       step: "04",
       title: "Installation",
       desc: "Professional installation by skilled technical team.",
-      icon: Hammer,
+      icon: LucideIcons.Hammer,
     },
     {
       step: "05",
       title: "Testing & Handover",
       desc: "Rigorous testing and quality check before project handover.",
-      icon: CheckSquare,
+      icon: LucideIcons.CheckSquare,
     },
     {
       step: "06",
       title: "After Sales Support",
       desc: "We ensure long-term support and maintenance when you need us.",
-      icon: HeartHandshake,
+      icon: LucideIcons.HeartHandshake,
     },
   ];
 
@@ -234,7 +165,7 @@ export default function ServicesPage() {
         {/* Left Side Content */}
         <div className="relative px-6 py-16 sm:px-12 lg:px-20 z-10 space-y-6">
           <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-blue-400 font-mono">
-            <Sparkles className="h-3.5 w-3.5 animate-spin-slow" />
+            <LucideIcons.Sparkles className="h-3.5 w-3.5 animate-spin-slow" />
             <Link href="/" className="hover:text-white transition-colors">Home</Link>
             <span className="text-white/40">/</span>
             <span className="text-blue-300">Services</span>
@@ -257,25 +188,25 @@ export default function ServicesPage() {
           <div className="grid grid-cols-2 gap-4 pt-4 text-[10px] font-bold text-slate-200">
             <div className="flex items-center gap-2">
               <div className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-500/10 text-blue-400">
-                <ShieldCheck className="h-3.5 w-3.5" />
+                <LucideIcons.ShieldCheck className="h-3.5 w-3.5" />
               </div>
               <span>Custom Built Solutions</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-500/10 text-blue-400">
-                <Zap className="h-3.5 w-3.5" />
+                <LucideIcons.Zap className="h-3.5 w-3.5" />
               </div>
               <span>Energy Efficient</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-500/10 text-blue-400">
-                <ShieldCheck className="h-3.5 w-3.5" />
+                <LucideIcons.ShieldCheck className="h-3.5 w-3.5" />
               </div>
               <span>Hygienic & Safe</span>
             </div>
             <div className="flex items-center gap-2">
               <div className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-500/10 text-blue-400">
-                <Wrench className="h-3.5 w-3.5" />
+                <LucideIcons.Wrench className="h-3.5 w-3.5" />
               </div>
               <span>Reliable Performance</span>
             </div>
@@ -317,7 +248,7 @@ export default function ServicesPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 perspective-1000">
             {services.map((svc, idx) => {
-              const Icon = svc.icon;
+              const Icon = (LucideIcons as any)[svc.icon] || LucideIcons.Snowflake;
               const to = `/services/${svc.slug}`;
               return (
                 <motion.div
@@ -374,7 +305,7 @@ export default function ServicesPage() {
                   <div className="p-6 pt-0">
                     <span className="inline-flex items-center gap-1 text-[11px] font-bold text-blue-600 transition-colors">
                       <span>Learn More</span>
-                      <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                      <LucideIcons.ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                     </span>
                   </div>
                 </motion.div>
@@ -572,13 +503,13 @@ export default function ServicesPage() {
                   onClick={handlePrevProject}
                   className="p-2 rounded-full bg-white/90 hover:bg-white text-[#0c2340] shadow-md transition-all hover:scale-105 active:scale-95"
                 >
-                  <ChevronLeft className="h-4 w-4" />
+                  <LucideIcons.ChevronLeft className="h-4 w-4" />
                 </button>
                 <button
                   onClick={handleNextProject}
                   className="p-2 rounded-full bg-white/90 hover:bg-white text-[#0c2340] shadow-md transition-all hover:scale-105 active:scale-95"
                 >
-                  <ChevronRight className="h-4 w-4" />
+                  <LucideIcons.ChevronRight className="h-4 w-4" />
                 </button>
               </div>
             </div>
@@ -598,7 +529,7 @@ export default function ServicesPage() {
             <div className="space-y-4">
               <div className="flex items-center gap-0.5 text-amber-500">
                 {[...Array(5)].map((_, i) => (
-                  <Star
+                  <LucideIcons.Star
                     key={i}
                     className="h-4 w-4 fill-amber-500 text-transparent"
                   />
@@ -606,9 +537,9 @@ export default function ServicesPage() {
               </div>
 
               <blockquote className="text-sm text-slate-600 leading-relaxed italic">
-                "ThermoVault Systems delivered a top-quality cold room for our
+                &ldquo;ThermoVault Systems delivered a top-quality cold room for our
                 dairy unit. Excellent build quality, on-time delivery and great
-                after-sales support."
+                after-sales support.&rdquo;
               </blockquote>
             </div>
 

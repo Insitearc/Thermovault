@@ -16,8 +16,7 @@ export default function Navbar() {
   const isServiceDetailPage = pathname ? pathname.startsWith("/services/") : false;
 
   const isHomePage = pathname === "/";
-  const isDashboard = pathname ? (pathname === "/dashboard" || pathname.startsWith("/dashboard/")) : false;
-  const showStickyBreadcrumbs = !isHomePage && !isDashboard && scrolled;
+  const showStickyBreadcrumbs = !isHomePage && scrolled;
 
   const segments = pathname ? pathname.split("/").filter(Boolean) : [];
   const crumbs = segments.map((seg, idx) => {

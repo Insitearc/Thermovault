@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -13,125 +13,39 @@ import {
   Sparkles,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import initialBlogs from "@/data/blogs.json";
 
 interface Article {
   title: string;
   keyword: string;
   type: string;
-  category: "technical" | "how-to" | "government" | "beginner";
+  category: string;
   readTime: string;
   summary: string;
   slug: string;
+  image?: string;
+  contentImage?: string;
 }
 
 export default function BlogIndexPage() {
   const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState<
-    "all" | "technical" | "how-to" | "government" | "beginner"
-  >("all");
+  const [filter, setFilter] = useState<string>("all");
+  const [articles, setArticles] = useState<Article[]>(initialBlogs as Article[]);
 
-  const articles: Article[] = [
-    {
-      title: "What is a Cold Room & How Does It Work?",
-      keyword: "cold room how it works India",
-      type: "Beginner Guide",
-      category: "beginner",
-      readTime: "5 min read",
-      summary:
-        "Understand the fundamental thermodynamics and mechanical cycle of walk-in refrigeration units in India.",
-      slug: "what-is-a-cold-room",
-    },
-    {
-      title: "Cold Room Capacity Guide: How to Calculate Storage Needs",
-      keyword: "cold room capacity calculator",
-      type: "Intermediate Sizing",
-      category: "how-to",
-      readTime: "8 min read",
-      summary:
-        "Learn formulas to translate metric tons (MT) or pallet count into physical internal room sizing dimensions.",
-      slug: "cold-room-capacity-guide",
-    },
-    {
-      title: "PUF Panel Thickness Guide for Temperature Requirements",
-      keyword: "PUF panel specifications cold room",
-      type: "Technical Sizing",
-      category: "technical",
-      readTime: "6 min read",
-      summary:
-        "Explore thermal conductivity variables of 60mm, 80mm, 100mm, and 120mm cam-locked panels.",
-      slug: "puf-panel-thickness-guide",
-    },
-    {
-      title: "Government Subsidy for Cold Storage in India 2025",
-      keyword: "cold storage subsidy India 2025",
-      type: "Informational Guidelines",
-      category: "government",
-      readTime: "10 min read",
-      summary:
-        "Step-by-step documentation walkthrough to apply for 35% to 50% capital grants under NHB and MIDH.",
-      slug: "government-subsidy-guide-2025",
-    },
-    {
-      title: "Blast Chiller vs. Cold Room: Which Do You Need?",
-      keyword: "blast chiller vs cold room",
-      type: "Comparison Sizing",
-      category: "technical",
-      readTime: "7 min read",
-      summary:
-        "Differentiate between shock-freezing cooked items in 90 minutes and long-term bulk freezing chambers.",
-      slug: "blast-chiller-vs-cold-room",
-    },
-    {
-      title: "How to Maintain Your Cold Room: AMC Checklist",
-      keyword: "cold room maintenance checklist",
-      type: "How-to Maintenance",
-      category: "how-to",
-      readTime: "6 min read",
-      summary:
-        "Preventative checkups for compressor load current, fin spacing, evaporator fan coils, and door heaters.",
-      slug: "cold-room-maintenance-amc-checklist",
-    },
-    {
-      title: "Fruits Ripening Chamber: Complete Technical Sizing",
-      keyword: "fruits ripening chamber India",
-      type: "Technical Sizing",
-      category: "technical",
-      readTime: "9 min read",
-      summary:
-        "Designing automated ethylene gas chambers and forced-air flow designs for banana and mango ripening.",
-      slug: "fruits-ripening-chamber-guide",
-    },
-    {
-      title: "Cold Room for Dairy: Temperature Requirements Explained",
-      keyword: "cold room dairy temperature",
-      type: "Industry Sizing",
-      category: "technical",
-      readTime: "5 min read",
-      summary:
-        "Thermal thresholds for raw milk chilling depots and processed butter deep-freezing parameters.",
-      slug: "cold-room-dairy-temperature-guide",
-    },
-    {
-      title: "Refrigeration Compressor Types: Semi-hermetic vs Scroll",
-      keyword: "refrigeration compressor types India",
-      type: "Technical Sizing",
-      category: "technical",
-      readTime: "8 min read",
-      summary:
-        "Detailed efficiency comparisons of Copeland scroll and Bitzer semi-hermetic plants under high ambient temps.",
-      slug: "compressor-scroll-vs-semi-hermetic",
-    },
-    {
-      title: "Cold Room Installation Process: Step-by-Step",
-      keyword: "cold room installation process",
-      type: "How-to Construction",
-      category: "how-to",
-      readTime: "7 min read",
-      summary:
-        "Witness how our engineers assemble cam-locks, run vacuum piping checks, and run pull-down test calibrations.",
-      slug: "cold-room-installation-process-step-by-step",
-    },
-  ];
+  useEffect(() => {
+    async function fetchBlogs() {
+      try {
+        const res = await fetch("/api/admin");
+        const json = await res.json();
+        if (json.success && json.data.blogs) {
+          setArticles(json.data.blogs);
+        }
+      } catch (err) {
+        console.error("Error fetching blogs from API, falling back to static files:", err);
+      }
+    }
+    fetchBlogs();
+  }, []);
 
   // Search and filter logic
   const filteredArticles = articles.filter((art) => {
@@ -201,7 +115,7 @@ export default function BlogIndexPage() {
             ].map((btn) => (
               <button
                 key={btn.id}
-                onClick={() => setFilter(btn.id as any)}
+                onClick={() => setFilter(btn.id)}
                 className={`rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-all ${
                   filter === btn.id
                     ? "bg-[#0c2340] text-white"
@@ -231,40 +145,59 @@ export default function BlogIndexPage() {
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.2 }}
                   key={art.slug}
-                  className="group rounded-2xl border border-slate-100 bg-white p-6 flex flex-col justify-between hover:shadow-md transition-shadow duration-300"
+                  className="group rounded-2xl border border-slate-100 bg-white overflow-hidden flex flex-col justify-between hover:shadow-md transition-shadow duration-300"
                 >
                   <div className="space-y-4">
-                    <div className="flex items-center gap-3 text-[9px] font-mono text-slate-400 border-b border-slate-100 pb-2">
-                      <span className="flex items-center gap-1">
-                        <Tag className="h-3 w-3 text-blue-600" />
-                        {art.type}
-                      </span>
-                      <span>•</span>
-                      <span className="flex items-center gap-1">
-                        <Clock className="h-3 w-3" />
-                        {art.readTime}
-                      </span>
-                    </div>
+                    {/* Banner Image */}
+                    {art.image && (
+                      <div className="relative h-48 w-full bg-slate-900 overflow-hidden">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img 
+                          src={art.image} 
+                          alt={art.title} 
+                          className="object-cover h-full w-full transition-transform duration-500 group-hover:scale-105" 
+                        />
+                        <div className="absolute top-3 left-3 bg-[#0c2340]/90 text-white text-[8px] font-bold font-mono px-2 py-0.5 rounded border border-white/10 uppercase">
+                          {art.type}
+                        </div>
+                      </div>
+                    )}
 
-                    <h3 className="text-sm font-bold text-[#0c2340] group-hover:text-blue-600 transition-colors font-display leading-snug">
-                      {art.title}
-                    </h3>
-                    <p className="text-xs text-slate-500 leading-relaxed">
-                      {art.summary}
-                    </p>
-                    <div className="text-[10px] text-blue-600 font-mono bg-blue-50/50 p-2 rounded-lg border border-blue-100/50 select-all">
-                      SEO Keyword: {art.keyword}
+                    <div className="p-6 space-y-4">
+                      <div className="flex items-center gap-3 text-[9px] font-mono text-slate-400 border-b border-slate-100 pb-2">
+                        <span className="flex items-center gap-1 capitalize">
+                          <Tag className="h-3 w-3 text-blue-600" />
+                          {art.category}
+                        </span>
+                        <span>•</span>
+                        <span className="flex items-center gap-1">
+                          <Clock className="h-3 w-3" />
+                          {art.readTime}
+                        </span>
+                      </div>
+
+                      <h3 className="text-sm font-bold text-[#0c2340] group-hover:text-blue-600 transition-colors font-display leading-snug line-clamp-2">
+                        {art.title}
+                      </h3>
+                      <p className="text-xs text-slate-500 leading-relaxed line-clamp-3">
+                        {art.summary}
+                      </p>
+                      <div className="text-[10px] text-blue-600 font-mono bg-blue-50/50 p-2 rounded-lg border border-blue-100/50 select-all">
+                        SEO Keyword: {art.keyword}
+                      </div>
                     </div>
                   </div>
 
-                  <div className="pt-6 mt-6 border-t border-slate-100">
-                    <Link
-                      href={`/blog/${art.slug}`}
-                      className="inline-flex items-center gap-1 text-[11px] font-bold text-slate-500 hover:text-blue-600 transition-colors"
-                    >
-                      <span>Read Full Insight</span>
-                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                    </Link>
+                  <div className="px-6 pb-6">
+                    <div className="pt-4 border-t border-slate-100">
+                      <Link
+                        href={`/blog/${art.slug}`}
+                        className="inline-flex items-center gap-1 text-[11px] font-bold text-slate-500 hover:text-blue-600 transition-colors"
+                      >
+                        <span>Read Full Insight</span>
+                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </Link>
+                    </div>
                   </div>
                 </motion.div>
               ))}

@@ -72,9 +72,9 @@ export default function IotMonitor() {
       const timeStr = d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
       data.push({
         time: timeStr,
-        temp: parseFloat((-15.0 - (9 - i) * 0.3 + Math.random() * 0.1).toFixed(1)),
+        temp: parseFloat((-15.0 - (9 - i) * 0.3 + (i * 0.01)).toFixed(1)),
         target: -18.0,
-        humidity: Math.floor(60 + Math.random() * 3),
+        humidity: Math.floor(60 + (i % 3)),
       });
     }
     return data;
@@ -604,7 +604,7 @@ export default function IotMonitor() {
             ].map((filt) => (
               <button
                 key={filt.id}
-                onClick={() => setFilterType(filt.id as any)}
+                onClick={() => setFilterType(filt.id as typeof filterType)}
                 className={`px-2 py-0.5 rounded text-[8px] font-bold font-mono border transition-all ${
                   filterType === filt.id
                     ? "bg-teal-accent text-white border-teal-light"

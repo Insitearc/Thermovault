@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import initialProjects from "@/data/projects.json";
 import {
   Milestone,
   CheckCircle2,
@@ -48,113 +49,22 @@ export default function ProjectsPage() {
     setVisibleCount(6);
   };
 
-  const projects: ProjectItem[] = [
-    {
-      title: "Large-Scale Dairy Cold Warehouse",
-      location: "Pune, Maharashtra",
-      category: "interiors",
-      size: "500 MT Capacity",
-      image: "/images/dairy_warehouse_storage.png",
-      desc: "Rigged with pre-insulated heavy duty cam-lock panels and custom concrete floor slabs to support constant forklift operations.",
-    },
-    {
-      title: "Multi-Compressor Condensing Rack",
-      location: "Nashik, Maharashtra",
-      category: "machinery",
-      size: "Multi-Scroll 120 HP",
-      image: "/images/compressors.png",
-      desc: "Centralized parallel rack system delivering massive cooling loads with step-by-step digital scroll motor modulation.",
-    },
-    {
-      title: "Fast-cycle Shock Meat Blast Freezer",
-      location: "Aurangabad, Maharashtra",
-      category: "execution",
-      size: "10 MT Batch",
-      image: "/images/meat_blast_freezer.png",
-      desc: "Achieves rapid cooling from +70°C down to severe sub-zero -18°C in under 90 minutes to preserve food cell texture.",
-    },
-    {
-      title: "Deep Freezer Room Assembly",
-      location: "Hyderabad, Telangana",
-      category: "interiors",
-      size: "-25°C Sub-Zero Hold",
-      image: "/images/deep_freezer_room.png",
-      desc: "Equipped with severe low-temperature air drop pressure relief valves and pre-insulated anti-frost floor grids.",
-    },
-    {
-      title: "Integrated Electrical PLC Control Panel",
-      location: "Pune, Maharashtra",
-      category: "machinery",
-      size: "IP65 Weatherproof",
-      image: "/images/control_panel_unit.png",
-      desc: "Features interactive touch controls, high-voltage phase sequence selectors, and real-time remote cloud telemetry integrations.",
-    },
+  const [projects, setProjects] = useState<ProjectItem[]>(initialProjects as ProjectItem[]);
 
-    {
-      title: "Dairy Processing & Chilling Plant",
-      location: "Anand, Gujarat",
-      category: "interiors",
-      size: "20,000 LPD Chilling",
-      image: "/images/milk_chilling_room.png",
-      desc: "Raw milk holding cold rooms designed with integrated SS-304 food-grade sanitization washdowns.",
-    },
-    {
-      title: "Dual-Discharge Ceiling Air Evaporator",
-      location: "Kolhapur, Maharashtra",
-      category: "machinery",
-      size: "Heavy Duty Finned",
-      image: "/images/evaporator.png",
-      desc: "High velocity evaporator coils using standard hot gas defrost bypass circuits to eliminate operational ice blockages.",
-    },
-    {
-      title: "Frozen Prawn Storage Hold",
-      location: "Ratnagiri, Maharashtra",
-      category: "execution",
-      size: "-25°C Blast-Locked",
-      image: "/images/prawn_storage.png",
-      desc: "Sub-zero storage of export-grade catches featuring airtight insulated panels and dual-evaporator cooling grids.",
-    },
-    {
-      title: "Controlled Atmosphere Banana Ripening Room",
-      location: "Solapur, Maharashtra",
-      category: "execution",
-      size: "40 MT Capacity",
-      image: "/images/ripening_chamber.png",
-      desc: "Uniform ripening chambers utilizing automatic ethylene gas dosing selectors, carbon dioxide venting controls, and PLC curves.",
-    },
-    {
-      title: "Dairy Product Cold Storage",
-      location: "Bangalore, Karnataka",
-      category: "interiors",
-      size: "Paneer & Curd Rooms",
-      image: "/images/dairy_product_cold_room.png",
-      desc: "Medium temperature cold room optimized for packing, curing, and storage of high-velocity fresh milk derivatives.",
-    },
-    {
-      title: "Heavy Industrial Flake Ice Machine",
-      location: "Chennai, Tamil Nadu",
-      category: "machinery",
-      size: "15 TPD Output",
-      image: "/images/ice_flake_machine.png",
-      desc: "Vertical freezing ice drums delivering dry, highly sub-cooled ice flakes for seaport storage and transport boxes.",
-    },
-    {
-      title: "Heavy Sliding Door Cold Room Assembly",
-      location: "Indore, Madhya Pradesh",
-      category: "execution",
-      size: "Airtight Seal",
-      image: "/images/cold_room_door.png",
-      desc: "Equipped with severe low-temp gasket heating cables, heavy duty lock latches, and integrated internal safety release buttons.",
-    },
-    {
-      title: "On-Site Telemetry Calibration & AMC Checks",
-      location: "Mumbai, Maharashtra",
-      category: "execution",
-      size: "AMC Support",
-      image: "/images/technician.png",
-      desc: "Preventative diagnostics checking oil levels, suction lines, suction gas superheat, and wireless telemetry signals.",
-    },
-  ];
+  useEffect(() => {
+    async function fetchProjects() {
+      try {
+        const res = await fetch("/api/admin");
+        const json = await res.json();
+        if (json.success && json.data.projects) {
+          setProjects(json.data.projects);
+        }
+      } catch (err) {
+        console.error("Error fetching projects from API:", err);
+      }
+    }
+    fetchProjects();
+  }, []);
 
   const filteredProjects = filter === "all" ? projects : projects.filter((p) => p.category === filter);
 
@@ -304,7 +214,7 @@ export default function ProjectsPage() {
             ].map((btn) => (
               <button
                 key={btn.id}
-                onClick={() => handleFilterChange(btn.id as any)}
+                onClick={() => handleFilterChange(btn.id as typeof filter)}
                 className={`rounded-full px-4 py-2 text-xs font-bold transition-all duration-300 active:scale-95 flex items-center gap-2 border ${
                   filter === btn.id
                     ? "bg-[#0c2340] text-white border-[#0c2340] shadow-md shadow-slate-900/10"
@@ -514,7 +424,7 @@ export default function ProjectsPage() {
                 <div className="space-y-4">
                   <Quote className="h-7 w-7 text-blue-600/10 shrink-0" />
                   <p className="text-xs text-slate-500 leading-relaxed italic">
-                    "{t.quote}"
+                    &quot;{t.quote}&quot;
                   </p>
                 </div>
                 
@@ -540,7 +450,7 @@ export default function ProjectsPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="space-y-2 text-center md:text-left">
             <h3 className="text-xl font-bold font-display">Have a Project in Mind?</h3>
-            <p className="text-xs text-slate-300">Let's build a reliable and efficient cold chain solution for your business.</p>
+            <p className="text-xs text-slate-300">Let&apos;s build a reliable and efficient cold chain solution for your business.</p>
           </div>
           
           <div className="flex flex-wrap items-center justify-center gap-4">

@@ -1,0 +1,58 @@
+[
+  {
+    "title": "Modular Cold Rooms",
+    "desc": "Custom-built cold rooms for any temperature ranges with PUF panels and precision engineering.",
+    "image": "/images/cold_room_modular.png",
+    "slug": "modular-cold-rooms",
+    "icon": "Snowflake"
+  },
+  {
+    "title": "Refrigeration Systems",
+    "desc": "High-performance refrigeration systems for industrial and commercial applications.",
+    "image": "/images/refrigeration_system.png",
+    "slug": "refrigeration-systems",
+    "icon": "Settings"
+  },
+  {
+    "title": "Mushroom & Saffron Cultivation",
+    "desc": "Precision growth chambers optimized with automated CO2, temperature, grow lights, and humidity controls.",
+    "image": "/images/mushroom_saffron_cultivation.png",
+    "slug": "mushroom-saffron-cultivation",
+    "icon": "Sprout"
+  },
+  {
+    "title": "Clean Rooms",
+    "desc": "ISO-compliant sterile chambers engineered with HEPA filtration, differential pressure controls, and magnetic airlocks.",
+    "image": "/images/industry_pharma.png",
+    "slug": "clean-rooms",
+    "icon": "ShieldCheck"
+  },
+  {
+    "title": "Fruits Ripening Chambers",
+    "desc": "Controlled atmosphere ripening chambers for bananas, mangoes & more.",
+    "image": "/images/ripening_chamber.png",
+    "slug": "ripening-chambers",
+    "icon": "Calendar"
+  },
+  {
+    "title": "Blast Chillers",
+    "desc": "Rapid cooling & freezing solutions to lock freshness and extend shelf life.",
+    "image": "/images/blast_chiller.png",
+    "slug": "blast-chillers",
+    "icon": "Wind"
+  },
+  {
+    "title": "Consultation & Sizing",
+    "desc": "Precision thermal load calculations, custom airflow design, and bankable DPR subsidy planning.",
+    "image": "/images/technician.png",
+    "slug": "consultation",
+    "icon": "Ruler"
+  },
+  {
+    "title": "AMC & Maintenance",
+    "desc": "Annual maintenance contracts for optimal performance and longer equipment life.",
+    "image": "/images/amc_maintenance.png",
+    "slug": "amc",
+    "icon": "Wrench"
+  }
+]

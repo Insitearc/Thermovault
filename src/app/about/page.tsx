@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import initialPages from "@/data/pages.json";
 import {
   ShieldCheck,
   Compass,
@@ -239,6 +240,22 @@ const BananaIcon = () => (
 
 export default function AboutPage() {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
+  const [aboutData, setAboutData] = useState(initialPages.about);
+
+  useEffect(() => {
+    async function fetchPageData() {
+      try {
+        const res = await fetch("/api/admin");
+        const json = await res.json();
+        if (json.success && json.data.pages?.about) {
+          setAboutData(json.data.pages.about);
+        }
+      } catch (err) {
+        console.error("Error fetching about page data:", err);
+      }
+    }
+    fetchPageData();
+  }, []);
 
   const openModal = () => {
     const event = new CustomEvent("open-quote-modal");
@@ -441,20 +458,13 @@ export default function AboutPage() {
             <span className="text-slate-300">About Us</span>
           </div>
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl font-display">
-            About <span className="text-blue-400">ThermoVault Systems</span>
+            {aboutData.hero_title}
           </h1>
           <p className="max-w-3xl text-sm font-semibold text-slate-200/90 leading-relaxed font-display">
-            Engineering Reliable Cold Chain Infrastructure
+            {aboutData.hero_subtitle}
           </p>
-          <p className="max-w-3xl text-xs sm:text-sm text-slate-300/95 leading-relaxed font-body">
-            ThermoVault Systems is a leading cold chain engineering company
-            specializing in the design, supply, installation and maintenance of
-            advanced cold storage and refrigeration solutions.
-            <br />
-            <br />
-            Founded in 2026, we help businesses across India preserve product
-            quality, reduce wastage and operate more efficiently with reliable
-            and energy-efficient cold chain infrastructure.
+          <p className="max-w-3xl text-xs sm:text-sm text-slate-300/95 leading-relaxed font-body whitespace-pre-wrap">
+            {aboutData.hero_description}
           </p>
 
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 pt-4">
@@ -484,7 +494,7 @@ export default function AboutPage() {
               <div className="relative w-64 h-64 sm:w-72 sm:h-72 rounded-2xl overflow-hidden shadow-lg border border-slate-200/50 bg-white">
                 <Image
                   src="/images/founder.png"
-                  alt="Omkar Naikade, Founder of ThermoVault Systems"
+                  alt={`${aboutData.founder_name}, ${aboutData.founder_title}`}
                   fill
                   className="object-cover object-top"
                   sizes="(max-width: 768px) 100vw, 33vw"
@@ -493,10 +503,10 @@ export default function AboutPage() {
               </div>
               <div className="space-y-0.5">
                 <h3 className="text-lg font-bold text-[#0c2340] font-display">
-                  Omkar Naikade
+                  {aboutData.founder_name}
                 </h3>
                 <p className="text-xs font-semibold text-blue-600 font-mono">
-                  Founder, ThermoVault Systems
+                  {aboutData.founder_title}
                 </p>
               </div>
             </div>
@@ -508,29 +518,22 @@ export default function AboutPage() {
                   Message from Founder
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0c2340] font-display tracking-tight mt-1">
-                  Omkar Naikade
+                  {aboutData.founder_name}
                 </h2>
                 <p className="text-xs font-bold text-blue-600 font-mono uppercase tracking-wide">
-                  Founder, ThermoVault Systems
+                  {aboutData.founder_title}
                 </p>
               </div>
 
               <div className="relative pl-6 border-l-4 border-blue-600/80 space-y-4">
                 <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium italic">
-                  "ThermoVault Systems was built on a simple belief — every
-                  business deserves reliable cold chain solutions backed by
-                  engineering excellence and honest service."
+                  &quot;{aboutData.founder_quote}&quot;
                 </p>
                 <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-body">
-                  We started this journey in 2026 with a vision to deliver
-                  customized, energy-efficient and future-ready cold storage
-                  solutions that help businesses grow without compromising on
-                  quality.
+                  {aboutData.founder_message_1}
                 </p>
                 <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-body">
-                  Our commitment is to build long-term partnerships by
-                  delivering projects that are dependable, efficient and
-                  designed for performance.
+                  {aboutData.founder_message_2}
                 </p>
               </div>
             </div>
@@ -892,7 +895,7 @@ export default function AboutPage() {
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center justify-between gap-8 z-10">
           <div className="space-y-2 text-center lg:text-left max-w-xl">
             <h2 className="text-xl sm:text-2xl font-bold font-display text-white mb-0 leading-tight">
-              Let's Build Your Cold Chain Infrastructure
+              Let&apos;s Build Your Cold Chain Infrastructure
             </h2>
             <p className="text-xs text-slate-300 font-body">
               Partner with ThermoVault Systems for dependable, energy-efficient
