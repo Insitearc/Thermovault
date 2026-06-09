@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import initialPages from "@/data/pages.json";
 import {
   HelpCircle,
   CheckCircle2,
@@ -17,6 +18,23 @@ import {
 
 export default function SubsidyPage() {
   const [step, setStep] = useState(1);
+  const [subsidyData, setSubsidyData] = useState(initialPages.subsidy);
+
+  useEffect(() => {
+    async function fetchPageData() {
+      try {
+        const res = await fetch("/api/admin");
+        const json = await res.json();
+        if (json.success && json.data.pages?.subsidy) {
+          setSubsidyData(json.data.pages.subsidy);
+        }
+      } catch (err) {
+        console.error("Error fetching subsidy page data:", err);
+      }
+    }
+    fetchPageData();
+  }, []);
+
   const [form, setForm] = useState({
     state: "Maharashtra",
     areaType: "Rural",
@@ -124,12 +142,10 @@ export default function SubsidyPage() {
             <span className="text-slate-300">Government Subsidies</span>
           </div>
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl font-display">
-            Cold Room <span className="text-blue-400">Capital Subsidies</span>
+            {subsidyData.hero_title}
           </h1>
-          <p className="max-w-2xl text-xs sm:text-sm text-slate-200/90 leading-relaxed">
-            We guide you through credit-linked capital back-ended subsidies (up
-            to 35% - 50%) under National Horticulture Mission (NHB) and NABARD
-            schemes.
+          <p className="max-w-2xl text-xs sm:text-sm text-slate-200/90 leading-relaxed whitespace-pre-wrap">
+            {subsidyData.hero_description}
           </p>
         </div>
       </section>
@@ -155,22 +171,18 @@ export default function SubsidyPage() {
               <div className="space-y-4">
                 <div className="rounded-xl border border-slate-100 bg-slate-50 p-5 space-y-2">
                   <div className="text-xs font-bold text-[#0c2340]">
-                    NHB / MIDH Schemes
+                    {subsidyData.scheme1_title}
                   </div>
-                  <p className="text-[11px] text-slate-500 leading-relaxed">
-                    Offers up to 35% subsidy for private developers, and up to
-                    50% for scheduled tribal regions, hilly terrains, and
-                    registered Farmer Producer Organizations (FPOs).
+                  <p className="text-[11px] text-slate-500 leading-relaxed whitespace-pre-wrap">
+                    {subsidyData.scheme1_description}
                   </p>
                 </div>
                 <div className="rounded-xl border border-slate-100 bg-slate-50 p-5 space-y-2">
                   <div className="text-xs font-bold text-[#0c2340]">
-                    NABARD Sizing Fund
+                    {subsidyData.scheme2_title}
                   </div>
-                  <p className="text-[11px] text-slate-500 leading-relaxed">
-                    Refinancing loans and direct subsidy allocation for milk
-                    chilling centers, sorting-grading units, and large-scale
-                    multi-chamber warehouses.
+                  <p className="text-[11px] text-slate-500 leading-relaxed whitespace-pre-wrap">
+                    {subsidyData.scheme2_description}
                   </p>
                 </div>
               </div>

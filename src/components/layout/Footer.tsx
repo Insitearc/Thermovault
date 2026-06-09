@@ -81,11 +81,6 @@ export default function Footer() {
                   Careers
                 </Link>
               </li>
-              <li>
-                <Link href="/dashboard" className="text-teal-light hover:text-white transition-colors flex items-center gap-1 font-semibold">
-                  3D IoT Demo Dashboard →
-                </Link>
-              </li>
             </ul>
           </div>
 

@@ -542,10 +542,9 @@ export default function LastMileServicesPage() {
                           <div 
                             className="absolute inset-0 pointer-events-none opacity-45 transition-opacity duration-300 bg-[radial-gradient(150px_circle_at_var(--x)_var(--y),rgba(59,130,246,0.12),transparent_80%)]"
                             style={{
-                              // @ts-ignore
-                              "--x": `${mouseCoords.x}px`,
-                              "--y": `${mouseCoords.y}px`
-                            }}
+                          "--x": `${mouseCoords.x}px`,
+                          "--y": `${mouseCoords.y}px`
+                        } as React.CSSProperties}
                           />
                         )}
 

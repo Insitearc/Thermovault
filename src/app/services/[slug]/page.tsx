@@ -323,7 +323,7 @@ interface ApplicationItem {
   title: string;
   desc: string;
   link: string;
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<{ className?: string }>;
 }
 
 function getApplicationItems(slug: string): ApplicationItem[] {
@@ -764,7 +764,9 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
   useEffect(() => {
     const currentTabs = getVisualTabs(slug);
     if (currentTabs.length > 0) {
-      setActiveTab(currentTabs[0].id);
+      setTimeout(() => {
+        setActiveTab(currentTabs[0].id);
+      }, 0);
     }
   }, [slug]);
 
@@ -1184,7 +1186,7 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
                   return (
                     <button
                       key={key}
-                      onClick={() => setSelectedSensor(key as any)}
+                      onClick={() => setSelectedSensor(key as typeof selectedSensor)}
                       className={`text-left p-2 rounded border transition-all ${
                         isActive
                           ? "bg-blue-500/15 border-blue-500"
@@ -3215,19 +3217,19 @@ export default function ServiceDetailPage({
   const [hoveredWhyIdx, setHoveredWhyIdx] = useState<number | null>(null);
   const [whyMouseCoords, setWhyMouseCoords] = useState({ x: 0, y: 0 });
 
-  const handleSpecMouseMove = (e: React.MouseEvent<any>, idx: number) => {
+  const handleSpecMouseMove = (e: React.MouseEvent<HTMLElement>, idx: number) => {
     const rect = e.currentTarget.getBoundingClientRect();
     setSpecMouseCoords({ x: e.clientX - rect.left, y: e.clientY - rect.top });
     setHoveredSpecIdx(idx);
   };
 
-  const handleAppMouseMove = (e: React.MouseEvent<any>, idx: number) => {
+  const handleAppMouseMove = (e: React.MouseEvent<HTMLElement>, idx: number) => {
     const rect = e.currentTarget.getBoundingClientRect();
     setAppMouseCoords({ x: e.clientX - rect.left, y: e.clientY - rect.top });
     setHoveredAppIdx(idx);
   };
 
-  const handleWhyMouseMove = (e: React.MouseEvent<any>, idx: number) => {
+  const handleWhyMouseMove = (e: React.MouseEvent<HTMLElement>, idx: number) => {
     const rect = e.currentTarget.getBoundingClientRect();
     setWhyMouseCoords({ x: e.clientX - rect.left, y: e.clientY - rect.top });
     setHoveredWhyIdx(idx);
@@ -3240,9 +3242,6 @@ export default function ServiceDetailPage({
     const h = parseFloat(calcHeight) || 10;
     const volCuFt = l * w * h;
     const volCuM = parseFloat((volCuFt * 0.0283168).toFixed(1));
-
-    setVolumeCuFt(Math.round(volCuFt));
-    setVolumeCuM(volCuM);
 
     // 1. Cooling Load Load Factor per cubic feet
     let trMultiplier = 0.0008; // Chilling default
@@ -3258,16 +3257,20 @@ export default function ServiceDetailPage({
       thickness = "60mm";
     }
     const tr = parseFloat((volCuFt * trMultiplier).toFixed(2));
-    setCoolingTR(tr);
-    setPufThickness(thickness);
 
     // 2. Cost estimation baseline
     const costFactor = calcTempProfile.includes("freezing") ? 220 : 160;
-    const projectCost = volCuFt * costFactor;
 
     // Subsidy rate matching (35% private, 50% FPO/Cooperative)
     const rate = calcApplicant === "fpo" ? 50 : 35;
-    setEstimatedSubsidy(`${rate}%`);
+
+    setTimeout(() => {
+      setVolumeCuFt(Math.round(volCuFt));
+      setVolumeCuM(volCuM);
+      setCoolingTR(tr);
+      setPufThickness(thickness);
+      setEstimatedSubsidy(`${rate}%`);
+    }, 0);
   }, [calcLength, calcWidth, calcHeight, calcTempProfile, calcApplicant]);
 
   const handleApplySizingToForm = () => {
@@ -3900,10 +3903,9 @@ export default function ServiceDetailPage({
                         <div
                           className="absolute inset-0 pointer-events-none opacity-45 transition-opacity duration-300 bg-[radial-gradient(150px_circle_at_var(--x)_var(--y),rgba(59, 130, 246,0.12),transparent_80%)]"
                           style={{
-                            // @ts-ignore
                             "--x": `${specMouseCoords.x}px`,
                             "--y": `${specMouseCoords.y}px`,
-                          }}
+                          } as React.CSSProperties}
                         />
                       )}
 
@@ -4260,10 +4262,9 @@ export default function ServiceDetailPage({
                         <div
                           className="absolute inset-0 pointer-events-none opacity-45 transition-opacity duration-300 bg-[radial-gradient(150px_circle_at_var(--x)_var(--y),rgba(59, 130, 246,0.12),transparent_80%)]"
                           style={{
-                            // @ts-ignore
                             "--x": `${appMouseCoords.x}px`,
                             "--y": `${appMouseCoords.y}px`,
-                          }}
+                          } as React.CSSProperties}
                         />
                       )}
 
@@ -4376,7 +4377,7 @@ export default function ServiceDetailPage({
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {(relatedMap[slug] || []).map((k) => {
                   const title = serviceDb[k]?.title || k;
-                  const iconsMap: Record<string, React.ComponentType<any>> = {
+                  const iconsMap: Record<string, React.ComponentType<{ className?: string }>> = {
                     "modular-cold-rooms": Box,
                     "refrigeration-systems": Settings,
                     "mushroom-saffron-cultivation": Sprout,
@@ -4461,10 +4462,9 @@ export default function ServiceDetailPage({
                         <div
                           className="absolute inset-0 pointer-events-none opacity-45 transition-opacity duration-300 bg-[radial-gradient(150px_circle_at_var(--x)_var(--y),rgba(59, 130, 246,0.1),transparent_80%)]"
                           style={{
-                            // @ts-ignore
                             "--x": `${whyMouseCoords.x}px`,
                             "--y": `${whyMouseCoords.y}px`,
-                          }}
+                          } as React.CSSProperties}
                         />
                       )}
 

@@ -1,0 +1,92 @@
+[
+  {
+    "id": "seafood-mumbai",
+    "name": "Seafood Cold Room (Mumbai)",
+    "milestones": [
+      {
+        "title": "Free Consultation",
+        "date": "Oct 12, 2025",
+        "status": "completed",
+        "description": "Requirements analysis, capacity estimates, and thermal sizing calculation."
+      },
+      {
+        "title": "Site Assessment & Design",
+        "date": "Nov 05, 2025",
+        "status": "completed",
+        "description": "CAD layout drafting, civil check, and 120mm PUF panel thickness specifications map."
+      },
+      {
+        "title": "Manufacturing & Installation",
+        "date": "In Progress",
+        "status": "current",
+        "description": "Assembly of Copeland Scroll compressor, piping leak checks, and wall panel joints rigging."
+      },
+      {
+        "title": "Testing & Handover",
+        "date": "Est. Dec 15, 2025",
+        "status": "upcoming",
+        "description": "Pull-down test, electric defrost testing, IoT controller calibration, and handover."
+      }
+    ]
+  },
+  {
+    "id": "dairy-pune",
+    "name": "Dairy Chilling Plant (Pune)",
+    "milestones": [
+      {
+        "title": "Free Consultation",
+        "date": "Nov 01, 2025",
+        "status": "completed",
+        "description": "Milk processing capacity calculation and site dimensions layout."
+      },
+      {
+        "title": "Site Assessment & Design",
+        "date": "Nov 15, 2025",
+        "status": "completed",
+        "description": "Civil platform foundation build and CAD drawing review with client."
+      },
+      {
+        "title": "Manufacturing & Installation",
+        "date": "Dec 05, 2025",
+        "status": "completed",
+        "description": "PUF panels erection, cold room door installation, and evaporator hanging."
+      },
+      {
+        "title": "Testing & Handover",
+        "date": "In Progress",
+        "status": "current",
+        "description": "Defrost heater testing, Carel temperature controller commissioning, and final walkthrough."
+      }
+    ]
+  },
+  {
+    "id": "pharma-goa",
+    "name": "Pharma Cold Vault (Goa)",
+    "milestones": [
+      {
+        "title": "Free Consultation",
+        "date": "Nov 10, 2025",
+        "status": "completed",
+        "description": "Validation compliance (WHO-GDP) sizing check and redundancy mapping."
+      },
+      {
+        "title": "Site Assessment & Design",
+        "date": "In Progress",
+        "status": "current",
+        "description": "Dual-refrigeration piping layout design and clean room class validation."
+      },
+      {
+        "title": "Manufacturing & Installation",
+        "date": "Est. Jan 10, 2026",
+        "status": "upcoming",
+        "description": "Erection of SS304 interior cold panels and installation of dual compressors."
+      },
+      {
+        "title": "Testing & Handover",
+        "date": "Est. Jan 25, 2026",
+        "status": "upcoming",
+        "description": "Temperature mapping study validation (24-hour cycle) and handover."
+      }
+    ]
+  }
+]
