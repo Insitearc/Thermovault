@@ -3,6 +3,8 @@ import { NextResponse } from "next/server";
 import fs from "fs/promises";
 import path from "path";
 
+export const dynamic = "force-static";
+
 const DATA_DIR = path.join(process.cwd(), "src/data");
 
 async function readJsonFile(fileName: string) {
