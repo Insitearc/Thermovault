@@ -3174,6 +3174,19 @@ function SystemVisuals({ slug, serviceTitle }: SystemVisualsProps) {
   );
 }
 
+export async function generateStaticParams() {
+  return [
+    { slug: "modular-cold-rooms" },
+    { slug: "refrigeration-systems" },
+    { slug: "mushroom-saffron-cultivation" },
+    { slug: "clean-rooms" },
+    { slug: "ripening-chambers" },
+    { slug: "blast-chillers" },
+    { slug: "amc" },
+    { slug: "consultation" },
+  ];
+}
+
 export default function ServiceDetailPage({
   params,
 }: {

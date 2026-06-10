@@ -29,6 +29,12 @@ interface PostData {
   contentImage?: string;
 }
 
+export async function generateStaticParams() {
+  return initialBlogs.map((blog: any) => ({
+    slug: blog.slug,
+  }));
+}
+
 export default function BlogPostDetailPage({
   params,
 }: {
