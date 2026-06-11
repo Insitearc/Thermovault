@@ -38,7 +38,7 @@ export default function ColdRoom3D({
 
   // References to animate in the loop
   const doorHingeRef = useRef<THREE.Group | null>(null);
-  const fanRef = useRef<THREE.Mesh | null>(null);
+  const fanRef = useRef<THREE.Object3D | null>(null);
   const statusLightRef = useRef<THREE.Mesh | null>(null);
   const sensorGlowRef = useRef<THREE.Mesh | null>(null);
   const panelMaterialRef = useRef<THREE.MeshStandardMaterial | null>(null);
@@ -105,10 +105,8 @@ export default function ColdRoom3D({
     // 6. Ground Helper / Grid
     const gridHelper = new THREE.GridHelper(20, 20, 0x1d9e75, 0x185fa5);
     gridHelper.position.y = -1.5;
-    // @ts-ignore
-    gridHelper.material.opacity = 0.15;
-    // @ts-ignore
-    gridHelper.material.transparent = true;
+    (gridHelper.material as THREE.Material).opacity = 0.15;
+    (gridHelper.material as THREE.Material).transparent = true;
     scene.add(gridHelper);
 
     // 7. Render Cold Room Assembly (Group)
@@ -199,7 +197,6 @@ export default function ColdRoom3D({
     fanGroup.add(blade1);
     fanGroup.add(blade2);
     fanGroup.position.set(0.3, 0, 0.41);
-    // @ts-ignore
     fanRef.current = fanGroup;
     compressorGroup.add(fanGroup);
 
@@ -264,15 +261,13 @@ export default function ColdRoom3D({
         if (compressorActiveRef.current) {
           fanRef.current.rotation.z += 15 * delta; // Spin fast
           if (statusLightRef.current) {
-            // @ts-ignore
-            statusLightRef.current.material.color.setHex(0x1d9e75); // Vibrant Teal active
+            ((statusLightRef.current as THREE.Mesh).material as THREE.MeshBasicMaterial).color.setHex(0x1d9e75); // Vibrant Teal active
           }
         } else {
           // Slowly bring fan to stop
           fanRef.current.rotation.z += (0 - fanRef.current.rotation.z) * 2 * delta;
           if (statusLightRef.current) {
-            // @ts-ignore
-            statusLightRef.current.material.color.setHex(0xff3344); // Red inactive
+            ((statusLightRef.current as THREE.Mesh).material as THREE.MeshBasicMaterial).color.setHex(0xff3344); // Red inactive
           }
         }
       }

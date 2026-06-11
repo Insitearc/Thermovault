@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import initialPages from "@/data/pages.json";
 import {
   Briefcase,
   MapPin,
@@ -23,7 +24,7 @@ import { motion, AnimatePresence } from "framer-motion";
 interface JobRole {
   id: string;
   title: string;
-  dept: "Engineering" | "Sales" | "Operations";
+  dept: string;
   location: string;
   type: string;
   experience: string;
@@ -50,92 +51,24 @@ export default function CareersPage() {
 
   const formRef = useRef<HTMLDivElement | null>(null);
 
-  const jobs: JobRole[] = [
-    {
-      id: "thermal-sizing-engineer",
-      title: "Thermal Sizing Engineer (HVAC/R)",
-      dept: "Engineering",
-      location: "At post Kadadhe Colony Rajgurunagar, Pune",
-      type: "Full-Time",
-      experience: "2 - 4 Years",
-      desc: "Responsible for engineering precise heat loads, selecting optimal condensing units and evaporators, and drafting custom cold room layout drawings.",
-      responsibilities: [
-        "Calculate project-specific heat loads based on product inbound temperature, insulation thickness, ambient conditions, and daily air change parameters.",
-        "Select and specify refrigeration machinery, including semi-hermetic compressor units, evaporator coils, and mechanical valves.",
-        "Collaborate with the AutoCAD team to create detailed pipe routing plans, control panel schematics, and isometric cold room layouts.",
-        "Provide remote/on-site troubleshooting support to field commissioning teams during initial plant pull-down tests.",
-      ],
-      requirements: [
-        "B.E. / B.Tech in Mechanical, Thermal, or HVAC/R Engineering.",
-        "Demonstrated competence in industrial heat load calculation software or custom manual mathematical thermodynamic checks.",
-        "Familiarity with eco-compliant refrigerants (R404A, R134a, R448A) and compressor sizing standards (Copeland, Bitzer, Danfoss).",
-        "Excellent communication skills to interact with clients on technical panel specifications.",
-      ],
-    },
-    {
-      id: "sales-manager",
-      title: "Sales & Account Manager (Cold Storage)",
-      dept: "Sales",
-      location: "Pune / Pan-India Remote",
-      type: "Full-Time",
-      experience: "3+ Years",
-      desc: "Lead consultative sales cycles with agricultural enterprises, pharmaceutical manufacturers, and quick-commerce dark stores to deliver bespoke refrigeration solutions.",
-      responsibilities: [
-        "Identify and close capital sales leads for modular cold rooms, blast freezers, and industrial ripening chambers.",
-        "Analyze customer storage capacity requirements and present custom ThermoVault technical engineering proposals.",
-        "Navigate and secure project quotes, coordinating closely with procurement and sizing designers.",
-        "Help clients audit NHB (National Horticulture Mission) and NABARD back-ended capital subsidies options.",
-      ],
-      requirements: [
-        "MBA or Graduate Degree (Mechanical Engineering background is a strong advantage).",
-        "Minimum 3 years of proven experience selling high-value capital equipment, industrial refrigeration, cleanrooms, or HVAC solutions.",
-        "Willingness to travel across key agricultural and pharmaceutical clusters across India.",
-        "Strong understanding of project execution cycles, payment milestones, and technical client relationships.",
-      ],
-    },
-    {
-      id: "field-service-technician",
-      title: "Cold Storage Field Service Technician",
-      dept: "Operations",
-      location: "Pan-India (Field Deployments)",
-      type: "Full-Time",
-      experience: "2 - 5 Years",
-      desc: "Deploy, install, commission, and maintain modular cold storages, refrigeration units, door hardware alignments, and connected telemetry sensors.",
-      responsibilities: [
-        "Execute precision installations of PUF tongue-and-groove panel enclosures, ensuring vapor-barrier seal integrity.",
-        "Install and pipe split refrigeration units, including copper brazing, vacuum tests, and correct refrigerant gas charge.",
-        "Wire control panels and calibrate temperature sensors, relays, and IoT telemetry transmission hardware.",
-        "Perform preventive maintenance cycles (AMC checks) and execute swift diagnosis and repair calls on active refrigeration loops.",
-      ],
-      requirements: [
-        "ITI / Diploma in Refrigeration and Air Conditioning (RAC) or equivalent mechanical trades.",
-        "Strong hands-on skills in copper pipe brazing, nitrogen leak tests, vacuuming, and mechanical system tuning.",
-        "Basic electrical knowledge to read schematics and wire temperature indicators and relays safely.",
-        "Strong service orientation with high flexibility for field travels.",
-      ],
-    },
-    {
-      id: "graduate-engineering-trainee",
-      title: "Graduate Engineering Trainee (GET) - Design",
-      dept: "Engineering",
-      location: "At post Kadadhe Colony Rajgurunagar, Pune",
-      type: "Internship (Convertible)",
-      experience: "Fresh Graduate",
-      desc: "Kickstart your career in thermodynamic sciences by assisting senior project designers in compiling bill of materials, engineering drawings, and quality control checklists.",
-      responsibilities: [
-        "Assist designers in compiling technical drawing packets and calculating component dimensions.",
-        "Update and maintain internal engineering databases of compressor performance parameters and PUF thermal test records.",
-        "Prepare Bill of Materials (BOMs) for procurement and project management trackers.",
-        "Shadow execution teams to observe and document real chamber pull-down tests and air-flow velocity mapping.",
-      ],
-      requirements: [
-        "Fresh Graduate B.E. / B.Tech in Mechanical Engineering (graduated in last 12 months).",
-        "Strong fundamental knowledge of thermodynamics, fluid mechanics, and heat transfer.",
-        "Proficiency in AutoCAD or SolidWorks; basic scripting/data analysis skills are a plus.",
-        "High curiosity to learn cold-chain technology and execute with micro-level design detail.",
-      ],
-    },
-  ];
+  const [careersData, setCareersData] = useState(initialPages.careers);
+
+  useEffect(() => {
+    async function fetchPageData() {
+      try {
+        const res = await fetch("/api/admin");
+        const json = await res.json();
+        if (json.success && json.data.pages?.careers) {
+          setCareersData(json.data.pages.careers);
+        }
+      } catch (err) {
+        console.error("Error fetching careers page data:", err);
+      }
+    }
+    fetchPageData();
+  }, []);
+
+  const jobs: JobRole[] = careersData.jobs;
 
   const filteredJobs =
     activeTab === "All" ? jobs : jobs.filter((j) => j.dept === activeTab);
@@ -191,15 +124,21 @@ export default function CareersPage() {
           </div>
 
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl font-display leading-tight max-w-3xl">
-            Build the Future of <br className="hidden sm:inline" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-400 font-extrabold">
-              Cold Chain Engineering
-            </span>
+            {careersData.hero_title.startsWith("Build the Future of") ? (
+              <>
+                Build the Future of <br className="hidden sm:inline" />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-400 font-extrabold">
+                  {careersData.hero_title.replace("Build the Future of", "").trim()}
+                </span>
+              </>
+            ) : (
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-100 to-blue-200 font-extrabold">
+                {careersData.hero_title}
+              </span>
+            )}
           </h1>
-          <p className="max-w-2xl text-xs sm:text-sm text-slate-200/90 leading-relaxed font-body">
-            Join a fast-growing, precision-engineering team dedicated to
-            reducing post-harvest losses, optimizing pharmaceutical storage, and
-            driving thermodynamic innovation.
+          <p className="max-w-2xl text-xs sm:text-sm text-slate-200/90 leading-relaxed font-body whitespace-pre-wrap">
+            {careersData.hero_description}
           </p>
         </div>
       </section>

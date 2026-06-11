@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Milestone,
   CheckCircle2,
@@ -23,36 +23,82 @@ interface MilestoneStep {
   description: string;
 }
 
+interface ProjectData {
+  id: string;
+  name: string;
+  milestones: MilestoneStep[];
+}
+
 export default function ProjectTracker() {
   const [callbackRequestSent, setCallbackRequestSent] = useState(false);
   const [formData, setFormData] = useState({ name: "", phone: "", notes: "" });
 
-  const timeline: MilestoneStep[] = [
+  const [projects, setProjects] = useState<ProjectData[]>([
     {
-      title: "Free Consultation",
-      date: "Oct 12, 2025",
-      status: "completed",
-      description: "Requirements analysis, capacity estimates, and thermal sizing calculation.",
+      id: "seafood-mumbai",
+      name: "Seafood Cold Room (Mumbai)",
+      milestones: [
+        {
+          title: "Free Consultation",
+          date: "Oct 12, 2025",
+          status: "completed",
+          description: "Requirements analysis, capacity estimates, and thermal sizing calculation.",
+        },
+        {
+          title: "Site Assessment & Design",
+          date: "Nov 05, 2025",
+          status: "completed",
+          description: "CAD layout drafting, civil check, and 120mm PUF panel thickness specifications map.",
+        },
+        {
+          title: "Manufacturing & Installation",
+          date: "In Progress",
+          status: "current",
+          description: "Assembly of Copeland Scroll compressor, piping leak checks, and wall panel joints rigging.",
+        },
+        {
+          title: "Testing & Handover",
+          date: "Est. Dec 15, 2025",
+          status: "upcoming",
+          description: "Pull-down test, electric defrost testing, IoT controller calibration, and handover.",
+        },
+      ],
     },
-    {
-      title: "Site Assessment & Design",
-      date: "Nov 05, 2025",
-      status: "completed",
-      description: "CAD layout drafting, civil check, and 120mm PUF panel thickness specifications map.",
-    },
-    {
-      title: "Manufacturing & Installation",
-      date: "In Progress",
-      status: "current",
-      description: "Assembly of Copeland Scroll compressor, piping leak checks, and wall panel joints rigging.",
-    },
-    {
-      title: "Testing & Handover",
-      date: "Est. Dec 15, 2025",
-      status: "upcoming",
-      description: "Pull-down test, electric defrost testing, IoT controller calibration, and handover.",
-    },
-  ];
+  ]);
+  const [selectedProjectId, setSelectedProjectId] = useState<string>("seafood-mumbai");
+
+  useEffect(() => {
+    async function loadTrackerData() {
+      try {
+        const res = await fetch("/api/admin");
+        const json = await res.json();
+        if (json.success && json.data.tracker && json.data.tracker.length > 0) {
+          const firstItem = json.data.tracker[0];
+          if (firstItem.milestones) {
+            // Multi-project structure
+            setProjects(json.data.tracker);
+            setSelectedProjectId(json.data.tracker[0].id);
+          } else {
+            // Legacy single project structure - wrap it
+            setProjects([
+              {
+                id: "legacy-project",
+                name: "Active Showcase Project",
+                milestones: json.data.tracker,
+              },
+            ]);
+            setSelectedProjectId("legacy-project");
+          }
+        }
+      } catch (err) {
+        console.error("Error loading tracker data:", err);
+      }
+    }
+    loadTrackerData();
+  }, []);
+
+  const activeProject = projects.find((p) => p.id === selectedProjectId) || projects[0];
+  const timeline = activeProject?.milestones || [];
 
   const specs = [
     { label: "Dimensions", value: "24' x 16' x 10' (Length x Width x Height in feet)" },
@@ -84,10 +130,31 @@ export default function ProjectTracker() {
       <div className="lg:col-span-2 space-y-6">
         {/* Milestone Tracker Card */}
         <div className="rounded-2xl border border-white/5 bg-[#0C2340]/60 p-6 shadow-md">
-          <h3 className="text-sm font-bold text-white mb-6 font-display flex items-center gap-2">
-            <Milestone className="h-4.5 w-4.5 text-teal-light" />
-            Installation Milestones & Progress
-          </h3>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+            <h3 className="text-sm font-bold text-white font-display flex items-center gap-2">
+              <Milestone className="h-4.5 w-4.5 text-teal-light" />
+              Installation Milestones & Progress
+            </h3>
+
+            {projects.length > 1 && (
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-mono text-silver uppercase font-bold shrink-0">
+                  Select Project:
+                </span>
+                <select
+                  value={selectedProjectId}
+                  onChange={(e) => setSelectedProjectId(e.target.value)}
+                  className="rounded-lg bg-[#0c2340] border border-white/10 px-3 py-1.5 text-xs text-white placeholder-silver/40 focus:outline-none focus:border-teal-light font-medium"
+                >
+                  {projects.map((proj) => (
+                    <option key={proj.id} value={proj.id} className="bg-[#0c2340]">
+                      {proj.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
+          </div>
 
           <div className="relative pl-6 sm:pl-8 space-y-8 before:absolute before:left-2 before:top-2 before:bottom-2 before:w-0.5 before:bg-white/5">
             {timeline.map((step, idx) => {
@@ -113,13 +180,19 @@ export default function ProjectTracker() {
                   </div>
 
                   {/* Context */}
-                  <div className={`rounded-xl p-4 transition-all duration-200 border ${
-                    isCurrent 
-                      ? "bg-teal-accent/5 border-teal-accent/20" 
-                      : "bg-[#0C2340]/30 border-transparent hover:border-white/5"
-                  }`}>
+                  <div
+                    className={`rounded-xl p-4 transition-all duration-200 border ${
+                      isCurrent
+                        ? "bg-teal-accent/5 border-teal-accent/20"
+                        : "bg-[#0C2340]/30 border-transparent hover:border-white/5"
+                    }`}
+                  >
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
-                      <h4 className={`text-xs font-bold font-display ${isCurrent ? "text-teal-light" : "text-white"}`}>
+                      <h4
+                        className={`text-xs font-bold font-display ${
+                          isCurrent ? "text-teal-light" : "text-white"
+                        }`}
+                      >
                         {step.title}
                       </h4>
                       <span className="text-[9px] font-mono text-silver flex items-center gap-1">
