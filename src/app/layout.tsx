@@ -52,7 +52,7 @@ export default function RootLayout({
             href="https://www.linkedin.com/in/ominaikade0106?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-900 border border-slate-700/50 text-cyan-400 shadow-lg hover:shadow-cyan-500/25 hover:border-cyan-500/50 hover:bg-[#0a66c2] hover:text-white hover:scale-110 transition-all duration-300"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0a66c2] text-white shadow-lg hover:shadow-blue-500/25 hover:scale-110 transition-all duration-300"
             title="LinkedIn"
           >
             <svg className="h-4.5 w-4.5 fill-current" viewBox="0 0 24 24">
@@ -65,7 +65,7 @@ export default function RootLayout({
             href="https://www.instagram.com/thermovault_systems?igsh=NTh3b2lrZ3VhdnA2"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-900 border border-slate-700/50 text-[#e4405f] shadow-lg hover:shadow-orange-500/25 hover:border-orange-500/50 hover:bg-[#e4405f] hover:text-white hover:scale-110 transition-all duration-300"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] text-white shadow-lg hover:shadow-pink-500/25 hover:scale-110 transition-all duration-300"
             title="Instagram"
           >
             <svg className="h-4.5 w-4.5 fill-none stroke-current stroke-2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
@@ -80,7 +80,7 @@ export default function RootLayout({
             href="https://www.facebook.com/profile.php?id=100067437094413"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-900 border border-slate-700/50 text-blue-400 shadow-lg hover:shadow-blue-500/25 hover:border-blue-500/50 hover:bg-[#1877f2] hover:text-white hover:scale-110 transition-all duration-300"
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1877f2] text-white shadow-lg hover:shadow-blue-600/25 hover:scale-110 transition-all duration-300"
             title="Facebook"
           >
             <svg className="h-4.5 w-4.5 fill-current" viewBox="0 0 24 24">
