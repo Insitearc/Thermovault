@@ -4170,7 +4170,7 @@ export default function ServiceDetailPage({
             </div>
 
             {/* System Visuals Section */}
-            <SystemVisuals slug={slug} serviceTitle={service.title} />
+            {slug !== "amc" && <SystemVisuals slug={slug} serviceTitle={service.title} />}
 
             {/* Real Project / Installation Gallery */}
             <div className="space-y-6 pt-6 border-t border-white/5 text-left">
