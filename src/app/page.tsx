@@ -375,7 +375,7 @@ export default function LandingPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
 
                   {/* Content Overlay */}
-                  <div className="relative z-10 flex items-center w-full">
+                  <div className="relative z-10 flex items-center justify-between w-full">
                     <div className="flex items-center gap-3">
                       <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-blue-600 shadow-md shadow-blue-500/20">
                         <Snowflake className="h-4.5 w-4.5" />
@@ -383,6 +383,15 @@ export default function LandingPage() {
                       <span className="text-xs font-bold text-white font-display uppercase tracking-wider">
                         {svc.title}
                       </span>
+                    </div>
+
+                    <div className="flex items-center gap-2 shrink-0">
+                      <span className="text-[10px] font-bold uppercase tracking-wider font-mono whitespace-nowrap text-white/90 group-hover:text-blue-400 transition-colors duration-300">
+                        View Solution
+                      </span>
+                      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 border border-white/25 text-white/90 group-hover:bg-blue-600 group-hover:border-blue-500 group-hover:text-white transition-all duration-300 shrink-0">
+                        <ArrowRight className="h-4 w-4" />
+                      </div>
                     </div>
                   </div>
                 </Link>
